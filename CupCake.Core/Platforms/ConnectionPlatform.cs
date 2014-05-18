@@ -1,6 +1,14 @@
-﻿namespace CupCake.Core.Platforms
+﻿using MuffinFramework.Platforms;
+using PlayerIOClient;
+
+namespace CupCake.Core.Platforms
 {
-    class ConnectionPlatform
+    public class ConnectionPlatform : Platform
     {
+        public Connection Connection { get; private set; }
+
+        protected override void Enable()
+        {
+        }
     }
 }

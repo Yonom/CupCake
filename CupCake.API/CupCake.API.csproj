@@ -4,7 +4,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{91057979-BF4B-4149-96A5-E8495C043214}</ProjectGuid>
+    <ProjectGuid>{CF660140-CC8D-40A0-8A0A-9D58540DEC9B}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>CupCake.API</RootNamespace>
@@ -35,15 +35,20 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Muffins\CupCake.cs" />
+    <Compile Include="Muffins\CupCakeMuffin.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\CupCake.Core\CupCake.Core.csproj">
+      <Project>{598d616c-4886-482b-af57-7bc7daa56cce}</Project>
+      <Name>CupCake.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CupCake.EE\CupCake.EE.csproj">
+      <Project>{1934f8dd-1d6a-4ceb-af92-600c44d4e849}</Project>
+      <Name>CupCake.EE</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

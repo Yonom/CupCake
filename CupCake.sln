@@ -3,11 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
 VisualStudioVersion = 12.0.30110.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CupCake.Utils", "CupCake.Utils\CupCake.Utils.csproj", "{69B82627-39B8-4A00-8339-1B4EDBDB6DD9}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CupCake.Core", "CupCake.Core\CupCake.Core.csproj", "{598D616C-4886-482B-AF57-7BC7DAA56CCE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CupCake.API", "CupCake.API\CupCake.API.csproj", "{91057979-BF4B-4149-96A5-E8495C043214}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CupCake.Demo", "CupCake.Demo\CupCake.Demo.csproj", "{6286C997-F01A-438A-AEF5-5D84CEBA4D16}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CupCake.EE", "CupCake.EE\CupCake.EE.csproj", "{1934F8DD-1D6A-4CEB-AF92-600C44D4E849}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CupCake.API", "CupCake.API\CupCake.API.csproj", "{CF660140-CC8D-40A0-8A0A-9D58540DEC9B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,18 +17,22 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{69B82627-39B8-4A00-8339-1B4EDBDB6DD9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{69B82627-39B8-4A00-8339-1B4EDBDB6DD9}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{69B82627-39B8-4A00-8339-1B4EDBDB6DD9}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{69B82627-39B8-4A00-8339-1B4EDBDB6DD9}.Release|Any CPU.Build.0 = Release|Any CPU
 		{598D616C-4886-482B-AF57-7BC7DAA56CCE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{598D616C-4886-482B-AF57-7BC7DAA56CCE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{598D616C-4886-482B-AF57-7BC7DAA56CCE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{598D616C-4886-482B-AF57-7BC7DAA56CCE}.Release|Any CPU.Build.0 = Release|Any CPU
-		{91057979-BF4B-4149-96A5-E8495C043214}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{91057979-BF4B-4149-96A5-E8495C043214}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{91057979-BF4B-4149-96A5-E8495C043214}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{91057979-BF4B-4149-96A5-E8495C043214}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6286C997-F01A-438A-AEF5-5D84CEBA4D16}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6286C997-F01A-438A-AEF5-5D84CEBA4D16}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6286C997-F01A-438A-AEF5-5D84CEBA4D16}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6286C997-F01A-438A-AEF5-5D84CEBA4D16}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1934F8DD-1D6A-4CEB-AF92-600C44D4E849}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1934F8DD-1D6A-4CEB-AF92-600C44D4E849}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1934F8DD-1D6A-4CEB-AF92-600C44D4E849}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1934F8DD-1D6A-4CEB-AF92-600C44D4E849}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CF660140-CC8D-40A0-8A0A-9D58540DEC9B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CF660140-CC8D-40A0-8A0A-9D58540DEC9B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CF660140-CC8D-40A0-8A0A-9D58540DEC9B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CF660140-CC8D-40A0-8A0A-9D58540DEC9B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -24,7 +24,7 @@ namespace CupCake.Core.Events
             return this.GetEnumerator();
         }
 
-        public void Add(EventHandler<T> item)
+        void ICollection<EventHandler<T>>.Add(EventHandler<T> item)
         {
             this.Bind(item);
         }
@@ -46,7 +46,7 @@ namespace CupCake.Core.Events
 
         public bool Remove(EventHandler<T> item)
         {
-            this._eventHandlers.Remove(item);
+            return this._eventHandlers.Remove(item);
         }
 
         public int Count
@@ -84,6 +84,14 @@ namespace CupCake.Core.Events
                     break;
                 default:
                     throw new InvalidOperationException("Unknown priority.");
+            }
+        }
+
+        public void Raise(object sender, T e)
+        {
+            foreach (var handler in this._eventHandlers)
+            {
+                handler.Invoke(sender, e);
             }
         }
     }
