@@ -120,7 +120,6 @@
     <Compile Include="Messages\Send\CoinDoorPlaceSendMessage.cs" />
     <Compile Include="Messages\Send\CoinSendMessage.cs" />
     <Compile Include="Messages\Send\CompleteLevelSendMessage.cs" />
-    <Compile Include="Messages\Send\CustomSendMessage.cs" />
     <Compile Include="Messages\Send\DeathSendMessage.cs" />
     <Compile Include="Messages\Send\GetCrownSendMessage.cs" />
     <Compile Include="Messages\Send\GodModeSendMessage.cs" />
