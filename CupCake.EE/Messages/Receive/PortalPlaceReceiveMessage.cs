@@ -9,7 +9,7 @@ namespace CupCake.EE.Messages.Receive
         public readonly PortalBlock PortalBlock;
         //3
         //4
-        public readonly int PortalID;
+        public readonly int PortalId;
         public readonly PortalRotation PortalRotation;
         //5
 
@@ -20,7 +20,7 @@ namespace CupCake.EE.Messages.Receive
         {
             this.PortalBlock = (PortalBlock)message.GetInteger(2);
             this.PortalRotation = (PortalRotation)message.GetInteger(3);
-            this.PortalID = message.GetInteger(4);
+            this.PortalId = message.GetInteger(4);
             this.PortalTarget = message.GetInteger(5);
         }
     }

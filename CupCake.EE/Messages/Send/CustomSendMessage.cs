@@ -6,7 +6,7 @@ namespace CupCake.EE.Messages.Send
     {
         private readonly Message myMessage;
 
-        public CustomSendMessage(string type, params string[] parameters)
+        public CustomSendMessage(string type, params object[] parameters)
         {
             this.myMessage = Message.Create(type, parameters);
         }

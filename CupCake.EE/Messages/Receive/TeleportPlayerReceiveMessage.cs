@@ -6,12 +6,12 @@ namespace CupCake.EE.Messages.Receive
     {
         public readonly int PlayerPosX;
         public readonly int PlayerPosY;
-        public readonly int UserID;
+        public readonly int UserId;
 
         internal TeleportPlayerReceiveMessage(Message message)
             : base(message)
         {
-            this.UserID = message.GetInteger(0);
+            this.UserId = message.GetInteger(0);
             this.PlayerPosX = message.GetInteger(1);
             this.PlayerPosY = message.GetInteger(2);
         }

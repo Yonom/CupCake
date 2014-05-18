@@ -16,13 +16,13 @@ namespace CupCake.EE.Messages.Receive
         public readonly MagicClass MagicClass;
         public readonly int PlayerPosX;
         public readonly int PlayerPosY;
-        public readonly int UserID;
+        public readonly int UserId;
         public readonly string Username;
 
         internal AddReceiveMessage(Message message)
             : base(message)
         {
-            this.UserID = message.GetInteger(0);
+            this.UserId = message.GetInteger(0);
             this.Username = message.GetString(1);
             this.Face = (Smiley)message.GetInteger(2);
             this.PlayerPosX = message.GetInteger(3);

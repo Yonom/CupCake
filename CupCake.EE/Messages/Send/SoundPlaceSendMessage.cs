@@ -5,12 +5,12 @@ namespace CupCake.EE.Messages.Send
 {
     public sealed class SoundPlaceSendMessage : BlockPlaceSendMessage
     {
-        public readonly int SoundID;
+        public readonly int SoundId;
 
-        public SoundPlaceSendMessage(string encryption, Layer layer, int x, int y, SoundBlock block, int soundID)
+        public SoundPlaceSendMessage(string encryption, Layer layer, int x, int y, SoundBlock block, int soundId)
             : base(encryption, layer, x, y, (Block)block)
         {
-            this.SoundID = soundID;
+            this.SoundId = soundId;
         }
 
         internal override Message GetMessage()
@@ -18,7 +18,7 @@ namespace CupCake.EE.Messages.Send
             if (IsSound(this.Block))
             {
                 Message message = base.GetMessage();
-                message.Add(this.SoundID);
+                message.Add(this.SoundId);
                 return message;
             }
             return base.GetMessage();

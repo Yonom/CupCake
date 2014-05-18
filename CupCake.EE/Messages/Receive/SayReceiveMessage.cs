@@ -6,12 +6,12 @@ namespace CupCake.EE.Messages.Receive
     {
         public readonly bool IsMyFriend;
         public readonly string Text;
-        public readonly int UserID;
+        public readonly int UserId;
 
         internal SayReceiveMessage(Message message)
             : base(message)
         {
-            this.UserID = message.GetInteger(0);
+            this.UserId = message.GetInteger(0);
             this.Text = message.GetString(1);
             this.IsMyFriend = message.GetBoolean(2);
         }

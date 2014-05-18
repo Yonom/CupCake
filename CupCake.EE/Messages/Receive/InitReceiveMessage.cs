@@ -18,7 +18,7 @@ namespace CupCake.EE.Messages.Receive
         public readonly int SpawnX;
         public readonly int SpawnY;
         public readonly int TotalWoots;
-        public readonly int UserID;
+        public readonly int UserId;
         public readonly string Username;
         public readonly string WorldName;
 
@@ -31,7 +31,7 @@ namespace CupCake.EE.Messages.Receive
             this.CurrentWoots = message.GetInteger(3);
             this.TotalWoots = message.GetInteger(4);
             this.Encryption = message.GetString(5);
-            this.UserID = message.GetInteger(6);
+            this.UserId = message.GetInteger(6);
             this.SpawnX = message.GetInteger(7);
             this.SpawnY = message.GetInteger(8);
             this.Username = message.GetString(9);

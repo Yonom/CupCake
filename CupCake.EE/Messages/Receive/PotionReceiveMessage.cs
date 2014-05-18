@@ -8,12 +8,12 @@ namespace CupCake.EE.Messages.Receive
         public readonly bool Enabled;
         public readonly Potion Potion;
         public readonly int Timeout;
-        public readonly int UserID;
+        public readonly int UserId;
 
         internal PotionReceiveMessage(Message message)
             : base(message)
         {
-            this.UserID = message.GetInteger(0);
+            this.UserId = message.GetInteger(0);
             this.Potion = (Potion)message.GetInteger(1);
             this.Enabled = message.GetBoolean(2);
             this.Timeout = message.GetInteger(3);
