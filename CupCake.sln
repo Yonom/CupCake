@@ -11,6 +11,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CupCake.EE", "CupCake.EE\Cu
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CupCake.API", "CupCake.API\CupCake.API.csproj", "{CF660140-CC8D-40A0-8A0A-9D58540DEC9B}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Components", "Components", "{FFE107C6-9B1F-4F61-870E-FBBA826D0161}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CupCake.Log", "CupCake.Log\CupCake.Log.csproj", "{6624E732-2C08-445A-8406-9DDE1737A79B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,8 +37,16 @@ Global
 		{CF660140-CC8D-40A0-8A0A-9D58540DEC9B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CF660140-CC8D-40A0-8A0A-9D58540DEC9B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CF660140-CC8D-40A0-8A0A-9D58540DEC9B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6624E732-2C08-445A-8406-9DDE1737A79B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6624E732-2C08-445A-8406-9DDE1737A79B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6624E732-2C08-445A-8406-9DDE1737A79B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6624E732-2C08-445A-8406-9DDE1737A79B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{1934F8DD-1D6A-4CEB-AF92-600C44D4E849} = {FFE107C6-9B1F-4F61-870E-FBBA826D0161}
+		{6624E732-2C08-445A-8406-9DDE1737A79B} = {FFE107C6-9B1F-4F61-870E-FBBA826D0161}
 	EndGlobalSection
 EndGlobal

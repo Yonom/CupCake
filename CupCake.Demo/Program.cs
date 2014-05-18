@@ -10,7 +10,7 @@ namespace CupCake.Demo
     {
         private static void Main(string[] args)
         {
-            var client = new CupCakeClient();
+            var client = new CupCakeClient(null);
             client.Start();
 
             Thread.Sleep(Timeout.Infinite);
