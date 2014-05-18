@@ -1,0 +1,158 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{580F6C27-40A9-470F-A297-811E58C9DF63}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>CupCake.EE</RootNamespace>
+    <AssemblyName>CupCake.EE</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="PlayerIOClient">
+      <HintPath>..\Lib\PlayerIOClient.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Point.cs" />
+    <Compile Include="Players\AccountType.cs" />
+    <Compile Include="Players\AutoText.cs" />
+    <Compile Include="Blocks\BlockType.cs" />
+    <Compile Include="Blocks\Block.cs" />
+    <Compile Include="Blocks\CoinDoorBlock.cs" />
+    <Compile Include="Blocks\LabelBlock.cs" />
+    <Compile Include="Blocks\PortalBlock.cs" />
+    <Compile Include="Blocks\RotatableBlock.cs" />
+    <Compile Include="Blocks\SoundBlock.cs" />
+    <Compile Include="Blocks\WorldPortalBlock.cs" />
+    <Compile Include="Blocks\Key.cs" />
+    <Compile Include="Blocks\Layer.cs" />
+    <Compile Include="Players\MagicClass.cs" />
+    <Compile Include="Blocks\PortalRotation.cs" />
+    <Compile Include="Blocks\Potion.cs" />
+    <Compile Include="Blocks\ScifiSlopeRotation.cs" />
+    <Compile Include="Blocks\ScifiStraightRotation.cs" />
+    <Compile Include="Players\Smiley.cs" />
+    <Compile Include="Blocks\SpikeRotation.cs" />
+    <Compile Include="Messages\Receive\AccessReceiveMessage.cs" />
+    <Compile Include="Messages\Receive\AddReceiveMessage.cs" />
+    <Compile Include="Messages\Receive\AllowPotionsReceiveMessage.cs" />
+    <Compile Include="Messages\Receive\AutoTextReceiveMessage.cs" />
+    <Compile Include="Messages\Receive\BlockPlaceReceiveMessage.cs" />
+    <Compile Include="Messages\Receive\ClearReceiveMessage.cs" />
+    <Compile Include="Messages\Receive\CoinDoorPlaceReceiveMessage.cs" />
+    <Compile Include="Messages\Receive\CoinReceiveMessage.cs" />
+    <Compile Include="Messages\Receive\CrownReceiveMessage.cs" />
+    <Compile Include="Messages\Receive\FaceReceiveMessage.cs" />
+    <Compile Include="Messages\Receive\GiveDarkWizardReceiveMessage.cs" />
+    <Compile Include="Messages\Receive\GiveFireWizardReceiveMessage.cs" />
+    <Compile Include="Messages\Receive\GiveGrinchReceiveMessage.cs" />
+    <Compile Include="Messages\Receive\GiveWitchReceiveMessage.cs" />
+    <Compile Include="Messages\Receive\GiveWizardReceiveMessage.cs" />
+    <Compile Include="Messages\Receive\GodModeReceiveMessage.cs" />
+    <Compile Include="Messages\Receive\HideKeyReceiveMessage.cs" />
+    <Compile Include="Messages\Receive\InfoReceiveMessage.cs" />
+    <Compile Include="Messages\Receive\InitReceiveMessage.cs" />
+    <Compile Include="Messages\Receive\KillReceiveMessage.cs" />
+    <Compile Include="Messages\Receive\LabelPlaceReceiveMessage.cs" />
+    <Compile Include="Messages\Receive\LeftReceiveMessage.cs" />
+    <Compile Include="Messages\Receive\LevelUpReceiveMessage.cs" />
+    <Compile Include="Messages\Receive\LostAccessReceiveMessage.cs" />
+    <Compile Include="Messages\Receive\MagicReceiveMessage.cs" />
+    <Compile Include="Messages\Receive\ModModeReceiveMessage.cs" />
+    <Compile Include="Messages\Receive\MoveReceiveMessage.cs" />
+    <Compile Include="Messages\Receive\PortalPlaceReceiveMessage.cs" />
+    <Compile Include="Messages\Receive\PotionReceiveMessage.cs" />
+    <Compile Include="Messages\Receive\ReceiveMessage.cs" />
+    <Compile Include="Messages\Receive\RefreshShopReceiveMessage.cs" />
+    <Compile Include="Messages\Receive\ResetReceiveMessage.cs" />
+    <Compile Include="Messages\Receive\RotatablePlaceReceiveMessage.cs" />
+    <Compile Include="Messages\Receive\SaveDoneReceiveMessage.cs" />
+    <Compile Include="Messages\Receive\SayOldReceiveMessage.cs" />
+    <Compile Include="Messages\Receive\SayReceiveMessage.cs" />
+    <Compile Include="Messages\Receive\ShowKeyReceiveMessage.cs" />
+    <Compile Include="Messages\Receive\SilverCrownReceiveMessage.cs" />
+    <Compile Include="Messages\Receive\SoundPlaceReceiveMessage.cs" />
+    <Compile Include="Messages\Receive\TeleportEveryoneReceiveMessage.cs" />
+    <Compile Include="Messages\Receive\TeleportPlayerReceiveMessage.cs" />
+    <Compile Include="Messages\Receive\UpdateMetaReceiveMessage.cs" />
+    <Compile Include="Messages\Receive\UpgradeReceiveMessage.cs" />
+    <Compile Include="Messages\Receive\WootUpReceiveMessage.cs" />
+    <Compile Include="Messages\Receive\WorldPortalPlaceReceiveMessage.cs" />
+    <Compile Include="Messages\Receive\WriteReceiveMessage.cs" />
+    <Compile Include="Messages\Send\AccessSendMessage.cs" />
+    <Compile Include="Messages\Send\AllowPotionsSendMessage.cs" />
+    <Compile Include="Messages\Send\AutoSaySendMessage.cs" />
+    <Compile Include="Messages\Send\BlockPlaceSendMessage.cs" />
+    <Compile Include="Messages\Send\ChangeFaceSendMessage.cs" />
+    <Compile Include="Messages\Send\ChangeWorldEditKeySendMessage.cs" />
+    <Compile Include="Messages\Send\ChangeWorldNameSendMessage.cs" />
+    <Compile Include="Messages\Send\CheckpointSendMessage.cs" />
+    <Compile Include="Messages\Send\ClearWorldSendMessage.cs" />
+    <Compile Include="Messages\Send\CoinDoorPlaceSendMessage.cs" />
+    <Compile Include="Messages\Send\CoinSendMessage.cs" />
+    <Compile Include="Messages\Send\CompleteLevelSendMessage.cs" />
+    <Compile Include="Messages\Send\CustomSendMessage.cs" />
+    <Compile Include="Messages\Send\DeathSendMessage.cs" />
+    <Compile Include="Messages\Send\GetCrownSendMessage.cs" />
+    <Compile Include="Messages\Send\GodModeSendMessage.cs" />
+    <Compile Include="Messages\Send\Init2SendMessage.cs" />
+    <Compile Include="Messages\Send\InitSendMessage.cs" />
+    <Compile Include="Messages\Send\KillWorldSendMessage.cs" />
+    <Compile Include="Messages\Send\LabelPlaceSendMessage.cs" />
+    <Compile Include="Messages\Send\ModModeSendMessage.cs" />
+    <Compile Include="Messages\Send\MoveSendMessage.cs" />
+    <Compile Include="Messages\Send\PortalPlaceSendMessage.cs" />
+    <Compile Include="Messages\Send\PotionSendMessage.cs" />
+    <Compile Include="Messages\Send\PressBlueKeySendMessage.cs" />
+    <Compile Include="Messages\Send\PressGreenKeySendMessage.cs" />
+    <Compile Include="Messages\Send\PressRedKeySendMessage.cs" />
+    <Compile Include="Messages\Send\RotatablePlaceSendMessage.cs" />
+    <Compile Include="Messages\Send\SaveWorldSendMessage.cs" />
+    <Compile Include="Messages\Send\SaySendMessage.cs" />
+    <Compile Include="Messages\Send\SendMessage.cs" />
+    <Compile Include="Messages\Send\SoundPlaceSendMessage.cs" />
+    <Compile Include="Messages\Send\TouchCakeSendMessage.cs" />
+    <Compile Include="Messages\Send\TouchDiamondSendMessage.cs" />
+    <Compile Include="Messages\Send\TouchPlayerSendMessage.cs" />
+    <Compile Include="Messages\Send\WootUpSendMessage.cs" />
+    <Compile Include="Messages\Send\WorldPortalPlaceSendMessage.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

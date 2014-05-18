@@ -1,0 +1,17 @@
+using Microsoft.VisualBasic;
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Data;
+using System.Diagnostics;
+using PlayerIOClient;
+
+public sealed class GiveWizardReceiveMessage : ReceiveMessage
+{
+
+	//No arguments
+
+	internal GiveWizardReceiveMessage(Message message) : base(message)
+	{
+	}
+}

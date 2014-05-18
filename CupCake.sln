@@ -5,6 +5,8 @@ VisualStudioVersion = 12.0.30110.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CupCake.API", "CupCake.API\CupCake.API.csproj", "{C3E1990C-17BF-4916-8471-7A8B4075E714}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CupCake.EE", "CupCake.EE\CupCake.EE.csproj", "{580F6C27-40A9-470F-A297-811E58C9DF63}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{C3E1990C-17BF-4916-8471-7A8B4075E714}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C3E1990C-17BF-4916-8471-7A8B4075E714}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C3E1990C-17BF-4916-8471-7A8B4075E714}.Release|Any CPU.Build.0 = Release|Any CPU
+		{580F6C27-40A9-470F-A297-811E58C9DF63}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{580F6C27-40A9-470F-A297-811E58C9DF63}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{580F6C27-40A9-470F-A297-811E58C9DF63}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{580F6C27-40A9-470F-A297-811E58C9DF63}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
