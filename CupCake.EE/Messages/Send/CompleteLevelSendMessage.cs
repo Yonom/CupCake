@@ -1,11 +1,14 @@
 using PlayerIOClient;
 
-public sealed class CompleteLevelSendMessage : SendMessage
+namespace CupCake.EE.Messages.Send
 {
-    //No arguments
-
-    internal override Message GetMessage()
+    public sealed class CompleteLevelSendMessage : SendMessage
     {
-        return Message.Create("levelcomplete");
+        //No arguments
+
+        internal override Message GetMessage()
+        {
+            return Message.Create("levelcomplete");
+        }
     }
 }

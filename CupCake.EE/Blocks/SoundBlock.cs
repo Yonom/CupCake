@@ -1,5 +1,8 @@
-public enum SoundBlock
+namespace CupCake.EE.Blocks
 {
-    BlockMusicPiano = Block.BlockMusicPiano,
-    BlockMusicDrum = Block.BlockMusicDrum
+    public enum SoundBlock
+    {
+        BlockMusicPiano = Block.BlockMusicPiano,
+        BlockMusicDrum = Block.BlockMusicDrum
+    }
 }

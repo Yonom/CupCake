@@ -1,14 +1,17 @@
 using PlayerIOClient;
 
-public sealed class SilverCrownReceiveMessage : ReceiveMessage
+namespace CupCake.EE.Messages.Receive
 {
-    //0
-
-    public readonly int UserID;
-
-    internal SilverCrownReceiveMessage(Message message)
-        : base(message)
+    public sealed class SilverCrownReceiveMessage : ReceiveMessage
     {
-        this.UserID = message.GetInteger(0);
+        //0
+
+        public readonly int UserID;
+
+        internal SilverCrownReceiveMessage(Message message)
+            : base(message)
+        {
+            this.UserID = message.GetInteger(0);
+        }
     }
 }

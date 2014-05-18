@@ -1,7 +1,10 @@
-public enum SpikeRotation
+namespace CupCake.EE.Blocks
 {
-    Left = 0,
-    Up = 1,
-    Right = 2,
-    Down = 3
+    public enum SpikeRotation
+    {
+        Left = 0,
+        Up = 1,
+        Right = 2,
+        Down = 3
+    }
 }

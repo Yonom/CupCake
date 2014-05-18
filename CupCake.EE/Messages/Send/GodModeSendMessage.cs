@@ -1,16 +1,19 @@
 using PlayerIOClient;
 
-public sealed class GodModeSendMessage : SendMessage
+namespace CupCake.EE.Messages.Send
 {
-    public readonly bool GodModeEnabled;
-
-    public GodModeSendMessage(bool godModeEnabled)
+    public sealed class GodModeSendMessage : SendMessage
     {
-        this.GodModeEnabled = godModeEnabled;
-    }
+        public readonly bool GodModeEnabled;
 
-    internal override Message GetMessage()
-    {
-        return Message.Create("god", this.GodModeEnabled);
+        public GodModeSendMessage(bool godModeEnabled)
+        {
+            this.GodModeEnabled = godModeEnabled;
+        }
+
+        internal override Message GetMessage()
+        {
+            return Message.Create("god", this.GodModeEnabled);
+        }
     }
 }

@@ -1,11 +1,14 @@
 using PlayerIOClient;
 
-public sealed class ModModeSendMessage : SendMessage
+namespace CupCake.EE.Messages.Send
 {
-    //No arguments
-
-    internal override Message GetMessage()
+    public sealed class ModModeSendMessage : SendMessage
     {
-        return Message.Create("mod");
+        //No arguments
+
+        internal override Message GetMessage()
+        {
+            return Message.Create("mod");
+        }
     }
 }

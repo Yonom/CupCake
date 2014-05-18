@@ -1,14 +1,17 @@
 using PlayerIOClient;
 
-public class KillReceiveMessage : ReceiveMessage
+namespace CupCake.EE.Messages.Receive
 {
-    //0
-
-    public readonly int UserID;
-
-    internal KillReceiveMessage(Message message)
-        : base(message)
+    public class KillReceiveMessage : ReceiveMessage
     {
-        this.UserID = message.GetInteger(0);
+        //0
+
+        public readonly int UserID;
+
+        internal KillReceiveMessage(Message message)
+            : base(message)
+        {
+            this.UserID = message.GetInteger(0);
+        }
     }
 }

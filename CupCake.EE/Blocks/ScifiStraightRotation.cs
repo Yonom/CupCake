@@ -1,5 +1,8 @@
-public enum SciFiStraightRotation
+namespace CupCake.EE.Blocks
 {
-    Horizontal = 0,
-    Vertical = 1
+    public enum SciFiStraightRotation
+    {
+        Horizontal = 0,
+        Vertical = 1
+    }
 }

@@ -1,11 +1,14 @@
 using PlayerIOClient;
 
-public class DeathSendMessage : SendMessage
+namespace CupCake.EE.Messages.Send
 {
-    //No arguments
-
-    internal override Message GetMessage()
+    public class DeathSendMessage : SendMessage
     {
-        return Message.Create("death");
+        //No arguments
+
+        internal override Message GetMessage()
+        {
+            return Message.Create("death");
+        }
     }
 }

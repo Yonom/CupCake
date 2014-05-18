@@ -1,5 +1,8 @@
-public enum LabelBlock
+namespace CupCake.EE.Blocks
 {
-    DecorationLabel = Block.DecorationLabel,
-    DecorationSign = Block.DecorationSign
+    public enum LabelBlock
+    {
+        DecorationLabel = Block.DecorationLabel,
+        DecorationSign = Block.DecorationSign
+    }
 }

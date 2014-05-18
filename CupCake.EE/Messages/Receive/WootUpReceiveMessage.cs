@@ -1,14 +1,17 @@
 using PlayerIOClient;
 
-public class WootUpReceiveMessage : ReceiveMessage
+namespace CupCake.EE.Messages.Receive
 {
-    //0
-
-    public readonly int UserID;
-
-    internal WootUpReceiveMessage(Message message)
-        : base(message)
+    public class WootUpReceiveMessage : ReceiveMessage
     {
-        this.UserID = message.GetInteger(0);
+        //0
+
+        public readonly int UserID;
+
+        internal WootUpReceiveMessage(Message message)
+            : base(message)
+        {
+            this.UserID = message.GetInteger(0);
+        }
     }
 }

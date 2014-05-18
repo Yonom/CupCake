@@ -1,11 +1,14 @@
 using PlayerIOClient;
 
-public sealed class UpgradeReceiveMessage : ReceiveMessage
+namespace CupCake.EE.Messages.Receive
 {
-    //No arguments
-
-    internal UpgradeReceiveMessage(Message message)
-        : base(message)
+    public sealed class UpgradeReceiveMessage : ReceiveMessage
     {
+        //No arguments
+
+        internal UpgradeReceiveMessage(Message message)
+            : base(message)
+        {
+        }
     }
 }

@@ -1,14 +1,17 @@
 using PlayerIOClient;
 
-public class AllowPotionsReceiveMessage : ReceiveMessage
+namespace CupCake.EE.Messages.Receive
 {
-    //0
-
-    public readonly bool Allowed;
-
-    internal AllowPotionsReceiveMessage(Message message)
-        : base(message)
+    public class AllowPotionsReceiveMessage : ReceiveMessage
     {
-        this.Allowed = message.GetBoolean(0);
+        //0
+
+        public readonly bool Allowed;
+
+        internal AllowPotionsReceiveMessage(Message message)
+            : base(message)
+        {
+            this.Allowed = message.GetBoolean(0);
+        }
     }
 }

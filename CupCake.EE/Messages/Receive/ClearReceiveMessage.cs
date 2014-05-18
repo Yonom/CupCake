@@ -1,17 +1,20 @@
 using PlayerIOClient;
 
-public sealed class ClearReceiveMessage : ReceiveMessage
+namespace CupCake.EE.Messages.Receive
 {
-    //0
-    //1
-
-    public readonly int RoomHeight;
-    public readonly int RoomWidth;
-
-    internal ClearReceiveMessage(Message message)
-        : base(message)
+    public sealed class ClearReceiveMessage : ReceiveMessage
     {
-        this.RoomWidth = message.GetInteger(0);
-        this.RoomHeight = message.GetInteger(1);
+        //0
+        //1
+
+        public readonly int RoomHeight;
+        public readonly int RoomWidth;
+
+        internal ClearReceiveMessage(Message message)
+            : base(message)
+        {
+            this.RoomWidth = message.GetInteger(0);
+            this.RoomHeight = message.GetInteger(1);
+        }
     }
 }

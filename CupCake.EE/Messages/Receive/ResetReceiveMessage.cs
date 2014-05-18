@@ -1,11 +1,14 @@
 using PlayerIOClient;
 
-public sealed class ResetReceiveMessage : ReceiveMessage
+namespace CupCake.EE.Messages.Receive
 {
-    //No arguments
-
-    internal ResetReceiveMessage(Message message)
-        : base(message)
+    public sealed class ResetReceiveMessage : ReceiveMessage
     {
+        //No arguments
+
+        internal ResetReceiveMessage(Message message)
+            : base(message)
+        {
+        }
     }
 }

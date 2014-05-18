@@ -1,11 +1,14 @@
 using PlayerIOClient;
 
-public sealed class KillWorldSendMessage : SendMessage
+namespace CupCake.EE.Messages.Send
 {
-    //No arguments
-
-    internal override Message GetMessage()
+    public sealed class KillWorldSendMessage : SendMessage
     {
-        return Message.Create("kill");
+        //No arguments
+
+        internal override Message GetMessage()
+        {
+            return Message.Create("kill");
+        }
     }
 }

@@ -1,17 +1,21 @@
+using CupCake.EE.Players;
 using PlayerIOClient;
 
-public sealed class FaceReceiveMessage : ReceiveMessage
+namespace CupCake.EE.Messages.Receive
 {
-    //0
-    //1
-
-    public readonly Smiley Face;
-    public readonly int UserID;
-
-    internal FaceReceiveMessage(Message message)
-        : base(message)
+    public sealed class FaceReceiveMessage : ReceiveMessage
     {
-        this.UserID = message.GetInteger(0);
-        this.Face = (Smiley)message.GetInteger(1);
+        //0
+        //1
+
+        public readonly Smiley Face;
+        public readonly int UserID;
+
+        internal FaceReceiveMessage(Message message)
+            : base(message)
+        {
+            this.UserID = message.GetInteger(0);
+            this.Face = (Smiley)message.GetInteger(1);
+        }
     }
 }

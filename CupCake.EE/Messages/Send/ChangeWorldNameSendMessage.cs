@@ -1,16 +1,19 @@
 using PlayerIOClient;
 
-public sealed class ChangeWorldNameSendMessage : SendMessage
+namespace CupCake.EE.Messages.Send
 {
-    public readonly string WorldName;
-
-    public ChangeWorldNameSendMessage(string worldName)
+    public sealed class ChangeWorldNameSendMessage : SendMessage
     {
-        this.WorldName = worldName;
-    }
+        public readonly string WorldName;
 
-    internal override Message GetMessage()
-    {
-        return Message.Create("name", this.WorldName);
+        public ChangeWorldNameSendMessage(string worldName)
+        {
+            this.WorldName = worldName;
+        }
+
+        internal override Message GetMessage()
+        {
+            return Message.Create("name", this.WorldName);
+        }
     }
 }

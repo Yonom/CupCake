@@ -1,17 +1,20 @@
 using PlayerIOClient;
 
-public sealed class WriteReceiveMessage : ReceiveMessage
+namespace CupCake.EE.Messages.Receive
 {
-    //0
-    //1
-
-    public readonly string Text;
-    public readonly string Title;
-
-    internal WriteReceiveMessage(Message message)
-        : base(message)
+    public sealed class WriteReceiveMessage : ReceiveMessage
     {
-        this.Title = message.GetString(0);
-        this.Text = message.GetString(1);
+        //0
+        //1
+
+        public readonly string Text;
+        public readonly string Title;
+
+        internal WriteReceiveMessage(Message message)
+            : base(message)
+        {
+            this.Title = message.GetString(0);
+            this.Text = message.GetString(1);
+        }
     }
 }

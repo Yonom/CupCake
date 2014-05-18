@@ -1,17 +1,20 @@
 using PlayerIOClient;
 
-public sealed class GodModeReceiveMessage : ReceiveMessage
+namespace CupCake.EE.Messages.Receive
 {
-    //0
-    //1
-
-    public readonly bool IsGod;
-    public readonly int UserID;
-
-    internal GodModeReceiveMessage(Message message)
-        : base(message)
+    public sealed class GodModeReceiveMessage : ReceiveMessage
     {
-        this.UserID = message.GetInteger(0);
-        this.IsGod = message.GetBoolean(1);
+        //0
+        //1
+
+        public readonly bool IsGod;
+        public readonly int UserID;
+
+        internal GodModeReceiveMessage(Message message)
+            : base(message)
+        {
+            this.UserID = message.GetInteger(0);
+            this.IsGod = message.GetBoolean(1);
+        }
     }
 }

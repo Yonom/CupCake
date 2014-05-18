@@ -1,17 +1,20 @@
 using PlayerIOClient;
 
-public class LevelUpReceiveMessage : ReceiveMessage
+namespace CupCake.EE.Messages.Receive
 {
-    //0
-    //1
-
-    public readonly int NewClass;
-    public readonly int UserID;
-
-    internal LevelUpReceiveMessage(Message message)
-        : base(message)
+    public class LevelUpReceiveMessage : ReceiveMessage
     {
-        this.UserID = message.GetInteger(0);
-        this.NewClass = message.GetInteger(1);
+        //0
+        //1
+
+        public readonly int NewClass;
+        public readonly int UserID;
+
+        internal LevelUpReceiveMessage(Message message)
+            : base(message)
+        {
+            this.UserID = message.GetInteger(0);
+            this.NewClass = message.GetInteger(1);
+        }
     }
 }

@@ -1,19 +1,22 @@
 using PlayerIOClient;
 
-public sealed class SayOldReceiveMessage : ReceiveMessage
+namespace CupCake.EE.Messages.Receive
 {
-    //0
-    //2
-
-    public readonly bool IsMyFriend;
-    public readonly string Text;
-    public readonly string Username;
-
-    internal SayOldReceiveMessage(Message message)
-        : base(message)
+    public sealed class SayOldReceiveMessage : ReceiveMessage
     {
-        this.Username = message.GetString(0);
-        this.Text = message.GetString(1);
-        this.IsMyFriend = message.GetBoolean(2);
+        //0
+        //2
+
+        public readonly bool IsMyFriend;
+        public readonly string Text;
+        public readonly string Username;
+
+        internal SayOldReceiveMessage(Message message)
+            : base(message)
+        {
+            this.Username = message.GetString(0);
+            this.Text = message.GetString(1);
+            this.IsMyFriend = message.GetBoolean(2);
+        }
     }
 }

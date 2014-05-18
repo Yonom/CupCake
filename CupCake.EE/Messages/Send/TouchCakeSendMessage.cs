@@ -1,19 +1,22 @@
 using PlayerIOClient;
 
-public sealed class TouchCakeSendMessage : SendMessage
+namespace CupCake.EE.Messages.Send
 {
-    public readonly int X;
-
-    public readonly int Y;
-
-    public TouchCakeSendMessage(int x, int y)
+    public sealed class TouchCakeSendMessage : SendMessage
     {
-        this.X = x;
-        this.Y = y;
-    }
+        public readonly int X;
 
-    internal override Message GetMessage()
-    {
-        return Message.Create("caketouch", this.X, this.Y);
+        public readonly int Y;
+
+        public TouchCakeSendMessage(int x, int y)
+        {
+            this.X = x;
+            this.Y = y;
+        }
+
+        internal override Message GetMessage()
+        {
+            return Message.Create("caketouch", this.X, this.Y);
+        }
     }
 }

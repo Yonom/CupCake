@@ -1,16 +1,19 @@
 using PlayerIOClient;
 
-public class AllowPotionsSendMessage : SendMessage
+namespace CupCake.EE.Messages.Send
 {
-    public readonly bool Allowed;
-
-    public AllowPotionsSendMessage(bool allowed)
+    public class AllowPotionsSendMessage : SendMessage
     {
-        this.Allowed = allowed;
-    }
+        public readonly bool Allowed;
 
-    internal override Message GetMessage()
-    {
-        return Message.Create("allowpotions", this.Allowed);
+        public AllowPotionsSendMessage(bool allowed)
+        {
+            this.Allowed = allowed;
+        }
+
+        internal override Message GetMessage()
+        {
+            return Message.Create("allowpotions", this.Allowed);
+        }
     }
 }

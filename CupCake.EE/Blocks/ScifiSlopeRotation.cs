@@ -1,7 +1,10 @@
-public enum SciFiSlopeRotation
+namespace CupCake.EE.Blocks
 {
-    InSouthEastPart = 0,
-    InSouthWestPart = 1,
-    InNorthWestPart = 2,
-    InNorthEastPart = 3
+    public enum SciFiSlopeRotation
+    {
+        InSouthEastPart = 0,
+        InSouthWestPart = 1,
+        InNorthWestPart = 2,
+        InNorthEastPart = 3
+    }
 }

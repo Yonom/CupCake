@@ -1,18 +1,22 @@
+using CupCake.EE.Blocks;
 using PlayerIOClient;
 
-public class TouchPlayerSendMessage : SendMessage
+namespace CupCake.EE.Messages.Send
 {
-    public readonly Potion Reason;
-    public readonly int UserID;
-
-    public TouchPlayerSendMessage(int userID, Potion reason)
+    public class TouchPlayerSendMessage : SendMessage
     {
-        this.UserID = userID;
-        this.Reason = reason;
-    }
+        public readonly Potion Reason;
+        public readonly int UserID;
 
-    internal override Message GetMessage()
-    {
-        return Message.Create("touch", this.UserID, this.Reason);
+        public TouchPlayerSendMessage(int userID, Potion reason)
+        {
+            this.UserID = userID;
+            this.Reason = reason;
+        }
+
+        internal override Message GetMessage()
+        {
+            return Message.Create("touch", this.UserID, this.Reason);
+        }
     }
 }

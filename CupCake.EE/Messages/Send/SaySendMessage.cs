@@ -1,16 +1,19 @@
 using PlayerIOClient;
 
-public sealed class SaySendMessage : SendMessage
+namespace CupCake.EE.Messages.Send
 {
-    public readonly string Text;
-
-    public SaySendMessage(string text)
+    public sealed class SaySendMessage : SendMessage
     {
-        this.Text = text;
-    }
+        public readonly string Text;
 
-    internal override Message GetMessage()
-    {
-        return Message.Create("say", this.Text);
+        public SaySendMessage(string text)
+        {
+            this.Text = text;
+        }
+
+        internal override Message GetMessage()
+        {
+            return Message.Create("say", this.Text);
+        }
     }
 }

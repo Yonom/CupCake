@@ -1,11 +1,14 @@
 using PlayerIOClient;
 
-public sealed class GiveWitchReceiveMessage : ReceiveMessage
+namespace CupCake.EE.Messages.Receive
 {
-    //No arguments
-
-    internal GiveWitchReceiveMessage(Message message)
-        : base(message)
+    public sealed class GiveWitchReceiveMessage : ReceiveMessage
     {
+        //No arguments
+
+        internal GiveWitchReceiveMessage(Message message)
+            : base(message)
+        {
+        }
     }
 }

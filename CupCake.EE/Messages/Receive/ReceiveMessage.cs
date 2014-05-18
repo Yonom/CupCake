@@ -2,13 +2,16 @@ using System;
 using System.ComponentModel;
 using PlayerIOClient;
 
-public abstract class ReceiveMessage : EventArgs
+namespace CupCake.EE.Messages.Receive
 {
-    [EditorBrowsable(EditorBrowsableState.Advanced)]
-    public readonly Message PlayerIOMessage;
-
-    internal ReceiveMessage(Message message)
+    public abstract class ReceiveMessage : EventArgs
     {
-        this.PlayerIOMessage = message;
+        [EditorBrowsable(EditorBrowsableState.Advanced)]
+        public readonly Message PlayerIOMessage;
+
+        internal ReceiveMessage(Message message)
+        {
+            this.PlayerIOMessage = message;
+        }
     }
 }

@@ -1,11 +1,14 @@
 using PlayerIOClient;
 
-public sealed class GiveGrinchReceiveMessage : ReceiveMessage
+namespace CupCake.EE.Messages.Receive
 {
-    //No arguments
-
-    internal GiveGrinchReceiveMessage(Message message)
-        : base(message)
+    public sealed class GiveGrinchReceiveMessage : ReceiveMessage
     {
+        //No arguments
+
+        internal GiveGrinchReceiveMessage(Message message)
+            : base(message)
+        {
+        }
     }
 }

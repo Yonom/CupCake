@@ -1,16 +1,19 @@
 using PlayerIOClient;
 
-public sealed class ChangeWorldEditKeySendMessage : SendMessage
+namespace CupCake.EE.Messages.Send
 {
-    public readonly string EditKey;
-
-    public ChangeWorldEditKeySendMessage(string editKey)
+    public sealed class ChangeWorldEditKeySendMessage : SendMessage
     {
-        this.EditKey = editKey;
-    }
+        public readonly string EditKey;
 
-    internal override Message GetMessage()
-    {
-        return Message.Create("key", this.EditKey);
+        public ChangeWorldEditKeySendMessage(string editKey)
+        {
+            this.EditKey = editKey;
+        }
+
+        internal override Message GetMessage()
+        {
+            return Message.Create("key", this.EditKey);
+        }
     }
 }

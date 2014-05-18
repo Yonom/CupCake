@@ -1,11 +1,14 @@
 using PlayerIOClient;
 
-public sealed class Init2SendMessage : SendMessage
+namespace CupCake.EE.Messages.Send
 {
-    //No arguments
-
-    internal override Message GetMessage()
+    public sealed class Init2SendMessage : SendMessage
     {
-        return Message.Create("init2");
+        //No arguments
+
+        internal override Message GetMessage()
+        {
+            return Message.Create("init2");
+        }
     }
 }

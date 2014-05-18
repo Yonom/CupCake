@@ -1,23 +1,27 @@
+using CupCake.EE.Blocks;
 using PlayerIOClient;
 
-public sealed class PortalPlaceReceiveMessage : BlockPlaceReceiveMessage
+namespace CupCake.EE.Messages.Receive
 {
-    //2
-    public readonly PortalBlock PortalBlock;
-    //3
-    //4
-    public readonly int PortalID;
-    public readonly PortalRotation PortalRotation;
-    //5
-
-    public readonly int PortalTarget;
-
-    internal PortalPlaceReceiveMessage(Message message)
-        : base(message, Layer.Foreground, message.GetInteger(0), message.GetInteger(1), (Block)message.GetInteger(2))
+    public sealed class PortalPlaceReceiveMessage : BlockPlaceReceiveMessage
     {
-        this.PortalBlock = (PortalBlock)message.GetInteger(2);
-        this.PortalRotation = (PortalRotation)message.GetInteger(3);
-        this.PortalID = message.GetInteger(4);
-        this.PortalTarget = message.GetInteger(5);
+        //2
+        public readonly PortalBlock PortalBlock;
+        //3
+        //4
+        public readonly int PortalID;
+        public readonly PortalRotation PortalRotation;
+        //5
+
+        public readonly int PortalTarget;
+
+        internal PortalPlaceReceiveMessage(Message message)
+            : base(message, Layer.Foreground, message.GetInteger(0), message.GetInteger(1), (Block)message.GetInteger(2))
+        {
+            this.PortalBlock = (PortalBlock)message.GetInteger(2);
+            this.PortalRotation = (PortalRotation)message.GetInteger(3);
+            this.PortalID = message.GetInteger(4);
+            this.PortalTarget = message.GetInteger(5);
+        }
     }
 }

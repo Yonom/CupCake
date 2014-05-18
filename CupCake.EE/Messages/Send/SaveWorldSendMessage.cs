@@ -1,11 +1,14 @@
 using PlayerIOClient;
 
-public sealed class SaveWorldSendMessage : SendMessage
+namespace CupCake.EE.Messages.Send
 {
-    //No arguments
-
-    internal override Message GetMessage()
+    public sealed class SaveWorldSendMessage : SendMessage
     {
-        return Message.Create("save");
+        //No arguments
+
+        internal override Message GetMessage()
+        {
+            return Message.Create("save");
+        }
     }
 }

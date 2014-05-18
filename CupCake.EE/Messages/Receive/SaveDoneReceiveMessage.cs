@@ -1,11 +1,14 @@
 using PlayerIOClient;
 
-public sealed class SaveDoneReceiveMessage : ReceiveMessage
+namespace CupCake.EE.Messages.Receive
 {
-    //No arguments
-
-    internal SaveDoneReceiveMessage(Message message)
-        : base(message)
+    public sealed class SaveDoneReceiveMessage : ReceiveMessage
     {
+        //No arguments
+
+        internal SaveDoneReceiveMessage(Message message)
+            : base(message)
+        {
+        }
     }
 }

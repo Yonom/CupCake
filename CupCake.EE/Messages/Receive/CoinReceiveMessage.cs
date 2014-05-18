@@ -1,17 +1,20 @@
 using PlayerIOClient;
 
-public sealed class CoinReceiveMessage : ReceiveMessage
+namespace CupCake.EE.Messages.Receive
 {
-    //0
-    //1
-
-    public readonly int Coins;
-    public readonly int UserID;
-
-    internal CoinReceiveMessage(Message message)
-        : base(message)
+    public sealed class CoinReceiveMessage : ReceiveMessage
     {
-        this.UserID = message.GetInteger(0);
-        this.Coins = message.GetInteger(1);
+        //0
+        //1
+
+        public readonly int Coins;
+        public readonly int UserID;
+
+        internal CoinReceiveMessage(Message message)
+            : base(message)
+        {
+            this.UserID = message.GetInteger(0);
+            this.Coins = message.GetInteger(1);
+        }
     }
 }

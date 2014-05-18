@@ -1,14 +1,17 @@
 using PlayerIOClient;
 
-public sealed class ModModeReceiveMessage : ReceiveMessage
+namespace CupCake.EE.Messages.Receive
 {
-    //0
-
-    public readonly int UserID;
-
-    internal ModModeReceiveMessage(Message message)
-        : base(message)
+    public sealed class ModModeReceiveMessage : ReceiveMessage
     {
-        this.UserID = message.GetInteger(0);
+        //0
+
+        public readonly int UserID;
+
+        internal ModModeReceiveMessage(Message message)
+            : base(message)
+        {
+            this.UserID = message.GetInteger(0);
+        }
     }
 }

@@ -1,5 +1,8 @@
-public enum CoinDoorBlock
+namespace CupCake.EE.Blocks
 {
-    BlockDoorCoinDoor = Block.BlockDoorCoinDoor,
-    BlockGateCoinGate = Block.BlockGateCoinGate
+    public enum CoinDoorBlock
+    {
+        BlockDoorCoinDoor = Block.BlockDoorCoinDoor,
+        BlockGateCoinGate = Block.BlockGateCoinGate
+    }
 }

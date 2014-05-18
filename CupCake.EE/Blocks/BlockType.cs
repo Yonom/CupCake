@@ -1,10 +1,13 @@
-public enum BlockType
+namespace CupCake.EE.Blocks
 {
-    Normal,
-    Rotatable,
-    CoinDoor,
-    Portal,
-    Sound,
-    Label,
-    WorldPortal
+    public enum BlockType
+    {
+        Normal,
+        Rotatable,
+        CoinDoor,
+        Portal,
+        Sound,
+        Label,
+        WorldPortal
+    }
 }

@@ -1,11 +1,14 @@
 using PlayerIOClient;
 
-public sealed class ClearWorldSendMessage : SendMessage
+namespace CupCake.EE.Messages.Send
 {
-    //No arguments
-
-    internal override Message GetMessage()
+    public sealed class ClearWorldSendMessage : SendMessage
     {
-        return Message.Create("clear");
+        //No arguments
+
+        internal override Message GetMessage()
+        {
+            return Message.Create("clear");
+        }
     }
 }

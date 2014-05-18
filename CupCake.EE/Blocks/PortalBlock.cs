@@ -1,5 +1,8 @@
-public enum PortalBlock
+namespace CupCake.EE.Blocks
 {
-    BlockPortal = Block.BlockPortal,
-    BlockInvisiblePortal = Block.BlockInvisiblePortal
+    public enum PortalBlock
+    {
+        BlockPortal = Block.BlockPortal,
+        BlockInvisiblePortal = Block.BlockInvisiblePortal
+    }
 }

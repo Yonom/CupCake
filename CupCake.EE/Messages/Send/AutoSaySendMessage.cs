@@ -1,16 +1,20 @@
+using CupCake.EE.Players;
 using PlayerIOClient;
 
-public sealed class AutoSaySendMessage : SendMessage
+namespace CupCake.EE.Messages.Send
 {
-    public readonly AutoText Text;
-
-    public AutoSaySendMessage(AutoText text)
+    public sealed class AutoSaySendMessage : SendMessage
     {
-        this.Text = text;
-    }
+        public readonly AutoText Text;
 
-    internal override Message GetMessage()
-    {
-        return Message.Create("autosay", this.Text);
+        public AutoSaySendMessage(AutoText text)
+        {
+            this.Text = text;
+        }
+
+        internal override Message GetMessage()
+        {
+            return Message.Create("autosay", this.Text);
+        }
     }
 }

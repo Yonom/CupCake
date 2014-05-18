@@ -1,16 +1,19 @@
 using PlayerIOClient;
 
-public sealed class AccessSendMessage : SendMessage
+namespace CupCake.EE.Messages.Send
 {
-    public readonly string EditKey;
-
-    public AccessSendMessage(string editKey)
+    public sealed class AccessSendMessage : SendMessage
     {
-        this.EditKey = editKey;
-    }
+        public readonly string EditKey;
 
-    internal override Message GetMessage()
-    {
-        return Message.Create("access", this.EditKey);
+        public AccessSendMessage(string editKey)
+        {
+            this.EditKey = editKey;
+        }
+
+        internal override Message GetMessage()
+        {
+            return Message.Create("access", this.EditKey);
+        }
     }
 }
