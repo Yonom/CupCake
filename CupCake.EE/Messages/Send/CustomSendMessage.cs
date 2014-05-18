@@ -1,16 +1,19 @@
 using PlayerIOClient;
 
-internal sealed class CustomSendMessage : SendMessage
+namespace CupCake.EE.Messages.Send
 {
-    private readonly Message myMessage;
-
-    public CustomSendMessage(string type, params string[] parameters)
+    internal sealed class CustomSendMessage : SendMessage
     {
-        this.myMessage = Message.Create(type, parameters);
-    }
+        private readonly Message myMessage;
 
-    internal override Message GetMessage()
-    {
-        return this.myMessage;
+        public CustomSendMessage(string type, params string[] parameters)
+        {
+            this.myMessage = Message.Create(type, parameters);
+        }
+
+        internal override Message GetMessage()
+        {
+            return this.myMessage;
+        }
     }
 }

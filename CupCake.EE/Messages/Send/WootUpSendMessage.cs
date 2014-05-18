@@ -1,11 +1,14 @@
 using PlayerIOClient;
 
-public class WootUpSendMessage : SendMessage
+namespace CupCake.EE.Messages.Send
 {
-    //No arguments
-
-    internal override Message GetMessage()
+    public class WootUpSendMessage : SendMessage
     {
-        return Message.Create("wootup");
+        //No arguments
+
+        internal override Message GetMessage()
+        {
+            return Message.Create("wootup");
+        }
     }
 }

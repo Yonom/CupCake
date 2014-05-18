@@ -6,8 +6,6 @@ namespace CupCake.EE.Messages.Receive
 {
     public sealed class ShowKeyReceiveMessage : ReceiveMessage
     {
-        //0
-
         public readonly Key[] Keys;
 
         internal ShowKeyReceiveMessage(Message message)

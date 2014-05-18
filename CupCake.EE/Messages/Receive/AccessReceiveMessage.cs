@@ -1,11 +1,14 @@
 using PlayerIOClient;
 
-public sealed class AccessReceiveMessage : ReceiveMessage
+namespace CupCake.EE.Messages.Receive
 {
-    //No arguments
-
-    internal AccessReceiveMessage(Message message)
-        : base(message)
+    public sealed class AccessReceiveMessage : ReceiveMessage
     {
+        //No arguments
+
+        internal AccessReceiveMessage(Message message)
+            : base(message)
+        {
+        }
     }
 }

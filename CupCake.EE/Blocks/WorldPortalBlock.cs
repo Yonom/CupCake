@@ -1,4 +1,7 @@
-public enum WorldPortalBlock
+namespace CupCake.EE.Blocks
 {
-    BlockWorldPortal = Block.BlockWorldPortal
+    public enum WorldPortalBlock
+    {
+        BlockWorldPortal = Block.BlockWorldPortal
+    }
 }

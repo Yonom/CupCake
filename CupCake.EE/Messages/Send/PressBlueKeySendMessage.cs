@@ -1,16 +1,19 @@
 using PlayerIOClient;
 
-public sealed class PressBlueKeySendMessage : SendMessage
+namespace CupCake.EE.Messages.Send
 {
-    public PressBlueKeySendMessage(string encryption)
+    public sealed class PressBlueKeySendMessage : SendMessage
     {
-        this.Encryption = encryption;
-    }
+        public PressBlueKeySendMessage(string encryption)
+        {
+            this.Encryption = encryption;
+        }
 
-    public string Encryption { get; set; }
+        public string Encryption { get; set; }
 
-    internal override Message GetMessage()
-    {
-        return Message.Create(this.Encryption + "b");
+        internal override Message GetMessage()
+        {
+            return Message.Create(this.Encryption + "b");
+        }
     }
 }

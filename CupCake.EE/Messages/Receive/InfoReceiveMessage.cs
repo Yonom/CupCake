@@ -4,9 +4,6 @@ namespace CupCake.EE.Messages.Receive
 {
     public sealed class InfoReceiveMessage : ReceiveMessage
     {
-        //0
-        //1
-
         public readonly string Text;
         public readonly string Title;
 

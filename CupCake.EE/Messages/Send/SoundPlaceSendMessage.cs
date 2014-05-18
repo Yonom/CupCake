@@ -1,23 +1,27 @@
+using CupCake.EE.Blocks;
 using PlayerIOClient;
 
-public sealed class SoundPlaceSendMessage : BlockPlaceSendMessage
+namespace CupCake.EE.Messages.Send
 {
-    public readonly int SoundID;
-
-    public SoundPlaceSendMessage(string encryption, Layer layer, int x, int y, SoundBlock block, int soundID)
-        : base(encryption, layer, x, y, (Block)block)
+    public sealed class SoundPlaceSendMessage : BlockPlaceSendMessage
     {
-        this.SoundID = soundID;
-    }
+        public readonly int SoundID;
 
-    internal override Message GetMessage()
-    {
-        if (IsSound(this.Block))
+        public SoundPlaceSendMessage(string encryption, Layer layer, int x, int y, SoundBlock block, int soundID)
+            : base(encryption, layer, x, y, (Block)block)
         {
-            Message message = base.GetMessage();
-            message.Add(this.SoundID);
-            return message;
+            this.SoundID = soundID;
         }
-        return base.GetMessage();
+
+        internal override Message GetMessage()
+        {
+            if (IsSound(this.Block))
+            {
+                Message message = base.GetMessage();
+                message.Add(this.SoundID);
+                return message;
+            }
+            return base.GetMessage();
+        }
     }
 }

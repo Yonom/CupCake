@@ -1,23 +1,27 @@
+using CupCake.EE.Blocks;
 using PlayerIOClient;
 
-public class RotatablePlaceSendMessage : BlockPlaceSendMessage
+namespace CupCake.EE.Messages.Send
 {
-    public readonly int Rotation;
-
-    public RotatablePlaceSendMessage(string encryption, Layer layer, int x, int y, RotatableBlock block, int rotation)
-        : base(encryption, layer, x, y, (Block)block)
+    public class RotatablePlaceSendMessage : BlockPlaceSendMessage
     {
-        this.Rotation = rotation;
-    }
+        public readonly int Rotation;
 
-    internal override Message GetMessage()
-    {
-        if (IsRotatable(this.Block))
+        public RotatablePlaceSendMessage(string encryption, Layer layer, int x, int y, RotatableBlock block, int rotation)
+            : base(encryption, layer, x, y, (Block)block)
         {
-            Message message = base.GetMessage();
-            message.Add(this.Rotation);
-            return message;
+            this.Rotation = rotation;
         }
-        return base.GetMessage();
+
+        internal override Message GetMessage()
+        {
+            if (IsRotatable(this.Block))
+            {
+                Message message = base.GetMessage();
+                message.Add(this.Rotation);
+                return message;
+            }
+            return base.GetMessage();
+        }
     }
 }

@@ -1,14 +1,15 @@
 using PlayerIOClient;
 
-public sealed class CrownReceiveMessage : ReceiveMessage
+namespace CupCake.EE.Messages.Receive
 {
-    //0
-
-    public readonly int UserID;
-
-    internal CrownReceiveMessage(Message message)
-        : base(message)
+    public sealed class CrownReceiveMessage : ReceiveMessage
     {
-        this.UserID = message.GetInteger(0);
+        public readonly int UserID;
+
+        internal CrownReceiveMessage(Message message)
+            : base(message)
+        {
+            this.UserID = message.GetInteger(0);
+        }
     }
 }

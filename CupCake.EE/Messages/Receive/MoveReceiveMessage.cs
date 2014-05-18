@@ -4,26 +4,17 @@ namespace CupCake.EE.Messages.Receive
 {
     public sealed class MoveReceiveMessage : ReceiveMessage
     {
-        //0
-        //1
         public readonly int Coins;
         public readonly double Horizontal;
         public readonly bool IsPurple;
         public readonly double ModifierX;
-        //6
         public readonly double ModifierY;
         public readonly int PlayerPosX;
-        //2
         public readonly int PlayerPosY;
-        //3
         public readonly double SpeedX;
-        //4
         public readonly double SpeedY;
         public readonly int UserID;
-        //5
-        //8
         public readonly double Vertical;
-        //9
 
         internal MoveReceiveMessage(Message message)
             : base(message)

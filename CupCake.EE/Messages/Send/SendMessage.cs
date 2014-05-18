@@ -1,7 +1,10 @@
 using System;
 using PlayerIOClient;
 
-public abstract class SendMessage : EventArgs
+namespace CupCake.EE.Messages.Send
 {
-    internal abstract Message GetMessage();
+    public abstract class SendMessage : EventArgs
+    {
+        internal abstract Message GetMessage();
+    }
 }

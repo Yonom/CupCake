@@ -1,13 +1,16 @@
-public enum AccountType
+namespace CupCake.EE.Players
 {
-    /// <summary>
-    ///     Represents an account which was created on http://everybodyedits.com/
-    /// </summary>
-    Regular = 0,
+    public enum AccountType
+    {
+        /// <summary>
+        ///     Represents an account which was created on http://everybodyedits.com/
+        /// </summary>
+        Regular = 0,
 
-    /// <summary>
-    ///     Represents an account linked to Facebook
-    /// </summary>
-    /// <remarks></remarks>
-    Facebook = 1
+        /// <summary>
+        ///     Represents an account linked to Facebook
+        /// </summary>
+        /// <remarks></remarks>
+        Facebook = 1
+    }
 }

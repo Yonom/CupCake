@@ -4,9 +4,6 @@ namespace CupCake.EE.Messages.Receive
 {
     public class LevelUpReceiveMessage : ReceiveMessage
     {
-        //0
-        //1
-
         public readonly int NewClass;
         public readonly int UserID;
 

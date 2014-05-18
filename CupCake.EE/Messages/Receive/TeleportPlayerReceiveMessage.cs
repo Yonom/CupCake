@@ -4,29 +4,7 @@ namespace CupCake.EE.Messages.Receive
 {
     public sealed class TeleportPlayerReceiveMessage : ReceiveMessage
     {
-        //this.connection.addMessageHandler("teleport", function (param1:Message, param2:int, param3:Number, param4:Number) : void
-        //        {
-        //            var _loc_5:Player = null;
-        //            if (param2 == myid)
-        //            {
-        //                player.setPosition(param3, param4);
-        //            }
-        //            else
-        //            {
-        //                _loc_5 = players[param2] as Player;
-        //                if (_loc_5)
-        //                {
-        //                    _loc_5.setPosition(param3, param4);
-        //                }
-        //            }
-        //            return;
-        //        }
-
-        //0
-        //1
         public readonly int PlayerPosX;
-        //2
-
         public readonly int PlayerPosY;
         public readonly int UserID;
 

@@ -1,24 +1,28 @@
+using CupCake.EE.Blocks;
 using PlayerIOClient;
 
-public sealed class CoinDoorPlaceSendMessage : BlockPlaceSendMessage
+namespace CupCake.EE.Messages.Send
 {
-    public readonly int CoinsToCollect;
-
-    public CoinDoorPlaceSendMessage(string encryption, Layer layer, int x, int y, CoinDoorBlock block,
-        int coinsToCollect)
-        : base(encryption, layer, x, y, (Block)block)
+    public sealed class CoinDoorPlaceSendMessage : BlockPlaceSendMessage
     {
-        this.CoinsToCollect = coinsToCollect;
-    }
+        public readonly int CoinsToCollect;
 
-    internal override Message GetMessage()
-    {
-        if (IsCoinDoor(this.Block))
+        public CoinDoorPlaceSendMessage(string encryption, Layer layer, int x, int y, CoinDoorBlock block,
+            int coinsToCollect)
+            : base(encryption, layer, x, y, (Block)block)
         {
-            Message message = base.GetMessage();
-            message.Add(this.CoinsToCollect);
-            return message;
+            this.CoinsToCollect = coinsToCollect;
         }
-        return base.GetMessage();
+
+        internal override Message GetMessage()
+        {
+            if (IsCoinDoor(this.Block))
+            {
+                Message message = base.GetMessage();
+                message.Add(this.CoinsToCollect);
+                return message;
+            }
+            return base.GetMessage();
+        }
     }
 }

@@ -4,9 +4,6 @@ namespace CupCake.EE.Messages.Receive
 {
     public sealed class CoinReceiveMessage : ReceiveMessage
     {
-        //0
-        //1
-
         public readonly int Coins;
         public readonly int UserID;
 

@@ -1,20 +1,24 @@
 using System;
+using CupCake.EE.Blocks;
 using PlayerIOClient;
 
-public sealed class PotionSendMessage : SendMessage
+namespace CupCake.EE.Messages.Send
 {
-    public readonly Potion Potion;
-
-    public PotionSendMessage(string encryption, Potion potion)
+    public sealed class PotionSendMessage : SendMessage
     {
-        this.Encryption = encryption;
-        this.Potion = potion;
-    }
+        public readonly Potion Potion;
 
-    public string Encryption { get; set; }
+        public PotionSendMessage(string encryption, Potion potion)
+        {
+            this.Encryption = encryption;
+            this.Potion = potion;
+        }
 
-    internal override Message GetMessage()
-    {
-        return Message.Create(this.Encryption + "p", Convert.ToInt32(this.Potion));
+        public string Encryption { get; set; }
+
+        internal override Message GetMessage()
+        {
+            return Message.Create(this.Encryption + "p", Convert.ToInt32(this.Potion));
+        }
     }
 }

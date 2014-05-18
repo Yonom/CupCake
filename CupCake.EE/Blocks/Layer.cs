@@ -1,15 +1,18 @@
-/// <summary>
-///     Describes the layer where a block is located on.
-/// </summary>
-public enum Layer
+namespace CupCake.EE.Blocks
 {
     /// <summary>
-    ///     The foreground layer (contains solid, action, and decoration blocks).
+    ///     Describes the layer where a block is located on.
     /// </summary>
-    Foreground = 0,
+    public enum Layer
+    {
+        /// <summary>
+        ///     The foreground layer (contains solid, action, and decoration blocks).
+        /// </summary>
+        Foreground = 0,
 
-    /// <summary>
-    ///     The background layer (contains background blocks).
-    /// </summary>
-    Background = 1
+        /// <summary>
+        ///     The background layer (contains background blocks).
+        /// </summary>
+        Background = 1
+    }
 }

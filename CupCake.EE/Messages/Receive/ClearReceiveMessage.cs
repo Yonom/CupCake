@@ -4,9 +4,6 @@ namespace CupCake.EE.Messages.Receive
 {
     public sealed class ClearReceiveMessage : ReceiveMessage
     {
-        //0
-        //1
-
         public readonly int RoomHeight;
         public readonly int RoomWidth;
 

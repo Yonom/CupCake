@@ -4,8 +4,6 @@ namespace CupCake.EE.Messages.Receive
 {
     public class AllowPotionsReceiveMessage : ReceiveMessage
     {
-        //0
-
         public readonly bool Allowed;
 
         internal AllowPotionsReceiveMessage(Message message)

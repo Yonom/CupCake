@@ -1,24 +1,28 @@
+using CupCake.EE.Blocks;
 using PlayerIOClient;
 
-public sealed class WorldPortalPlaceSendMessage : BlockPlaceSendMessage
+namespace CupCake.EE.Messages.Send
 {
-    public readonly string WorldPortalTarget;
-
-    public WorldPortalPlaceSendMessage(string encryption, Layer layer, int x, int y, WorldPortalBlock block,
-        string worldPortalTarget)
-        : base(encryption, layer, x, y, (Block)block)
+    public sealed class WorldPortalPlaceSendMessage : BlockPlaceSendMessage
     {
-        this.WorldPortalTarget = worldPortalTarget;
-    }
+        public readonly string WorldPortalTarget;
 
-    internal override Message GetMessage()
-    {
-        if (IsWorldPortal(this.Block))
+        public WorldPortalPlaceSendMessage(string encryption, Layer layer, int x, int y, WorldPortalBlock block,
+            string worldPortalTarget)
+            : base(encryption, layer, x, y, (Block)block)
         {
-            Message message = base.GetMessage();
-            message.Add(this.WorldPortalTarget);
-            return message;
+            this.WorldPortalTarget = worldPortalTarget;
         }
-        return base.GetMessage();
+
+        internal override Message GetMessage()
+        {
+            if (IsWorldPortal(this.Block))
+            {
+                Message message = base.GetMessage();
+                message.Add(this.WorldPortalTarget);
+                return message;
+            }
+            return base.GetMessage();
+        }
     }
 }

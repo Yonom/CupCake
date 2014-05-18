@@ -1,19 +1,23 @@
+using CupCake.EE.Players;
 using PlayerIOClient;
 
-public sealed class ChangeFaceSendMessage : SendMessage
+namespace CupCake.EE.Messages.Send
 {
-    public readonly Smiley Face;
-
-    public ChangeFaceSendMessage(string encryption, Smiley face)
+    public sealed class ChangeFaceSendMessage : SendMessage
     {
-        this.Encryption = encryption;
-        this.Face = face;
-    }
+        public readonly Smiley Face;
 
-    public string Encryption { get; set; }
+        public ChangeFaceSendMessage(string encryption, Smiley face)
+        {
+            this.Encryption = encryption;
+            this.Face = face;
+        }
 
-    internal override Message GetMessage()
-    {
-        return Message.Create(this.Encryption + "f", this.Face);
+        public string Encryption { get; set; }
+
+        internal override Message GetMessage()
+        {
+            return Message.Create(this.Encryption + "f", this.Face);
+        }
     }
 }
