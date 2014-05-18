@@ -1,0 +1,21 @@
+using System;
+using CupCake.Utils.Blocks;
+using PlayerIOClient;
+
+namespace CupCake.Utils.Messages.Receive
+{
+    public sealed class HideKeyReceiveMessage : ReceiveMessage
+    {
+        public readonly Key[] Keys;
+
+        internal HideKeyReceiveMessage(Message message)
+            : base(message)
+        {
+            this.Keys = new Key[Convert.ToInt32(message.Count - 1u) + 1];
+            for (uint i = 0; i <= message.Count - 1u; i++)
+            {
+                this.Keys[Convert.ToInt32(i)] = (Key)Enum.Parse(typeof(Key), message.GetString(i), true);
+            }
+        }
+    }
+}
