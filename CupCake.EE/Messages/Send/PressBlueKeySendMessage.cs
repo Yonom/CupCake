@@ -1,23 +1,16 @@
-using Microsoft.VisualBasic;
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Data;
-using System.Diagnostics;
 using PlayerIOClient;
 
 public sealed class PressBlueKeySendMessage : SendMessage
 {
-    public string Encryption { get; set; }
-
     public PressBlueKeySendMessage(string encryption)
     {
         this.Encryption = encryption;
     }
 
-    internal override Message GetMessage()
-	{
-		return Message.Create(Encryption + "b");
-	}
+    public string Encryption { get; set; }
 
+    internal override Message GetMessage()
+    {
+        return Message.Create(this.Encryption + "b");
+    }
 }

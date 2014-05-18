@@ -1,32 +1,26 @@
-using Microsoft.VisualBasic;
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Data;
-using System.Diagnostics;
 using PlayerIOClient;
 
 public sealed class UpdateMetaReceiveMessage : ReceiveMessage
 {
+    //0
+    public readonly int CurrentWoots;
+    public readonly string OwnerUsername;
+    //1
+    //2
+    public readonly int Plays;
+    //3
+    //4
 
-	//0
-	public readonly string OwnerUsername;
-	//1
-	public readonly string WorldName;
-	//2
-	public readonly int Plays;
-	//3
-	public readonly int CurrentWoots;
-	//4
+    public readonly int TotalWoots;
+    public readonly string WorldName;
 
-	public readonly int TotalWoots;
-	internal UpdateMetaReceiveMessage(Message message) : base(message)
-	{
-
-		OwnerUsername = message.GetString(0);
-		WorldName = message.GetString(1);
-		Plays = message.GetInteger(2);
-		CurrentWoots = message.GetInteger(3);
-		TotalWoots = message.GetInteger(4);
-	}
+    internal UpdateMetaReceiveMessage(Message message)
+        : base(message)
+    {
+        this.OwnerUsername = message.GetString(0);
+        this.WorldName = message.GetString(1);
+        this.Plays = message.GetInteger(2);
+        this.CurrentWoots = message.GetInteger(3);
+        this.TotalWoots = message.GetInteger(4);
+    }
 }

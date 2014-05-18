@@ -1,15 +1,7 @@
-using Microsoft.VisualBasic;
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Data;
-using System.Diagnostics;
 public enum SciFiSlopeRotation
 {
-
-	InSouthEastPart = 0,
-	InSouthWestPart = 1,
-	InNorthWestPart = 2,
-	InNorthEastPart = 3
-
+    InSouthEastPart = 0,
+    InSouthWestPart = 1,
+    InNorthWestPart = 2,
+    InNorthEastPart = 3
 }

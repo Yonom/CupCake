@@ -1,23 +1,16 @@
-using Microsoft.VisualBasic;
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Data;
-using System.Diagnostics;
 using PlayerIOClient;
 
 public sealed class SaySendMessage : SendMessage
 {
+    public readonly string Text;
 
+    public SaySendMessage(string text)
+    {
+        this.Text = text;
+    }
 
-	public readonly string Text;
-	public SaySendMessage(string text)
-	{
-		this.Text = text;
-	}
-
-	internal override Message GetMessage()
-	{
-		return Message.Create("say", Text);
-	}
+    internal override Message GetMessage()
+    {
+        return Message.Create("say", this.Text);
+    }
 }

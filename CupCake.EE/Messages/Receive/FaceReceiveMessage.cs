@@ -1,23 +1,17 @@
-using Microsoft.VisualBasic;
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Data;
-using System.Diagnostics;
 using PlayerIOClient;
 
 public sealed class FaceReceiveMessage : ReceiveMessage
 {
+    //0
+    //1
 
-	//0
-	public readonly int UserID;
-	//1
+    public readonly Smiley Face;
+    public readonly int UserID;
 
-	public readonly Smiley Face;
-	internal FaceReceiveMessage(Message message) : base(message)
-	{
-
-		UserID = message.GetInteger(0);
-		Face = (Smiley)message.GetInteger(1);
-	}
+    internal FaceReceiveMessage(Message message)
+        : base(message)
+    {
+        this.UserID = message.GetInteger(0);
+        this.Face = (Smiley)message.GetInteger(1);
+    }
 }

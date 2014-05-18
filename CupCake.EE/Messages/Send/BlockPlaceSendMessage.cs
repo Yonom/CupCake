@@ -1,33 +1,29 @@
-using Microsoft.VisualBasic;
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Data;
-using System.Diagnostics;
 using PlayerIOClient;
 
 public class BlockPlaceSendMessage : SendMessage
 {
-    public string Encryption { get; set; }
-
+    public readonly Block Block;
     public readonly Layer Layer;
-	public readonly int X;
-	public readonly int Y;
+    public readonly int X;
+    public readonly int Y;
 
-	public readonly Block Block;
     public BlockPlaceSendMessage(string encryption, Layer layer, int x, int y, Block block)
-	{
+    {
         this.Encryption = encryption;
         this.Layer = layer;
-		this.X = x;
-		this.Y = y;
-		this.Block = block;
-	}
+        this.X = x;
+        this.Y = y;
+        this.Block = block;
+    }
 
-	internal override Message GetMessage()
-	{
-		return Message.Create(Encryption, Convert.ToInt32(CorrectLayer(Block, Layer)), X, Y, Convert.ToInt32(Block));
-	}
+    public string Encryption { get; set; }
+
+    internal override Message GetMessage()
+    {
+        return Message.Create(this.Encryption, Convert.ToInt32(CorrectLayer(this.Block, this.Layer)), this.X, this.Y,
+            Convert.ToInt32(this.Block));
+    }
 
     internal static Layer CorrectLayer(Block id, Layer layer)
     {
@@ -35,14 +31,11 @@ public class BlockPlaceSendMessage : SendMessage
         {
             return Layer.Foreground;
         }
-        else if ((int)id >= 500 && (int)id < 1000)
+        if ((int)id >= 500 && (int)id < 1000)
         {
             return Layer.Background;
         }
-        else
-        {
-            return layer;
-        }
+        return layer;
     }
 
     internal static bool IsCoinDoor(Block id)

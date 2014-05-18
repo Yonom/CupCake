@@ -1,22 +1,16 @@
-using Microsoft.VisualBasic;
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Data;
-using System.Diagnostics;
 using PlayerIOClient;
 
 public sealed class PressRedKeySendMessage : SendMessage
 {
-    public string Encryption { get; set; }
-
     public PressRedKeySendMessage(string encryption)
     {
         this.Encryption = encryption;
     }
 
+    public string Encryption { get; set; }
+
     internal override Message GetMessage()
-	{
-		return Message.Create(Encryption + "r");
-	}
+    {
+        return Message.Create(this.Encryption + "r");
+    }
 }
