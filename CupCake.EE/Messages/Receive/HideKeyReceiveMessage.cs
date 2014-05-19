@@ -8,7 +8,7 @@ namespace CupCake.EE.Messages.Receive
     {
         public readonly Key[] Keys;
 
-        internal HideKeyReceiveMessage(Message message)
+        public HideKeyReceiveMessage(Message message)
             : base(message)
         {
             this.Keys = new Key[Convert.ToInt32(message.Count - 1u) + 1];

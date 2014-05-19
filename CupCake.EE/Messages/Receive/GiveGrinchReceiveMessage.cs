@@ -6,7 +6,7 @@ namespace CupCake.EE.Messages.Receive
     {
         //No arguments
 
-        internal GiveGrinchReceiveMessage(Message message)
+        public GiveGrinchReceiveMessage(Message message)
             : base(message)
         {
         }

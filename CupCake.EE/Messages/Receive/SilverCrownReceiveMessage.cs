@@ -6,7 +6,7 @@ namespace CupCake.EE.Messages.Receive
     {
         public readonly int UserId;
 
-        internal SilverCrownReceiveMessage(Message message)
+        public SilverCrownReceiveMessage(Message message)
             : base(message)
         {
             this.UserId = message.GetInteger(0);

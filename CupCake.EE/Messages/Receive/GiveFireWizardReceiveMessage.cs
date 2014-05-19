@@ -6,7 +6,7 @@ namespace CupCake.EE.Messages.Receive
     {
         //No arguments
 
-        internal GiveFireWizardReceiveMessage(Message message)
+        public GiveFireWizardReceiveMessage(Message message)
             : base(message)
         {
         }

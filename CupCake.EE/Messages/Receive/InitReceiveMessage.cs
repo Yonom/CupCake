@@ -22,7 +22,7 @@ namespace CupCake.EE.Messages.Receive
         public readonly string Username;
         public readonly string WorldName;
 
-        internal InitReceiveMessage(Message message)
+        public InitReceiveMessage(Message message)
             : base(message)
         {
             this.OwnerUsername = message.GetString(0);

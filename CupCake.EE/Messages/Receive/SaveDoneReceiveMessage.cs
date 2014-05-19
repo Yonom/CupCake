@@ -6,7 +6,7 @@ namespace CupCake.EE.Messages.Receive
     {
         //No arguments
 
-        internal SaveDoneReceiveMessage(Message message)
+        public SaveDoneReceiveMessage(Message message)
             : base(message)
         {
         }

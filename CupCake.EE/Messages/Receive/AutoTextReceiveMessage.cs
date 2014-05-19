@@ -7,7 +7,7 @@ namespace CupCake.EE.Messages.Receive
         public readonly string AutoText;
         public readonly int UserId;
 
-        internal AutoTextReceiveMessage(Message message)
+        public AutoTextReceiveMessage(Message message)
             : base(message)
         {
             this.UserId = message.GetInteger(0);

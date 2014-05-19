@@ -10,7 +10,7 @@ namespace CupCake.EE.Messages.Receive
         public readonly int Timeout;
         public readonly int UserId;
 
-        internal PotionReceiveMessage(Message message)
+        public PotionReceiveMessage(Message message)
             : base(message)
         {
             this.UserId = message.GetInteger(0);

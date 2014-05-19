@@ -7,7 +7,7 @@ namespace CupCake.EE.Messages.Receive
         public readonly bool IsGod;
         public readonly int UserId;
 
-        internal GodModeReceiveMessage(Message message)
+        public GodModeReceiveMessage(Message message)
             : base(message)
         {
             this.UserId = message.GetInteger(0);

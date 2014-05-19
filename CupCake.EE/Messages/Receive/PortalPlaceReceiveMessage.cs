@@ -15,7 +15,7 @@ namespace CupCake.EE.Messages.Receive
 
         public readonly int PortalTarget;
 
-        internal PortalPlaceReceiveMessage(Message message)
+        public PortalPlaceReceiveMessage(Message message)
             : base(message, Layer.Foreground, message.GetInteger(0), message.GetInteger(1), (Block)message.GetInteger(2)
                 )
         {

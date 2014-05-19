@@ -7,7 +7,7 @@ namespace CupCake.EE.Messages.Receive
         public readonly int NewClass;
         public readonly int UserId;
 
-        internal LevelUpReceiveMessage(Message message)
+        public LevelUpReceiveMessage(Message message)
             : base(message)
         {
             this.UserId = message.GetInteger(0);

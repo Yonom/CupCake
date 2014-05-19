@@ -8,7 +8,7 @@ namespace CupCake.EE.Messages.Receive
         public readonly string Text;
         public readonly string Username;
 
-        internal SayOldReceiveMessage(Message message)
+        public SayOldReceiveMessage(Message message)
             : base(message)
         {
             this.Username = message.GetString(0);

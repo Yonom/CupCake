@@ -11,7 +11,7 @@ namespace CupCake.EE.Messages.Receive
 
         public readonly string Text;
 
-        internal LabelPlaceReceiveMessage(Message message)
+        public LabelPlaceReceiveMessage(Message message)
             : base(message, Layer.Foreground, message.GetInteger(0), message.GetInteger(1), (Block)message.GetInteger(2)
                 )
         {

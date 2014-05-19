@@ -47,13 +47,13 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\CupCake.API\CupCake.API.csproj">
-      <Project>{cf660140-cc8d-40a0-8a0a-9d58540dec9b}</Project>
-      <Name>CupCake.API</Name>
-    </ProjectReference>
     <ProjectReference Include="..\CupCake.Core\CupCake.Core.csproj">
       <Project>{598d616c-4886-482b-af57-7bc7daa56cce}</Project>
       <Name>CupCake.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CupCake.EE\CupCake.EE.csproj">
+      <Project>{1934f8dd-1d6a-4ceb-af92-600c44d4e849}</Project>
+      <Name>CupCake.EE</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

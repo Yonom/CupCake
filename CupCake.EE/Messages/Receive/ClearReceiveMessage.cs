@@ -7,7 +7,7 @@ namespace CupCake.EE.Messages.Receive
         public readonly int RoomHeight;
         public readonly int RoomWidth;
 
-        internal ClearReceiveMessage(Message message)
+        public ClearReceiveMessage(Message message)
             : base(message)
         {
             this.RoomWidth = message.GetInteger(0);

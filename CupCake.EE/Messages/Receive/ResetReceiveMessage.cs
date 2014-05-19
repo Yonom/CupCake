@@ -6,7 +6,7 @@ namespace CupCake.EE.Messages.Receive
     {
         //No arguments
 
-        internal ResetReceiveMessage(Message message)
+        public ResetReceiveMessage(Message message)
             : base(message)
         {
         }

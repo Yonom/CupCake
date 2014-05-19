@@ -6,7 +6,7 @@ namespace CupCake.EE.Messages.Receive
     {
         //No arguments
 
-        internal AccessReceiveMessage(Message message)
+        public AccessReceiveMessage(Message message)
             : base(message)
         {
         }

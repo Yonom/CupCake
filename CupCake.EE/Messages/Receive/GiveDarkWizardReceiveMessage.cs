@@ -6,7 +6,7 @@ namespace CupCake.EE.Messages.Receive
     {
         //No arguments
 
-        internal GiveDarkWizardReceiveMessage(Message message)
+        public GiveDarkWizardReceiveMessage(Message message)
             : base(message)
         {
         }

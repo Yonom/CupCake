@@ -6,7 +6,7 @@ namespace CupCake.EE.Messages.Receive
     {
         public readonly int UserId;
 
-        internal LeftReceiveMessage(Message message)
+        public LeftReceiveMessage(Message message)
             : base(message)
         {
             this.UserId = message.GetInteger(0);

@@ -10,7 +10,7 @@ namespace CupCake.EE.Messages.Receive
         public readonly int TotalWoots;
         public readonly string WorldName;
 
-        internal UpdateMetaReceiveMessage(Message message)
+        public UpdateMetaReceiveMessage(Message message)
             : base(message)
         {
             this.OwnerUsername = message.GetString(0);

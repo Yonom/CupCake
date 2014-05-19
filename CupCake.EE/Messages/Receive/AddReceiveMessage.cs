@@ -19,7 +19,7 @@ namespace CupCake.EE.Messages.Receive
         public readonly int UserId;
         public readonly string Username;
 
-        internal AddReceiveMessage(Message message)
+        public AddReceiveMessage(Message message)
             : base(message)
         {
             this.UserId = message.GetInteger(0);

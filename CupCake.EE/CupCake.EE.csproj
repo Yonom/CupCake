@@ -140,6 +140,7 @@
     <Compile Include="Messages\Send\TouchPlayerSendMessage.cs" />
     <Compile Include="Messages\Send\WootUpSendMessage.cs" />
     <Compile Include="Messages\Send\WorldPortalPlaceSendMessage.cs" />
+    <Compile Include="Muffins\EEMuffin.cs" />
     <Compile Include="Muffins\MessagesMuffin.cs" />
     <Compile Include="Players\AccountType.cs" />
     <Compile Include="Players\AutoText.cs" />

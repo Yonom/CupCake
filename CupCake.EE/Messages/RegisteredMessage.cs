@@ -16,11 +16,7 @@ namespace CupCake.EE.Messages
 
         public void Invoke(object sender, Message message)
         {
-            if (message.Type == "init")
-            {
-                Console.WriteLine("Inited");
-            }
-            var instance = (T)Activator.CreateInstance(typeof(T), new object[] {message});
+            var instance = (T)Activator.CreateInstance(typeof(T), message);
 
             this._eventsPlatform.Event<ReceiveMessage>().Raise(sender, instance);
             this._eventsPlatform.Event<T>().Raise(sender, instance);

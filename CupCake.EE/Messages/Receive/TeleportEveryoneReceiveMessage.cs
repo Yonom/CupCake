@@ -8,7 +8,7 @@ namespace CupCake.EE.Messages.Receive
         public readonly Dictionary<int, Point> Coordinates = new Dictionary<int, Point>();
         public readonly bool ResetCoins;
 
-        internal TeleportEveryoneReceiveMessage(Message message)
+        public TeleportEveryoneReceiveMessage(Message message)
             : base(message)
         {
             this.ResetCoins = message.GetBoolean(0);

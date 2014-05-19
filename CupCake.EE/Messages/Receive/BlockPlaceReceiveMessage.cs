@@ -10,7 +10,7 @@ namespace CupCake.EE.Messages.Receive
         public readonly int PosX;
         public readonly int PosY;
 
-        internal BlockPlaceReceiveMessage(Message message)
+        public BlockPlaceReceiveMessage(Message message)
             : base(message)
         {
             this.Layer = (Layer)message.GetInteger(0);

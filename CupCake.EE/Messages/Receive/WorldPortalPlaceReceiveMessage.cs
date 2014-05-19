@@ -11,7 +11,7 @@ namespace CupCake.EE.Messages.Receive
 
         public readonly string WorldPortalTarget;
 
-        internal WorldPortalPlaceReceiveMessage(Message message)
+        public WorldPortalPlaceReceiveMessage(Message message)
             : base(message, Layer.Foreground, message.GetInteger(0), message.GetInteger(1), (Block)message.GetInteger(2)
                 )
         {

@@ -7,7 +7,7 @@ namespace CupCake.EE.Messages.Receive
         public readonly string Text;
         public readonly string Title;
 
-        internal InfoReceiveMessage(Message message)
+        public InfoReceiveMessage(Message message)
             : base(message)
         {
             this.Title = message.GetString(0);

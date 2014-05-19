@@ -16,7 +16,7 @@ namespace CupCake.EE.Messages.Receive
         public readonly int UserId;
         public readonly double Vertical;
 
-        internal MoveReceiveMessage(Message message)
+        public MoveReceiveMessage(Message message)
             : base(message)
         {
             this.UserId = message.GetInteger(0);

@@ -6,7 +6,7 @@ namespace CupCake.EE.Messages.Receive
     {
         //No arguments
 
-        internal UpgradeReceiveMessage(Message message)
+        public UpgradeReceiveMessage(Message message)
             : base(message)
         {
         }

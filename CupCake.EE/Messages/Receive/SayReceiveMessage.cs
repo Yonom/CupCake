@@ -8,7 +8,7 @@ namespace CupCake.EE.Messages.Receive
         public readonly string Text;
         public readonly int UserId;
 
-        internal SayReceiveMessage(Message message)
+        public SayReceiveMessage(Message message)
             : base(message)
         {
             this.UserId = message.GetInteger(0);

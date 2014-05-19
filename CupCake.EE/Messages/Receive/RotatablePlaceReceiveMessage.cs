@@ -11,7 +11,7 @@ namespace CupCake.EE.Messages.Receive
 
         public readonly int Rotation;
 
-        internal RotatablePlaceReceiveMessage(Message message)
+        public RotatablePlaceReceiveMessage(Message message)
             : base(message, Layer.Foreground, message.GetInteger(0), message.GetInteger(1), (Block)message.GetInteger(2)
                 )
         {

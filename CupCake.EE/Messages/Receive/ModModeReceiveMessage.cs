@@ -6,7 +6,7 @@ namespace CupCake.EE.Messages.Receive
     {
         public readonly int UserId;
 
-        internal ModModeReceiveMessage(Message message)
+        public ModModeReceiveMessage(Message message)
             : base(message)
         {
             this.UserId = message.GetInteger(0);

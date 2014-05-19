@@ -8,7 +8,7 @@ namespace CupCake.EE.Messages.Receive
         public readonly Smiley Face;
         public readonly int UserId;
 
-        internal FaceReceiveMessage(Message message)
+        public FaceReceiveMessage(Message message)
             : base(message)
         {
             this.UserId = message.GetInteger(0);
