@@ -9,9 +9,9 @@ namespace CupCake.Log.Services
         {
         }
 
-        public void Log(LogPriority priority, string message)
+        public void Log(string source, LogPriority priority, string message)
         {
-            this.EventsPlatform.Event<LogEventArgs>().Raise(this, new LogEventArgs(priority, message));
+            this.EventsPlatform.Event<LogEventArgs>().Raise(this, new LogEventArgs(source, priority, message));
         }
     }
 }

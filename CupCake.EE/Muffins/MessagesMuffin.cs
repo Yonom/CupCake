@@ -1,12 +1,14 @@
-﻿using CupCake.Core.Services;
+﻿using CupCake.API.Muffins;
+using CupCake.Core.Services;
 using CupCake.EE.Messages;
 using CupCake.EE.Messages.Receive;
 using CupCake.EE.Messages.Send;
+using CupCake.Log.Log;
 using PlayerIOClient;
 
-namespace CupCake.EE.Services
+namespace CupCake.EE.Muffins
 {
-    public class EEService : CupCakeService
+    public class MessagesMuffin : CupCakeMuffin
     {
         public MessageManager MessageManager { get; private set; }
 
@@ -112,6 +114,10 @@ namespace CupCake.EE.Services
             if (this.MessageManager.Contains(e.Type))
             {
                 this.MessageManager[e.Type].Invoke(sender, e);
+            }
+            else
+            {
+                this.LogService.Log(LogPriority.Debug, "Received unregistered message with type: " + e.Type);
             }
         }
 

@@ -1,6 +1,5 @@
 ﻿using System;
 using CupCake.Core.Platforms;
-using CupCake.EE.Services;
 using CupCake.Log.Services;
 using MuffinFramework.Muffins;
 
@@ -13,17 +12,20 @@ namespace CupCake.API.Muffins
     public abstract class CupCakeMuffin<T> : Muffin<T>
     {
         private readonly Lazy<ConnectionPlatform> _connectionPlatform;
-        private readonly Lazy<EEService> _eeService;
         private readonly Lazy<EventsPlatform> _eventsPlatform;
-        private readonly Lazy<LogService> _logService;
+        private readonly Lazy<Logger> _logger;
 
         protected CupCakeMuffin()
         {
             this._eventsPlatform = new Lazy<EventsPlatform>(() => this.PlatformLoader.Get<EventsPlatform>());
             this._connectionPlatform = new Lazy<ConnectionPlatform>(() => this.PlatformLoader.Get<ConnectionPlatform>());
 
-            this._eeService = new Lazy<EEService>(() => this.ServiceLoader.Get<EEService>());
-            this._logService = new Lazy<LogService>(() => this.ServiceLoader.Get<LogService>());
+            this._logger = new Lazy<Logger>(() =>
+            {
+                var logService = this.ServiceLoader.Get<LogService>();
+                var name = this.GetName();
+                return new Logger(logService, name);
+            });
         }
 
         public EventsPlatform EventsPlatform
@@ -36,14 +38,14 @@ namespace CupCake.API.Muffins
             get { return this._connectionPlatform.Value; }
         }
 
-        public EEService EEService
+        public Logger Logger
         {
-            get { return this._eeService.Value; }
+            get { return this._logger.Value; }
         }
 
-        public LogService LogService
+        public virtual string GetName()
         {
-            get { return this._logService.Value; }
+            return this.GetType().Name;
         }
     }
 }

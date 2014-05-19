@@ -140,7 +140,7 @@
     <Compile Include="Messages\Send\TouchPlayerSendMessage.cs" />
     <Compile Include="Messages\Send\WootUpSendMessage.cs" />
     <Compile Include="Messages\Send\WorldPortalPlaceSendMessage.cs" />
-    <Compile Include="Services\EEService.cs" />
+    <Compile Include="Muffins\MessagesMuffin.cs" />
     <Compile Include="Players\AccountType.cs" />
     <Compile Include="Players\AutoText.cs" />
     <Compile Include="Players\MagicClass.cs" />
@@ -150,9 +150,17 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
+    <ProjectReference Include="..\CupCake.API\CupCake.API.csproj">
+      <Project>{cf660140-cc8d-40a0-8a0a-9d58540dec9b}</Project>
+      <Name>CupCake.API</Name>
+    </ProjectReference>
     <ProjectReference Include="..\CupCake.Core\CupCake.Core.csproj">
       <Project>{598d616c-4886-482b-af57-7bc7daa56cce}</Project>
       <Name>CupCake.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CupCake.Log\CupCake.Log.csproj">
+      <Project>{6624E732-2C08-445A-8406-9DDE1737A79B}</Project>
+      <Name>CupCake.Log</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

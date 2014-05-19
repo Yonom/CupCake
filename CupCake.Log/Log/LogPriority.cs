@@ -2,6 +2,7 @@
 {
     public enum LogPriority
     {
+        Debug,
         Message,
         Warning,
         Error
