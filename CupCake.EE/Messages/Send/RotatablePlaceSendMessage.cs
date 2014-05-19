@@ -5,7 +5,7 @@ namespace CupCake.EE.Messages.Send
 {
     public class RotatablePlaceSendMessage : BlockPlaceSendMessage
     {
-        public readonly int Rotation;
+        public int Rotation { get; set; }
 
         public RotatablePlaceSendMessage(string encryption, Layer layer, int x, int y, RotatableBlock block,
             int rotation)

@@ -4,10 +4,9 @@ namespace CupCake.EE.Messages.Send
 {
     public sealed class CoinSendMessage : SendMessage
     {
-        public readonly int CoinX;
-
-        public readonly int CoinY;
-        public readonly int Coins;
+        public int CoinX { get; set; }
+        public int CoinY { get; set; }
+        public int Coins { get; set; }
 
         public CoinSendMessage(int coins, int coinX, int coinY)
         {

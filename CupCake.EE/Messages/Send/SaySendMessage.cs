@@ -4,7 +4,7 @@ namespace CupCake.EE.Messages.Send
 {
     public sealed class SaySendMessage : SendMessage
     {
-        public readonly string Text;
+        public string Text { get; set; }
 
         public SaySendMessage(string text)
         {

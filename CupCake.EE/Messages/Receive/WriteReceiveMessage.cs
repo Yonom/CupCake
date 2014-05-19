@@ -4,8 +4,8 @@ namespace CupCake.EE.Messages.Receive
 {
     public sealed class WriteReceiveMessage : ReceiveMessage
     {
-        public readonly string Text;
-        public readonly string Title;
+        public string Text { get; private set; }
+        public string Title { get; private set; }
 
         public WriteReceiveMessage(Message message)
             : base(message)

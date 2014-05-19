@@ -6,7 +6,7 @@ namespace CupCake.EE.Messages.Receive
 {
     public sealed class HideKeyReceiveMessage : ReceiveMessage
     {
-        public readonly Key[] Keys;
+        public Key[] Keys { get; private set; }
 
         public HideKeyReceiveMessage(Message message)
             : base(message)

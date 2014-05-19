@@ -1,6 +1,6 @@
 ﻿using PlayerIOClient;
 
-namespace CupCake.EE.Messages
+namespace CupCake.Messages
 {
     public interface IRegisteredMessage
     {

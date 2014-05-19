@@ -6,7 +6,7 @@ namespace CupCake.EE.Messages.Send
 {
     public sealed class PotionSendMessage : SendMessage
     {
-        public readonly Potion Potion;
+        public Potion Potion { get; set; }
 
         public PotionSendMessage(string encryption, Potion potion)
         {

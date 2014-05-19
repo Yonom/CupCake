@@ -5,7 +5,7 @@ namespace CupCake.EE.Messages.Send
 {
     public sealed class AutoSaySendMessage : SendMessage
     {
-        public readonly AutoText Text;
+        public AutoText Text { get; set; }
 
         public AutoSaySendMessage(AutoText text)
         {

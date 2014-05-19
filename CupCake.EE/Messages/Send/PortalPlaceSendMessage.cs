@@ -6,10 +6,9 @@ namespace CupCake.EE.Messages.Send
 {
     public sealed class PortalPlaceSendMessage : BlockPlaceSendMessage
     {
-        public readonly int PortalId;
-
-        public readonly PortalRotation PortalRotation;
-        public readonly int PortalTarget;
+        public int PortalId { get; set; }
+        public PortalRotation PortalRotation { get; set; }
+        public int PortalTarget { get; set; }
 
         public PortalPlaceSendMessage(string encryption, Layer layer, int x, int y, PortalBlock block, int portalId,
             int portalTarget, PortalRotation portalRotation)

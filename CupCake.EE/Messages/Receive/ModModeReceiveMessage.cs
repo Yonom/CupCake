@@ -4,7 +4,7 @@ namespace CupCake.EE.Messages.Receive
 {
     public sealed class ModModeReceiveMessage : ReceiveMessage
     {
-        public readonly int UserId;
+        public int UserId { get; private set; }
 
         public ModModeReceiveMessage(Message message)
             : base(message)

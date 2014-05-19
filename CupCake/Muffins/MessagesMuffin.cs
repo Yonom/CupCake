@@ -1,12 +1,11 @@
 ﻿using CupCake.API.Muffins;
-using CupCake.Core.Services;
-using CupCake.EE.Messages;
 using CupCake.EE.Messages.Receive;
 using CupCake.EE.Messages.Send;
 using CupCake.Log.Log;
+using CupCake.Messages;
 using PlayerIOClient;
 
-namespace CupCake.EE.Muffins
+namespace CupCake.Muffins
 {
     public class MessagesMuffin : CupCakeMuffin
     {
@@ -128,7 +127,10 @@ namespace CupCake.EE.Muffins
 
         private void OnSendMessage(object sender, SendMessage e)
         {
-            this.ConnectionPlatform.Connection.Send(e.GetMessage());
+            if (!e.Cancelled)
+            {
+                this.ConnectionPlatform.Connection.Send(e.GetMessage());
+            }
         }
     }
 }

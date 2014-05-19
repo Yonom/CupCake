@@ -4,7 +4,7 @@ namespace CupCake.EE.Messages.Receive
 {
     public sealed class SilverCrownReceiveMessage : ReceiveMessage
     {
-        public readonly int UserId;
+        public int UserId { get; private set; }
 
         public SilverCrownReceiveMessage(Message message)
             : base(message)

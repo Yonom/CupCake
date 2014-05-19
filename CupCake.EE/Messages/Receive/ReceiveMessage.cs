@@ -7,9 +7,9 @@ namespace CupCake.EE.Messages.Receive
     public abstract class ReceiveMessage : EventArgs
     {
         [EditorBrowsable(EditorBrowsableState.Advanced)]
-        public readonly Message PlayerIOMessage;
+        public Message PlayerIOMessage { get; private set; }
 
-        public ReceiveMessage(Message message)
+        protected ReceiveMessage(Message message)
         {
             this.PlayerIOMessage = message;
         }

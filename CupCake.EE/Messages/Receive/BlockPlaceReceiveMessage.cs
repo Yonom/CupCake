@@ -5,10 +5,10 @@ namespace CupCake.EE.Messages.Receive
 {
     public class BlockPlaceReceiveMessage : ReceiveMessage
     {
-        public readonly Block Block;
-        public readonly Layer Layer;
-        public readonly int PosX;
-        public readonly int PosY;
+        public Block Block { get; private set; }
+        public Layer Layer { get; private set; }
+        public int PosX { get; private set; }
+        public int PosY { get; private set; }
 
         public BlockPlaceReceiveMessage(Message message)
             : base(message)

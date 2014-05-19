@@ -5,11 +5,8 @@ namespace CupCake.EE.Messages.Receive
 {
     public sealed class LabelPlaceReceiveMessage : BlockPlaceReceiveMessage
     {
-        //2
-        public readonly LabelBlock LabelBlock;
-        //3
-
-        public readonly string Text;
+        public LabelBlock LabelBlock { get; private set; }
+        public string Text { get; private set; }
 
         public LabelPlaceReceiveMessage(Message message)
             : base(message, Layer.Foreground, message.GetInteger(0), message.GetInteger(1), (Block)message.GetInteger(2)

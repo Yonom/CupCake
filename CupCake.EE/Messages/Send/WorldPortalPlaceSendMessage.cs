@@ -5,7 +5,7 @@ namespace CupCake.EE.Messages.Send
 {
     public sealed class WorldPortalPlaceSendMessage : BlockPlaceSendMessage
     {
-        public readonly string WorldPortalTarget;
+        public string WorldPortalTarget { get; set; }
 
         public WorldPortalPlaceSendMessage(string encryption, Layer layer, int x, int y, WorldPortalBlock block,
             string worldPortalTarget)

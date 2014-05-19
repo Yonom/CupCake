@@ -4,7 +4,7 @@ namespace CupCake.EE.Messages.Receive
 {
     public class MagicReceiveMessage : ReceiveMessage
     {
-        public readonly int UserId;
+        public int UserId { get; private set; }
 
         public MagicReceiveMessage(Message message)
             : base(message)

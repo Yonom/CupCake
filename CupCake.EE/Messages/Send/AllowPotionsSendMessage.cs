@@ -4,7 +4,7 @@ namespace CupCake.EE.Messages.Send
 {
     public class AllowPotionsSendMessage : SendMessage
     {
-        public readonly bool Allowed;
+        public bool Allowed { get; set; }
 
         public AllowPotionsSendMessage(bool allowed)
         {

@@ -5,7 +5,7 @@ namespace CupCake.EE.Messages.Send
 {
     public sealed class ChangeFaceSendMessage : SendMessage
     {
-        public readonly Smiley Face;
+        public Smiley Face { get; set; }
 
         public ChangeFaceSendMessage(string encryption, Smiley face)
         {

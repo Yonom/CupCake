@@ -4,8 +4,8 @@ namespace CupCake.EE.Messages.Receive
 {
     public sealed class AutoTextReceiveMessage : ReceiveMessage
     {
-        public readonly string AutoText;
-        public readonly int UserId;
+        public string AutoText { get; private set; }
+        public int UserId { get; private set; }
 
         public AutoTextReceiveMessage(Message message)
             : base(message)

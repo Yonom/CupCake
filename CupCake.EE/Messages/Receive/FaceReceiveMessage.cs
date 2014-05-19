@@ -5,8 +5,8 @@ namespace CupCake.EE.Messages.Receive
 {
     public sealed class FaceReceiveMessage : ReceiveMessage
     {
-        public readonly Smiley Face;
-        public readonly int UserId;
+        public Smiley Face { get; private set; }
+        public int UserId { get; private set; }
 
         public FaceReceiveMessage(Message message)
             : base(message)

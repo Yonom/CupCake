@@ -5,8 +5,8 @@ namespace CupCake.EE.Messages.Send
 {
     public class TouchPlayerSendMessage : SendMessage
     {
-        public readonly Potion Reason;
-        public readonly int UserId;
+        public Potion Reason { get; set; }
+        public int UserId { get; set; }
 
         public TouchPlayerSendMessage(int userId, Potion reason)
         {

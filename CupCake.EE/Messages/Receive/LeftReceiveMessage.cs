@@ -4,7 +4,7 @@ namespace CupCake.EE.Messages.Receive
 {
     public sealed class LeftReceiveMessage : ReceiveMessage
     {
-        public readonly int UserId;
+        public int UserId { get; private set; }
 
         public LeftReceiveMessage(Message message)
             : base(message)

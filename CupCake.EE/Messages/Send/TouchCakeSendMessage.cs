@@ -4,9 +4,8 @@ namespace CupCake.EE.Messages.Send
 {
     public sealed class TouchCakeSendMessage : SendMessage
     {
-        public readonly int X;
-
-        public readonly int Y;
+        public int X { get; set; }
+        public int Y { get; set; }
 
         public TouchCakeSendMessage(int x, int y)
         {

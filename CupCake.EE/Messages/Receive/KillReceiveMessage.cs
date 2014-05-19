@@ -4,7 +4,7 @@ namespace CupCake.EE.Messages.Receive
 {
     public class KillReceiveMessage : ReceiveMessage
     {
-        public readonly int UserId;
+        public int UserId { get; private set; }
 
         public KillReceiveMessage(Message message)
             : base(message)

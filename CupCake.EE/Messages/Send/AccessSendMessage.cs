@@ -4,7 +4,7 @@ namespace CupCake.EE.Messages.Send
 {
     public sealed class AccessSendMessage : SendMessage
     {
-        public readonly string EditKey;
+        public string EditKey { get; set; }
 
         public AccessSendMessage(string editKey)
         {

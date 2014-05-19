@@ -4,8 +4,8 @@ namespace CupCake.EE.Messages.Receive
 {
     public sealed class GodModeReceiveMessage : ReceiveMessage
     {
-        public readonly bool IsGod;
-        public readonly int UserId;
+        public bool IsGod { get; private set; }
+        public int UserId { get; private set; }
 
         public GodModeReceiveMessage(Message message)
             : base(message)

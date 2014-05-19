@@ -4,11 +4,11 @@ namespace CupCake.EE.Messages.Receive
 {
     public sealed class UpdateMetaReceiveMessage : ReceiveMessage
     {
-        public readonly int CurrentWoots;
-        public readonly string OwnerUsername;
-        public readonly int Plays;
-        public readonly int TotalWoots;
-        public readonly string WorldName;
+        public int CurrentWoots { get; private set; }
+        public string OwnerUsername { get; private set; }
+        public int Plays { get; private set; }
+        public int TotalWoots { get; private set; }
+        public string WorldName { get; private set; }
 
         public UpdateMetaReceiveMessage(Message message)
             : base(message)

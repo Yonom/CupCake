@@ -4,9 +4,9 @@ namespace CupCake.EE.Messages.Receive
 {
     public sealed class SayOldReceiveMessage : ReceiveMessage
     {
-        public readonly bool IsMyFriend;
-        public readonly string Text;
-        public readonly string Username;
+        public bool IsMyFriend { get; private set; }
+        public string Text { get; private set; }
+        public string Username { get; private set; }
 
         public SayOldReceiveMessage(Message message)
             : base(message)

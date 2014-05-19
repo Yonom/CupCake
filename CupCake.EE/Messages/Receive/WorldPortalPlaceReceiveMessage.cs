@@ -5,11 +5,8 @@ namespace CupCake.EE.Messages.Receive
 {
     public sealed class WorldPortalPlaceReceiveMessage : BlockPlaceReceiveMessage
     {
-        //2
-        public readonly WorldPortalBlock WorldPortalBlock;
-        //3
-
-        public readonly string WorldPortalTarget;
+        public WorldPortalBlock WorldPortalBlock { get; private set; }
+        public string WorldPortalTarget { get; private set; }
 
         public WorldPortalPlaceReceiveMessage(Message message)
             : base(message, Layer.Foreground, message.GetInteger(0), message.GetInteger(1), (Block)message.GetInteger(2)

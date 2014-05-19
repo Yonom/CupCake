@@ -4,16 +4,15 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{6286C997-F01A-438A-AEF5-5D84CEBA4D16}</ProjectGuid>
-    <OutputType>Exe</OutputType>
+    <ProjectGuid>{BE55BBC5-DCDA-4AC8-920F-B6F414187E95}</ProjectGuid>
+    <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>CupCake.Demo</RootNamespace>
-    <AssemblyName>CupCake.Demo</AssemblyName>
+    <RootNamespace>CupCake</RootNamespace>
+    <AssemblyName>CupCake</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -23,7 +22,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -35,25 +33,37 @@
     <Reference Include="MuffinFramework">
       <HintPath>..\Lib\MuffinFramework.dll</HintPath>
     </Reference>
-    <Reference Include="PlayerIOClient, Version=2.3.6.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
+    <Reference Include="PlayerIOClient">
       <HintPath>..\Lib\PlayerIOClient.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Program.cs" />
+    <Compile Include="Class1.cs" />
+    <Compile Include="Messages\IRegisteredMessage.cs" />
+    <Compile Include="Messages\MessageManager.cs" />
+    <Compile Include="Messages\RegisteredMessage.cs" />
+    <Compile Include="Muffins\EEMuffin.cs" />
+    <Compile Include="Muffins\MessagesMuffin.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\CupCake.API\CupCake.API.csproj">
+      <Project>{cf660140-cc8d-40a0-8a0a-9d58540dec9b}</Project>
+      <Name>CupCake.API</Name>
+    </ProjectReference>
     <ProjectReference Include="..\CupCake.Core\CupCake.Core.csproj">
       <Project>{598d616c-4886-482b-af57-7bc7daa56cce}</Project>
       <Name>CupCake.Core</Name>
     </ProjectReference>
-    <ProjectReference Include="..\CupCake\CupCake.csproj">
-      <Project>{be55bbc5-dcda-4ac8-920f-b6f414187e95}</Project>
-      <Name>CupCake</Name>
+    <ProjectReference Include="..\CupCake.EE\CupCake.EE.csproj">
+      <Project>{1934f8dd-1d6a-4ceb-af92-600c44d4e849}</Project>
+      <Name>CupCake.EE</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CupCake.Log\CupCake.Log.csproj">
+      <Project>{6624e732-2c08-445a-8406-9dde1737a79b}</Project>
+      <Name>CupCake.Log</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

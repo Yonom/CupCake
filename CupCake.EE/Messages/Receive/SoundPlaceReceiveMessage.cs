@@ -5,11 +5,8 @@ namespace CupCake.EE.Messages.Receive
 {
     public sealed class SoundPlaceReceiveMessage : BlockPlaceReceiveMessage
     {
-        //2
-        public readonly SoundBlock SoundBlock;
-        //3
-
-        public readonly int SoundId;
+        public SoundBlock SoundBlock { get; private set; }
+        public int SoundId { get; private set; }
 
         public SoundPlaceReceiveMessage(Message message)
             : base(message, Layer.Foreground, message.GetInteger(0), message.GetInteger(1), (Block)message.GetInteger(2)

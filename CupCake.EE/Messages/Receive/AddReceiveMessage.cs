@@ -5,19 +5,19 @@ namespace CupCake.EE.Messages.Receive
 {
     public sealed class AddReceiveMessage : ReceiveMessage
     {
-        public readonly int Coins;
-        public readonly Smiley Face;
-        public readonly bool HasChat;
-        public readonly bool IsClubMember;
-        public readonly bool IsGod;
-        public readonly bool IsMod;
-        public readonly bool IsMyFriend;
-        public readonly bool IsPurple;
-        public readonly MagicClass MagicClass;
-        public readonly int PlayerPosX;
-        public readonly int PlayerPosY;
-        public readonly int UserId;
-        public readonly string Username;
+        public int Coins { get; private set; }
+        public Smiley Face { get; private set; }
+        public bool HasChat { get; private set; }
+        public bool IsClubMember { get; private set; }
+        public bool IsGod { get; private set; }
+        public bool IsMod { get; private set; }
+        public bool IsMyFriend { get; private set; }
+        public bool IsPurple { get; private set; }
+        public MagicClass MagicClass { get; private set; }
+        public int PlayerPosX { get; private set; }
+        public int PlayerPosY { get; private set; }
+        public int UserId { get; private set; }
+        public string Username { get; private set; }
 
         public AddReceiveMessage(Message message)
             : base(message)

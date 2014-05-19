@@ -3,7 +3,7 @@ using CupCake.Core.Platforms;
 using CupCake.EE.Messages.Receive;
 using PlayerIOClient;
 
-namespace CupCake.EE.Messages
+namespace CupCake.Messages
 {
     public class RegisteredMessage<T> : IRegisteredMessage where T : ReceiveMessage
     {

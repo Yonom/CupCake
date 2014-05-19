@@ -4,7 +4,7 @@ namespace CupCake.EE.Messages.Send
 {
     public sealed class ChangeWorldNameSendMessage : SendMessage
     {
-        public readonly string WorldName;
+        public string WorldName { get; set; }
 
         public ChangeWorldNameSendMessage(string worldName)
         {

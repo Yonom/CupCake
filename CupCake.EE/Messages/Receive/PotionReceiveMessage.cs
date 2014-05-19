@@ -5,10 +5,10 @@ namespace CupCake.EE.Messages.Receive
 {
     public sealed class PotionReceiveMessage : ReceiveMessage
     {
-        public readonly bool Enabled;
-        public readonly Potion Potion;
-        public readonly int Timeout;
-        public readonly int UserId;
+        public bool Enabled { get; private set; }
+        public Potion Potion { get; private set; }
+        public int Timeout { get; private set; }
+        public int UserId { get; private set; }
 
         public PotionReceiveMessage(Message message)
             : base(message)

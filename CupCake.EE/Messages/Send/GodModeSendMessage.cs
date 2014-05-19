@@ -4,7 +4,7 @@ namespace CupCake.EE.Messages.Send
 {
     public sealed class GodModeSendMessage : SendMessage
     {
-        public readonly bool GodModeEnabled;
+        public bool GodModeEnabled { get; set; }
 
         public GodModeSendMessage(bool godModeEnabled)
         {

@@ -5,12 +5,14 @@ namespace CupCake.EE.Messages.Receive
 {
     public sealed class TeleportEveryoneReceiveMessage : ReceiveMessage
     {
-        public readonly Dictionary<int, Point> Coordinates = new Dictionary<int, Point>();
-        public readonly bool ResetCoins;
+        public Dictionary<int, Point> Coordinates { get; private set; }
+        public bool ResetCoins { get; private set; }
 
         public TeleportEveryoneReceiveMessage(Message message)
             : base(message)
         {
+            this.Coordinates = new Dictionary<int, Point>();
+
             this.ResetCoins = message.GetBoolean(0);
 
             for (uint i = 1; i <= message.Count - 1u; i += 3)

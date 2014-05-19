@@ -5,11 +5,8 @@ namespace CupCake.EE.Messages.Receive
 {
     public sealed class CoinDoorPlaceReceiveMessage : BlockPlaceReceiveMessage
     {
-        //2
-        public readonly CoinDoorBlock CoinDoorBlock;
-        //3
-
-        public readonly int CoinsToOpen;
+        public CoinDoorBlock CoinDoorBlock { get; private set; }
+        public int CoinsToOpen { get; private set; }
 
         public CoinDoorPlaceReceiveMessage(Message message)
             : base(message, Layer.Foreground, message.GetInteger(0), message.GetInteger(1), (Block)message.GetInteger(2)

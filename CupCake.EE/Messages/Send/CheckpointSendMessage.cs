@@ -4,9 +4,8 @@ namespace CupCake.EE.Messages.Send
 {
     public class CheckpointSendMessage : SendMessage
     {
-        public readonly int X;
-
-        public readonly int Y;
+        public int X { get; set; }
+        public int Y { get; set; }
 
         public CheckpointSendMessage(int x, int y)
         {

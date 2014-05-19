@@ -5,7 +5,7 @@ namespace CupCake.EE.Messages.Send
 {
     public sealed class CoinDoorPlaceSendMessage : BlockPlaceSendMessage
     {
-        public readonly int CoinsToCollect;
+        public int CoinsToCollect { get; set; }
 
         public CoinDoorPlaceSendMessage(string encryption, Layer layer, int x, int y, CoinDoorBlock block,
             int coinsToCollect)

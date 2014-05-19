@@ -4,23 +4,23 @@ namespace CupCake.EE.Messages.Receive
 {
     public sealed class InitReceiveMessage : ReceiveMessage
     {
-        public readonly bool AllowPotions;
-        public readonly bool CanEdit;
-        public readonly int CurrentWoots;
-        public readonly string Encryption;
-        public readonly double Gravity;
-        public readonly bool IsOwner;
-        public readonly bool IsTutorialRoom;
-        public readonly string OwnerUsername;
-        public readonly int Plays;
-        public readonly int SizeX;
-        public readonly int SizeY;
-        public readonly int SpawnX;
-        public readonly int SpawnY;
-        public readonly int TotalWoots;
-        public readonly int UserId;
-        public readonly string Username;
-        public readonly string WorldName;
+        public bool AllowPotions { get; private set; }
+        public bool CanEdit { get; private set; }
+        public int CurrentWoots { get; private set; }
+        public string Encryption { get; private set; }
+        public double Gravity { get; private set; }
+        public bool IsOwner { get; private set; }
+        public bool IsTutorialRoom { get; private set; }
+        public string OwnerUsername { get; private set; }
+        public int Plays { get; private set; }
+        public int SizeX { get; private set; }
+        public int SizeY { get; private set; }
+        public int SpawnX { get; private set; }
+        public int SpawnY { get; private set; }
+        public int TotalWoots { get; private set; }
+        public int UserId { get; private set; }
+        public string Username { get; private set; }
+        public string WorldName { get; private set; }
 
         public InitReceiveMessage(Message message)
             : base(message)

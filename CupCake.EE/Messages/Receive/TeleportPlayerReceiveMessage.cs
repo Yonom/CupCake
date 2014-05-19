@@ -4,9 +4,9 @@ namespace CupCake.EE.Messages.Receive
 {
     public sealed class TeleportPlayerReceiveMessage : ReceiveMessage
     {
-        public readonly int PlayerPosX;
-        public readonly int PlayerPosY;
-        public readonly int UserId;
+        public  int PlayerPosX { get; private set; }
+        public  int PlayerPosY { get; private set; }
+        public  int UserId { get; private set; }
 
         public TeleportPlayerReceiveMessage(Message message)
             : base(message)

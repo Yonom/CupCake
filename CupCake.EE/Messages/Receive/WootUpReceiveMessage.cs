@@ -4,7 +4,7 @@ namespace CupCake.EE.Messages.Receive
 {
     public class WootUpReceiveMessage : ReceiveMessage
     {
-        public readonly int UserId;
+        public int UserId { get; private set; }
 
         public WootUpReceiveMessage(Message message)
             : base(message)

@@ -30,9 +30,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="MuffinFramework">
-      <HintPath>..\Lib\MuffinFramework.dll</HintPath>
-    </Reference>
     <Reference Include="PlayerIOClient">
       <HintPath>..\Lib\PlayerIOClient.dll</HintPath>
     </Reference>
@@ -55,8 +52,6 @@
     <Compile Include="Blocks\SoundBlock.cs" />
     <Compile Include="Blocks\SpikeRotation.cs" />
     <Compile Include="Blocks\WorldPortalBlock.cs" />
-    <Compile Include="Messages\IRegisteredMessage.cs" />
-    <Compile Include="Messages\MessageManager.cs" />
     <Compile Include="Messages\Receive\AccessReceiveMessage.cs" />
     <Compile Include="Messages\Receive\AddReceiveMessage.cs" />
     <Compile Include="Messages\Receive\AllowPotionsReceiveMessage.cs" />
@@ -103,7 +98,6 @@
     <Compile Include="Messages\Receive\WootUpReceiveMessage.cs" />
     <Compile Include="Messages\Receive\WorldPortalPlaceReceiveMessage.cs" />
     <Compile Include="Messages\Receive\WriteReceiveMessage.cs" />
-    <Compile Include="Messages\RegisteredMessage.cs" />
     <Compile Include="Messages\Send\AccessSendMessage.cs" />
     <Compile Include="Messages\Send\AllowPotionsSendMessage.cs" />
     <Compile Include="Messages\Send\AutoSaySendMessage.cs" />
@@ -140,8 +134,6 @@
     <Compile Include="Messages\Send\TouchPlayerSendMessage.cs" />
     <Compile Include="Messages\Send\WootUpSendMessage.cs" />
     <Compile Include="Messages\Send\WorldPortalPlaceSendMessage.cs" />
-    <Compile Include="Muffins\EEMuffin.cs" />
-    <Compile Include="Muffins\MessagesMuffin.cs" />
     <Compile Include="Players\AccountType.cs" />
     <Compile Include="Players\AutoText.cs" />
     <Compile Include="Players\MagicClass.cs" />
@@ -150,20 +142,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup />
-  <ItemGroup>
-    <ProjectReference Include="..\CupCake.API\CupCake.API.csproj">
-      <Project>{cf660140-cc8d-40a0-8a0a-9d58540dec9b}</Project>
-      <Name>CupCake.API</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\CupCake.Core\CupCake.Core.csproj">
-      <Project>{598d616c-4886-482b-af57-7bc7daa56cce}</Project>
-      <Name>CupCake.Core</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\CupCake.Log\CupCake.Log.csproj">
-      <Project>{6624E732-2C08-445A-8406-9DDE1737A79B}</Project>
-      <Name>CupCake.Log</Name>
-    </ProjectReference>
-  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
