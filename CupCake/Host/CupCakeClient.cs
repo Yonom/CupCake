@@ -14,6 +14,9 @@ namespace CupCake.Host
         public CupCakeClient(Connection connection)
             : base(new ComposablePartCatalog[0])
         {
+            if (connection == null)
+                throw new ArgumentNullException("connection");
+
             this._connection = connection;
 
             this.AggregateCatalog.Catalogs.Add(new DirectoryCatalog(AppDomain.CurrentDomain.BaseDirectory));

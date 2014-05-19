@@ -41,7 +41,6 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
     <Compile Include="Host\CupCakeClient.cs" />
     <Compile Include="Messages\IRegisteredMessage.cs" />
     <Compile Include="Messages\MessageManager.cs" />
