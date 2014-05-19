@@ -6,7 +6,7 @@ using CupCake.EE.Blocks;
 
 namespace CupCake.API
 {
-    class Chatter
+    public class Chatter
     {
         public ChatService ChatService { get; set; }
         public string Name { get; set; }
