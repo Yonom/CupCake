@@ -1,4 +1,5 @@
 ﻿using System;
+using CupCake.Chat.Services;
 using CupCake.Core.Platforms;
 using CupCake.Log.Services;
 using MuffinFramework.Muffins;
@@ -14,6 +15,7 @@ namespace CupCake.API.Muffins
         private readonly Lazy<ConnectionPlatform> _connectionPlatform;
         private readonly Lazy<EventsPlatform> _eventsPlatform;
         private readonly Lazy<Logger> _logger;
+        private readonly Lazy<Chatter> _chatter;
 
         protected CupCakeMuffin()
         {
@@ -25,6 +27,13 @@ namespace CupCake.API.Muffins
                 var logService = this.ServiceLoader.Get<LogService>();
                 string name = this.GetName();
                 return new Logger(logService, name);
+            });
+
+            this._chatter = new Lazy<Chatter>(() =>
+            {
+                var chatService = this.ServiceLoader.Get<ChatService>();
+                string name = this.GetName();
+                return new Chatter(chatService, name);
             });
         }
 
@@ -41,6 +50,11 @@ namespace CupCake.API.Muffins
         public Logger Logger
         {
             get { return this._logger.Value; }
+        }
+
+        public Chatter Chatter
+        {
+            get { return this._chatter.Value; }
         }
 
         public virtual string GetName()
