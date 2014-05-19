@@ -2,6 +2,7 @@
 using CupCake.Chat.Services;
 using CupCake.Core.Platforms;
 using CupCake.Log.Services;
+using CupCake.World;
 using MuffinFramework.Muffins;
 
 namespace CupCake.API.Muffins
@@ -16,6 +17,7 @@ namespace CupCake.API.Muffins
         private readonly Lazy<EventsPlatform> _eventsPlatform;
         private readonly Lazy<Logger> _logger;
         private readonly Lazy<Chatter> _chatter;
+        private readonly Lazy<WorldService> _worldService;
 
         protected CupCakeMuffin()
         {
@@ -35,6 +37,8 @@ namespace CupCake.API.Muffins
                 string name = this.GetName();
                 return new Chatter(chatService, name);
             });
+
+            this._worldService = new Lazy<WorldService>(() => this.ServiceLoader.Get<WorldService>());
         }
 
         public EventsPlatform EventsPlatform
@@ -55,6 +59,11 @@ namespace CupCake.API.Muffins
         public Chatter Chatter
         {
             get { return this._chatter.Value; }
+        }
+
+        public WorldService WorldService
+        {
+            get { return this._worldService.Value; }
         }
 
         public virtual string GetName()

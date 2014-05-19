@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using CupCake.API.Muffins;
 using CupCake.EE.Messages.Receive;
-using CupCake.Log.Log;
+using CupCake.Log;
 
 namespace CupCake.Muffins
 {

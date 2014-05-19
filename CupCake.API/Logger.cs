@@ -1,4 +1,4 @@
-﻿using CupCake.Log.Log;
+﻿using CupCake.Log;
 using CupCake.Log.Services;
 
 namespace CupCake.API

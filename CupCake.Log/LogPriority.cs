@@ -1,4 +1,4 @@
-﻿namespace CupCake.Log.Log
+﻿namespace CupCake.Log
 {
     public enum LogPriority
     {

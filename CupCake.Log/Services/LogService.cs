@@ -1,5 +1,4 @@
 ﻿using CupCake.Core.Services;
-using CupCake.Log.Log;
 
 namespace CupCake.Log.Services
 {

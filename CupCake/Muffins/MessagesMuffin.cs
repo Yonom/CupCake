@@ -1,7 +1,7 @@
 ﻿using CupCake.API.Muffins;
 using CupCake.EE.Messages.Receive;
 using CupCake.EE.Messages.Send;
-using CupCake.Log.Log;
+using CupCake.Log;
 using CupCake.Messages;
 using PlayerIOClient;
 

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace CupCake.Log.Log
+namespace CupCake.Log
 {
     public class LogEventArgs : EventArgs
     {

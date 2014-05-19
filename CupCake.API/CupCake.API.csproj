@@ -59,6 +59,10 @@
       <Project>{6624e732-2c08-445a-8406-9dde1737a79b}</Project>
       <Name>CupCake.Log</Name>
     </ProjectReference>
+    <ProjectReference Include="..\CupCake.World\CupCake.World.csproj">
+      <Project>{a5791bdd-9b10-4597-8605-083ed4365d31}</Project>
+      <Name>CupCake.World</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
