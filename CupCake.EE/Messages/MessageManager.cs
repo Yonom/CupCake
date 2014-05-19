@@ -18,27 +18,45 @@ namespace CupCake.EE.Messages
 
         public IRegisteredMessage this[string str]
         {
-            get { return this._messageDictionary[str]; }
+            get
+            {
+                lock (this._messageDictionary)
+                {
+                    return this._messageDictionary[str];
+                }
+            }
         }
 
         public void RegisterMessage<T>(string str) where T : ReceiveMessage
         {
-            this._messageDictionary.Add(str, new RegisteredMessage<T>(this._eventsPlatform));
+            lock (this._messageDictionary)
+            {
+                this._messageDictionary.Add(str, new RegisteredMessage<T>(this._eventsPlatform));
+            }
         }
 
         public void UnRegisterMessage(string str)
         {
-            this._messageDictionary.Remove(str);
+            lock (this._messageDictionary)
+            {
+                this._messageDictionary.Remove(str);
+            }
         }
 
         public bool Contains(string str)
         {
-            return this._messageDictionary.ContainsKey(str);
+            lock (this._messageDictionary)
+            {
+                return this._messageDictionary.ContainsKey(str);
+            }
         }
 
         public void UnRegisterAll()
         {
-            this._messageDictionary.Clear();
+            lock (this._messageDictionary)
+            {
+                this._messageDictionary.Clear();
+            }
         }
     }
 }
