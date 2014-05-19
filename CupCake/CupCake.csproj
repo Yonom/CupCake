@@ -45,6 +45,7 @@
     <Compile Include="Messages\IRegisteredMessage.cs" />
     <Compile Include="Messages\MessageManager.cs" />
     <Compile Include="Messages\RegisteredMessage.cs" />
+    <Compile Include="Muffins\BasicLogMuffin.cs" />
     <Compile Include="Muffins\EEMuffin.cs" />
     <Compile Include="Muffins\MessagesMuffin.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
