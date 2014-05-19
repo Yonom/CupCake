@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using CupCake.API.Muffins;
+﻿using CupCake.API.Muffins;
 using CupCake.EE.Messages.Receive;
 using CupCake.Log;
 
@@ -11,7 +8,7 @@ namespace CupCake.Muffins
     {
         protected override void Enable()
         {
-            this.EventsPlatform.Event<SayReceiveMessage>().Bind(OnSay);
+            this.EventsPlatform.Event<SayReceiveMessage>().Bind(this.OnSay);
         }
 
         private void OnSay(object sender, SayReceiveMessage e)

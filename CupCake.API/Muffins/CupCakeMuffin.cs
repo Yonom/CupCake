@@ -13,10 +13,10 @@ namespace CupCake.API.Muffins
 
     public abstract class CupCakeMuffin<T> : Muffin<T>
     {
+        private readonly Lazy<Chatter> _chatter;
         private readonly Lazy<ConnectionPlatform> _connectionPlatform;
         private readonly Lazy<EventsPlatform> _eventsPlatform;
         private readonly Lazy<Logger> _logger;
-        private readonly Lazy<Chatter> _chatter;
         private readonly Lazy<WorldService> _worldService;
 
         protected CupCakeMuffin()

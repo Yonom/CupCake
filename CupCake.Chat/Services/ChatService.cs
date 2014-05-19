@@ -168,7 +168,7 @@ namespace CupCake.Chat.Services
         {
             this.SendChat("/respawnall");
         }
-        
+
         public void PotionsOn(params string[] potions)
         {
             this.SendChat("/potionson  " + string.Join(" ", potions));

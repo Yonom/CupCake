@@ -1,21 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using CupCake.Chat.Services;
+﻿using CupCake.Chat.Services;
 using CupCake.EE.Blocks;
 
 namespace CupCake.API
 {
     public class Chatter
     {
-        public ChatService ChatService { get; set; }
-        public string Name { get; set; }
-
         public Chatter(ChatService chatService, string name)
         {
             this.ChatService = chatService;
             this.Name = name;
         }
+
+        public ChatService ChatService { get; set; }
+        public string Name { get; set; }
 
         public void Chat(string msg)
         {
@@ -29,7 +26,7 @@ namespace CupCake.API
 
         public void Reply(string username, string msg)
         {
-            this.ChatService.Reply(username, Name, msg);
+            this.ChatService.Reply(username, this.Name, msg);
         }
 
         public void GiveEdit(string username)
@@ -54,12 +51,12 @@ namespace CupCake.API
 
         public void Kick(string username)
         {
-            this.ChatService.Kick(Name, username);
+            this.ChatService.Kick(this.Name, username);
         }
 
         public void Kick(string username, string reason)
         {
-            this.ChatService.Kick(Name, username, reason);
+            this.ChatService.Kick(this.Name, username, reason);
         }
 
         public void KickGuests()
