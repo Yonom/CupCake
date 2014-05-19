@@ -37,13 +37,11 @@
       <HintPath>..\Lib\PlayerIOClient.dll</HintPath>
     </Reference>
     <Reference Include="System" />
-    <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Events\EventManager.cs" />
     <Compile Include="Events\EventPriority.cs" />
-    <Compile Include="Host\CupCakeClient.cs" />
     <Compile Include="Platforms\ConnectionPlatform.cs" />
     <Compile Include="Platforms\EventsPlatform.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

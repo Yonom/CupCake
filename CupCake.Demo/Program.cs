@@ -1,5 +1,5 @@
 ﻿using System.Threading;
-using CupCake.Core.Host;
+using CupCake.Host;
 using PlayerIOClient;
 
 namespace CupCake.Demo
@@ -10,8 +10,8 @@ namespace CupCake.Demo
 
         private static void Main(string[] args)
         {
-            var playerioclient = PlayerIO.QuickConnect.SimpleConnect(GameId, "sepi1376@gmail.com", "1346279");
-            var connection = playerioclient.Multiplayer.JoinRoom("PWWkBWyGyla0I", null);
+            Client playerioclient = PlayerIO.QuickConnect.SimpleConnect(GameId, "sepi1376@gmail.com", "1346279");
+            Connection connection = playerioclient.Multiplayer.JoinRoom("PWWkBWyGyla0I", null);
 
             var client = new CupCakeClient(connection);
             client.Start();

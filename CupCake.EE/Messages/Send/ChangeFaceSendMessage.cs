@@ -5,13 +5,13 @@ namespace CupCake.EE.Messages.Send
 {
     public sealed class ChangeFaceSendMessage : SendMessage
     {
-        public Smiley Face { get; set; }
-
         public ChangeFaceSendMessage(string encryption, Smiley face)
         {
             this.Encryption = encryption;
             this.Face = face;
         }
+
+        public Smiley Face { get; set; }
 
         public string Encryption { get; set; }
 

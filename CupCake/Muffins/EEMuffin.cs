@@ -1,4 +1,5 @@
-﻿using CupCake.API.Muffins;
+﻿using System;
+using CupCake.API.Muffins;
 using CupCake.EE.Messages.Receive;
 using CupCake.EE.Messages.Send;
 
@@ -13,7 +14,7 @@ namespace CupCake.Muffins
             this.EventsPlatform.Event<InitReceiveMessage>().Bind(this.OnInit);
         }
 
-        void MuffinLoader_EnableComplete(object sender, System.EventArgs e)
+        private void MuffinLoader_EnableComplete(object sender, EventArgs e)
         {
             this.EventsPlatform.Event<InitSendMessage>().Raise(this, new InitSendMessage());
         }

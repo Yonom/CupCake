@@ -109,7 +109,7 @@ namespace CupCake.Muffins
         }
 
         private void Connection_OnMessage(object sender, Message e)
-        { 
+        {
             if (this.MessageManager.Contains(e.Type))
             {
                 this.MessageManager[e.Type].Invoke(sender, e);

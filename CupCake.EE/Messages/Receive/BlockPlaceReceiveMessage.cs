@@ -5,11 +5,6 @@ namespace CupCake.EE.Messages.Receive
 {
     public class BlockPlaceReceiveMessage : ReceiveMessage
     {
-        public Block Block { get; private set; }
-        public Layer Layer { get; private set; }
-        public int PosX { get; private set; }
-        public int PosY { get; private set; }
-
         public BlockPlaceReceiveMessage(Message message)
             : base(message)
         {
@@ -27,5 +22,10 @@ namespace CupCake.EE.Messages.Receive
             this.PosY = posY;
             this.Block = block;
         }
+
+        public Block Block { get; private set; }
+        public Layer Layer { get; private set; }
+        public int PosX { get; private set; }
+        public int PosY { get; private set; }
     }
 }

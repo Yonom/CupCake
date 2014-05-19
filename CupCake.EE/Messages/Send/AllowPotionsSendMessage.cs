@@ -4,12 +4,12 @@ namespace CupCake.EE.Messages.Send
 {
     public class AllowPotionsSendMessage : SendMessage
     {
-        public bool Allowed { get; set; }
-
         public AllowPotionsSendMessage(bool allowed)
         {
             this.Allowed = allowed;
         }
+
+        public bool Allowed { get; set; }
 
         public override Message GetMessage()
         {

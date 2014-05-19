@@ -6,11 +6,6 @@ namespace CupCake.EE.Messages.Send
 {
     public class BlockPlaceSendMessage : SendMessage
     {
-        public Block Block { get; set; }
-        public Layer Layer { get; set; }
-        public int X { get; set; }
-        public int Y { get; set; }
-
         public BlockPlaceSendMessage(string encryption, Layer layer, int x, int y, Block block)
         {
             this.Encryption = encryption;
@@ -19,6 +14,11 @@ namespace CupCake.EE.Messages.Send
             this.Y = y;
             this.Block = block;
         }
+
+        public Block Block { get; set; }
+        public Layer Layer { get; set; }
+        public int X { get; set; }
+        public int Y { get; set; }
 
         public string Encryption { get; set; }
 

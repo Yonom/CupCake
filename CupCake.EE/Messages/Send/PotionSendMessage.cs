@@ -6,13 +6,13 @@ namespace CupCake.EE.Messages.Send
 {
     public sealed class PotionSendMessage : SendMessage
     {
-        public Potion Potion { get; set; }
-
         public PotionSendMessage(string encryption, Potion potion)
         {
             this.Encryption = encryption;
             this.Potion = potion;
         }
+
+        public Potion Potion { get; set; }
 
         public string Encryption { get; set; }
 

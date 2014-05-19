@@ -5,9 +5,6 @@ namespace CupCake.EE.Messages.Receive
 {
     public sealed class TeleportEveryoneReceiveMessage : ReceiveMessage
     {
-        public Dictionary<int, Point> Coordinates { get; private set; }
-        public bool ResetCoins { get; private set; }
-
         public TeleportEveryoneReceiveMessage(Message message)
             : base(message)
         {
@@ -21,5 +18,8 @@ namespace CupCake.EE.Messages.Receive
                     new Point(message.GetInteger(i + 1u), message.GetInteger(i + 2u)));
             }
         }
+
+        public Dictionary<int, Point> Coordinates { get; private set; }
+        public bool ResetCoins { get; private set; }
     }
 }

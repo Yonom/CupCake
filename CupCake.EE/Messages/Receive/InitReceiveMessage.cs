@@ -4,24 +4,6 @@ namespace CupCake.EE.Messages.Receive
 {
     public sealed class InitReceiveMessage : ReceiveMessage
     {
-        public bool AllowPotions { get; private set; }
-        public bool CanEdit { get; private set; }
-        public int CurrentWoots { get; private set; }
-        public string Encryption { get; private set; }
-        public double Gravity { get; private set; }
-        public bool IsOwner { get; private set; }
-        public bool IsTutorialRoom { get; private set; }
-        public string OwnerUsername { get; private set; }
-        public int Plays { get; private set; }
-        public int SizeX { get; private set; }
-        public int SizeY { get; private set; }
-        public int SpawnX { get; private set; }
-        public int SpawnY { get; private set; }
-        public int TotalWoots { get; private set; }
-        public int UserId { get; private set; }
-        public string Username { get; private set; }
-        public string WorldName { get; private set; }
-
         public InitReceiveMessage(Message message)
             : base(message)
         {
@@ -43,5 +25,23 @@ namespace CupCake.EE.Messages.Receive
             this.Gravity = message.GetDouble(15);
             this.AllowPotions = message.GetBoolean(16);
         }
+
+        public bool AllowPotions { get; private set; }
+        public bool CanEdit { get; private set; }
+        public int CurrentWoots { get; private set; }
+        public string Encryption { get; private set; }
+        public double Gravity { get; private set; }
+        public bool IsOwner { get; private set; }
+        public bool IsTutorialRoom { get; private set; }
+        public string OwnerUsername { get; private set; }
+        public int Plays { get; private set; }
+        public int SizeX { get; private set; }
+        public int SizeY { get; private set; }
+        public int SpawnX { get; private set; }
+        public int SpawnY { get; private set; }
+        public int TotalWoots { get; private set; }
+        public int UserId { get; private set; }
+        public string Username { get; private set; }
+        public string WorldName { get; private set; }
     }
 }

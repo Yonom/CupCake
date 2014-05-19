@@ -5,14 +5,14 @@ namespace CupCake.EE.Messages.Send
 {
     public class RotatablePlaceSendMessage : BlockPlaceSendMessage
     {
-        public int Rotation { get; set; }
-
         public RotatablePlaceSendMessage(string encryption, Layer layer, int x, int y, RotatableBlock block,
             int rotation)
             : base(encryption, layer, x, y, (Block)block)
         {
             this.Rotation = rotation;
         }
+
+        public int Rotation { get; set; }
 
         public override Message GetMessage()
         {

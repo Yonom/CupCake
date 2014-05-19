@@ -5,11 +5,6 @@ namespace CupCake.EE.Messages.Receive
 {
     public sealed class PotionReceiveMessage : ReceiveMessage
     {
-        public bool Enabled { get; private set; }
-        public Potion Potion { get; private set; }
-        public int Timeout { get; private set; }
-        public int UserId { get; private set; }
-
         public PotionReceiveMessage(Message message)
             : base(message)
         {
@@ -18,5 +13,10 @@ namespace CupCake.EE.Messages.Receive
             this.Enabled = message.GetBoolean(2);
             this.Timeout = message.GetInteger(3);
         }
+
+        public bool Enabled { get; private set; }
+        public Potion Potion { get; private set; }
+        public int Timeout { get; private set; }
+        public int UserId { get; private set; }
     }
 }

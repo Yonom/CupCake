@@ -4,12 +4,6 @@ namespace CupCake.EE.Messages.Receive
 {
     public sealed class UpdateMetaReceiveMessage : ReceiveMessage
     {
-        public int CurrentWoots { get; private set; }
-        public string OwnerUsername { get; private set; }
-        public int Plays { get; private set; }
-        public int TotalWoots { get; private set; }
-        public string WorldName { get; private set; }
-
         public UpdateMetaReceiveMessage(Message message)
             : base(message)
         {
@@ -19,5 +13,11 @@ namespace CupCake.EE.Messages.Receive
             this.CurrentWoots = message.GetInteger(3);
             this.TotalWoots = message.GetInteger(4);
         }
+
+        public int CurrentWoots { get; private set; }
+        public string OwnerUsername { get; private set; }
+        public int Plays { get; private set; }
+        public int TotalWoots { get; private set; }
+        public string WorldName { get; private set; }
     }
 }

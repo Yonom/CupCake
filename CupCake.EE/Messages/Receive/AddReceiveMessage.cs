@@ -5,20 +5,6 @@ namespace CupCake.EE.Messages.Receive
 {
     public sealed class AddReceiveMessage : ReceiveMessage
     {
-        public int Coins { get; private set; }
-        public Smiley Face { get; private set; }
-        public bool HasChat { get; private set; }
-        public bool IsClubMember { get; private set; }
-        public bool IsGod { get; private set; }
-        public bool IsMod { get; private set; }
-        public bool IsMyFriend { get; private set; }
-        public bool IsPurple { get; private set; }
-        public MagicClass MagicClass { get; private set; }
-        public int PlayerPosX { get; private set; }
-        public int PlayerPosY { get; private set; }
-        public int UserId { get; private set; }
-        public string Username { get; private set; }
-
         public AddReceiveMessage(Message message)
             : base(message)
         {
@@ -36,5 +22,19 @@ namespace CupCake.EE.Messages.Receive
             this.MagicClass = (MagicClass)message.GetInteger(11);
             this.IsClubMember = message.GetBoolean(12);
         }
+
+        public int Coins { get; private set; }
+        public Smiley Face { get; private set; }
+        public bool HasChat { get; private set; }
+        public bool IsClubMember { get; private set; }
+        public bool IsGod { get; private set; }
+        public bool IsMod { get; private set; }
+        public bool IsMyFriend { get; private set; }
+        public bool IsPurple { get; private set; }
+        public MagicClass MagicClass { get; private set; }
+        public int PlayerPosX { get; private set; }
+        public int PlayerPosY { get; private set; }
+        public int UserId { get; private set; }
+        public string Username { get; private set; }
     }
 }

@@ -6,8 +6,6 @@ namespace CupCake.EE.Messages.Receive
 {
     public sealed class HideKeyReceiveMessage : ReceiveMessage
     {
-        public Key[] Keys { get; private set; }
-
         public HideKeyReceiveMessage(Message message)
             : base(message)
         {
@@ -17,5 +15,7 @@ namespace CupCake.EE.Messages.Receive
                 this.Keys[Convert.ToInt32(i)] = (Key)Enum.Parse(typeof(Key), message.GetString(i), true);
             }
         }
+
+        public Key[] Keys { get; private set; }
     }
 }

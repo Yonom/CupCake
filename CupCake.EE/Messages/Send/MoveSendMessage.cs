@@ -4,16 +4,6 @@ namespace CupCake.EE.Messages.Send
 {
     public sealed class MoveSendMessage : SendMessage
     {
-        public double GravityMultiplier { get; set; }
-        public double Horizontal { get; set; }
-        public double ModifierX { get; set; }
-        public double ModifierY { get; set; }
-        public int PosX { get; set; }
-        public int PosY { get; set; }
-        public double SpeedX { get; set; }
-        public double SpeedY { get; set; }
-        public double Vertical { get; set; }
-
         public MoveSendMessage(int posX, int posY, double speedX, double speedY, double modifierX, double modifierY,
             double horizontal, double vertical, double gravityMultiplier)
         {
@@ -27,6 +17,16 @@ namespace CupCake.EE.Messages.Send
             this.Vertical = vertical;
             this.GravityMultiplier = gravityMultiplier;
         }
+
+        public double GravityMultiplier { get; set; }
+        public double Horizontal { get; set; }
+        public double ModifierX { get; set; }
+        public double ModifierY { get; set; }
+        public int PosX { get; set; }
+        public int PosY { get; set; }
+        public double SpeedX { get; set; }
+        public double SpeedY { get; set; }
+        public double Vertical { get; set; }
 
         public override Message GetMessage()
         {

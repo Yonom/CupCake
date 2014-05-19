@@ -4,12 +4,12 @@ namespace CupCake.EE.Messages.Send
 {
     public sealed class ChangeWorldEditKeySendMessage : SendMessage
     {
-        public string EditKey { get; set; }
-
         public ChangeWorldEditKeySendMessage(string editKey)
         {
             this.EditKey = editKey;
         }
+
+        public string EditKey { get; set; }
 
         public override Message GetMessage()
         {

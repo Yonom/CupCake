@@ -4,18 +4,6 @@ namespace CupCake.EE.Messages.Receive
 {
     public sealed class MoveReceiveMessage : ReceiveMessage
     {
-        public int Coins { get; private set; }
-        public double Horizontal { get; private set; }
-        public bool IsPurple { get; private set; }
-        public double ModifierX { get; private set; }
-        public double ModifierY { get; private set; }
-        public int PlayerPosX { get; private set; }
-        public int PlayerPosY { get; private set; }
-        public double SpeedX { get; private set; }
-        public double SpeedY { get; private set; }
-        public int UserId { get; private set; }
-        public double Vertical { get; private set; }
-
         public MoveReceiveMessage(Message message)
             : base(message)
         {
@@ -31,6 +19,18 @@ namespace CupCake.EE.Messages.Receive
             this.Coins = message.GetInteger(9);
             this.IsPurple = message.GetBoolean(10);
         }
+
+        public int Coins { get; private set; }
+        public double Horizontal { get; private set; }
+        public bool IsPurple { get; private set; }
+        public double ModifierX { get; private set; }
+        public double ModifierY { get; private set; }
+        public int PlayerPosX { get; private set; }
+        public int PlayerPosY { get; private set; }
+        public double SpeedX { get; private set; }
+        public double SpeedY { get; private set; }
+        public int UserId { get; private set; }
+        public double Vertical { get; private set; }
 
         public int BlockX
         {

@@ -5,7 +5,7 @@ using CupCake.Core.Platforms;
 using MuffinFramework;
 using PlayerIOClient;
 
-namespace CupCake.Core.Host
+namespace CupCake.Host
 {
     public class CupCakeClient : MuffinClient
     {

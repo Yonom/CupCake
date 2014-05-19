@@ -5,14 +5,14 @@ namespace CupCake.EE.Messages.Send
 {
     public sealed class WorldPortalPlaceSendMessage : BlockPlaceSendMessage
     {
-        public string WorldPortalTarget { get; set; }
-
         public WorldPortalPlaceSendMessage(string encryption, Layer layer, int x, int y, WorldPortalBlock block,
             string worldPortalTarget)
             : base(encryption, layer, x, y, (Block)block)
         {
             this.WorldPortalTarget = worldPortalTarget;
         }
+
+        public string WorldPortalTarget { get; set; }
 
         public override Message GetMessage()
         {

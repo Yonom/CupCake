@@ -23,7 +23,7 @@ namespace CupCake.API.Muffins
             this._logger = new Lazy<Logger>(() =>
             {
                 var logService = this.ServiceLoader.Get<LogService>();
-                var name = this.GetName();
+                string name = this.GetName();
                 return new Logger(logService, name);
             });
         }

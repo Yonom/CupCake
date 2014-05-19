@@ -4,10 +4,6 @@ namespace CupCake.EE.Messages.Receive
 {
     public sealed class TeleportPlayerReceiveMessage : ReceiveMessage
     {
-        public  int PlayerPosX { get; private set; }
-        public  int PlayerPosY { get; private set; }
-        public  int UserId { get; private set; }
-
         public TeleportPlayerReceiveMessage(Message message)
             : base(message)
         {
@@ -15,6 +11,10 @@ namespace CupCake.EE.Messages.Receive
             this.PlayerPosX = message.GetInteger(1);
             this.PlayerPosY = message.GetInteger(2);
         }
+
+        public int PlayerPosX { get; private set; }
+        public int PlayerPosY { get; private set; }
+        public int UserId { get; private set; }
 
         public int BlockX
         {

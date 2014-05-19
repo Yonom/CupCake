@@ -5,11 +5,6 @@ namespace CupCake.EE.Messages.Receive
 {
     public sealed class PortalPlaceReceiveMessage : BlockPlaceReceiveMessage
     {
-        public PortalBlock PortalBlock { get; private set; }
-        public int PortalId { get; private set; }
-        public PortalRotation PortalRotation { get; private set; }
-        public int PortalTarget { get; private set; }
-
         public PortalPlaceReceiveMessage(Message message)
             : base(message, Layer.Foreground, message.GetInteger(0), message.GetInteger(1), (Block)message.GetInteger(2)
                 )
@@ -19,5 +14,10 @@ namespace CupCake.EE.Messages.Receive
             this.PortalId = message.GetInteger(4);
             this.PortalTarget = message.GetInteger(5);
         }
+
+        public PortalBlock PortalBlock { get; private set; }
+        public int PortalId { get; private set; }
+        public PortalRotation PortalRotation { get; private set; }
+        public int PortalTarget { get; private set; }
     }
 }

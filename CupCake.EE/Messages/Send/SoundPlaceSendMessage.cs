@@ -5,13 +5,13 @@ namespace CupCake.EE.Messages.Send
 {
     public sealed class SoundPlaceSendMessage : BlockPlaceSendMessage
     {
-        public int SoundId { get; set; }
-
         public SoundPlaceSendMessage(string encryption, Layer layer, int x, int y, SoundBlock block, int soundId)
             : base(encryption, layer, x, y, (Block)block)
         {
             this.SoundId = soundId;
         }
+
+        public int SoundId { get; set; }
 
         public override Message GetMessage()
         {
