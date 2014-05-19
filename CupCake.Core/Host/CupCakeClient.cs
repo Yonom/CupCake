@@ -17,12 +17,12 @@ namespace CupCake.Core.Host
             this._connection = connection;
 
             this.AggregateCatalog.Catalogs.Add(new DirectoryCatalog(AppDomain.CurrentDomain.BaseDirectory));
-            this.PlatformLoader.EnableComplete += PlatformLoader_EnableComplete;
+            this.PlatformLoader.EnableComplete += this.PlatformLoader_EnableComplete;
         }
 
-        void PlatformLoader_EnableComplete(object sender, EventArgs e)
+        private void PlatformLoader_EnableComplete(object sender, EventArgs e)
         {
-            this.PlatformLoader.Get<ConnectionPlatform>().Connection = _connection;
+            this.PlatformLoader.Get<ConnectionPlatform>().Connection = this._connection;
         }
     }
 }

@@ -1,8 +1,5 @@
-﻿using System;
-using System.Linq;
-using System.Threading;
+﻿using System.Threading;
 using CupCake.Core.Host;
-using CupCake.Core.Platforms;
 
 namespace CupCake.Demo
 {

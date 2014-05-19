@@ -1,10 +1,9 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 
 namespace CupCake.Core.Events
 {
-    public class EventManager<T> : ICollection<EventHandler<T>> where T : EventArgs
+    public class EventManager<T> where T : EventArgs
     {
         private static readonly Dictionary<int, EventManager<T>> _eventManagers = new Dictionary<int, EventManager<T>>();
 
@@ -14,57 +13,50 @@ namespace CupCake.Core.Events
         {
         }
 
-        public IEnumerator<EventHandler<T>> GetEnumerator()
+        public int Count
         {
-            return this._eventHandlers.GetEnumerator();
-        }
-
-        IEnumerator IEnumerable.GetEnumerator()
-        {
-            return this.GetEnumerator();
-        }
-
-        void ICollection<EventHandler<T>>.Add(EventHandler<T> item)
-        {
-            this.Bind(item);
+            get
+            {
+                lock (this._eventHandlers)
+                {
+                    return this._eventHandlers.Count;
+                }
+            }
         }
 
         public void Clear()
         {
-            this._eventHandlers.Clear();
+            lock (this._eventHandlers)
+            {
+                this._eventHandlers.Clear();
+            }
         }
 
         public bool Contains(EventHandler<T> item)
         {
-            return this._eventHandlers.Contains(item);
-        }
-
-        public void CopyTo(EventHandler<T>[] array, int arrayIndex)
-        {
-            this._eventHandlers.CopyTo(array, arrayIndex);
+            lock (this._eventHandlers)
+            {
+                return this._eventHandlers.Contains(item);
+            }
         }
 
         public bool Remove(EventHandler<T> item)
         {
-            return this._eventHandlers.Remove(item);
-        }
-
-        public int Count
-        {
-            get { return this._eventHandlers.Count; }
-        }
-
-        public bool IsReadOnly
-        {
-            get { return false; }
+            lock (this._eventHandlers)
+            {
+                return this._eventHandlers.Remove(item);
+            }
         }
 
         internal static EventManager<T> Get(int id)
         {
-            if (!_eventManagers.ContainsKey(id))
-                _eventManagers[id] = new EventManager<T>();
+            lock (_eventManagers)
+            {
+                if (!_eventManagers.ContainsKey(id))
+                    _eventManagers[id] = new EventManager<T>();
 
-            return _eventManagers[id];
+                return _eventManagers[id];
+            }
         }
 
         public void Bind(EventHandler<T> callback)
@@ -74,24 +66,30 @@ namespace CupCake.Core.Events
 
         public void Bind(EventHandler<T> callback, EventPriority priority)
         {
-            switch (priority)
+            lock (this._eventHandlers)
             {
-                case EventPriority.Normal:
-                    this._eventHandlers.AddLast(callback);
-                    break;
-                case EventPriority.BeforeMost:
-                    this._eventHandlers.AddFirst(callback);
-                    break;
-                default:
-                    throw new InvalidOperationException("Unknown priority.");
+                switch (priority)
+                {
+                    case EventPriority.Normal:
+                        this._eventHandlers.AddLast(callback);
+                        break;
+                    case EventPriority.BeforeMost:
+                        this._eventHandlers.AddFirst(callback);
+                        break;
+                    default:
+                        throw new InvalidOperationException("Unknown priority.");
+                }
             }
         }
 
         public void Raise(object sender, T e)
         {
-            foreach (var handler in this._eventHandlers)
+            lock (this._eventHandlers)
             {
-                handler.Invoke(sender, e);
+                foreach (var handler in this._eventHandlers)
+                {
+                    handler.Invoke(sender, e);
+                }
             }
         }
     }
