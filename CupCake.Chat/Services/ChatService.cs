@@ -12,13 +12,13 @@ namespace CupCake.Chat.Services
     {
         private readonly Queue<SaySendMessage> _myChatQueue = new Queue<SaySendMessage>();
         private readonly List<string> _myHistoryList = new List<string>();
-
         private Timer _mySendTimer;
+
         public IChatSyntaxProvider ChatSyntaxProvider { get; set; }
 
         protected override void Enable()
         {
-            //TODO: Set Provider
+            this.ChatSyntaxProvider = new BasicChatSyntaxProvider();
 
             this._mySendTimer = new Timer(700);
             this._mySendTimer.Elapsed += this.SendTimer_Elapsed;
