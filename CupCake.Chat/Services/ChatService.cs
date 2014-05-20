@@ -221,11 +221,14 @@ namespace CupCake.Chat.Services
             this.SendChat("/loadlevel");
         }
 
-        public override void Dispose()
+        protected override void Dispose(bool disposing)
         {
-            this._myHistoryList.Clear();
-            this._myChatQueue.Clear();
-            this._mySendTimer.Dispose();
+            if (disposing)
+            {
+                this._myHistoryList.Clear();
+                this._myChatQueue.Clear();
+                this._mySendTimer.Dispose();
+            }
         }
     }
 }

@@ -4,7 +4,7 @@ using CupCake.Core.Platforms;
 
 namespace CupCake.Core.Events
 {
-    public class EventManager
+    public class EventManager : IDisposable
     {
         private readonly List<IBinding> _bindings = new List<IBinding>();
         private readonly object _sender;
@@ -16,6 +16,12 @@ namespace CupCake.Core.Events
         }
 
         public EventsPlatform EventsPlatform { get; set; }
+
+        public void Dispose()
+        {
+            this.Dispose(true);
+            GC.SuppressFinalize(this);
+        }
 
         public void Bind<T>(EventHandler<T> callback, EventPriority priority = EventPriority.Normal) where T : Event
         {
@@ -35,6 +41,20 @@ namespace CupCake.Core.Events
             }
         }
 
+        protected virtual void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                lock (this._bindings)
+                {
+                    foreach (IBinding binding in this._bindings)
+                    {
+                        binding.Unsubscribe();
+                    }
+                }
+            }
+        }
+
         private class Binding<T> : IBinding where T : Event
         {
             private readonly EventHandler<T> _callback;
@@ -50,12 +70,18 @@ namespace CupCake.Core.Events
 
             public void Subscribe()
             {
-                this._parent.EventsPlatform.Event<T>().Bind(this._callback, this._priority);
+                if (!this._parent.EventsPlatform.Event<T>().Contains(this._callback))
+                {
+                    this._parent.EventsPlatform.Event<T>().Bind(this._callback, this._priority);
+                }
             }
 
             public void Unsubscribe()
             {
-                this._parent.EventsPlatform.Event<T>().Remove(this._callback);
+                if (this._parent.EventsPlatform.Event<T>().Contains(this._callback))
+                {
+                    this._parent.EventsPlatform.Event<T>().Remove(this._callback);
+                }
             }
         }
 
