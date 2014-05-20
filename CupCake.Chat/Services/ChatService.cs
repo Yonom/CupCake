@@ -4,13 +4,13 @@ using System.Linq;
 using System.Timers;
 using CupCake.Core.Services;
 using CupCake.EE.Blocks;
-using CupCake.EE.Messages.Send;
+using CupCake.EE.Events.Send;
 
 namespace CupCake.Chat.Services
 {
     public class ChatService : CupCakeService
     {
-        private readonly Queue<SaySendMessage> _myChatQueue = new Queue<SaySendMessage>();
+        private readonly Queue<SaySendEvent> _myChatQueue = new Queue<SaySendEvent>();
         private readonly List<string> _myHistoryList = new List<string>();
         private Timer _mySendTimer;
 
@@ -36,7 +36,7 @@ namespace CupCake.Chat.Services
             {
                 if (this._myChatQueue.Count > 0)
                 {
-                    this.EventsPlatform.Event<SaySendMessage>().Raise(this, this._myChatQueue.Dequeue());
+                    this.EventsPlatform.Event<SaySendEvent>().Raise(this, this._myChatQueue.Dequeue());
                 }
                 else
                 {
@@ -55,7 +55,7 @@ namespace CupCake.Chat.Services
             // There is no speed limit on commands
             if (msg.StartsWith("/", StringComparison.Ordinal))
             {
-                this.EventsPlatform.Event<SaySendMessage>().Raise(this, new SaySendMessage(msg.Substring(0, 80)));
+                this.EventsPlatform.Event<SaySendEvent>().Raise(this, new SaySendEvent(msg.Substring(0, 80)));
                 return;
             }
 
@@ -81,8 +81,8 @@ namespace CupCake.Chat.Services
                 {
                     int left = msg.Length - i;
                     this._myChatQueue.Enqueue(left >= 80
-                        ? new SaySendMessage(msg.Substring(i, 80))
-                        : new SaySendMessage(msg.Substring(i, left)));
+                        ? new SaySendEvent(msg.Substring(i, 80))
+                        : new SaySendEvent(msg.Substring(i, left)));
                 }
             }
 
@@ -225,7 +225,7 @@ namespace CupCake.Chat.Services
         {
             this._myHistoryList.Clear();
             this._myChatQueue.Clear();
-            this._mySendTimer.Enabled = false;
+            this._mySendTimer.Dispose();
         }
     }
 }

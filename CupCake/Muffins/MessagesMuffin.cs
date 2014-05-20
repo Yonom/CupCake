@@ -1,6 +1,6 @@
 ﻿using CupCake.API.Muffins;
-using CupCake.EE.Messages.Receive;
-using CupCake.EE.Messages.Send;
+using CupCake.EE.Events.Receive;
+using CupCake.EE.Events.Send;
 using CupCake.Log;
 using CupCake.Messages;
 using PlayerIOClient;
@@ -17,95 +17,95 @@ namespace CupCake.Muffins
             this.MessageManager = new MessageManager(this.EventsPlatform);
 
             // Register all EE messages
-            this.MessageManager.RegisterMessage<InitReceiveMessage>("init");
-            this.MessageManager.RegisterMessage<InfoReceiveMessage>("info");
-            this.MessageManager.RegisterMessage<UpgradeReceiveMessage>("upgrade");
-            this.MessageManager.RegisterMessage<UpdateMetaReceiveMessage>("updatemeta");
-            this.MessageManager.RegisterMessage<ShowKeyReceiveMessage>("show");
-            this.MessageManager.RegisterMessage<HideKeyReceiveMessage>("hide");
-            this.MessageManager.RegisterMessage<AddReceiveMessage>("add");
-            this.MessageManager.RegisterMessage<LeftReceiveMessage>("left");
-            this.MessageManager.RegisterMessage<MoveReceiveMessage>("m");
-            this.MessageManager.RegisterMessage<FaceReceiveMessage>("face");
-            this.MessageManager.RegisterMessage<PotionReceiveMessage>("p");
-            this.MessageManager.RegisterMessage<CoinReceiveMessage>("c");
-            this.MessageManager.RegisterMessage<CrownReceiveMessage>("k");
-            this.MessageManager.RegisterMessage<SilverCrownReceiveMessage>("ks");
-            this.MessageManager.RegisterMessage<MagicReceiveMessage>("w");
-            this.MessageManager.RegisterMessage<LevelUpReceiveMessage>("levelup");
-            this.MessageManager.RegisterMessage<GodModeReceiveMessage>("god");
-            this.MessageManager.RegisterMessage<ModModeReceiveMessage>("mod");
-            this.MessageManager.RegisterMessage<WootUpReceiveMessage>("wu");
-            this.MessageManager.RegisterMessage<AllowPotionsReceiveMessage>("allowpotions");
-            this.MessageManager.RegisterMessage<KillReceiveMessage>("kill");
-            this.MessageManager.RegisterMessage<AccessReceiveMessage>("access");
-            this.MessageManager.RegisterMessage<LostAccessReceiveMessage>("lostaccess");
-            this.MessageManager.RegisterMessage<ResetReceiveMessage>("reset");
-            this.MessageManager.RegisterMessage<TeleportEveryoneReceiveMessage>("tele");
-            this.MessageManager.RegisterMessage<TeleportPlayerReceiveMessage>("teleport");
-            this.MessageManager.RegisterMessage<SaveDoneReceiveMessage>("saved");
-            this.MessageManager.RegisterMessage<ClearReceiveMessage>("clear");
-            this.MessageManager.RegisterMessage<SayReceiveMessage>("say");
-            this.MessageManager.RegisterMessage<SayOldReceiveMessage>("say_old");
-            this.MessageManager.RegisterMessage<AutoTextReceiveMessage>("autotext");
-            this.MessageManager.RegisterMessage<WriteReceiveMessage>("write");
-            this.MessageManager.RegisterMessage<BlockPlaceReceiveMessage>("b");
-            this.MessageManager.RegisterMessage<CoinDoorPlaceReceiveMessage>("bc");
-            this.MessageManager.RegisterMessage<SoundPlaceReceiveMessage>("bs");
-            this.MessageManager.RegisterMessage<RotatablePlaceReceiveMessage>("br");
-            this.MessageManager.RegisterMessage<PortalPlaceReceiveMessage>("pt");
-            this.MessageManager.RegisterMessage<WorldPortalPlaceReceiveMessage>("wp");
-            this.MessageManager.RegisterMessage<LabelPlaceReceiveMessage>("lb");
-            this.MessageManager.RegisterMessage<LabelPlaceReceiveMessage>("ts");
-            this.MessageManager.RegisterMessage<GiveWizardReceiveMessage>("givewizard");
-            this.MessageManager.RegisterMessage<GiveFireWizardReceiveMessage>("givewizard2");
-            this.MessageManager.RegisterMessage<GiveDarkWizardReceiveMessage>("givedarkwizard");
-            this.MessageManager.RegisterMessage<GiveWitchReceiveMessage>("givewitch");
-            this.MessageManager.RegisterMessage<GiveGrinchReceiveMessage>("givegrinch");
-            this.MessageManager.RegisterMessage<RefreshShopReceiveMessage>("refreshshop");
+            this.MessageManager.RegisterMessage<InitReceiveEvent>("init");
+            this.MessageManager.RegisterMessage<InfoReceiveEvent>("info");
+            this.MessageManager.RegisterMessage<UpgradeReceiveEvent>("upgrade");
+            this.MessageManager.RegisterMessage<UpdateMetaReceiveEvent>("updatemeta");
+            this.MessageManager.RegisterMessage<ShowKeyReceiveEvent>("show");
+            this.MessageManager.RegisterMessage<HideKeyReceiveEvent>("hide");
+            this.MessageManager.RegisterMessage<AddReceiveEvent>("add");
+            this.MessageManager.RegisterMessage<LeftReceiveEvent>("left");
+            this.MessageManager.RegisterMessage<MoveReceiveEvent>("m");
+            this.MessageManager.RegisterMessage<FaceReceiveEvent>("face");
+            this.MessageManager.RegisterMessage<PotionReceiveEvent>("p");
+            this.MessageManager.RegisterMessage<CoinReceiveEvent>("c");
+            this.MessageManager.RegisterMessage<CrownReceiveEvent>("k");
+            this.MessageManager.RegisterMessage<SilverCrownReceiveEvent>("ks");
+            this.MessageManager.RegisterMessage<MagicReceiveEvent>("w");
+            this.MessageManager.RegisterMessage<LevelUpReceiveEvent>("levelup");
+            this.MessageManager.RegisterMessage<GodModeReceiveEvent>("god");
+            this.MessageManager.RegisterMessage<ModModeReceiveEvent>("mod");
+            this.MessageManager.RegisterMessage<WootUpReceiveEvent>("wu");
+            this.MessageManager.RegisterMessage<AllowPotionsReceiveEvent>("allowpotions");
+            this.MessageManager.RegisterMessage<KillReceiveEvent>("kill");
+            this.MessageManager.RegisterMessage<AccessReceiveEvent>("access");
+            this.MessageManager.RegisterMessage<LostAccessReceiveEvent>("lostaccess");
+            this.MessageManager.RegisterMessage<ResetReceiveEvent>("reset");
+            this.MessageManager.RegisterMessage<TeleportEveryoneReceiveEvent>("tele");
+            this.MessageManager.RegisterMessage<TeleportPlayerReceiveEvent>("teleport");
+            this.MessageManager.RegisterMessage<SaveDoneReceiveEvent>("saved");
+            this.MessageManager.RegisterMessage<ClearReceiveEvent>("clear");
+            this.MessageManager.RegisterMessage<SayReceiveEvent>("say");
+            this.MessageManager.RegisterMessage<SayOldReceiveEvent>("say_old");
+            this.MessageManager.RegisterMessage<AutoTextReceiveEvent>("autotext");
+            this.MessageManager.RegisterMessage<WriteReceiveEvent>("write");
+            this.MessageManager.RegisterMessage<BlockPlaceReceiveEvent>("b");
+            this.MessageManager.RegisterMessage<CoinDoorPlaceReceiveEvent>("bc");
+            this.MessageManager.RegisterMessage<SoundPlaceReceiveEvent>("bs");
+            this.MessageManager.RegisterMessage<RotatablePlaceReceiveEvent>("br");
+            this.MessageManager.RegisterMessage<PortalPlaceReceiveEvent>("pt");
+            this.MessageManager.RegisterMessage<WorldPortalPlaceReceiveEvent>("wp");
+            this.MessageManager.RegisterMessage<LabelPlaceReceiveEvent>("lb");
+            this.MessageManager.RegisterMessage<LabelPlaceReceiveEvent>("ts");
+            this.MessageManager.RegisterMessage<GiveWizardReceiveEvent>("givewizard");
+            this.MessageManager.RegisterMessage<GiveFireWizardReceiveEvent>("givewizard2");
+            this.MessageManager.RegisterMessage<GiveDarkWizardReceiveEvent>("givedarkwizard");
+            this.MessageManager.RegisterMessage<GiveWitchReceiveEvent>("givewitch");
+            this.MessageManager.RegisterMessage<GiveGrinchReceiveEvent>("givegrinch");
+            this.MessageManager.RegisterMessage<RefreshShopReceiveEvent>("refreshshop");
 
             // Bind OnMessage
             this.ConnectionPlatform.Connection.OnMessage += this.Connection_OnMessage;
 
-            // Bind SendMessage event
-            this.EventsPlatform.Event<SendMessage>().Bind(this.OnSendMessage);
+            // Bind SendEvent event
+            this.EventsPlatform.Event<SendEvent>().Bind(this.OnSendEvent);
 
-            // Bind all SendMessage events
-            this.EventsPlatform.Event<InitSendMessage>().Bind(this.OnAnySendMessage);
-            this.EventsPlatform.Event<Init2SendMessage>().Bind(this.OnAnySendMessage);
-            this.EventsPlatform.Event<BlockPlaceSendMessage>().Bind(this.OnAnySendMessage);
-            this.EventsPlatform.Event<CoinDoorPlaceSendMessage>().Bind(this.OnAnySendMessage);
-            this.EventsPlatform.Event<RotatablePlaceSendMessage>().Bind(this.OnAnySendMessage);
-            this.EventsPlatform.Event<SoundPlaceSendMessage>().Bind(this.OnAnySendMessage);
-            this.EventsPlatform.Event<PortalPlaceSendMessage>().Bind(this.OnAnySendMessage);
-            this.EventsPlatform.Event<WorldPortalPlaceSendMessage>().Bind(this.OnAnySendMessage);
-            this.EventsPlatform.Event<LabelPlaceSendMessage>().Bind(this.OnAnySendMessage);
-            this.EventsPlatform.Event<CoinSendMessage>().Bind(this.OnAnySendMessage);
-            this.EventsPlatform.Event<PressRedKeySendMessage>().Bind(this.OnAnySendMessage);
-            this.EventsPlatform.Event<PressBlueKeySendMessage>().Bind(this.OnAnySendMessage);
-            this.EventsPlatform.Event<PressGreenKeySendMessage>().Bind(this.OnAnySendMessage);
-            this.EventsPlatform.Event<GetCrownSendMessage>().Bind(this.OnAnySendMessage);
-            this.EventsPlatform.Event<TouchDiamondSendMessage>().Bind(this.OnAnySendMessage);
-            this.EventsPlatform.Event<TouchCakeSendMessage>().Bind(this.OnAnySendMessage);
-            this.EventsPlatform.Event<CompleteLevelSendMessage>().Bind(this.OnAnySendMessage);
-            this.EventsPlatform.Event<GodModeSendMessage>().Bind(this.OnAnySendMessage);
-            this.EventsPlatform.Event<ModModeSendMessage>().Bind(this.OnAnySendMessage);
-            this.EventsPlatform.Event<MoveSendMessage>().Bind(this.OnAnySendMessage);
-            this.EventsPlatform.Event<SaySendMessage>().Bind(this.OnAnySendMessage);
-            this.EventsPlatform.Event<AutoSaySendMessage>().Bind(this.OnAnySendMessage);
-            this.EventsPlatform.Event<AccessSendMessage>().Bind(this.OnAnySendMessage);
-            this.EventsPlatform.Event<ChangeFaceSendMessage>().Bind(this.OnAnySendMessage);
-            this.EventsPlatform.Event<SaveWorldSendMessage>().Bind(this.OnAnySendMessage);
-            this.EventsPlatform.Event<ChangeWorldNameSendMessage>().Bind(this.OnAnySendMessage);
-            this.EventsPlatform.Event<ChangeWorldEditKeySendMessage>().Bind(this.OnAnySendMessage);
-            this.EventsPlatform.Event<ClearWorldSendMessage>().Bind(this.OnAnySendMessage);
-            this.EventsPlatform.Event<KillWorldSendMessage>().Bind(this.OnAnySendMessage);
-            this.EventsPlatform.Event<PotionSendMessage>().Bind(this.OnAnySendMessage);
-            this.EventsPlatform.Event<AllowPotionsSendMessage>().Bind(this.OnAnySendMessage);
-            this.EventsPlatform.Event<WootUpSendMessage>().Bind(this.OnAnySendMessage);
-            this.EventsPlatform.Event<DeathSendMessage>().Bind(this.OnAnySendMessage);
-            this.EventsPlatform.Event<CheckpointSendMessage>().Bind(this.OnAnySendMessage);
-            this.EventsPlatform.Event<TouchPlayerSendMessage>().Bind(this.OnAnySendMessage);
+            // Bind all SendEvent events
+            this.EventsPlatform.Event<InitSendEvent>().Bind(this.OnAnySendEvent);
+            this.EventsPlatform.Event<Init2SendEvent>().Bind(this.OnAnySendEvent);
+            this.EventsPlatform.Event<BlockPlaceSendEvent>().Bind(this.OnAnySendEvent);
+            this.EventsPlatform.Event<CoinDoorPlaceSendEvent>().Bind(this.OnAnySendEvent);
+            this.EventsPlatform.Event<RotatablePlaceSendEvent>().Bind(this.OnAnySendEvent);
+            this.EventsPlatform.Event<SoundPlaceSendEvent>().Bind(this.OnAnySendEvent);
+            this.EventsPlatform.Event<PortalPlaceSendEvent>().Bind(this.OnAnySendEvent);
+            this.EventsPlatform.Event<WorldPortalPlaceSendEvent>().Bind(this.OnAnySendEvent);
+            this.EventsPlatform.Event<LabelPlaceSendEvent>().Bind(this.OnAnySendEvent);
+            this.EventsPlatform.Event<CoinSendEvent>().Bind(this.OnAnySendEvent);
+            this.EventsPlatform.Event<PressRedKeySendEvent>().Bind(this.OnAnySendEvent);
+            this.EventsPlatform.Event<PressBlueKeySendEvent>().Bind(this.OnAnySendEvent);
+            this.EventsPlatform.Event<PressGreenKeySendEvent>().Bind(this.OnAnySendEvent);
+            this.EventsPlatform.Event<GetCrownSendEvent>().Bind(this.OnAnySendEvent);
+            this.EventsPlatform.Event<TouchDiamondSendEvent>().Bind(this.OnAnySendEvent);
+            this.EventsPlatform.Event<TouchCakeSendEvent>().Bind(this.OnAnySendEvent);
+            this.EventsPlatform.Event<CompleteLevelSendEvent>().Bind(this.OnAnySendEvent);
+            this.EventsPlatform.Event<GodModeSendEvent>().Bind(this.OnAnySendEvent);
+            this.EventsPlatform.Event<ModModeSendEvent>().Bind(this.OnAnySendEvent);
+            this.EventsPlatform.Event<MoveSendEvent>().Bind(this.OnAnySendEvent);
+            this.EventsPlatform.Event<SaySendEvent>().Bind(this.OnAnySendEvent);
+            this.EventsPlatform.Event<AutoSaySendEvent>().Bind(this.OnAnySendEvent);
+            this.EventsPlatform.Event<AccessSendEvent>().Bind(this.OnAnySendEvent);
+            this.EventsPlatform.Event<ChangeFaceSendEvent>().Bind(this.OnAnySendEvent);
+            this.EventsPlatform.Event<SaveWorldSendEvent>().Bind(this.OnAnySendEvent);
+            this.EventsPlatform.Event<ChangeWorldNameSendEvent>().Bind(this.OnAnySendEvent);
+            this.EventsPlatform.Event<ChangeWorldEditKeySendEvent>().Bind(this.OnAnySendEvent);
+            this.EventsPlatform.Event<ClearWorldSendEvent>().Bind(this.OnAnySendEvent);
+            this.EventsPlatform.Event<KillWorldSendEvent>().Bind(this.OnAnySendEvent);
+            this.EventsPlatform.Event<PotionSendEvent>().Bind(this.OnAnySendEvent);
+            this.EventsPlatform.Event<AllowPotionsSendEvent>().Bind(this.OnAnySendEvent);
+            this.EventsPlatform.Event<WootUpSendEvent>().Bind(this.OnAnySendEvent);
+            this.EventsPlatform.Event<DeathSendEvent>().Bind(this.OnAnySendEvent);
+            this.EventsPlatform.Event<CheckpointSendEvent>().Bind(this.OnAnySendEvent);
+            this.EventsPlatform.Event<TouchPlayerSendEvent>().Bind(this.OnAnySendEvent);
         }
 
         private void Connection_OnMessage(object sender, Message e)
@@ -120,12 +120,12 @@ namespace CupCake.Muffins
             }
         }
 
-        private void OnAnySendMessage(object sender, SendMessage e)
+        private void OnAnySendEvent(object sender, SendEvent e)
         {
-            this.EventsPlatform.Event<SendMessage>().Raise(sender, e);
+            this.EventsPlatform.Event<SendEvent>().Raise(sender, e);
         }
 
-        private void OnSendMessage(object sender, SendMessage e)
+        private void OnSendEvent(object sender, SendEvent e)
         {
             if (!e.Cancelled)
             {

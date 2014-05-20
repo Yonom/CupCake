@@ -6,7 +6,7 @@ namespace CupCake.Players
     internal class Player
     {
         public string Username { get; private set; }
-        public int UserID { get; private set; }
+        public int UserId { get; private set; }
 
         public string DatabaseName { get; private set; }
         public bool IsUserDataReady { get; private set; }

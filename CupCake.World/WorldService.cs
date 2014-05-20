@@ -1,6 +1,6 @@
 using CupCake.Core.Services;
 using CupCake.EE.Blocks;
-using CupCake.EE.Messages.Receive;
+using CupCake.EE.Events.Receive;
 using CupCake.World.Blocks;
 using PlayerIOClient;
 using WorldPortalBlock = CupCake.World.Blocks.WorldPortalBlock;
@@ -214,94 +214,94 @@ namespace CupCake.World
 
         protected override void Enable()
         {
-            this.EventsPlatform.Event<InitReceiveMessage>().Bind(this.OnInit);
-            this.EventsPlatform.Event<BlockPlaceReceiveMessage>().Bind(this.OnBlockPlace);
-            this.EventsPlatform.Event<CoinDoorPlaceReceiveMessage>().Bind(this.OnCoinDoorPlace);
-            this.EventsPlatform.Event<LabelPlaceReceiveMessage>().Bind(this.OnLabelPlace);
-            this.EventsPlatform.Event<PortalPlaceReceiveMessage>().Bind(this.OnPortalPlace);
-            this.EventsPlatform.Event<WorldPortalPlaceReceiveMessage>().Bind(this.OnWorldPortalPlace);
-            this.EventsPlatform.Event<SoundPlaceReceiveMessage>().Bind(this.OnSoundPlace);
-            this.EventsPlatform.Event<RotatablePlaceReceiveMessage>().Bind(this.OnRotatablePlace);
-            this.EventsPlatform.Event<ResetReceiveMessage>().Bind(this.OnReset);
-            this.EventsPlatform.Event<ClearReceiveMessage>().Bind(this.OnClear);
+            this.EventsPlatform.Event<InitReceiveEvent>().Bind(this.OnInit);
+            this.EventsPlatform.Event<BlockPlaceReceiveEvent>().Bind(this.OnBlockPlace);
+            this.EventsPlatform.Event<CoinDoorPlaceReceiveEvent>().Bind(this.OnCoinDoorPlace);
+            this.EventsPlatform.Event<LabelPlaceReceiveEvent>().Bind(this.OnLabelPlace);
+            this.EventsPlatform.Event<PortalPlaceReceiveEvent>().Bind(this.OnPortalPlace);
+            this.EventsPlatform.Event<WorldPortalPlaceReceiveEvent>().Bind(this.OnWorldPortalPlace);
+            this.EventsPlatform.Event<SoundPlaceReceiveEvent>().Bind(this.OnSoundPlace);
+            this.EventsPlatform.Event<RotatablePlaceReceiveEvent>().Bind(this.OnRotatablePlace);
+            this.EventsPlatform.Event<ResetReceiveEvent>().Bind(this.OnReset);
+            this.EventsPlatform.Event<ClearReceiveEvent>().Bind(this.OnClear);
         }
 
-        private void OnInit(object sender, InitReceiveMessage e)
+        private void OnInit(object sender, InitReceiveEvent e)
         {
             this._sizeX = e.SizeX;
             this._sizeY = e.SizeY;
             this._blocks = ParseWorld(e.PlayerIOMessage, e.SizeX, e.SizeY, InitOffset);
         }
 
-        private void OnBlockPlace(object sender, BlockPlaceReceiveMessage e)
+        private void OnBlockPlace(object sender, BlockPlaceReceiveEvent e)
         {
             var block = new WorldBlock(e.Block);
             this._blocks[(int)e.Layer, e.PosX, e.PosY] = block;
 
-            this.EventsPlatform.Event<BlockPlaceEventArgs>()
-                .Raise(this, new BlockPlaceEventArgs(e.PosX, e.PosY, e.Layer, block));
+            this.EventsPlatform.Event<BlockPlaceEvent>()
+                .Raise(this, new BlockPlaceEvent(e.PosX, e.PosY, e.Layer, block));
         }
 
-        private void OnCoinDoorPlace(object sender, CoinDoorPlaceReceiveMessage e)
+        private void OnCoinDoorPlace(object sender, CoinDoorPlaceReceiveEvent e)
         {
             var block = new WorldCoinDoorBlock(e.CoinDoorBlock, e.CoinsToOpen);
             this._blocks[(int)e.Layer, e.PosX, e.PosY] = block;
 
-            this.EventsPlatform.Event<BlockPlaceEventArgs>()
-                .Raise(this, new BlockPlaceEventArgs(e.PosX, e.PosY, e.Layer, block));
+            this.EventsPlatform.Event<BlockPlaceEvent>()
+                .Raise(this, new BlockPlaceEvent(e.PosX, e.PosY, e.Layer, block));
         }
 
-        private void OnLabelPlace(object sender, LabelPlaceReceiveMessage e)
+        private void OnLabelPlace(object sender, LabelPlaceReceiveEvent e)
         {
             var block = new WorldLabelBlock(e.LabelBlock, e.Text);
             this._blocks[(int)e.Layer, e.PosX, e.PosY] = block;
 
-            this.EventsPlatform.Event<BlockPlaceEventArgs>()
-                .Raise(this, new BlockPlaceEventArgs(e.PosX, e.PosY, e.Layer, block));
+            this.EventsPlatform.Event<BlockPlaceEvent>()
+                .Raise(this, new BlockPlaceEvent(e.PosX, e.PosY, e.Layer, block));
         }
 
-        private void OnPortalPlace(object sender, PortalPlaceReceiveMessage e)
+        private void OnPortalPlace(object sender, PortalPlaceReceiveEvent e)
         {
             var block = new WorldPortalBlock(e.PortalBlock, e.PortalRotation, e.PortalId, e.PortalTarget);
             this._blocks[(int)e.Layer, e.PosX, e.PosY] = block;
 
-            this.EventsPlatform.Event<BlockPlaceEventArgs>()
-                .Raise(this, new BlockPlaceEventArgs(e.PosX, e.PosY, e.Layer, block));
+            this.EventsPlatform.Event<BlockPlaceEvent>()
+                .Raise(this, new BlockPlaceEvent(e.PosX, e.PosY, e.Layer, block));
         }
 
-        private void OnWorldPortalPlace(object sender, WorldPortalPlaceReceiveMessage e)
+        private void OnWorldPortalPlace(object sender, WorldPortalPlaceReceiveEvent e)
         {
             var block = new WorldWorldPortalBlock(e.WorldPortalBlock, e.WorldPortalTarget);
             this._blocks[(int)e.Layer, e.PosX, e.PosY] = block;
 
-            this.EventsPlatform.Event<BlockPlaceEventArgs>()
-                .Raise(this, new BlockPlaceEventArgs(e.PosX, e.PosY, e.Layer, block));
+            this.EventsPlatform.Event<BlockPlaceEvent>()
+                .Raise(this, new BlockPlaceEvent(e.PosX, e.PosY, e.Layer, block));
         }
 
-        private void OnSoundPlace(object sender, SoundPlaceReceiveMessage e)
+        private void OnSoundPlace(object sender, SoundPlaceReceiveEvent e)
         {
             var block = new WorldSoundBlock(e.SoundBlock, e.SoundId);
             this._blocks[(int)e.Layer, e.PosX, e.PosY] = block;
 
-            this.EventsPlatform.Event<BlockPlaceEventArgs>()
-                .Raise(this, new BlockPlaceEventArgs(e.PosX, e.PosY, e.Layer, block));
+            this.EventsPlatform.Event<BlockPlaceEvent>()
+                .Raise(this, new BlockPlaceEvent(e.PosX, e.PosY, e.Layer, block));
         }
 
-        private void OnRotatablePlace(object sender, RotatablePlaceReceiveMessage e)
+        private void OnRotatablePlace(object sender, RotatablePlaceReceiveEvent e)
         {
             var block = new WorldRotatableBlock(e.RotatableBlock, e.Rotation);
             this._blocks[(int)e.Layer, e.PosX, e.PosY] = block;
 
-            this.EventsPlatform.Event<BlockPlaceEventArgs>()
-                .Raise(this, new BlockPlaceEventArgs(e.PosX, e.PosY, e.Layer, block));
+            this.EventsPlatform.Event<BlockPlaceEvent>()
+                .Raise(this, new BlockPlaceEvent(e.PosX, e.PosY, e.Layer, block));
         }
 
-        private void OnReset(object sender, ResetReceiveMessage e)
+        private void OnReset(object sender, ResetReceiveEvent e)
         {
             this._blocks = ParseWorld(e.PlayerIOMessage, this._sizeX, this._sizeY, 0);
         }
 
-        private void OnClear(object sender, ClearReceiveMessage e)
+        private void OnClear(object sender, ClearReceiveEvent e)
         {
             ClearWorld(ref this._blocks);
         }

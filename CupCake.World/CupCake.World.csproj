@@ -45,7 +45,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BlockPlaceEventArgs.cs" />
+    <Compile Include="BlockPlaceEvent.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Blocks\WorldBlock.cs" />
     <Compile Include="Blocks\WorldCoinDoorBlock.cs" />

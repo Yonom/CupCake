@@ -37,7 +37,7 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="LogEventArgs.cs" />
+    <Compile Include="LogEvent.cs" />
     <Compile Include="LogPriority.cs" />
     <Compile Include="Services\LogService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

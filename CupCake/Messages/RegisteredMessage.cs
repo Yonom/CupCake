@@ -1,11 +1,11 @@
 ﻿using System;
 using CupCake.Core.Platforms;
-using CupCake.EE.Messages.Receive;
+using CupCake.EE.Events.Receive;
 using PlayerIOClient;
 
 namespace CupCake.Messages
 {
-    public class RegisteredMessage<T> : IRegisteredMessage where T : ReceiveMessage
+    public class RegisteredMessage<T> : IRegisteredMessage where T : ReceiveEvent
     {
         private readonly EventsPlatform _eventsPlatform;
 
@@ -18,7 +18,7 @@ namespace CupCake.Messages
         {
             var instance = (T)Activator.CreateInstance(typeof(T), message);
 
-            this._eventsPlatform.Event<ReceiveMessage>().Raise(sender, instance);
+            this._eventsPlatform.Event<ReceiveEvent>().Raise(sender, instance);
             this._eventsPlatform.Event<T>().Raise(sender, instance);
         }
     }

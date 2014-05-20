@@ -1,7 +1,7 @@
 ﻿using System;
 using CupCake.API.Muffins;
-using CupCake.EE.Messages.Receive;
-using CupCake.EE.Messages.Send;
+using CupCake.EE.Events.Receive;
+using CupCake.EE.Events.Send;
 
 namespace CupCake.Muffins
 {
@@ -11,17 +11,17 @@ namespace CupCake.Muffins
         {
             this.MuffinLoader.EnableComplete += this.MuffinLoader_EnableComplete;
 
-            this.EventsPlatform.Event<InitReceiveMessage>().Bind(this.OnInit);
+            this.EventsPlatform.Event<InitReceiveEvent>().Bind(this.OnInit);
         }
 
         private void MuffinLoader_EnableComplete(object sender, EventArgs e)
         {
-            this.EventsPlatform.Event<InitSendMessage>().Raise(this, new InitSendMessage());
+            this.EventsPlatform.Event<InitSendEvent>().Raise(this, new InitSendEvent());
         }
 
-        private void OnInit(object sender, InitReceiveMessage e)
+        private void OnInit(object sender, InitReceiveEvent e)
         {
-            this.EventsPlatform.Event<Init2SendMessage>().Raise(this, new Init2SendMessage());
+            this.EventsPlatform.Event<Init2SendEvent>().Raise(this, new Init2SendEvent());
         }
     }
 }

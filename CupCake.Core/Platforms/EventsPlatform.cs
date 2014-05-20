@@ -14,9 +14,9 @@ namespace CupCake.Core.Platforms
         {
         }
 
-        public EventManager<T> Event<T>() where T : EventArgs
+        public EventHandle<T> Event<T>() where T : Event
         {
-            return EventManager<T>.Get(this._id);
+            return EventHandle<T>.Get(this._id);
         }
     }
 }

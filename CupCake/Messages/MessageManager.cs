@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using CupCake.Core.Platforms;
-using CupCake.EE.Messages.Receive;
+using CupCake.EE.Events.Receive;
 
 namespace CupCake.Messages
 {
@@ -27,7 +27,7 @@ namespace CupCake.Messages
             }
         }
 
-        public void RegisterMessage<T>(string str) where T : ReceiveMessage
+        public void RegisterMessage<T>(string str) where T : ReceiveEvent
         {
             lock (this._messageDictionary)
             {
