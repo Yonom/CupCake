@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace CupCake.Core.Events
 {
@@ -59,11 +60,6 @@ namespace CupCake.Core.Events
             }
         }
 
-        public void Bind(EventHandler<T> callback)
-        {
-            this.Bind(callback, EventPriority.Normal);
-        }
-
         public void Bind(EventHandler<T> callback, EventPriority priority)
         {
             lock (this._eventHandlers)
@@ -84,12 +80,15 @@ namespace CupCake.Core.Events
 
         public void Raise(object sender, T e)
         {
+            EventHandler<T>[] handlers;
             lock (this._eventHandlers)
             {
-                foreach (var handler in this._eventHandlers)
-                {
-                    handler.Invoke(sender, e);
-                }
+                handlers = this._eventHandlers.ToArray();
+            }
+
+            foreach (var handler in handlers)
+            {
+                handler.Invoke(sender, e);
             }
         }
     }

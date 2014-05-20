@@ -1,4 +1,5 @@
 ﻿using System;
+using CupCake.Core.Events;
 using CupCake.Core.Platforms;
 using MuffinFramework.Services;
 
@@ -11,17 +12,23 @@ namespace CupCake.Core.Services
     public abstract class CupCakeService<T> : Service<T>
     {
         private readonly Lazy<ConnectionPlatform> _connectionPlatform;
-        private readonly Lazy<EventsPlatform> _eventsPlatform;
+
+        private readonly Lazy<EventManager> _events;
 
         protected CupCakeService()
         {
-            this._eventsPlatform = new Lazy<EventsPlatform>(() => this.PlatformLoader.Get<EventsPlatform>());
             this._connectionPlatform = new Lazy<ConnectionPlatform>(() => this.PlatformLoader.Get<ConnectionPlatform>());
+
+            this._events = new Lazy<EventManager>(() =>
+            {
+                var eventsPlatform = this.PlatformLoader.Get<EventsPlatform>();
+                return new EventManager(eventsPlatform, this);
+            });
         }
 
-        public EventsPlatform EventsPlatform
+        public EventManager Events
         {
-            get { return this._eventsPlatform.Value; }
+            get { return this._events.Value; }
         }
 
         public ConnectionPlatform ConnectionPlatform

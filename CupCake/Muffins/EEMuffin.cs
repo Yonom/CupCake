@@ -11,17 +11,17 @@ namespace CupCake.Muffins
         {
             this.MuffinLoader.EnableComplete += this.MuffinLoader_EnableComplete;
 
-            this.EventsPlatform.Event<InitReceiveEvent>().Bind(this.OnInit);
+            this.Events.Bind<InitReceiveEvent>(this.OnInit);
         }
 
         private void MuffinLoader_EnableComplete(object sender, EventArgs e)
         {
-            this.EventsPlatform.Event<InitSendEvent>().Raise(this, new InitSendEvent());
+            this.Events.Raise(new InitSendEvent());
         }
 
         private void OnInit(object sender, InitReceiveEvent e)
         {
-            this.EventsPlatform.Event<Init2SendEvent>().Raise(this, new Init2SendEvent());
+            this.Events.Raise(new Init2SendEvent());
         }
     }
 }

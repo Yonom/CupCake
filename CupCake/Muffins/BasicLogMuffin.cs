@@ -8,7 +8,7 @@ namespace CupCake.Muffins
     {
         protected override void Enable()
         {
-            this.EventsPlatform.Event<SayReceiveEvent>().Bind(this.OnSay);
+            this.Events.Bind<SayReceiveEvent>(this.OnSay);
         }
 
         private void OnSay(object sender, SayReceiveEvent e)

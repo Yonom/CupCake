@@ -1,5 +1,4 @@
-﻿using System;
-using CupCake.Core.Events;
+﻿using CupCake.Core.Events;
 using CupCake.EE.Blocks;
 using CupCake.World.Blocks;
 

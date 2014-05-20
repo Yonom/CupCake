@@ -214,16 +214,16 @@ namespace CupCake.World
 
         protected override void Enable()
         {
-            this.EventsPlatform.Event<InitReceiveEvent>().Bind(this.OnInit);
-            this.EventsPlatform.Event<BlockPlaceReceiveEvent>().Bind(this.OnBlockPlace);
-            this.EventsPlatform.Event<CoinDoorPlaceReceiveEvent>().Bind(this.OnCoinDoorPlace);
-            this.EventsPlatform.Event<LabelPlaceReceiveEvent>().Bind(this.OnLabelPlace);
-            this.EventsPlatform.Event<PortalPlaceReceiveEvent>().Bind(this.OnPortalPlace);
-            this.EventsPlatform.Event<WorldPortalPlaceReceiveEvent>().Bind(this.OnWorldPortalPlace);
-            this.EventsPlatform.Event<SoundPlaceReceiveEvent>().Bind(this.OnSoundPlace);
-            this.EventsPlatform.Event<RotatablePlaceReceiveEvent>().Bind(this.OnRotatablePlace);
-            this.EventsPlatform.Event<ResetReceiveEvent>().Bind(this.OnReset);
-            this.EventsPlatform.Event<ClearReceiveEvent>().Bind(this.OnClear);
+            this.Events.Bind<InitReceiveEvent>(this.OnInit);
+            this.Events.Bind<BlockPlaceReceiveEvent>(this.OnBlockPlace);
+            this.Events.Bind<CoinDoorPlaceReceiveEvent>(this.OnCoinDoorPlace);
+            this.Events.Bind<LabelPlaceReceiveEvent>(this.OnLabelPlace);
+            this.Events.Bind<PortalPlaceReceiveEvent>(this.OnPortalPlace);
+            this.Events.Bind<WorldPortalPlaceReceiveEvent>(this.OnWorldPortalPlace);
+            this.Events.Bind<SoundPlaceReceiveEvent>(this.OnSoundPlace);
+            this.Events.Bind<RotatablePlaceReceiveEvent>(this.OnRotatablePlace);
+            this.Events.Bind<ResetReceiveEvent>(this.OnReset);
+            this.Events.Bind<ClearReceiveEvent>(this.OnClear);
         }
 
         private void OnInit(object sender, InitReceiveEvent e)
@@ -238,8 +238,7 @@ namespace CupCake.World
             var block = new WorldBlock(e.Block);
             this._blocks[(int)e.Layer, e.PosX, e.PosY] = block;
 
-            this.EventsPlatform.Event<BlockPlaceEvent>()
-                .Raise(this, new BlockPlaceEvent(e.PosX, e.PosY, e.Layer, block));
+            this.Events.Raise(new BlockPlaceEvent(e.PosX, e.PosY, e.Layer, block));
         }
 
         private void OnCoinDoorPlace(object sender, CoinDoorPlaceReceiveEvent e)
@@ -247,8 +246,7 @@ namespace CupCake.World
             var block = new WorldCoinDoorBlock(e.CoinDoorBlock, e.CoinsToOpen);
             this._blocks[(int)e.Layer, e.PosX, e.PosY] = block;
 
-            this.EventsPlatform.Event<BlockPlaceEvent>()
-                .Raise(this, new BlockPlaceEvent(e.PosX, e.PosY, e.Layer, block));
+            this.Events.Raise(new BlockPlaceEvent(e.PosX, e.PosY, e.Layer, block));
         }
 
         private void OnLabelPlace(object sender, LabelPlaceReceiveEvent e)
@@ -256,8 +254,7 @@ namespace CupCake.World
             var block = new WorldLabelBlock(e.LabelBlock, e.Text);
             this._blocks[(int)e.Layer, e.PosX, e.PosY] = block;
 
-            this.EventsPlatform.Event<BlockPlaceEvent>()
-                .Raise(this, new BlockPlaceEvent(e.PosX, e.PosY, e.Layer, block));
+            this.Events.Raise(new BlockPlaceEvent(e.PosX, e.PosY, e.Layer, block));
         }
 
         private void OnPortalPlace(object sender, PortalPlaceReceiveEvent e)
@@ -265,8 +262,7 @@ namespace CupCake.World
             var block = new WorldPortalBlock(e.PortalBlock, e.PortalRotation, e.PortalId, e.PortalTarget);
             this._blocks[(int)e.Layer, e.PosX, e.PosY] = block;
 
-            this.EventsPlatform.Event<BlockPlaceEvent>()
-                .Raise(this, new BlockPlaceEvent(e.PosX, e.PosY, e.Layer, block));
+            this.Events.Raise(new BlockPlaceEvent(e.PosX, e.PosY, e.Layer, block));
         }
 
         private void OnWorldPortalPlace(object sender, WorldPortalPlaceReceiveEvent e)
@@ -274,8 +270,7 @@ namespace CupCake.World
             var block = new WorldWorldPortalBlock(e.WorldPortalBlock, e.WorldPortalTarget);
             this._blocks[(int)e.Layer, e.PosX, e.PosY] = block;
 
-            this.EventsPlatform.Event<BlockPlaceEvent>()
-                .Raise(this, new BlockPlaceEvent(e.PosX, e.PosY, e.Layer, block));
+            this.Events.Raise(new BlockPlaceEvent(e.PosX, e.PosY, e.Layer, block));
         }
 
         private void OnSoundPlace(object sender, SoundPlaceReceiveEvent e)
@@ -283,8 +278,7 @@ namespace CupCake.World
             var block = new WorldSoundBlock(e.SoundBlock, e.SoundId);
             this._blocks[(int)e.Layer, e.PosX, e.PosY] = block;
 
-            this.EventsPlatform.Event<BlockPlaceEvent>()
-                .Raise(this, new BlockPlaceEvent(e.PosX, e.PosY, e.Layer, block));
+            this.Events.Raise(new BlockPlaceEvent(e.PosX, e.PosY, e.Layer, block));
         }
 
         private void OnRotatablePlace(object sender, RotatablePlaceReceiveEvent e)
@@ -292,8 +286,7 @@ namespace CupCake.World
             var block = new WorldRotatableBlock(e.RotatableBlock, e.Rotation);
             this._blocks[(int)e.Layer, e.PosX, e.PosY] = block;
 
-            this.EventsPlatform.Event<BlockPlaceEvent>()
-                .Raise(this, new BlockPlaceEvent(e.PosX, e.PosY, e.Layer, block));
+            this.Events.Raise(new BlockPlaceEvent(e.PosX, e.PosY, e.Layer, block));
         }
 
         private void OnReset(object sender, ResetReceiveEvent e)

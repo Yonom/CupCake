@@ -1,5 +1,6 @@
 ﻿using System;
 using CupCake.Chat.Services;
+using CupCake.Core.Events;
 using CupCake.Core.Platforms;
 using CupCake.Log.Services;
 using CupCake.World;
@@ -15,15 +16,19 @@ namespace CupCake.API.Muffins
     {
         private readonly Lazy<Chatter> _chatter;
         private readonly Lazy<ConnectionPlatform> _connectionPlatform;
-        private readonly Lazy<EventsPlatform> _eventsPlatform;
+        private readonly Lazy<EventManager> _events;
         private readonly Lazy<Logger> _logger;
         private readonly Lazy<WorldService> _worldService;
 
         protected CupCakeMuffin()
         {
-            this._eventsPlatform = new Lazy<EventsPlatform>(() => this.PlatformLoader.Get<EventsPlatform>());
             this._connectionPlatform = new Lazy<ConnectionPlatform>(() => this.PlatformLoader.Get<ConnectionPlatform>());
 
+            this._events = new Lazy<EventManager>(() =>
+            {
+                var eventsPlatform = this.PlatformLoader.Get<EventsPlatform>();
+                return new EventManager(eventsPlatform, this);
+            });
             this._logger = new Lazy<Logger>(() =>
             {
                 var logService = this.ServiceLoader.Get<LogService>();
@@ -41,9 +46,9 @@ namespace CupCake.API.Muffins
             this._worldService = new Lazy<WorldService>(() => this.ServiceLoader.Get<WorldService>());
         }
 
-        public EventsPlatform EventsPlatform
+        public EventManager Events
         {
-            get { return this._eventsPlatform.Value; }
+            get { return this._events.Value; }
         }
 
         public ConnectionPlatform ConnectionPlatform

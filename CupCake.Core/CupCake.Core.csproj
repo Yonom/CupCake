@@ -42,6 +42,7 @@
   <ItemGroup>
     <Compile Include="Events\Event.cs" />
     <Compile Include="Events\EventHandle.cs" />
+    <Compile Include="Events\EventManager.cs" />
     <Compile Include="Events\EventPriority.cs" />
     <Compile Include="Platforms\ConnectionPlatform.cs" />
     <Compile Include="Platforms\EventsPlatform.cs" />

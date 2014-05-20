@@ -1,17 +1,17 @@
 ﻿using System.Collections.Generic;
-using CupCake.Core.Platforms;
+using CupCake.Core.Events;
 using CupCake.EE.Events.Receive;
 
 namespace CupCake.Messages
 {
     public class MessageManager
     {
-        private readonly EventsPlatform _eventsPlatform;
+        private readonly EventManager _eventsPlatform;
 
         private readonly Dictionary<string, IRegisteredMessage> _messageDictionary =
             new Dictionary<string, IRegisteredMessage>();
 
-        public MessageManager(EventsPlatform eventsPlatform)
+        public MessageManager(EventManager eventsPlatform)
         {
             this._eventsPlatform = eventsPlatform;
         }

@@ -14,7 +14,7 @@ namespace CupCake.Muffins
         protected override void Enable()
         {
             // Init MessageManager
-            this.MessageManager = new MessageManager(this.EventsPlatform);
+            this.MessageManager = new MessageManager(this.Events);
 
             // Register all EE messages
             this.MessageManager.RegisterMessage<InitReceiveEvent>("init");
@@ -68,51 +68,51 @@ namespace CupCake.Muffins
             this.ConnectionPlatform.Connection.OnMessage += this.Connection_OnMessage;
 
             // Bind SendEvent event
-            this.EventsPlatform.Event<SendEvent>().Bind(this.OnSendEvent);
+            this.Events.Bind<SendEvent>(this.OnSendEvent);
 
             // Bind all SendEvent events
-            this.EventsPlatform.Event<InitSendEvent>().Bind(this.OnAnySendEvent);
-            this.EventsPlatform.Event<Init2SendEvent>().Bind(this.OnAnySendEvent);
-            this.EventsPlatform.Event<BlockPlaceSendEvent>().Bind(this.OnAnySendEvent);
-            this.EventsPlatform.Event<CoinDoorPlaceSendEvent>().Bind(this.OnAnySendEvent);
-            this.EventsPlatform.Event<RotatablePlaceSendEvent>().Bind(this.OnAnySendEvent);
-            this.EventsPlatform.Event<SoundPlaceSendEvent>().Bind(this.OnAnySendEvent);
-            this.EventsPlatform.Event<PortalPlaceSendEvent>().Bind(this.OnAnySendEvent);
-            this.EventsPlatform.Event<WorldPortalPlaceSendEvent>().Bind(this.OnAnySendEvent);
-            this.EventsPlatform.Event<LabelPlaceSendEvent>().Bind(this.OnAnySendEvent);
-            this.EventsPlatform.Event<CoinSendEvent>().Bind(this.OnAnySendEvent);
-            this.EventsPlatform.Event<PressRedKeySendEvent>().Bind(this.OnAnySendEvent);
-            this.EventsPlatform.Event<PressBlueKeySendEvent>().Bind(this.OnAnySendEvent);
-            this.EventsPlatform.Event<PressGreenKeySendEvent>().Bind(this.OnAnySendEvent);
-            this.EventsPlatform.Event<GetCrownSendEvent>().Bind(this.OnAnySendEvent);
-            this.EventsPlatform.Event<TouchDiamondSendEvent>().Bind(this.OnAnySendEvent);
-            this.EventsPlatform.Event<TouchCakeSendEvent>().Bind(this.OnAnySendEvent);
-            this.EventsPlatform.Event<CompleteLevelSendEvent>().Bind(this.OnAnySendEvent);
-            this.EventsPlatform.Event<GodModeSendEvent>().Bind(this.OnAnySendEvent);
-            this.EventsPlatform.Event<ModModeSendEvent>().Bind(this.OnAnySendEvent);
-            this.EventsPlatform.Event<MoveSendEvent>().Bind(this.OnAnySendEvent);
-            this.EventsPlatform.Event<SaySendEvent>().Bind(this.OnAnySendEvent);
-            this.EventsPlatform.Event<AutoSaySendEvent>().Bind(this.OnAnySendEvent);
-            this.EventsPlatform.Event<AccessSendEvent>().Bind(this.OnAnySendEvent);
-            this.EventsPlatform.Event<ChangeFaceSendEvent>().Bind(this.OnAnySendEvent);
-            this.EventsPlatform.Event<SaveWorldSendEvent>().Bind(this.OnAnySendEvent);
-            this.EventsPlatform.Event<ChangeWorldNameSendEvent>().Bind(this.OnAnySendEvent);
-            this.EventsPlatform.Event<ChangeWorldEditKeySendEvent>().Bind(this.OnAnySendEvent);
-            this.EventsPlatform.Event<ClearWorldSendEvent>().Bind(this.OnAnySendEvent);
-            this.EventsPlatform.Event<KillWorldSendEvent>().Bind(this.OnAnySendEvent);
-            this.EventsPlatform.Event<PotionSendEvent>().Bind(this.OnAnySendEvent);
-            this.EventsPlatform.Event<AllowPotionsSendEvent>().Bind(this.OnAnySendEvent);
-            this.EventsPlatform.Event<WootUpSendEvent>().Bind(this.OnAnySendEvent);
-            this.EventsPlatform.Event<DeathSendEvent>().Bind(this.OnAnySendEvent);
-            this.EventsPlatform.Event<CheckpointSendEvent>().Bind(this.OnAnySendEvent);
-            this.EventsPlatform.Event<TouchPlayerSendEvent>().Bind(this.OnAnySendEvent);
+            this.Events.Bind<InitSendEvent>(this.OnAnySendEvent);
+            this.Events.Bind<Init2SendEvent>(this.OnAnySendEvent);
+            this.Events.Bind<BlockPlaceSendEvent>(this.OnAnySendEvent);
+            this.Events.Bind<CoinDoorPlaceSendEvent>(this.OnAnySendEvent);
+            this.Events.Bind<RotatablePlaceSendEvent>(this.OnAnySendEvent);
+            this.Events.Bind<SoundPlaceSendEvent>(this.OnAnySendEvent);
+            this.Events.Bind<PortalPlaceSendEvent>(this.OnAnySendEvent);
+            this.Events.Bind<WorldPortalPlaceSendEvent>(this.OnAnySendEvent);
+            this.Events.Bind<LabelPlaceSendEvent>(this.OnAnySendEvent);
+            this.Events.Bind<CoinSendEvent>(this.OnAnySendEvent);
+            this.Events.Bind<PressRedKeySendEvent>(this.OnAnySendEvent);
+            this.Events.Bind<PressBlueKeySendEvent>(this.OnAnySendEvent);
+            this.Events.Bind<PressGreenKeySendEvent>(this.OnAnySendEvent);
+            this.Events.Bind<GetCrownSendEvent>(this.OnAnySendEvent);
+            this.Events.Bind<TouchDiamondSendEvent>(this.OnAnySendEvent);
+            this.Events.Bind<TouchCakeSendEvent>(this.OnAnySendEvent);
+            this.Events.Bind<CompleteLevelSendEvent>(this.OnAnySendEvent);
+            this.Events.Bind<GodModeSendEvent>(this.OnAnySendEvent);
+            this.Events.Bind<ModModeSendEvent>(this.OnAnySendEvent);
+            this.Events.Bind<MoveSendEvent>(this.OnAnySendEvent);
+            this.Events.Bind<SaySendEvent>(this.OnAnySendEvent);
+            this.Events.Bind<AutoSaySendEvent>(this.OnAnySendEvent);
+            this.Events.Bind<AccessSendEvent>(this.OnAnySendEvent);
+            this.Events.Bind<ChangeFaceSendEvent>(this.OnAnySendEvent);
+            this.Events.Bind<SaveWorldSendEvent>(this.OnAnySendEvent);
+            this.Events.Bind<ChangeWorldNameSendEvent>(this.OnAnySendEvent);
+            this.Events.Bind<ChangeWorldEditKeySendEvent>(this.OnAnySendEvent);
+            this.Events.Bind<ClearWorldSendEvent>(this.OnAnySendEvent);
+            this.Events.Bind<KillWorldSendEvent>(this.OnAnySendEvent);
+            this.Events.Bind<PotionSendEvent>(this.OnAnySendEvent);
+            this.Events.Bind<AllowPotionsSendEvent>(this.OnAnySendEvent);
+            this.Events.Bind<WootUpSendEvent>(this.OnAnySendEvent);
+            this.Events.Bind<DeathSendEvent>(this.OnAnySendEvent);
+            this.Events.Bind<CheckpointSendEvent>(this.OnAnySendEvent);
+            this.Events.Bind<TouchPlayerSendEvent>(this.OnAnySendEvent);
         }
 
         private void Connection_OnMessage(object sender, Message e)
         {
             if (this.MessageManager.Contains(e.Type))
             {
-                this.MessageManager[e.Type].Invoke(sender, e);
+                this.MessageManager[e.Type].Invoke(e);
             }
             else
             {
@@ -122,7 +122,9 @@ namespace CupCake.Muffins
 
         private void OnAnySendEvent(object sender, SendEvent e)
         {
-            this.EventsPlatform.Event<SendEvent>().Raise(sender, e);
+// ReSharper disable RedundantTypeArgumentsOfMethod
+            this.Events.Raise<SendEvent>(e);
+// ReSharper restore RedundantTypeArgumentsOfMethod
         }
 
         private void OnSendEvent(object sender, SendEvent e)

@@ -1,5 +1,4 @@
-﻿using System;
-using CupCake.Core.Events;
+﻿using CupCake.Core.Events;
 using MuffinFramework.Platforms;
 
 namespace CupCake.Core.Platforms

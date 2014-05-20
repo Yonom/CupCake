@@ -3,7 +3,7 @@ using CupCake.EE.Players;
 
 namespace CupCake.Players
 {
-    internal class Player
+    public class Player
     {
         public string Username { get; private set; }
         public int UserId { get; private set; }

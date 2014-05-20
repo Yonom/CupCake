@@ -36,7 +36,7 @@ namespace CupCake.Chat.Services
             {
                 if (this._myChatQueue.Count > 0)
                 {
-                    this.EventsPlatform.Event<SaySendEvent>().Raise(this, this._myChatQueue.Dequeue());
+                    this.Events.Raise(this._myChatQueue.Dequeue());
                 }
                 else
                 {
@@ -55,7 +55,7 @@ namespace CupCake.Chat.Services
             // There is no speed limit on commands
             if (msg.StartsWith("/", StringComparison.Ordinal))
             {
-                this.EventsPlatform.Event<SaySendEvent>().Raise(this, new SaySendEvent(msg.Substring(0, 80)));
+                this.Events.Raise(new SaySendEvent(msg.Substring(0, 80)));
                 return;
             }
 
