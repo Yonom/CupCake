@@ -35,5 +35,12 @@ namespace CupCake.Core.Services
         {
             get { return this._connectionPlatform.Value; }
         }
+
+        protected override void Dispose(bool disposing)
+        {
+            this.Events.Dispose();
+
+            base.Dispose(disposing);
+        }
     }
 }

@@ -75,5 +75,12 @@ namespace CupCake.API.Muffins
         {
             return this.GetType().Name;
         }
+
+        protected override void Dispose(bool disposing)
+        {
+            this.Events.Dispose();
+
+            base.Dispose(disposing);
+        }
     }
 }
