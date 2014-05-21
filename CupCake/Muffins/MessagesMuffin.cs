@@ -122,9 +122,7 @@ namespace CupCake.Muffins
 
         private void OnAnySendEvent(object sender, SendEvent e)
         {
-// ReSharper disable RedundantTypeArgumentsOfMethod
-            this.Events.Raise<SendEvent>(e);
-// ReSharper restore RedundantTypeArgumentsOfMethod
+            this.Events.Raise(e);
         }
 
         private void OnSendEvent(object sender, SendEvent e)

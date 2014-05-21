@@ -34,12 +34,14 @@
       <HintPath>..\Lib\MuffinFramework.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Chatter.cs" />
     <Compile Include="Logger.cs" />
     <Compile Include="Muffins\CupCakeMuffin.cs" />
+    <Compile Include="Muffins\CupCakeMuffinPart.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

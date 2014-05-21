@@ -60,7 +60,7 @@ namespace CupCake.Core.Events
             }
         }
 
-        public void Bind(EventHandler<T> callback, EventPriority priority)
+        public void Bind(EventHandler<T> callback, EventPriority priority = EventPriority.Normal)
         {
             lock (this._eventHandlers)
             {

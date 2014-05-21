@@ -5,17 +5,13 @@ using MuffinFramework.Services;
 
 namespace CupCake.Core.Services
 {
-    public abstract class CupCakeService : CupCakeService<object>
-    {
-    }
-
-    public abstract class CupCakeService<T> : Service<T>
+    public abstract class CupCakeServicePart<TProtocol> : ServicePart<TProtocol>
     {
         private readonly Lazy<ConnectionPlatform> _connectionPlatform;
 
         private readonly Lazy<EventManager> _events;
 
-        protected CupCakeService()
+        protected CupCakeServicePart()
         {
             this._connectionPlatform = new Lazy<ConnectionPlatform>(() => this.PlatformLoader.Get<ConnectionPlatform>());
 

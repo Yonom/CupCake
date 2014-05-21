@@ -1,9 +1,11 @@
-﻿using CupCake.EE.Blocks;
+﻿using CupCake.Core.Services;
+using CupCake.EE.Blocks;
 using CupCake.EE.Players;
+using CupCake.Players.Services;
 
 namespace CupCake.Players
 {
-    public class Player
+    public class Player : CupCakeServicePart<PlayerService>
     {
         public string Username { get; private set; }
         public int UserId { get; private set; }
@@ -59,5 +61,10 @@ namespace CupCake.Players
         public bool LastPotionEnabled { get; private set; }
         public int LastPotionTimeout { get; private set; }
         public Group Group { get; private set; }
+
+        protected override void Enable()
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using CupCake.Core.Platforms;
 
 namespace CupCake.Core.Events
@@ -27,10 +28,33 @@ namespace CupCake.Core.Events
         {
             lock (this._bindings)
             {
+                if (this.Contains(callback))
+                {
+                    throw new ArgumentException("Callback has already been added to the specified event.");
+                }
+
                 var binding = new Binding<T>(this, callback, priority);
                 binding.Subscribe();
                 this._bindings.Add(binding);
             }
+        }
+
+        public bool Contains<T>(EventHandler<T> callback) where T : Event
+        {
+            return this._bindings.Exists(binding => typeof(T) == binding.Type && binding.GetCallback() == (Delegate)callback);
+        }
+
+        public IBinding GetBinding<T>(EventHandler<T> callback) where T : Event
+        {
+            lock (this._bindings)
+            {
+                foreach (var binding in this._bindings.Where(binding => typeof(T) == binding.Type && binding.GetCallback() == (Delegate)callback))
+                {
+                    return binding;
+                }
+            }
+
+            throw new KeyNotFoundException("The requested binding was not found.");
         }
 
         public void Raise<T>(T eventArgs) where T : Event
@@ -68,6 +92,15 @@ namespace CupCake.Core.Events
                 this._priority = priority;
             }
 
+            public Type Type {
+                get { return typeof(T); }
+            }
+
+            public Delegate GetCallback()
+            {
+                return _callback;
+            }
+
             public void Subscribe()
             {
                 if (!this._parent.EventsPlatform.Event<T>().Contains(this._callback))
@@ -85,8 +118,10 @@ namespace CupCake.Core.Events
             }
         }
 
-        private interface IBinding
+        public interface IBinding
         {
+            Type Type { get; }
+            Delegate GetCallback();
             void Subscribe();
             void Unsubscribe();
         }

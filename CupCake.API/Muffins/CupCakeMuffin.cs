@@ -1,9 +1,8 @@
 ﻿using System;
-using CupCake.Chat.Services;
-using CupCake.Core.Events;
-using CupCake.Core.Platforms;
-using CupCake.Log.Services;
-using CupCake.World;
+using System.Collections.Generic;
+using System.ComponentModel.Composition;
+using System.Linq;
+using System.Text;
 using MuffinFramework.Muffins;
 
 namespace CupCake.API.Muffins
@@ -12,75 +11,8 @@ namespace CupCake.API.Muffins
     {
     }
 
-    public abstract class CupCakeMuffin<T> : Muffin<T>
+    [InheritedExport(typeof(IMuffin))]
+    public abstract class CupCakeMuffin<TProtocol> : CupCakeMuffinPart<TProtocol>, IMuffin
     {
-        private readonly Lazy<Chatter> _chatter;
-        private readonly Lazy<ConnectionPlatform> _connectionPlatform;
-        private readonly Lazy<EventManager> _events;
-        private readonly Lazy<Logger> _logger;
-        private readonly Lazy<WorldService> _worldService;
-
-        protected CupCakeMuffin()
-        {
-            this._connectionPlatform = new Lazy<ConnectionPlatform>(() => this.PlatformLoader.Get<ConnectionPlatform>());
-
-            this._events = new Lazy<EventManager>(() =>
-            {
-                var eventsPlatform = this.PlatformLoader.Get<EventsPlatform>();
-                return new EventManager(eventsPlatform, this);
-            });
-            this._logger = new Lazy<Logger>(() =>
-            {
-                var logService = this.ServiceLoader.Get<LogService>();
-                string name = this.GetName();
-                return new Logger(logService, name);
-            });
-
-            this._chatter = new Lazy<Chatter>(() =>
-            {
-                var chatService = this.ServiceLoader.Get<ChatService>();
-                string name = this.GetName();
-                return new Chatter(chatService, name);
-            });
-
-            this._worldService = new Lazy<WorldService>(() => this.ServiceLoader.Get<WorldService>());
-        }
-
-        public EventManager Events
-        {
-            get { return this._events.Value; }
-        }
-
-        public ConnectionPlatform ConnectionPlatform
-        {
-            get { return this._connectionPlatform.Value; }
-        }
-
-        public Logger Logger
-        {
-            get { return this._logger.Value; }
-        }
-
-        public Chatter Chatter
-        {
-            get { return this._chatter.Value; }
-        }
-
-        public WorldService WorldService
-        {
-            get { return this._worldService.Value; }
-        }
-
-        public virtual string GetName()
-        {
-            return this.GetType().Name;
-        }
-
-        protected override void Dispose(bool disposing)
-        {
-            this.Events.Dispose();
-
-            base.Dispose(disposing);
-        }
     }
 }

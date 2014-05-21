@@ -37,6 +37,7 @@
       <HintPath>..\Lib\PlayerIOClient.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
@@ -47,7 +48,8 @@
     <Compile Include="Platforms\ConnectionPlatform.cs" />
     <Compile Include="Platforms\EventsPlatform.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Services\CupCakeService.cs" />
+    <Compile Include="Services\CapCakeService.cs" />
+    <Compile Include="Services\CupCakeServicePart.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
