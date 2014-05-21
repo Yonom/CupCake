@@ -2,7 +2,7 @@ using PlayerIOClient;
 
 namespace CupCake.EE.Events.Send
 {
-    public sealed class GodModeSendEvent : SendEvent
+    public class GodModeSendEvent : SendEvent
     {
         public GodModeSendEvent(bool godModeEnabled)
         {

@@ -3,7 +3,7 @@ using PlayerIOClient;
 
 namespace CupCake.EE.Events.Send
 {
-    public sealed class AutoSaySendEvent : SendEvent
+    public class AutoSaySendEvent : SendEvent
     {
         public AutoSaySendEvent(AutoText text)
         {

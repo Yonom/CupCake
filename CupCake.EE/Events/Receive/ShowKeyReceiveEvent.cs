@@ -4,7 +4,7 @@ using PlayerIOClient;
 
 namespace CupCake.EE.Events.Receive
 {
-    public sealed class ShowKeyReceiveEvent : ReceiveEvent
+    public class ShowKeyReceiveEvent : ReceiveEvent
     {
         public ShowKeyReceiveEvent(Message message)
             : base(message)

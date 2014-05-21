@@ -3,7 +3,7 @@ using PlayerIOClient;
 
 namespace CupCake.EE.Events.Send
 {
-    public sealed class ChangeFaceSendEvent : SendEvent
+    public class ChangeFaceSendEvent : SendEvent
     {
         public ChangeFaceSendEvent(string encryption, Smiley face)
         {

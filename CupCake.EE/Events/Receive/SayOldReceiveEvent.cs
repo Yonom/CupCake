@@ -2,7 +2,7 @@ using PlayerIOClient;
 
 namespace CupCake.EE.Events.Receive
 {
-    public sealed class SayOldReceiveEvent : ReceiveEvent
+    public class SayOldReceiveEvent : ReceiveEvent
     {
         public SayOldReceiveEvent(Message message)
             : base(message)

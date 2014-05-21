@@ -3,7 +3,7 @@ using PlayerIOClient;
 
 namespace CupCake.EE.Events.Receive
 {
-    public sealed class SoundPlaceReceiveEvent : BlockPlaceReceiveEvent
+    public class SoundPlaceReceiveEvent : BlockPlaceReceiveEvent
     {
         public SoundPlaceReceiveEvent(Message message)
             : base(message, Layer.Foreground, message.GetInteger(0), message.GetInteger(1), (Block)message.GetInteger(2)

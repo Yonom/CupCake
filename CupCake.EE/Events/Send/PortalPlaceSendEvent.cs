@@ -4,7 +4,7 @@ using PlayerIOClient;
 
 namespace CupCake.EE.Events.Send
 {
-    public sealed class PortalPlaceSendEvent : BlockPlaceSendEvent
+    public class PortalPlaceSendEvent : BlockPlaceSendEvent
     {
         public PortalPlaceSendEvent(string encryption, Layer layer, int x, int y, PortalBlock block, int portalId,
             int portalTarget, PortalRotation portalRotation)

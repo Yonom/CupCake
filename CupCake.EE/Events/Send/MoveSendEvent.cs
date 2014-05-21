@@ -2,7 +2,7 @@ using PlayerIOClient;
 
 namespace CupCake.EE.Events.Send
 {
-    public sealed class MoveSendEvent : SendEvent
+    public class MoveSendEvent : SendEvent
     {
         public MoveSendEvent(int posX, int posY, double speedX, double speedY, double modifierX, double modifierY,
             double horizontal, double vertical, double gravityMultiplier)

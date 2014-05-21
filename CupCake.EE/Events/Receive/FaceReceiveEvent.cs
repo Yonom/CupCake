@@ -3,7 +3,7 @@ using PlayerIOClient;
 
 namespace CupCake.EE.Events.Receive
 {
-    public sealed class FaceReceiveEvent : ReceiveEvent
+    public class FaceReceiveEvent : ReceiveEvent
     {
         public FaceReceiveEvent(Message message)
             : base(message)

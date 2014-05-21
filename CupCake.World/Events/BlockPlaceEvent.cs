@@ -2,7 +2,7 @@
 using CupCake.EE.Blocks;
 using CupCake.World.Blocks;
 
-namespace CupCake.World
+namespace CupCake.World.Events
 {
     public class BlockPlaceEvent : Event
     {

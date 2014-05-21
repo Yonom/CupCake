@@ -2,10 +2,11 @@ using CupCake.Core.Services;
 using CupCake.EE.Blocks;
 using CupCake.EE.Events.Receive;
 using CupCake.World.Blocks;
+using CupCake.World.Events;
 using PlayerIOClient;
 using WorldPortalBlock = CupCake.World.Blocks.WorldPortalBlock;
 
-namespace CupCake.World
+namespace CupCake.World.Services
 {
     public class WorldService : CupCakeService
     {

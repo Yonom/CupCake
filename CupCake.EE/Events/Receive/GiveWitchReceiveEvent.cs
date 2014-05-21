@@ -2,7 +2,7 @@ using PlayerIOClient;
 
 namespace CupCake.EE.Events.Receive
 {
-    public sealed class GiveWitchReceiveEvent : ReceiveEvent
+    public class GiveWitchReceiveEvent : ReceiveEvent
     {
         //No arguments
 

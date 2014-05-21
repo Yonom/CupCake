@@ -2,7 +2,7 @@ using PlayerIOClient;
 
 namespace CupCake.EE.Events.Send
 {
-    public sealed class PressBlueKeySendEvent : SendEvent
+    public class PressBlueKeySendEvent : SendEvent
     {
         public PressBlueKeySendEvent(string encryption)
         {

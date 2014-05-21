@@ -1,6 +1,6 @@
 ﻿using CupCake.Core.Events;
 
-namespace CupCake.Log
+namespace CupCake.Log.Events
 {
     public class LogEvent : Event
     {

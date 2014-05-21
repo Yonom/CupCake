@@ -2,7 +2,7 @@ using PlayerIOClient;
 
 namespace CupCake.EE.Events.Send
 {
-    public sealed class TouchDiamondSendEvent : SendEvent
+    public class TouchDiamondSendEvent : SendEvent
     {
         public TouchDiamondSendEvent(int x, int y)
         {

@@ -2,7 +2,7 @@ using PlayerIOClient;
 
 namespace CupCake.EE.Events.Receive
 {
-    public sealed class SaveDoneReceiveEvent : ReceiveEvent
+    public class SaveDoneReceiveEvent : ReceiveEvent
     {
         //No arguments
 

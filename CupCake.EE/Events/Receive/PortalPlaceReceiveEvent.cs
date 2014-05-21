@@ -3,7 +3,7 @@ using PlayerIOClient;
 
 namespace CupCake.EE.Events.Receive
 {
-    public sealed class PortalPlaceReceiveEvent : BlockPlaceReceiveEvent
+    public class PortalPlaceReceiveEvent : BlockPlaceReceiveEvent
     {
         public PortalPlaceReceiveEvent(Message message)
             : base(message, Layer.Foreground, message.GetInteger(0), message.GetInteger(1), (Block)message.GetInteger(2)

@@ -2,7 +2,7 @@ using PlayerIOClient;
 
 namespace CupCake.EE.Events.Send
 {
-    public sealed class GetCrownSendEvent : SendEvent
+    public class GetCrownSendEvent : SendEvent
     {
         public GetCrownSendEvent(string encryption)
         {

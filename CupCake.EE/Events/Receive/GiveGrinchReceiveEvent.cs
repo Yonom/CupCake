@@ -2,7 +2,7 @@ using PlayerIOClient;
 
 namespace CupCake.EE.Events.Receive
 {
-    public sealed class GiveGrinchReceiveEvent : ReceiveEvent
+    public class GiveGrinchReceiveEvent : ReceiveEvent
     {
         //No arguments
 

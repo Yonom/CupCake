@@ -3,7 +3,7 @@ using PlayerIOClient;
 
 namespace CupCake.EE.Events.Receive
 {
-    public sealed class TeleportEveryoneReceiveEvent : ReceiveEvent
+    public class TeleportEveryoneReceiveEvent : ReceiveEvent
     {
         public TeleportEveryoneReceiveEvent(Message message)
             : base(message)

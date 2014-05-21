@@ -2,7 +2,7 @@ using PlayerIOClient;
 
 namespace CupCake.EE.Events.Receive
 {
-    public sealed class CrownReceiveEvent : ReceiveEvent
+    public class CrownReceiveEvent : ReceiveEvent
     {
         public CrownReceiveEvent(Message message)
             : base(message)

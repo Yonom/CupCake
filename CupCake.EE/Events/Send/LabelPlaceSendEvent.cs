@@ -3,7 +3,7 @@ using PlayerIOClient;
 
 namespace CupCake.EE.Events.Send
 {
-    public sealed class LabelPlaceSendEvent : BlockPlaceSendEvent
+    public class LabelPlaceSendEvent : BlockPlaceSendEvent
     {
         public LabelPlaceSendEvent(string encryption, Layer layer, int x, int y, LabelBlock block, string text)
             : base(encryption, layer, x, y, (Block)block)

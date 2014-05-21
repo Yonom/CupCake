@@ -4,7 +4,7 @@ using PlayerIOClient;
 
 namespace CupCake.EE.Events.Receive
 {
-    public sealed class HideKeyReceiveEvent : ReceiveEvent
+    public class HideKeyReceiveEvent : ReceiveEvent
     {
         public HideKeyReceiveEvent(Message message)
             : base(message)

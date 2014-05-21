@@ -2,7 +2,7 @@ using PlayerIOClient;
 
 namespace CupCake.EE.Events.Send
 {
-    public sealed class InitSendEvent : SendEvent
+    public class InitSendEvent : SendEvent
     {
         //No arguments
 

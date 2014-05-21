@@ -2,7 +2,7 @@ using PlayerIOClient;
 
 namespace CupCake.EE.Events.Receive
 {
-    public sealed class LostAccessReceiveEvent : ReceiveEvent
+    public class LostAccessReceiveEvent : ReceiveEvent
     {
         //No arguments
 

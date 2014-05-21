@@ -2,7 +2,7 @@ using PlayerIOClient;
 
 namespace CupCake.EE.Events.Send
 {
-    public sealed class ChangeWorldEditKeySendEvent : SendEvent
+    public class ChangeWorldEditKeySendEvent : SendEvent
     {
         public ChangeWorldEditKeySendEvent(string editKey)
         {

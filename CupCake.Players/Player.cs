@@ -1,5 +1,6 @@
 ﻿using CupCake.Core.Services;
 using CupCake.EE.Blocks;
+using CupCake.EE.Events.Receive;
 using CupCake.EE.Players;
 using CupCake.Players.Services;
 
@@ -64,7 +65,7 @@ namespace CupCake.Players
 
         protected override void Enable()
         {
-            throw new System.NotImplementedException();
+            
         }
     }
 }
