@@ -1,10 +1,10 @@
-﻿using CupCake.Core.Events;
+﻿using System;
 
-namespace CupCake.Log.Events
+namespace CupCake.Core.Log
 {
-    public class LogEvent : Event
+    public class LogEventArgs : EventArgs
     {
-        public LogEvent(string source, LogPriority priority, string message)
+        public LogEventArgs(string source, LogPriority priority, string message)
         {
             this.Source = source;
             this.Priority = priority;

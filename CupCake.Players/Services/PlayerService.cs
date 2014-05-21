@@ -1,10 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using CupCake.Core.Log;
 using CupCake.Core.Services;
 using CupCake.EE.Events.Receive;
-using CupCake.Log;
-using CupCake.Log.Services;
 using CupCake.Players.Events;
 using CupCake.Players.Join;
 
@@ -60,8 +59,7 @@ namespace CupCake.Players.Services
             }
             else
             {
-                this.ServiceLoader.Get<LogService>()
-                    .Log("PlayerService", LogPriority.Warning, "Received Add with existing UserId. Name: " + e.Username);
+                this.Logger.Log(LogPriority.Warning, "Received Add with existing UserId. Name: " + e.Username);
             }
         }
 

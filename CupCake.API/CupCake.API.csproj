@@ -39,7 +39,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Chatter.cs" />
-    <Compile Include="Logger.cs" />
     <Compile Include="Muffins\CupCakeMuffin.cs" />
     <Compile Include="Muffins\CupCakeMuffinPart.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -56,10 +55,6 @@
     <ProjectReference Include="..\CupCake.EE\CupCake.EE.csproj">
       <Project>{1934f8dd-1d6a-4ceb-af92-600c44d4e849}</Project>
       <Name>CupCake.EE</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\CupCake.Log\CupCake.Log.csproj">
-      <Project>{6624e732-2c08-445a-8406-9dde1737a79b}</Project>
-      <Name>CupCake.Log</Name>
     </ProjectReference>
     <ProjectReference Include="..\CupCake.Players\CupCake.Players.csproj">
       <Project>{d9df7c76-4de4-4270-bca6-cba724e639ae}</Project>

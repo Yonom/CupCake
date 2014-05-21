@@ -1,6 +1,6 @@
 ﻿using CupCake.API.Muffins;
+using CupCake.Core.Log;
 using CupCake.EE.Events.Receive;
-using CupCake.Log;
 
 namespace CupCake.Muffins
 {

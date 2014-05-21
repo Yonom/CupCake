@@ -1,8 +1,8 @@
 ﻿using System;
 using CupCake.Chat.Services;
 using CupCake.Core.Events;
+using CupCake.Core.Log;
 using CupCake.Core.Platforms;
-using CupCake.Log.Services;
 using CupCake.Players.Services;
 using CupCake.World.Services;
 using MuffinFramework.Muffins;
@@ -29,7 +29,7 @@ namespace CupCake.API.Muffins
             });
             this._logger = new Lazy<Logger>(() =>
             {
-                var logService = this.ServiceLoader.Get<LogService>();
+                var logService = this.PlatformLoader.Get<LogPlatform>();
                 string name = this.GetName();
                 return new Logger(logService, name);
             });
