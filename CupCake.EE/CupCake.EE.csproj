@@ -52,6 +52,8 @@
     <Compile Include="Blocks\SoundBlock.cs" />
     <Compile Include="Blocks\SpikeRotation.cs" />
     <Compile Include="Blocks\WorldPortalBlock.cs" />
+    <Compile Include="Events\IUserEvent.cs" />
+    <Compile Include="Events\IUserPosEvent.cs" />
     <Compile Include="Events\Receive\AccessReceiveEvent.cs" />
     <Compile Include="Events\Receive\AddReceiveEvent.cs" />
     <Compile Include="Events\Receive\AllowPotionsReceiveEvent.cs" />
@@ -92,7 +94,7 @@
     <Compile Include="Events\Receive\SilverCrownReceiveEvent.cs" />
     <Compile Include="Events\Receive\SoundPlaceReceiveEvent.cs" />
     <Compile Include="Events\Receive\TeleportEveryoneReceiveEvent.cs" />
-    <Compile Include="Events\Receive\TeleportPlayerReceiveEvent.cs" />
+    <Compile Include="Events\Receive\TeleportUserReceiveEvent.cs" />
     <Compile Include="Events\Receive\UpdateMetaReceiveEvent.cs" />
     <Compile Include="Events\Receive\UpgradeReceiveEvent.cs" />
     <Compile Include="Events\Receive\WootUpReceiveEvent.cs" />
@@ -131,13 +133,13 @@
     <Compile Include="Events\Send\SoundPlaceSendEvent.cs" />
     <Compile Include="Events\Send\TouchCakeSendEvent.cs" />
     <Compile Include="Events\Send\TouchDiamondSendEvent.cs" />
-    <Compile Include="Events\Send\TouchPlayerSendEvent.cs" />
+    <Compile Include="Events\Send\TouchUserSendEvent.cs" />
     <Compile Include="Events\Send\WootUpSendEvent.cs" />
     <Compile Include="Events\Send\WorldPortalPlaceSendEvent.cs" />
-    <Compile Include="Players\AccountType.cs" />
-    <Compile Include="Players\AutoText.cs" />
-    <Compile Include="Players\MagicClass.cs" />
-    <Compile Include="Players\Smiley.cs" />
+    <Compile Include="User\AccountType.cs" />
+    <Compile Include="User\AutoText.cs" />
+    <Compile Include="User\MagicClass.cs" />
+    <Compile Include="User\Smiley.cs" />
     <Compile Include="Point.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

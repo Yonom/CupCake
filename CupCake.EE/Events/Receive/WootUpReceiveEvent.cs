@@ -2,7 +2,7 @@ using PlayerIOClient;
 
 namespace CupCake.EE.Events.Receive
 {
-    public class WootUpReceiveEvent : ReceiveEvent
+    public class WootUpReceiveEvent : ReceiveEvent, IUserEvent
     {
         public WootUpReceiveEvent(Message message)
             : base(message)

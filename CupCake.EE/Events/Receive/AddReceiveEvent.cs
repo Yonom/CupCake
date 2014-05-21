@@ -1,9 +1,9 @@
-using CupCake.EE.Players;
+using CupCake.EE.User;
 using PlayerIOClient;
 
 namespace CupCake.EE.Events.Receive
 {
-    public class AddReceiveEvent : ReceiveEvent
+    public class AddReceiveEvent : ReceiveEvent, IUserPosEvent
     {
         public AddReceiveEvent(Message message)
             : base(message)
@@ -11,8 +11,8 @@ namespace CupCake.EE.Events.Receive
             this.UserId = message.GetInteger(0);
             this.Username = message.GetString(1);
             this.Face = (Smiley)message.GetInteger(2);
-            this.PlayerPosX = message.GetInteger(3);
-            this.PlayerPosY = message.GetInteger(4);
+            this.UserPosX = message.GetInteger(3);
+            this.UserPosY = message.GetInteger(4);
             this.IsGod = message.GetBoolean(5);
             this.IsMod = message.GetBoolean(6);
             this.HasChat = message.GetBoolean(7);
@@ -32,8 +32,8 @@ namespace CupCake.EE.Events.Receive
         public bool IsMyFriend { get; private set; }
         public bool IsPurple { get; private set; }
         public MagicClass MagicClass { get; private set; }
-        public int PlayerPosX { get; private set; }
-        public int PlayerPosY { get; private set; }
+        public int UserPosX { get; private set; }
+        public int UserPosY { get; private set; }
         public int UserId { get; private set; }
         public string Username { get; private set; }
     }

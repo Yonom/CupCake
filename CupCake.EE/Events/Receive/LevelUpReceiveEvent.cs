@@ -2,7 +2,7 @@ using PlayerIOClient;
 
 namespace CupCake.EE.Events.Receive
 {
-    public class LevelUpReceiveEvent : ReceiveEvent
+    public class LevelUpReceiveEvent : ReceiveEvent, IUserEvent
     {
         public LevelUpReceiveEvent(Message message)
             : base(message)

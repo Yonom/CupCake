@@ -1,12 +1,16 @@
-﻿using CupCake.Core.Services;
+﻿using System;
+using CupCake.Core.Events;
+using CupCake.Core.Services;
 using CupCake.EE.Blocks;
+using CupCake.EE.Events;
 using CupCake.EE.Events.Receive;
-using CupCake.EE.Players;
+using CupCake.EE.User;
+using CupCake.Players.Join;
 using CupCake.Players.Services;
 
 namespace CupCake.Players
 {
-    public class Player : CupCakeServicePart<PlayerService>
+    public class Player : CupCakeServicePart<JoinArgs>
     {
         public string Username { get; private set; }
         public int UserId { get; private set; }
@@ -65,7 +69,61 @@ namespace CupCake.Players
 
         protected override void Enable()
         {
-            
+            this.ExtractHostData();
+
+
         }
+
+        private void BindWithId<T>(EventHandler<T> callback) where T : Event, IUserEvent
+        {
+            this.Events.Bind<T>(
+                (sender, e) =>
+                {
+                    if (e.UserId == this.UserId)
+                    {
+                        callback(sender, e);
+                    }
+                }, EventPriority.BeforeMost);
+        }
+
+        private void ExtractHostData()
+        {
+            var addArgs = this.Host as AddJoinArgs;
+            if (addArgs != null)
+            {
+                var add = addArgs.AddReceiveEvent;
+
+                this.UserId = add.UserId;
+                this.Username = add.Username;
+                this.Smiley = add.Face;
+                this.HasChat = add.HasChat;
+                this.IsGod = add.IsGod;
+                this.IsMod = add.IsMod;
+                this.IsMyFriend = add.IsMyFriend;
+                this.Coins = add.Coins;
+                this.PlayerPosX = add.UserPosX;
+                this.PlayerPosY = add.UserPosY;
+                this.SpawnX = add.UserPosX;
+                this.SpawnY = add.UserPosY;
+                this.IsClubMember = add.IsClubMember;
+                this.MagicClass = add.MagicClass;
+                this.JumpPotion = add.IsPurple;
+            }
+
+            var initArgs = this.Host as InitJoinArgs;
+            if (initArgs != null)
+            {
+                var init = initArgs.InitReceiveEvent;
+
+                this.UserId = init.UserId;
+                this.Username = init.Username;
+                this.PlayerPosX = init.SpawnX;
+                this.PlayerPosY = init.SpawnY;
+                this.SpawnX = init.SpawnX;
+                this.SpawnY = init.SpawnY;
+            }
+        }
+
+
     }
 }

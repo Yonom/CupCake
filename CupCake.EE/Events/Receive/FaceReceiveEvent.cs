@@ -1,9 +1,9 @@
-using CupCake.EE.Players;
+using CupCake.EE.User;
 using PlayerIOClient;
 
 namespace CupCake.EE.Events.Receive
 {
-    public class FaceReceiveEvent : ReceiveEvent
+    public class FaceReceiveEvent : ReceiveEvent, IUserEvent
     {
         public FaceReceiveEvent(Message message)
             : base(message)

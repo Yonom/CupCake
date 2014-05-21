@@ -2,14 +2,14 @@ using PlayerIOClient;
 
 namespace CupCake.EE.Events.Receive
 {
-    public class MoveReceiveEvent : ReceiveEvent
+    public class MoveReceiveEvent : ReceiveEvent, IUserPosEvent
     {
         public MoveReceiveEvent(Message message)
             : base(message)
         {
             this.UserId = message.GetInteger(0);
-            this.PlayerPosX = message.GetInteger(1);
-            this.PlayerPosY = message.GetInteger(2);
+            this.UserPosX = message.GetInteger(1);
+            this.UserPosY = message.GetInteger(2);
             this.SpeedX = message.GetDouble(3);
             this.SpeedY = message.GetDouble(4);
             this.ModifierX = message.GetDouble(5);
@@ -25,8 +25,8 @@ namespace CupCake.EE.Events.Receive
         public bool IsPurple { get; private set; }
         public double ModifierX { get; private set; }
         public double ModifierY { get; private set; }
-        public int PlayerPosX { get; private set; }
-        public int PlayerPosY { get; private set; }
+        public int UserPosX { get; private set; }
+        public int UserPosY { get; private set; }
         public double SpeedX { get; private set; }
         public double SpeedY { get; private set; }
         public int UserId { get; private set; }
@@ -34,12 +34,12 @@ namespace CupCake.EE.Events.Receive
 
         public int BlockX
         {
-            get { return this.PlayerPosX + 8 >> 4; }
+            get { return this.UserPosX + 8 >> 4; }
         }
 
         public int BlockY
         {
-            get { return this.PlayerPosY + 8 >> 4; }
+            get { return this.UserPosY + 8 >> 4; }
         }
     }
 }

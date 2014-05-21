@@ -98,7 +98,7 @@ namespace CupCake.Core.Events
 
             public Delegate GetCallback()
             {
-                return _callback;
+                return this._callback;
             }
 
             public void Subscribe()

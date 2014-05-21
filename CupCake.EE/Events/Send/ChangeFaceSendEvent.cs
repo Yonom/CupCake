@@ -1,4 +1,4 @@
-using CupCake.EE.Players;
+using CupCake.EE.User;
 using PlayerIOClient;
 
 namespace CupCake.EE.Events.Send

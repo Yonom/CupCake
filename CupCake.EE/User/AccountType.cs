@@ -1,4 +1,4 @@
-namespace CupCake.EE.Players
+namespace CupCake.EE.User
 {
     public enum AccountType
     {

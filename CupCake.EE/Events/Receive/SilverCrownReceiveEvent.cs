@@ -2,7 +2,7 @@ using PlayerIOClient;
 
 namespace CupCake.EE.Events.Receive
 {
-    public class SilverCrownReceiveEvent : ReceiveEvent
+    public class SilverCrownReceiveEvent : ReceiveEvent, IUserEvent
     {
         public SilverCrownReceiveEvent(Message message)
             : base(message)

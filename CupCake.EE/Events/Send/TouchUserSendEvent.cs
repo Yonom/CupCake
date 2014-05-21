@@ -3,9 +3,9 @@ using PlayerIOClient;
 
 namespace CupCake.EE.Events.Send
 {
-    public class TouchPlayerSendEvent : SendEvent
+    public class TouchUserSendEvent : SendEvent, IUserEvent
     {
-        public TouchPlayerSendEvent(int userId, Potion reason)
+        public TouchUserSendEvent(int userId, Potion reason)
         {
             this.UserId = userId;
             this.Reason = reason;

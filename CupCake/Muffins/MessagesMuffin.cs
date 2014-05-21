@@ -42,7 +42,7 @@ namespace CupCake.Muffins
             this.MessageManager.RegisterMessage<LostAccessReceiveEvent>("lostaccess");
             this.MessageManager.RegisterMessage<ResetReceiveEvent>("reset");
             this.MessageManager.RegisterMessage<TeleportEveryoneReceiveEvent>("tele");
-            this.MessageManager.RegisterMessage<TeleportPlayerReceiveEvent>("teleport");
+            this.MessageManager.RegisterMessage<TeleportUserReceiveEvent>("teleport");
             this.MessageManager.RegisterMessage<SaveDoneReceiveEvent>("saved");
             this.MessageManager.RegisterMessage<ClearReceiveEvent>("clear");
             this.MessageManager.RegisterMessage<SayReceiveEvent>("say");
@@ -105,7 +105,7 @@ namespace CupCake.Muffins
             this.Events.Bind<WootUpSendEvent>(this.OnAnySendEvent);
             this.Events.Bind<DeathSendEvent>(this.OnAnySendEvent);
             this.Events.Bind<CheckpointSendEvent>(this.OnAnySendEvent);
-            this.Events.Bind<TouchPlayerSendEvent>(this.OnAnySendEvent);
+            this.Events.Bind<TouchUserSendEvent>(this.OnAnySendEvent);
         }
 
         private void Connection_OnMessage(object sender, Message e)

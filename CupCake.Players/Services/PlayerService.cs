@@ -4,19 +4,20 @@ using System.Linq;
 using System.Text;
 using CupCake.Core.Services;
 using CupCake.EE.Events.Receive;
+using CupCake.Players.Join;
 
 namespace CupCake.Players.Services
 {
-    public class PlayerService : CupCakeService<PlayerService>
+    public class PlayerService : CupCakeService<JoinArgs>
     {
         protected override void Enable()
         {
-            this.Events.Bind<AddReceiveEvent>(OnAdd);
+            this.Events.Bind<AddReceiveEvent>(this.OnAdd);
         }
 
         private void OnAdd(object sender, AddReceiveEvent e)
         {
-            throw new NotImplementedException();
+            this.EnablePart<Player>(new AddJoinArgs(e));
         }
     }
 }
