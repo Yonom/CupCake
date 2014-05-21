@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace CupCake.EE.Events
+﻿namespace CupCake.EE.Events
 {
-    interface IUserPosEvent : IUserEvent
+    internal interface IUserPosEvent : IUserEvent
     {
         int UserPosX { get; }
         int UserPosY { get; }

@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{CF660140-CC8D-40A0-8A0A-9D58540DEC9B}</ProjectGuid>
+    <ProjectGuid>{80D52DA1-FBEB-42E6-B46F-2172114D1B9D}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>CupCake.API</RootNamespace>
-    <AssemblyName>CupCake.API</AssemblyName>
+    <RootNamespace>CupCake.Ranks</RootNamespace>
+    <AssemblyName>CupCake.Ranks</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -30,45 +30,12 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="MuffinFramework">
-      <HintPath>..\Lib\MuffinFramework.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
-    <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Chatter.cs" />
-    <Compile Include="Logger.cs" />
-    <Compile Include="Muffins\CupCakeMuffin.cs" />
-    <Compile Include="Muffins\CupCakeMuffinPart.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\CupCake.Chat\CupCake.Chat.csproj">
-      <Project>{7f69972f-c813-4850-887e-bc5029baf542}</Project>
-      <Name>CupCake.Chat</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\CupCake.Core\CupCake.Core.csproj">
-      <Project>{598d616c-4886-482b-af57-7bc7daa56cce}</Project>
-      <Name>CupCake.Core</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\CupCake.EE\CupCake.EE.csproj">
-      <Project>{1934f8dd-1d6a-4ceb-af92-600c44d4e849}</Project>
-      <Name>CupCake.EE</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\CupCake.Log\CupCake.Log.csproj">
-      <Project>{6624e732-2c08-445a-8406-9dde1737a79b}</Project>
-      <Name>CupCake.Log</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\CupCake.Players\CupCake.Players.csproj">
-      <Project>{d9df7c76-4de4-4270-bca6-cba724e639ae}</Project>
-      <Name>CupCake.Players</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\CupCake.World\CupCake.World.csproj">
-      <Project>{a5791bdd-9b10-4597-8605-083ed4365d31}</Project>
-      <Name>CupCake.World</Name>
-    </ProjectReference>
+    <Compile Include="Rank.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -41,14 +41,19 @@ namespace CupCake.Core.Events
 
         public bool Contains<T>(EventHandler<T> callback) where T : Event
         {
-            return this._bindings.Exists(binding => typeof(T) == binding.Type && binding.GetCallback() == (Delegate)callback);
+            return
+                this._bindings.Exists(
+                    binding => typeof(T) == binding.Type && binding.GetCallback() == (Delegate)callback);
         }
 
         public IBinding GetBinding<T>(EventHandler<T> callback) where T : Event
         {
             lock (this._bindings)
             {
-                foreach (var binding in this._bindings.Where(binding => typeof(T) == binding.Type && binding.GetCallback() == (Delegate)callback))
+                foreach (
+                    IBinding binding in
+                        this._bindings.Where(
+                            binding => typeof(T) == binding.Type && binding.GetCallback() == (Delegate)callback))
                 {
                     return binding;
                 }
@@ -92,7 +97,8 @@ namespace CupCake.Core.Events
                 this._priority = priority;
             }
 
-            public Type Type {
+            public Type Type
+            {
                 get { return typeof(T); }
             }
 

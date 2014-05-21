@@ -1,11 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using CupCake.Core.Events;
+using CupCake.EE.Events;
 
 namespace CupCake.Players.Events
 {
-    class PlayerEvent
+    public abstract class PlayerEvent<TBase> : Event where TBase : Event, IUserEvent
     {
+        protected PlayerEvent(Player player, TBase innerEvent)
+        {
+            this.Player = player;
+            this.InnerEvent = innerEvent;
+        }
+
+        public TBase InnerEvent { get; private set; }
+        public Player Player { get; private set; }
     }
 }

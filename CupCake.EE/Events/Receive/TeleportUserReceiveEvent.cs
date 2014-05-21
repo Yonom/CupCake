@@ -12,10 +12,6 @@ namespace CupCake.EE.Events.Receive
             this.UserPosY = message.GetInteger(2);
         }
 
-        public int UserPosX { get; private set; }
-        public int UserPosY { get; private set; }
-        public int UserId { get; private set; }
-
         public int BlockX
         {
             get { return this.UserPosX + 8 >> 4; }
@@ -25,5 +21,9 @@ namespace CupCake.EE.Events.Receive
         {
             get { return this.UserPosY + 8 >> 4; }
         }
+
+        public int UserPosX { get; private set; }
+        public int UserPosY { get; private set; }
+        public int UserId { get; private set; }
     }
 }

@@ -32,9 +32,9 @@ namespace CupCake.EE.Events.Receive
         public bool IsMyFriend { get; private set; }
         public bool IsPurple { get; private set; }
         public MagicClass MagicClass { get; private set; }
+        public string Username { get; private set; }
         public int UserPosX { get; private set; }
         public int UserPosY { get; private set; }
         public int UserId { get; private set; }
-        public string Username { get; private set; }
     }
 }

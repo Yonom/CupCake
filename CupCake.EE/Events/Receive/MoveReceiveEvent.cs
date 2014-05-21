@@ -25,11 +25,8 @@ namespace CupCake.EE.Events.Receive
         public bool IsPurple { get; private set; }
         public double ModifierX { get; private set; }
         public double ModifierY { get; private set; }
-        public int UserPosX { get; private set; }
-        public int UserPosY { get; private set; }
         public double SpeedX { get; private set; }
         public double SpeedY { get; private set; }
-        public int UserId { get; private set; }
         public double Vertical { get; private set; }
 
         public int BlockX
@@ -41,5 +38,9 @@ namespace CupCake.EE.Events.Receive
         {
             get { return this.UserPosY + 8 >> 4; }
         }
+
+        public int UserPosX { get; private set; }
+        public int UserPosY { get; private set; }
+        public int UserId { get; private set; }
     }
 }

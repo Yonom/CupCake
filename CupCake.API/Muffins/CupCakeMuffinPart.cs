@@ -3,7 +3,7 @@ using CupCake.Chat.Services;
 using CupCake.Core.Events;
 using CupCake.Core.Platforms;
 using CupCake.Log.Services;
-using CupCake.World;
+using CupCake.Players.Services;
 using CupCake.World.Services;
 using MuffinFramework.Muffins;
 
@@ -15,6 +15,7 @@ namespace CupCake.API.Muffins
         private readonly Lazy<ConnectionPlatform> _connectionPlatform;
         private readonly Lazy<EventManager> _events;
         private readonly Lazy<Logger> _logger;
+        private readonly Lazy<PlayerService> _playerService;
         private readonly Lazy<WorldService> _worldService;
 
         protected CupCakeMuffinPart()
@@ -41,6 +42,7 @@ namespace CupCake.API.Muffins
             });
 
             this._worldService = new Lazy<WorldService>(() => this.ServiceLoader.Get<WorldService>());
+            this._playerService = new Lazy<PlayerService>(() => this.ServiceLoader.Get<PlayerService>());
         }
 
         public EventManager Events
@@ -66,6 +68,11 @@ namespace CupCake.API.Muffins
         public WorldService WorldService
         {
             get { return this._worldService.Value; }
+        }
+
+        public PlayerService PlayerService
+        {
+            get { return this._playerService.Value; }
         }
 
         public virtual string GetName()

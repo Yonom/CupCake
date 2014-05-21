@@ -1,18 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using CupCake.EE.Events.Receive;
+﻿using CupCake.EE.Events.Receive;
+using CupCake.Players.Services;
 
 namespace CupCake.Players.Join
 {
     internal class InitJoinArgs : JoinArgs
     {
-        public InitReceiveEvent InitReceiveEvent { get; private set; }
-
-        public InitJoinArgs(InitReceiveEvent initReceiveEvent)
+        public InitJoinArgs(PlayerService playerService, InitReceiveEvent initReceiveEvent)
+            : base(playerService)
         {
             this.InitReceiveEvent = initReceiveEvent;
         }
+
+        public InitReceiveEvent InitReceiveEvent { get; private set; }
     }
 }

@@ -40,9 +40,9 @@ namespace CupCake.EE.Events.Receive
         public int SpawnX { get; private set; }
         public int SpawnY { get; private set; }
         public int TotalWoots { get; private set; }
-        public int UserId { get; private set; }
         public string Username { get; private set; }
         public string WorldName { get; private set; }
+        public int UserId { get; private set; }
 
         int IUserPosEvent.UserPosX
         {

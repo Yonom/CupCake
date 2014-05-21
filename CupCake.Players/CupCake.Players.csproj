@@ -36,16 +36,27 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Events\AddPlayerEvent.cs" />
+    <Compile Include="Events\AutoTextPlayerEvent.cs" />
+    <Compile Include="Events\CoinPlayerEvent.cs" />
+    <Compile Include="Events\CrownPlayerEvent.cs" />
+    <Compile Include="Events\FacePlayerEvent.cs" />
+    <Compile Include="Events\GodModePlayerEvent.cs" />
+    <Compile Include="Events\KillPlayerEvent.cs" />
+    <Compile Include="Events\LeftPlayerEvent.cs" />
+    <Compile Include="Events\LevelUpPlayerEvent.cs" />
+    <Compile Include="Events\MagicPlayerEvent.cs" />
+    <Compile Include="Events\ModModePlayerEvent.cs" />
+    <Compile Include="Events\MovePlayerEvent.cs" />
+    <Compile Include="Events\PotionPlayerEvent.cs" />
+    <Compile Include="Events\SayPlayerEvent.cs" />
+    <Compile Include="Events\SilverCrownPlayerEvent.cs" />
+    <Compile Include="Events\TeleportPlayerEvent.cs" />
+    <Compile Include="Events\WootUpPlayerEvent.cs" />
     <Compile Include="Join\AddJoinArgs.cs" />
     <Compile Include="Events\PlayerEvent.cs" />
-    <Compile Include="Group.cs" />
     <Compile Include="Join\InitJoinArgs.cs" />
     <Compile Include="Join\JoinArgs.cs" />
     <Compile Include="Player.cs" />
@@ -60,6 +71,10 @@
     <ProjectReference Include="..\CupCake.EE\CupCake.EE.csproj">
       <Project>{1934f8dd-1d6a-4ceb-af92-600c44d4e849}</Project>
       <Name>CupCake.EE</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CupCake.Log\CupCake.Log.csproj">
+      <Project>{6624e732-2c08-445a-8406-9dde1737a79b}</Project>
+      <Name>CupCake.Log</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup />
