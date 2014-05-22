@@ -1,6 +1,7 @@
 ﻿using CupCake.API.Muffins;
 using CupCake.Core.Log;
 using CupCake.EE.Events.Receive;
+using CupCake.Players.Events;
 
 namespace CupCake.Muffins
 {
@@ -8,12 +9,12 @@ namespace CupCake.Muffins
     {
         protected override void Enable()
         {
-            this.Events.Bind<SayReceiveEvent>(this.OnSay);
+            this.Events.Bind<SayPlayerEvent>(this.OnSay);
         }
 
-        private void OnSay(object sender, SayReceiveEvent e)
+        private void OnSay(object sender, SayPlayerEvent e)
         {
-            this.Logger.Log(LogPriority.Message, e.Text);
+            this.Logger.LogPlatform.Log(e.Player.Username, LogPriority.Message, e.Player.Say);
         }
     }
 }

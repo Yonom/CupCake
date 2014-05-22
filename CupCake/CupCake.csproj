@@ -63,6 +63,10 @@
       <Project>{1934f8dd-1d6a-4ceb-af92-600c44d4e849}</Project>
       <Name>CupCake.EE</Name>
     </ProjectReference>
+    <ProjectReference Include="..\CupCake.Players\CupCake.Players.csproj">
+      <Project>{d9df7c76-4de4-4270-bca6-cba724e639ae}</Project>
+      <Name>CupCake.Players</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
