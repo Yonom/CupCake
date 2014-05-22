@@ -1,6 +1,6 @@
-﻿namespace CupCake.Ranks
+﻿namespace CupCake.Permissions
 {
-    public enum Rank
+    public enum Group
     {
         /// <summary>
         ///     Banned. May not join any world and therefore shouldn't be given access to any commands.
