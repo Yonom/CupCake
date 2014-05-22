@@ -69,10 +69,7 @@ namespace CupCake.Players
 
         public bool HasCrown
         {
-            get
-            {
-                return this.Host.PlayerService.CrownPlayer == this;
-            }
+            get { return this.Host.PlayerService.CrownPlayer == this; }
         }
 
         public bool IsGuest

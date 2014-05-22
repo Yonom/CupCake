@@ -10,7 +10,7 @@ namespace CupCake.Players.Metadata
         {
             lock (this._metadatas)
             {
-                if (_metadatas.ContainsKey(metadataId))
+                if (this._metadatas.ContainsKey(metadataId))
                     return (TMetadata)this._metadatas[metadataId];
 
                 return default(TMetadata);
@@ -21,7 +21,7 @@ namespace CupCake.Players.Metadata
         {
             lock (this._metadatas)
             {
-                _metadatas[metadataId] = value;
+                this._metadatas[metadataId] = value;
             }
         }
     }

@@ -111,7 +111,7 @@ namespace CupCake.Muffins
 
         private void Connection_OnMessage(object sender, Message e)
         {
-            ThreadPool.QueueUserWorkItem(ThreadPoolCallback, e);
+            ThreadPool.QueueUserWorkItem(this.ThreadPoolCallback, e);
         }
 
         private void ThreadPoolCallback(object state)
