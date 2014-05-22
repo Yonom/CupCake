@@ -59,6 +59,7 @@
     <Compile Include="Events\PlayerEvent.cs" />
     <Compile Include="Join\InitJoinArgs.cs" />
     <Compile Include="Join\JoinArgs.cs" />
+    <Compile Include="Metadata\MetadataManager.cs" />
     <Compile Include="Player.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\PlayerService.cs" />

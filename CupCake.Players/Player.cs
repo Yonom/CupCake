@@ -8,11 +8,14 @@ using CupCake.EE.Events.Receive;
 using CupCake.EE.User;
 using CupCake.Players.Events;
 using CupCake.Players.Join;
+using CupCake.Players.Metadata;
 
 namespace CupCake.Players
 {
     public class Player : CupCakeServicePart<JoinArgs>
     {
+        public MetadataManager Metadata { get; private set; }
+
         public string Username { get; private set; }
         public int UserId { get; private set; }
 
@@ -68,9 +71,6 @@ namespace CupCake.Players
         {
             get
             {
-                if (this.Host.PlayerService.CrownPlayer == null)
-                    return false;
-
                 return this.Host.PlayerService.CrownPlayer == this;
             }
         }
@@ -96,29 +96,31 @@ namespace CupCake.Players
 
         protected override void Enable()
         {
+            this.Metadata = new MetadataManager();
+
             this.ExtractHostData();
 
-            this.BindWithId<AutoTextReceiveEvent, AutoTextPlayerEvent>(this.OnAutoText);
-            this.BindWithId<CoinReceiveEvent, CoinPlayerEvent>(this.OnCoin);
-            this.BindWithId<FaceReceiveEvent, FacePlayerEvent>(this.OnFace);
-            this.BindWithId<MoveReceiveEvent, MovePlayerEvent>(this.OnMove);
-            this.BindWithId<GodModeReceiveEvent, GodModePlayerEvent>(this.OnGodMode);
-            this.BindWithId<ModModeReceiveEvent, ModModePlayerEvent>(this.OnModMode);
-            this.BindWithId<SilverCrownReceiveEvent, SilverCrownPlayerEvent>(this.OnSilverCrown);
-            this.BindWithId<TeleportUserReceiveEvent, TeleportPlayerEvent>(this.OnTeleportUser);
-            this.BindWithId<LeftReceiveEvent, LeftPlayerEvent>(this.OnLeft);
-            this.BindWithId<PotionReceiveEvent, PotionPlayerEvent>(this.OnPotion);
-            this.BindWithId<SayReceiveEvent, SayPlayerEvent>(this.OnSay);
-            this.BindWithId<LevelUpReceiveEvent, LevelUpPlayerEvent>(this.OnLevelUp);
-            this.BindWithId<WootUpReceiveEvent, WootUpPlayerEvent>(this.OnWootUp);
-            this.BindWithId<KillReceiveEvent, KillPlayerEvent>(this.OnKill);
-            this.BindWithId<MagicReceiveEvent, MagicPlayerEvent>(this.OnMagic);
-            this.BindWithId<CrownReceiveEvent, CrownPlayerEvent>(this.OnCrown);
+            this.BindPlayerEvent<AutoTextReceiveEvent, AutoTextPlayerEvent>(this.OnAutoText);
+            this.BindPlayerEvent<CoinReceiveEvent, CoinPlayerEvent>(this.OnCoin);
+            this.BindPlayerEvent<FaceReceiveEvent, FacePlayerEvent>(this.OnFace);
+            this.BindPlayerEvent<MoveReceiveEvent, MovePlayerEvent>(this.OnMove);
+            this.BindPlayerEvent<GodModeReceiveEvent, GodModePlayerEvent>(this.OnGodMode);
+            this.BindPlayerEvent<ModModeReceiveEvent, ModModePlayerEvent>(this.OnModMode);
+            this.BindPlayerEvent<SilverCrownReceiveEvent, SilverCrownPlayerEvent>(this.OnSilverCrown);
+            this.BindPlayerEvent<TeleportUserReceiveEvent, TeleportPlayerEvent>(this.OnTeleportUser);
+            this.BindPlayerEvent<LeftReceiveEvent, LeftPlayerEvent>(this.OnLeft);
+            this.BindPlayerEvent<PotionReceiveEvent, PotionPlayerEvent>(this.OnPotion);
+            this.BindPlayerEvent<SayReceiveEvent, SayPlayerEvent>(this.OnSay);
+            this.BindPlayerEvent<LevelUpReceiveEvent, LevelUpPlayerEvent>(this.OnLevelUp);
+            this.BindPlayerEvent<WootUpReceiveEvent, WootUpPlayerEvent>(this.OnWootUp);
+            this.BindPlayerEvent<KillReceiveEvent, KillPlayerEvent>(this.OnKill);
+            this.BindPlayerEvent<MagicReceiveEvent, MagicPlayerEvent>(this.OnMagic);
+            this.BindPlayerEvent<CrownReceiveEvent, CrownPlayerEvent>(this.OnCrown);
 
             this.Events.Bind<TeleportEveryoneReceiveEvent>(this.OnTeleportEveryone);
         }
 
-        private void BindWithId<T, TPlayer>(EventHandler<T> callback)
+        private void BindPlayerEvent<T, TPlayer>(EventHandler<T> callback)
             where T : Event, IUserEvent
             where TPlayer : PlayerEvent<T>
         {
