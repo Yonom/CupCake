@@ -121,9 +121,10 @@ namespace CupCake.Muffins
 
         private void HandleMessage(Message e)
         {
-            if (this.MessageManager.Contains(e.Type))
+            IRegisteredMessage message;
+            if (this.MessageManager.TryGetMessage(e.Type, out message))
             {
-                this.MessageManager[e.Type].Invoke(e);
+                message.Invoke(e);
             }
             else
             {

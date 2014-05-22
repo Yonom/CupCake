@@ -41,9 +41,12 @@ namespace CupCake.Core.Events
 
         public bool Contains<T>(EventHandler<T> callback) where T : Event
         {
-            return
-                this._bindings.Exists(
-                    binding => typeof(T) == binding.Type && binding.GetCallback() == (Delegate)callback);
+            lock (this._bindings)
+            {
+                return
+                    this._bindings.Exists(
+                        binding => typeof(T) == binding.Type && binding.GetCallback() == (Delegate)callback);
+            }
         }
 
         public IBinding GetBinding<T>(EventHandler<T> callback) where T : Event
@@ -102,6 +105,10 @@ namespace CupCake.Core.Events
                 get { return typeof(T); }
             }
 
+            public bool IsSubscribed {
+                get { return this._parent.EventsPlatform.Event<T>().Contains(this._callback); }
+            }
+
             public Delegate GetCallback()
             {
                 return this._callback;
@@ -109,24 +116,19 @@ namespace CupCake.Core.Events
 
             public void Subscribe()
             {
-                if (!this._parent.EventsPlatform.Event<T>().Contains(this._callback))
-                {
-                    this._parent.EventsPlatform.Event<T>().Bind(this._callback, this._priority);
-                }
+                this._parent.EventsPlatform.Event<T>().Bind(this._callback, this._priority);
             }
 
             public void Unsubscribe()
             {
-                if (this._parent.EventsPlatform.Event<T>().Contains(this._callback))
-                {
-                    this._parent.EventsPlatform.Event<T>().Remove(this._callback);
-                }
+                this._parent.EventsPlatform.Event<T>().Remove(this._callback);
             }
         }
 
         public interface IBinding
         {
             Type Type { get; }
+            bool IsSubscribed { get; }
             Delegate GetCallback();
             void Subscribe();
             void Unsubscribe();

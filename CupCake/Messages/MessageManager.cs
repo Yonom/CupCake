@@ -1,6 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections.Concurrent;
+using System.Collections.Generic;
 using CupCake.Core.Events;
 using CupCake.EE.Events.Receive;
+using CupCake.Messages;
 
 namespace CupCake.Messages
 {
@@ -8,55 +10,38 @@ namespace CupCake.Messages
     {
         private readonly EventManager _eventsPlatform;
 
-        private readonly Dictionary<string, IRegisteredMessage> _messageDictionary =
-            new Dictionary<string, IRegisteredMessage>();
+        private readonly ConcurrentDictionary<string, IRegisteredMessage> _messageDictionary =
+            new ConcurrentDictionary<string, IRegisteredMessage>();
 
         public MessageManager(EventManager eventsPlatform)
         {
             this._eventsPlatform = eventsPlatform;
         }
 
-        public IRegisteredMessage this[string str]
+        public bool TryGetMessage(string str, out IRegisteredMessage message)
         {
-            get
-            {
-                lock (this._messageDictionary)
-                {
-                    return this._messageDictionary[str];
-                }
-            }
+            return this._messageDictionary.TryGetValue(str, out message);
         }
 
         public void RegisterMessage<T>(string str) where T : ReceiveEvent
         {
-            lock (this._messageDictionary)
-            {
-                this._messageDictionary.Add(str, new RegisteredMessage<T>(this._eventsPlatform));
-            }
+            this._messageDictionary.TryAdd(str, new RegisteredMessage<T>(this._eventsPlatform));
         }
 
-        public void UnRegisterMessage(string str)
+        public bool UnRegisterMessage(string str)
         {
-            lock (this._messageDictionary)
-            {
-                this._messageDictionary.Remove(str);
-            }
+            IRegisteredMessage registeredMessage;
+            return this._messageDictionary.TryRemove(str, out registeredMessage);
         }
 
         public bool Contains(string str)
         {
-            lock (this._messageDictionary)
-            {
-                return this._messageDictionary.ContainsKey(str);
-            }
+            return this._messageDictionary.ContainsKey(str);
         }
 
         public void UnRegisterAll()
         {
-            lock (this._messageDictionary)
-            {
-                this._messageDictionary.Clear();
-            }
+            this._messageDictionary.Clear();
         }
     }
 }

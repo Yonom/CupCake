@@ -136,6 +136,7 @@
     <Compile Include="Events\Send\TouchUserSendEvent.cs" />
     <Compile Include="Events\Send\WootUpSendEvent.cs" />
     <Compile Include="Events\Send\WorldPortalPlaceSendEvent.cs" />
+    <Compile Include="ReadOnlyDictionary.cs" />
     <Compile Include="User\AccountType.cs" />
     <Compile Include="User\AutoText.cs" />
     <Compile Include="User\MagicClass.cs" />

@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using CupCake.Core.Log;
@@ -9,30 +10,14 @@ using CupCake.Players.Join;
 
 namespace CupCake.Players.Services
 {
-    public class PlayerService : CupCakeService<JoinArgs>, IEnumerable<Player>
+    public class PlayerService : CupCakeService<JoinArgs>
     {
-        private readonly Dictionary<int, Player> _players = new Dictionary<int, Player>();
+        private readonly ConcurrentDictionary<int, Player> _players = new ConcurrentDictionary<int, Player>();
         public Player CrownPlayer { get; private set; }
 
-        public Player this[int userId]
+        public bool TryGetPlayer(int userId, out Player player)
         {
-            get
-            {
-                lock (this._players)
-                {
-                    return this._players[userId];
-                }
-            }
-        }
-
-        public IEnumerator<Player> GetEnumerator()
-        {
-            lock (this._players)
-            {
-                // Create a new copy of the collection
-                List<Player> players = this._players.Values.ToList();
-                return players.GetEnumerator();
-            }
+            return this._players.TryGetValue(userId, out player);
         }
 
         IEnumerator IEnumerable.GetEnumerator()
@@ -47,45 +32,52 @@ namespace CupCake.Players.Services
             this.Events.Bind<LeftReceiveEvent>(this.OnLeft);
         }
 
+        private Player[] GetPlayers()
+        {
+            return this._players.Values.ToArray();
+        }
+
         private void OnAdd(object sender, AddReceiveEvent e)
         {
-            if (!this.Contains(e.UserId))
+            var player = this.EnablePart<Player>(new AddJoinArgs(this, e));
+            if (this._players.TryAdd(player.UserId, player))
             {
-                var player = this.EnablePart<Player>(new AddJoinArgs(this, e));
-                this._players.Add(player.UserId, player);
-
                 // Raise the add event for this player
                 this.Events.Raise(new AddPlayerEvent(player, e));
             }
             else
             {
+                // Aww we wasted resources
+                player.Dispose();
                 this.Logger.Log(LogPriority.Warning, "Received Add with existing UserId. Name: " + e.Username);
             }
         }
 
         private void OnCrown(object sender, CrownReceiveEvent e)
         {
-            if (this.Contains(e.UserId))
+            Player player;
+            if (this.TryGetPlayer(e.UserId, out player))
             {
-                this.CrownPlayer = this[e.UserId];
+                this.CrownPlayer = player;
             }
         }
 
         private void OnLeft(object sender, LeftReceiveEvent e)
         {
-            if (this.Contains(e.UserId))
+            Player leftPlayer;
+            if (this._players.TryRemove(e.UserId, out leftPlayer))
             {
-                this[e.UserId].Dispose();
-                this._players.Remove(e.UserId);
+                leftPlayer.Dispose();
+            }
+            else
+            {
+                this.Logger.Log(LogPriority.Warning, "Received Left with unknown UserId. Name: " + e.UserId);
             }
         }
 
         public bool Contains(int userId)
         {
-            lock (this._players)
-            {
-                return this._players.ContainsKey(userId);
-            }
+            return this._players.ContainsKey(userId);
         }
     }
 }
