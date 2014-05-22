@@ -1,4 +1,5 @@
-﻿using CupCake.API.Muffins;
+﻿using System.Threading;
+using CupCake.API.Muffins;
 using CupCake.Core.Log;
 using CupCake.EE.Events.Receive;
 using CupCake.EE.Events.Send;
@@ -109,6 +110,16 @@ namespace CupCake.Muffins
         }
 
         private void Connection_OnMessage(object sender, Message e)
+        {
+            ThreadPool.QueueUserWorkItem(ThreadPoolCallback, e);
+        }
+
+        private void ThreadPoolCallback(object state)
+        {
+            this.HandleMessage((Message)state);
+        }
+
+        private void HandleMessage(Message e)
         {
             if (this.MessageManager.Contains(e.Type))
             {
