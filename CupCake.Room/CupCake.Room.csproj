@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{CF660140-CC8D-40A0-8A0A-9D58540DEC9B}</ProjectGuid>
+    <ProjectGuid>{F040F4FA-1A86-4417-B7A2-0EC04095F886}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>CupCake.API</RootNamespace>
-    <AssemblyName>CupCake.API</AssemblyName>
+    <RootNamespace>CupCake.Room</RootNamespace>
+    <AssemblyName>CupCake.Room</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -31,23 +31,16 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="MuffinFramework">
-      <HintPath>..\Lib\MuffinFramework.dll</HintPath>
+      <HintPath>..\..\PineApple\Lib\MuffinFramework.dll</HintPath>
     </Reference>
     <Reference Include="System" />
-    <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Chatter.cs" />
-    <Compile Include="Muffins\CupCakeMuffin.cs" />
-    <Compile Include="Muffins\CupCakeMuffinPart.cs" />
+    <Compile Include="Services\RoomService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\CupCake.Chat\CupCake.Chat.csproj">
-      <Project>{7f69972f-c813-4850-887e-bc5029baf542}</Project>
-      <Name>CupCake.Chat</Name>
-    </ProjectReference>
     <ProjectReference Include="..\CupCake.Core\CupCake.Core.csproj">
       <Project>{598d616c-4886-482b-af57-7bc7daa56cce}</Project>
       <Name>CupCake.Core</Name>
@@ -55,18 +48,6 @@
     <ProjectReference Include="..\CupCake.EE\CupCake.EE.csproj">
       <Project>{1934f8dd-1d6a-4ceb-af92-600c44d4e849}</Project>
       <Name>CupCake.EE</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\CupCake.Players\CupCake.Players.csproj">
-      <Project>{d9df7c76-4de4-4270-bca6-cba724e639ae}</Project>
-      <Name>CupCake.Players</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\CupCake.Room\CupCake.Room.csproj">
-      <Project>{f040f4fa-1a86-4417-b7a2-0ec04095f886}</Project>
-      <Name>CupCake.Room</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\CupCake.World\CupCake.World.csproj">
-      <Project>{a5791bdd-9b10-4597-8605-083ed4365d31}</Project>
-      <Name>CupCake.World</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

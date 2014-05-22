@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using CupCake.Core.Events;
 using CupCake.Core.Services;
 using CupCake.EE;
@@ -12,6 +13,7 @@ using CupCake.Players.Metadata;
 
 namespace CupCake.Players
 {
+    [DebuggerDisplay("Username = {Username}, Smiley = {Smiley}")]
     public class Player : CupCakeServicePart<JoinArgs>
     {
         public MetadataManager Metadata { get; private set; }

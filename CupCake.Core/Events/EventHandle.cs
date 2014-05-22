@@ -76,7 +76,7 @@ namespace CupCake.Core.Events
 
             foreach (var handler in handlers)
             {
-                handler.Invoke(sender, e);
+                handler(sender, e);
             }
         }
     }

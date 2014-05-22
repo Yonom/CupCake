@@ -4,6 +4,7 @@ using CupCake.Core.Events;
 using CupCake.Core.Log;
 using CupCake.Core.Platforms;
 using CupCake.Players.Services;
+using CupCake.Room;
 using CupCake.World.Services;
 using MuffinFramework.Muffins;
 
@@ -17,6 +18,7 @@ namespace CupCake.API.Muffins
         private readonly Lazy<Logger> _logger;
         private readonly Lazy<PlayerService> _playerService;
         private readonly Lazy<WorldService> _worldService;
+        private readonly Lazy<RoomService> _roomService;
 
         protected CupCakeMuffinPart()
         {
@@ -42,6 +44,7 @@ namespace CupCake.API.Muffins
             });
 
             this._worldService = new Lazy<WorldService>(() => this.ServiceLoader.Get<WorldService>());
+            this._roomService = new Lazy<RoomService>(() => this.ServiceLoader.Get<RoomService>());
             this._playerService = new Lazy<PlayerService>(() => this.ServiceLoader.Get<PlayerService>());
         }
 
@@ -70,6 +73,11 @@ namespace CupCake.API.Muffins
             get { return this._worldService.Value; }
         }
 
+        public RoomService RoomService
+        {
+            get { return this._roomService.Value; }
+        }
+
         public PlayerService PlayerService
         {
             get { return this._playerService.Value; }
@@ -77,7 +85,7 @@ namespace CupCake.API.Muffins
 
         public virtual string GetName()
         {
-            return this.GetType().Name;
+            return this.GetType().Namespace;
         }
 
         protected override void Dispose(bool disposing)

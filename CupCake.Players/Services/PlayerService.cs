@@ -1,4 +1,5 @@
-﻿using System.Collections.Concurrent;
+﻿using System;
+using System.Collections.Concurrent;
 using System.Linq;
 using CupCake.Core.Log;
 using CupCake.Core.Services;
@@ -11,7 +12,13 @@ namespace CupCake.Players.Services
     public class PlayerService : CupCakeService<JoinArgs>
     {
         private readonly ConcurrentDictionary<int, Player> _players = new ConcurrentDictionary<int, Player>();
+        public Player OwnPlayer { get; private set; }
         public Player CrownPlayer { get; private set; }
+
+        public Player[] Players
+        {
+            get { return this._players.Values.ToArray(); }
+        }
 
         public bool TryGetPlayer(int userId, out Player player)
         {
@@ -20,29 +27,43 @@ namespace CupCake.Players.Services
 
         protected override void Enable()
         {
+            this.Events.Bind<InitReceiveEvent>(this.OnInit);
             this.Events.Bind<AddReceiveEvent>(this.OnAdd);
             this.Events.Bind<CrownReceiveEvent>(this.OnCrown);
             this.Events.Bind<LeftReceiveEvent>(this.OnLeft);
         }
 
-        public Player[] GetPlayers()
+        private void OnInit(object sender, InitReceiveEvent e)
         {
-            return this._players.Values.ToArray();
+            this.AddPlayer(new InitJoinArgs(this, e), player =>
+                this.OwnPlayer = player);
         }
 
         private void OnAdd(object sender, AddReceiveEvent e)
         {
-            var player = this.EnablePart<Player>(new AddJoinArgs(this, e));
+            this.AddPlayer(new AddJoinArgs(this, e),
+                player =>
+                    // Raise the add event for this player
+                    this.Events.Raise(new AddPlayerEvent(player, e)),
+                () => 
+                    this.Logger.Log(LogPriority.Warning, "Received Add with existing UserId. Name: " + e.Username));
+        }
+
+        private void AddPlayer(JoinArgs joinArgs, Action<Player> successCallback = null, Action errorcallback = null)
+        {
+            var player = this.EnablePart<Player>(joinArgs);
             if (this._players.TryAdd(player.UserId, player))
             {
-                // Raise the add event for this player
-                this.Events.Raise(new AddPlayerEvent(player, e));
+                if (successCallback != null)
+                    successCallback(player);
             }
             else
             {
                 // Aww we wasted resources
                 player.Dispose();
-                this.Logger.Log(LogPriority.Warning, "Received Add with existing UserId. Name: " + e.Username);
+
+                if (errorcallback != null)
+                    errorcallback();
             }
         }
 

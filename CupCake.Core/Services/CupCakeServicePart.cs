@@ -48,7 +48,7 @@ namespace CupCake.Core.Services
 
         public virtual string GetName()
         {
-            return this.GetType().Name;
+            return this.GetType().Namespace;
         }
 
         protected override void Dispose(bool disposing)
