@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.Collections.Concurrent;
 using System.Linq;
 using CupCake.Core.Platforms;
 
@@ -7,7 +7,7 @@ namespace CupCake.Core.Events
 {
     public class EventManager : IDisposable
     {
-        private readonly List<IBinding> _bindings = new List<IBinding>();
+        private readonly ConcurrentBag<IBinding> _bindings = new ConcurrentBag<IBinding>();
         private readonly object _sender;
 
         public EventManager(EventsPlatform eventsPlatform, object sender)
@@ -26,63 +26,49 @@ namespace CupCake.Core.Events
 
         public void Bind<T>(EventHandler<T> callback, EventPriority priority = EventPriority.Normal) where T : Event
         {
-            lock (this._bindings)
+            if (this.Contains(callback))
             {
-                if (this.Contains(callback))
-                {
-                    throw new ArgumentException("Callback has already been added to the specified event.");
-                }
-
-                var binding = new Binding<T>(this, callback, priority);
-                binding.Subscribe();
-                this._bindings.Add(binding);
+                throw new ArgumentException("Callback has already been added to the specified event.");
             }
+
+            var binding = new Binding<T>(this, callback, priority);
+            binding.Subscribe();
+            this._bindings.Add(binding);
         }
 
         public bool Contains<T>(EventHandler<T> callback) where T : Event
         {
-            lock (this._bindings)
-            {
-                return
-                    this._bindings.Exists(
-                        binding => typeof(T) == binding.Type && binding.GetCallback() == (Delegate)callback);
-            }
+            return
+                this._bindings.Any(binding => typeof(T) == binding.Type && binding.GetCallback() == (Delegate)callback);
         }
 
-        public IBinding GetBinding<T>(EventHandler<T> callback) where T : Event
+        public bool TryGetBinding<T>(EventHandler<T> callback, out IBinding binding) where T : Event
         {
-            lock (this._bindings)
+            foreach (
+                IBinding b in
+                    this._bindings.Where(
+                        b => typeof(T) == b.Type && b.GetCallback() == (Delegate)callback))
             {
-                foreach (
-                    IBinding binding in
-                        this._bindings.Where(
-                            binding => typeof(T) == binding.Type && binding.GetCallback() == (Delegate)callback))
-                {
-                    return binding;
-                }
+                binding = b;
+                return true;
             }
 
-            throw new KeyNotFoundException("The requested binding was not found.");
+            binding = null;
+            return false;
         }
 
         public void Raise<T>(T eventArgs) where T : Event
         {
-            lock (this._bindings)
-            {
-                this.EventsPlatform.Event<T>().Raise(this._sender, eventArgs);
-            }
+            this.EventsPlatform.Event<T>().Raise(this._sender, eventArgs);
         }
 
         protected virtual void Dispose(bool disposing)
         {
             if (disposing)
             {
-                lock (this._bindings)
+                foreach (IBinding binding in this._bindings)
                 {
-                    foreach (IBinding binding in this._bindings)
-                    {
-                        binding.Unsubscribe();
-                    }
+                    binding.Unsubscribe();
                 }
             }
         }
@@ -105,7 +91,8 @@ namespace CupCake.Core.Events
                 get { return typeof(T); }
             }
 
-            public bool IsSubscribed {
+            public bool IsSubscribed
+            {
                 get { return this._parent.EventsPlatform.Event<T>().Contains(this._callback); }
             }
 

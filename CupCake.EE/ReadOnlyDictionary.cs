@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace CupCake.EE
 {
@@ -12,15 +10,20 @@ namespace CupCake.EE
 
         public ReadOnlyDictionary()
         {
-            _dictionary = new Dictionary<TKey, TValue>();
+            this._dictionary = new Dictionary<TKey, TValue>();
         }
 
         public ReadOnlyDictionary(IDictionary<TKey, TValue> dictionary)
         {
-            _dictionary = dictionary;
+            this._dictionary = dictionary;
         }
 
         #region IDictionary<TKey,TValue> Members
+
+        public TValue this[TKey key]
+        {
+            get { return this._dictionary[key]; }
+        }
 
         void IDictionary<TKey, TValue>.Add(TKey key, TValue value)
         {
@@ -29,12 +32,12 @@ namespace CupCake.EE
 
         public bool ContainsKey(TKey key)
         {
-            return _dictionary.ContainsKey(key);
+            return this._dictionary.ContainsKey(key);
         }
 
         public ICollection<TKey> Keys
         {
-            get { return _dictionary.Keys; }
+            get { return this._dictionary.Keys; }
         }
 
         bool IDictionary<TKey, TValue>.Remove(TKey key)
@@ -44,32 +47,18 @@ namespace CupCake.EE
 
         public bool TryGetValue(TKey key, out TValue value)
         {
-            return _dictionary.TryGetValue(key, out value);
+            return this._dictionary.TryGetValue(key, out value);
         }
 
         public ICollection<TValue> Values
         {
-            get { return _dictionary.Values; }
-        }
-
-        public TValue this[TKey key]
-        {
-            get
-            {
-                return _dictionary[key];
-            }
+            get { return this._dictionary.Values; }
         }
 
         TValue IDictionary<TKey, TValue>.this[TKey key]
         {
-            get
-            {
-                return this[key];
-            }
-            set
-            {
-                throw ReadOnlyException();
-            }
+            get { return this[key]; }
+            set { throw ReadOnlyException(); }
         }
 
         #endregion
@@ -88,17 +77,17 @@ namespace CupCake.EE
 
         public bool Contains(KeyValuePair<TKey, TValue> item)
         {
-            return _dictionary.Contains(item);
+            return this._dictionary.Contains(item);
         }
 
         public void CopyTo(KeyValuePair<TKey, TValue>[] array, int arrayIndex)
         {
-            _dictionary.CopyTo(array, arrayIndex);
+            this._dictionary.CopyTo(array, arrayIndex);
         }
 
         public int Count
         {
-            get { return _dictionary.Count; }
+            get { return this._dictionary.Count; }
         }
 
         public bool IsReadOnly
@@ -117,7 +106,7 @@ namespace CupCake.EE
 
         public IEnumerator<KeyValuePair<TKey, TValue>> GetEnumerator()
         {
-            return _dictionary.GetEnumerator();
+            return this._dictionary.GetEnumerator();
         }
 
         #endregion
@@ -126,7 +115,7 @@ namespace CupCake.EE
 
         IEnumerator IEnumerable.GetEnumerator()
         {
-            return GetEnumerator();
+            return this.GetEnumerator();
         }
 
         #endregion

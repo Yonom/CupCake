@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Timers;
@@ -10,7 +11,7 @@ namespace CupCake.Chat.Services
 {
     public class ChatService : CupCakeService
     {
-        private readonly Queue<SaySendEvent> _myChatQueue = new Queue<SaySendEvent>();
+        private readonly ConcurrentQueue<SaySendEvent> _myChatQueue = new ConcurrentQueue<SaySendEvent>();
         private readonly List<string> _myHistoryList = new List<string>();
         private Timer _mySendTimer;
 
@@ -32,16 +33,14 @@ namespace CupCake.Chat.Services
 
         private void DoSendTick()
         {
-            lock (this._myChatQueue)
+            SaySendEvent sayEvent;
+            if (this._myChatQueue.TryDequeue(out sayEvent))
             {
-                if (this._myChatQueue.Count > 0)
-                {
-                    this.Events.Raise(this._myChatQueue.Dequeue());
-                }
-                else
-                {
-                    this._mySendTimer.Stop();
-                }
+                this.Events.Raise(sayEvent);
+            }
+            else
+            {
+                this._mySendTimer.Stop();
             }
         }
 
@@ -75,15 +74,12 @@ namespace CupCake.Chat.Services
             }
 
             // Queue the message and chop it into 80 char parts
-            lock (this._myChatQueue)
+            for (int i = 0; i <= msg.Length; i += 80)
             {
-                for (int i = 0; i <= msg.Length; i += 80)
-                {
-                    int left = msg.Length - i;
-                    this._myChatQueue.Enqueue(left >= 80
-                        ? new SaySendEvent(msg.Substring(i, 80))
-                        : new SaySendEvent(msg.Substring(i, left)));
-                }
+                int left = msg.Length - i;
+                this._myChatQueue.Enqueue(left >= 80
+                    ? new SaySendEvent(msg.Substring(i, 80))
+                    : new SaySendEvent(msg.Substring(i, left)));
             }
 
             // Init Timer
@@ -225,8 +221,6 @@ namespace CupCake.Chat.Services
         {
             if (disposing)
             {
-                this._myHistoryList.Clear();
-                this._myChatQueue.Clear();
                 this._mySendTimer.Dispose();
             }
         }

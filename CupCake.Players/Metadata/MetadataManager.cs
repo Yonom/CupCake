@@ -1,28 +1,23 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections.Concurrent;
 
 namespace CupCake.Players.Metadata
 {
     public class MetadataManager
     {
-        private readonly Dictionary<string, object> _metadatas = new Dictionary<string, object>();
+        private readonly ConcurrentDictionary<string, object> _metadatas = new ConcurrentDictionary<string, object>();
 
-        public TMetadata GetMetadata<TMetadata>(string metadataId)
+        public bool GetMetadata<TMetadata>(string metadataId, out TMetadata metadata)
         {
-            lock (this._metadatas)
-            {
-                if (this._metadatas.ContainsKey(metadataId))
-                    return (TMetadata)this._metadatas[metadataId];
+            object metadataObj;
+            bool success = this._metadatas.TryGetValue(metadataId, out metadataObj);
 
-                return default(TMetadata);
-            }
+            metadata = (TMetadata)metadataObj;
+            return success;
         }
 
         public void SetMetadata<TMetaData>(string metadataId, TMetaData value)
         {
-            lock (this._metadatas)
-            {
-                this._metadatas[metadataId] = value;
-            }
+            this._metadatas.AddOrUpdate(metadataId, value, (k, v) => value);
         }
     }
 }
