@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Concurrent;
+﻿using System.Collections.Concurrent;
 using System.Linq;
 using CupCake.Core.Log;
 using CupCake.Core.Services;
@@ -19,11 +18,6 @@ namespace CupCake.Players.Services
             return this._players.TryGetValue(userId, out player);
         }
 
-        IEnumerator IEnumerable.GetEnumerator()
-        {
-            return this.GetEnumerator();
-        }
-
         protected override void Enable()
         {
             this.Events.Bind<AddReceiveEvent>(this.OnAdd);
@@ -31,7 +25,7 @@ namespace CupCake.Players.Services
             this.Events.Bind<LeftReceiveEvent>(this.OnLeft);
         }
 
-        private Player[] GetPlayers()
+        public Player[] GetPlayers()
         {
             return this._players.Values.ToArray();
         }

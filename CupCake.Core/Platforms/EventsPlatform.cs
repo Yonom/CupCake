@@ -1,13 +1,13 @@
-﻿using CupCake.Core.Events;
+﻿using System;
+using System.Collections.Concurrent;
+using CupCake.Core.Events;
 using MuffinFramework.Platforms;
 
 namespace CupCake.Core.Platforms
 {
     public class EventsPlatform : Platform
     {
-        private static int _lastId;
-
-        private readonly int _id = ++_lastId;
+        private readonly ConcurrentDictionary<Type, object> _eventHandler = new ConcurrentDictionary<Type, object>();
 
         protected override void Enable()
         {
@@ -15,7 +15,7 @@ namespace CupCake.Core.Platforms
 
         public EventHandle<T> Event<T>() where T : Event
         {
-            return EventHandle<T>.Get(this._id);
+            return (EventHandle<T>)this._eventHandler.GetOrAdd(typeof(T), t => this.EnablePart<EventHandle<T>>());
         }
     }
 }

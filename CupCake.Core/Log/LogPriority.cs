@@ -2,9 +2,9 @@
 {
     public enum LogPriority
     {
-        Debug,
-        Message,
-        Warning,
-        Error
+        Debug = -1,
+        Message = 0,
+        Warning = 1,
+        Error = 2
     }
 }

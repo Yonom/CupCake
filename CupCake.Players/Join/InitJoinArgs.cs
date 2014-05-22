@@ -3,7 +3,7 @@ using CupCake.Players.Services;
 
 namespace CupCake.Players.Join
 {
-    internal class InitJoinArgs : JoinArgs
+    public class InitJoinArgs : JoinArgs
     {
         public InitJoinArgs(PlayerService playerService, InitReceiveEvent initReceiveEvent)
             : base(playerService)

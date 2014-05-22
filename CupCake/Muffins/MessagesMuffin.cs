@@ -17,53 +17,14 @@ namespace CupCake.Muffins
             // Init MessageManager
             this.MessageManager = new MessageManager(this.Events);
 
-            // Register all EE messages
+            // Register some EE messages
             this.MessageManager.RegisterMessage<InitReceiveEvent>("init");
             this.MessageManager.RegisterMessage<InfoReceiveEvent>("info");
             this.MessageManager.RegisterMessage<UpgradeReceiveEvent>("upgrade");
-            this.MessageManager.RegisterMessage<UpdateMetaReceiveEvent>("updatemeta");
-            this.MessageManager.RegisterMessage<ShowKeyReceiveEvent>("show");
-            this.MessageManager.RegisterMessage<HideKeyReceiveEvent>("hide");
-            this.MessageManager.RegisterMessage<AddReceiveEvent>("add");
-            this.MessageManager.RegisterMessage<LeftReceiveEvent>("left");
-            this.MessageManager.RegisterMessage<MoveReceiveEvent>("m");
-            this.MessageManager.RegisterMessage<FaceReceiveEvent>("face");
-            this.MessageManager.RegisterMessage<PotionReceiveEvent>("p");
-            this.MessageManager.RegisterMessage<CoinReceiveEvent>("c");
-            this.MessageManager.RegisterMessage<CrownReceiveEvent>("k");
-            this.MessageManager.RegisterMessage<SilverCrownReceiveEvent>("ks");
-            this.MessageManager.RegisterMessage<MagicReceiveEvent>("w");
-            this.MessageManager.RegisterMessage<LevelUpReceiveEvent>("levelup");
-            this.MessageManager.RegisterMessage<GodModeReceiveEvent>("god");
-            this.MessageManager.RegisterMessage<ModModeReceiveEvent>("mod");
-            this.MessageManager.RegisterMessage<WootUpReceiveEvent>("wu");
             this.MessageManager.RegisterMessage<AllowPotionsReceiveEvent>("allowpotions");
-            this.MessageManager.RegisterMessage<KillReceiveEvent>("kill");
-            this.MessageManager.RegisterMessage<AccessReceiveEvent>("access");
-            this.MessageManager.RegisterMessage<LostAccessReceiveEvent>("lostaccess");
-            this.MessageManager.RegisterMessage<ResetReceiveEvent>("reset");
-            this.MessageManager.RegisterMessage<TeleportEveryoneReceiveEvent>("tele");
-            this.MessageManager.RegisterMessage<TeleportUserReceiveEvent>("teleport");
-            this.MessageManager.RegisterMessage<SaveDoneReceiveEvent>("saved");
-            this.MessageManager.RegisterMessage<ClearReceiveEvent>("clear");
-            this.MessageManager.RegisterMessage<SayReceiveEvent>("say");
-            this.MessageManager.RegisterMessage<SayOldReceiveEvent>("say_old");
-            this.MessageManager.RegisterMessage<AutoTextReceiveEvent>("autotext");
-            this.MessageManager.RegisterMessage<WriteReceiveEvent>("write");
-            this.MessageManager.RegisterMessage<BlockPlaceReceiveEvent>("b");
-            this.MessageManager.RegisterMessage<CoinDoorPlaceReceiveEvent>("bc");
-            this.MessageManager.RegisterMessage<SoundPlaceReceiveEvent>("bs");
-            this.MessageManager.RegisterMessage<RotatablePlaceReceiveEvent>("br");
-            this.MessageManager.RegisterMessage<PortalPlaceReceiveEvent>("pt");
-            this.MessageManager.RegisterMessage<WorldPortalPlaceReceiveEvent>("wp");
-            this.MessageManager.RegisterMessage<LabelPlaceReceiveEvent>("lb");
-            this.MessageManager.RegisterMessage<LabelPlaceReceiveEvent>("ts");
-            this.MessageManager.RegisterMessage<GiveWizardReceiveEvent>("givewizard");
-            this.MessageManager.RegisterMessage<GiveFireWizardReceiveEvent>("givewizard2");
-            this.MessageManager.RegisterMessage<GiveDarkWizardReceiveEvent>("givedarkwizard");
-            this.MessageManager.RegisterMessage<GiveWitchReceiveEvent>("givewitch");
-            this.MessageManager.RegisterMessage<GiveGrinchReceiveEvent>("givegrinch");
-            this.MessageManager.RegisterMessage<RefreshShopReceiveEvent>("refreshshop");
+
+            // Bind Init receive message
+            this.Events.Bind<InitReceiveEvent>(this.OnInit);
 
             // Bind OnMessage
             this.ConnectionPlatform.Connection.OnMessage += this.Connection_OnMessage;
@@ -107,6 +68,53 @@ namespace CupCake.Muffins
             this.Events.Bind<DeathSendEvent>(this.OnAnySendEvent);
             this.Events.Bind<CheckpointSendEvent>(this.OnAnySendEvent);
             this.Events.Bind<TouchUserSendEvent>(this.OnAnySendEvent);
+        }
+
+        private void OnInit(object sender, InitReceiveEvent e)
+        {
+            // Register remaining messages
+            this.MessageManager.RegisterMessage<UpdateMetaReceiveEvent>("updatemeta");
+            this.MessageManager.RegisterMessage<ShowKeyReceiveEvent>("show");
+            this.MessageManager.RegisterMessage<HideKeyReceiveEvent>("hide");
+            this.MessageManager.RegisterMessage<AddReceiveEvent>("add");
+            this.MessageManager.RegisterMessage<LeftReceiveEvent>("left");
+            this.MessageManager.RegisterMessage<MoveReceiveEvent>("m");
+            this.MessageManager.RegisterMessage<FaceReceiveEvent>("face");
+            this.MessageManager.RegisterMessage<PotionReceiveEvent>("p");
+            this.MessageManager.RegisterMessage<CoinReceiveEvent>("c");
+            this.MessageManager.RegisterMessage<CrownReceiveEvent>("k");
+            this.MessageManager.RegisterMessage<SilverCrownReceiveEvent>("ks");
+            this.MessageManager.RegisterMessage<MagicReceiveEvent>("w");
+            this.MessageManager.RegisterMessage<LevelUpReceiveEvent>("levelup");
+            this.MessageManager.RegisterMessage<GodModeReceiveEvent>("god");
+            this.MessageManager.RegisterMessage<ModModeReceiveEvent>("mod");
+            this.MessageManager.RegisterMessage<WootUpReceiveEvent>("wu");
+            this.MessageManager.RegisterMessage<KillReceiveEvent>("kill");
+            this.MessageManager.RegisterMessage<AccessReceiveEvent>("access");
+            this.MessageManager.RegisterMessage<LostAccessReceiveEvent>("lostaccess");
+            this.MessageManager.RegisterMessage<ResetReceiveEvent>("reset");
+            this.MessageManager.RegisterMessage<TeleportEveryoneReceiveEvent>("tele");
+            this.MessageManager.RegisterMessage<TeleportUserReceiveEvent>("teleport");
+            this.MessageManager.RegisterMessage<SaveDoneReceiveEvent>("saved");
+            this.MessageManager.RegisterMessage<ClearReceiveEvent>("clear");
+            this.MessageManager.RegisterMessage<SayReceiveEvent>("say");
+            this.MessageManager.RegisterMessage<SayOldReceiveEvent>("say_old");
+            this.MessageManager.RegisterMessage<AutoTextReceiveEvent>("autotext");
+            this.MessageManager.RegisterMessage<WriteReceiveEvent>("write");
+            this.MessageManager.RegisterMessage<BlockPlaceReceiveEvent>("b");
+            this.MessageManager.RegisterMessage<CoinDoorPlaceReceiveEvent>("bc");
+            this.MessageManager.RegisterMessage<SoundPlaceReceiveEvent>("bs");
+            this.MessageManager.RegisterMessage<RotatablePlaceReceiveEvent>("br");
+            this.MessageManager.RegisterMessage<PortalPlaceReceiveEvent>("pt");
+            this.MessageManager.RegisterMessage<WorldPortalPlaceReceiveEvent>("wp");
+            this.MessageManager.RegisterMessage<LabelPlaceReceiveEvent>("lb");
+            this.MessageManager.RegisterMessage<LabelPlaceReceiveEvent>("ts");
+            this.MessageManager.RegisterMessage<GiveWizardReceiveEvent>("givewizard");
+            this.MessageManager.RegisterMessage<GiveFireWizardReceiveEvent>("givewizard2");
+            this.MessageManager.RegisterMessage<GiveDarkWizardReceiveEvent>("givedarkwizard");
+            this.MessageManager.RegisterMessage<GiveWitchReceiveEvent>("givewitch");
+            this.MessageManager.RegisterMessage<GiveGrinchReceiveEvent>("givegrinch");
+            this.MessageManager.RegisterMessage<RefreshShopReceiveEvent>("refreshshop");
         }
 
         private void Connection_OnMessage(object sender, Message e)

@@ -1,18 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using MuffinFramework.Platforms;
 
 namespace CupCake.Core.Events
 {
-    public class EventHandle<T> where T : Event
+    public class EventHandle<T> : PlatformPart<object> where T : Event
     {
-        private static readonly Dictionary<int, EventHandle<T>> _eventManagers = new Dictionary<int, EventHandle<T>>();
-
         private readonly LinkedList<EventHandler<T>> _eventHandlers = new LinkedList<EventHandler<T>>();
-
-        private EventHandle()
-        {
-        }
 
         public int Count
         {
@@ -23,6 +18,10 @@ namespace CupCake.Core.Events
                     return this._eventHandlers.Count;
                 }
             }
+        }
+
+        protected override void Enable()
+        {
         }
 
         public void Clear()
@@ -46,17 +45,6 @@ namespace CupCake.Core.Events
             lock (this._eventHandlers)
             {
                 return this._eventHandlers.Remove(item);
-            }
-        }
-
-        internal static EventHandle<T> Get(int id)
-        {
-            lock (_eventManagers)
-            {
-                if (!_eventManagers.ContainsKey(id))
-                    _eventManagers[id] = new EventHandle<T>();
-
-                return _eventManagers[id];
             }
         }
 
