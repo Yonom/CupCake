@@ -1,18 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading;
-using Nito;
 
 namespace CupCake.Upload
 {
     internal sealed class DequeWorker
     {
-        
-        private readonly Thread _thread;
-        private readonly ManualResetEvent _resetEvent = new ManualResetEvent(false);
         private readonly Deque<Action> _deque = new Deque<Action>();
+        private readonly ManualResetEvent _resetEvent = new ManualResetEvent(false);
+        private readonly Thread _thread;
 
         private bool _stopping;
 
@@ -20,7 +15,7 @@ namespace CupCake.Upload
         {
             this._thread = new Thread(this.Work)
             {
-                IsBackground = true, 
+                IsBackground = true,
                 Name = "CupCake.Upload.DequeWorker"
             };
         }
@@ -31,7 +26,7 @@ namespace CupCake.Upload
             {
                 lock (this._deque)
                 {
-                    return _deque.Count;
+                    return this._deque.Count;
                 }
             }
         }
@@ -78,7 +73,7 @@ namespace CupCake.Upload
 
         private void Work()
         {
-            while (!_stopping)
+            while (!this._stopping)
             {
                 // Wait for an action to arrive
                 this._resetEvent.WaitOne();

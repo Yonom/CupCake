@@ -3,9 +3,10 @@ using CupCake.Chat.Services;
 using CupCake.Core.Events;
 using CupCake.Core.Log;
 using CupCake.Core.Platforms;
-using CupCake.KeyManager.Services;
+using CupCake.Keys.Services;
 using CupCake.Players.Services;
-using CupCake.Room;
+using CupCake.Potions.Services;
+using CupCake.Room.Services;
 using CupCake.Upload.Services;
 using CupCake.World.Services;
 using MuffinFramework.Muffins;
@@ -17,12 +18,13 @@ namespace CupCake.API.Muffins
         private readonly Lazy<Chatter> _chatter;
         private readonly Lazy<ConnectionPlatform> _connectionPlatform;
         private readonly Lazy<EventManager> _events;
+        private readonly Lazy<KeyService> _keyService;
         private readonly Lazy<Logger> _logger;
         private readonly Lazy<PlayerService> _playerService;
-        private readonly Lazy<WorldService> _worldService;
         private readonly Lazy<RoomService> _roomService;
-        private readonly Lazy<KeyService> _keyService;
         private readonly Lazy<UploadService> _uploadService;
+        private readonly Lazy<WorldService> _worldService;
+        private readonly Lazy<PotionService> _potionService;
 
         protected CupCakeMuffinPart()
         {
@@ -52,6 +54,7 @@ namespace CupCake.API.Muffins
             this._playerService = new Lazy<PlayerService>(() => this.ServiceLoader.Get<PlayerService>());
             this._keyService = new Lazy<KeyService>(() => this.ServiceLoader.Get<KeyService>());
             this._uploadService = new Lazy<UploadService>(() => this.ServiceLoader.Get<UploadService>());
+            this._potionService = new Lazy<PotionService>(() => this.ServiceLoader.Get<PotionService>());
         }
 
         public EventManager Events
@@ -97,6 +100,11 @@ namespace CupCake.API.Muffins
         public UploadService UploadService
         {
             get { return this._uploadService.Value; }
+        }
+
+        public PotionService PotionService
+        {
+            get { return this._potionService.Value; }
         }
 
         public virtual string GetName()

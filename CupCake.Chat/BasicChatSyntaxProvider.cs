@@ -1,6 +1,4 @@
-﻿using System.Globalization;
-
-namespace CupCake.Chat
+﻿namespace CupCake.Chat
 {
     public class BasicChatSyntaxProvider : IChatSyntaxProvider
     {

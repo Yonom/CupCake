@@ -1,6 +1,5 @@
 ﻿using System;
 using CupCake.API.Muffins;
-using CupCake.Core.Events;
 using CupCake.EE.Events.Receive;
 using CupCake.EE.Events.Send;
 

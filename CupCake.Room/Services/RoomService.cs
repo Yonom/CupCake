@@ -4,7 +4,7 @@ using CupCake.EE;
 using CupCake.EE.Events.Receive;
 using CupCake.Room.Events;
 
-namespace CupCake.Room
+namespace CupCake.Room.Services
 {
     public class RoomService : CupCakeService
     {

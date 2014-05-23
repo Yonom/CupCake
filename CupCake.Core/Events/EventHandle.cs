@@ -7,7 +7,8 @@ namespace CupCake.Core.Events
 {
     public class EventHandle<T> : PlatformPart<object> where T : Event
     {
-        private readonly Dictionary<EventPriority, IList<EventHandler<T>>> _eventHandlers = new Dictionary<EventPriority, IList<EventHandler<T>>>();
+        private readonly Dictionary<EventPriority, IList<EventHandler<T>>> _eventHandlers =
+            new Dictionary<EventPriority, IList<EventHandler<T>>>();
 
         public int Count
         {
@@ -44,7 +45,7 @@ namespace CupCake.Core.Events
         {
             lock (this._eventHandlers)
             {
-                 return this._eventHandlers.Values.Any(handlerGroup => handlerGroup.Remove(item));
+                return this._eventHandlers.Values.Any(handlerGroup => handlerGroup.Remove(item));
             }
         }
 

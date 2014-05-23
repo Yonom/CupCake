@@ -1,17 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Net.Sockets;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 using CupCake.Core.Events;
 using CupCake.Core.Services;
 using CupCake.EE.Blocks;
 using CupCake.EE.Events.Send;
-using CupCake.Room;
 using CupCake.Room.Events;
-using CupCake.World.Blocks;
+using CupCake.Room.Services;
 using CupCake.World.Events;
 using CupCake.World.Services;
 
@@ -19,15 +14,15 @@ namespace CupCake.Upload.Services
 {
     public class UploadService : CupCakeService
     {
-        private WorldService _world;
-        private RoomService _room;
-        private DequeWorker _workThread;
         private readonly Queue<UploadRequestEvent> _checkQueue = new Queue<UploadRequestEvent>();
+        private RoomService _room;
         private bool[,,] _uploaded;
+        private DequeWorker _workThread;
+        private WorldService _world;
 
         protected override void Enable()
         {
-            this.ServiceLoader.EnableComplete += ServiceLoader_EnableComplete;
+            this.ServiceLoader.EnableComplete += this.ServiceLoader_EnableComplete;
 
             this._workThread = new DequeWorker();
 
@@ -48,7 +43,7 @@ namespace CupCake.Upload.Services
 
             this._workThread.Start();
         }
-        
+
         private void OnUploadRequest(object sender, UploadRequestEvent e)
         {
             Action task = () =>
@@ -70,13 +65,12 @@ namespace CupCake.Upload.Services
 
             if (e.IsUrgent)
             {
-                _workThread.QueueFront(task);
+                this._workThread.QueueFront(task);
             }
             else
             {
-                _workThread.QueueBack(task);
+                this._workThread.QueueBack(task);
             }
-
         }
 
         /// <summary>
@@ -85,11 +79,11 @@ namespace CupCake.Upload.Services
         /// <param name="request"></param>
         private bool Send(UploadRequestEvent request)
         {
-            var e = request.SendEvent;
+            BlockPlaceSendEvent e = request.SendEvent;
             e.Encryption = this._room.Encryption;
 
             // If not block already exists
-            if (!IsUploaded(e))
+            if (!this.IsUploaded(e))
             {
                 this.RaiseEvent(e);
                 this.EnqueueCheck(request);
@@ -105,7 +99,7 @@ namespace CupCake.Upload.Services
         /// <param name="request"></param>
         private void EnqueueCheck(UploadRequestEvent request)
         {
-            var e = request.SendEvent;
+            BlockPlaceSendEvent e = request.SendEvent;
 
             lock (this._checkQueue)
             {
@@ -141,19 +135,19 @@ namespace CupCake.Upload.Services
             {
                 this.Events.Raise(labelEvent);
                 return;
-            } 
+            }
             var worldPortalEvent = e as WorldPortalPlaceSendEvent;
             if (worldPortalEvent != null)
             {
                 this.Events.Raise(worldPortalEvent);
                 return;
-            } 
+            }
             var rotatableEvent = e as RotatablePlaceSendEvent;
             if (rotatableEvent != null)
             {
                 this.Events.Raise(rotatableEvent);
                 return;
-            } 
+            }
             var soundEvent = e as SoundPlaceSendEvent;
             if (soundEvent != null)
             {
@@ -164,7 +158,6 @@ namespace CupCake.Upload.Services
             if (portalEvent != null)
             {
                 this.Events.Raise(portalEvent);
-                return;
             }
         }
 
@@ -182,8 +175,8 @@ namespace CupCake.Upload.Services
             {
                 while (this._checkQueue.Count > 0)
                 {
-                    var request = this._checkQueue.Dequeue();
-                    var er = request.SendEvent;
+                    UploadRequestEvent request = this._checkQueue.Dequeue();
+                    BlockPlaceSendEvent er = request.SendEvent;
 
                     this._uploaded[(int)er.Layer, er.X, er.Y] = false;
                     if (this.IsUploaded(er))
@@ -223,13 +216,14 @@ namespace CupCake.Upload.Services
             return new UploadRequestEvent(e);
         }
 
-        public UploadRequestEvent UploadPortal(int x, int y, PortalBlock block, int id, int target, PortalRotation rotation)
+        public UploadRequestEvent UploadPortal(int x, int y, PortalBlock block, int id, int target,
+            PortalRotation rotation)
         {
             var e = new PortalPlaceSendEvent(null, Layer.Foreground, x, y, block, id, target, rotation);
             return new UploadRequestEvent(e);
         }
 
-        public UploadRequestEvent UploadWorldPortal(int x, int y, EE.Blocks.WorldPortalBlock block, string roomId)
+        public UploadRequestEvent UploadWorldPortal(int x, int y, WorldPortalBlock block, string roomId)
         {
             var e = new WorldPortalPlaceSendEvent(null, Layer.Foreground, x, y, block, roomId);
             return new UploadRequestEvent(e);

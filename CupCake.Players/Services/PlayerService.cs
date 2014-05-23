@@ -46,7 +46,7 @@ namespace CupCake.Players.Services
                 player =>
                     // Raise the add event for this player
                     this.Events.Raise(new AddPlayerEvent(player, e)),
-                () => 
+                () =>
                     this.Logger.Log(LogPriority.Warning, "Received Add with existing UserId. Name: " + e.Username));
         }
 

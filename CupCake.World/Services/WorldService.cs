@@ -227,7 +227,7 @@ namespace CupCake.World.Services
             this.Events.Bind<ResetReceiveEvent>(this.OnReset, EventPriority.High);
             this.Events.Bind<ClearReceiveEvent>(this.OnClear, EventPriority.High);
         }
-        
+
         private void OnInit(object sender, InitReceiveEvent e)
         {
             this._sizeX = e.SizeX;

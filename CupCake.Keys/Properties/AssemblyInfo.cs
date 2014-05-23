@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 
-[assembly: AssemblyTitle("CupCake.Upload")]
+[assembly: AssemblyTitle("CupCake.Keys")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("CupCake.Upload")]
+[assembly: AssemblyProduct("CupCake.Keys")]
 [assembly: AssemblyCopyright("Copyright ©  2014")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -22,7 +22,7 @@ using System.Runtime.InteropServices;
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
 
-[assembly: Guid("a177927e-e0b1-45fd-9d30-22d8d9ec822f")]
+[assembly: Guid("7950db82-6982-4d60-8bbe-7af146c19e75")]
 
 // Version information for an assembly consists of the following four values:
 //

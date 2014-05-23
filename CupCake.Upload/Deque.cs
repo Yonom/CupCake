@@ -2,9 +2,8 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
-using System.Text;
 
-namespace Nito
+namespace CupCake.Upload
 {
     /// <summary>
     /// A double-ended queue (deque), which provides O(1) indexed access, O(1) removals from the front and back, amortized O(1) insertions to the front and back, and O(N) insertions and removals anywhere else (with the operations getting slower as the index approaches the middle).
@@ -37,7 +36,7 @@ namespace Nito
         {
             if (capacity < 1)
                 throw new ArgumentOutOfRangeException("capacity", "Capacity must be greater than 0.");
-            buffer = new T[capacity];
+            this.buffer = new T[capacity];
         }
 
         /// <summary>
@@ -49,12 +48,12 @@ namespace Nito
             int count = collection.Count();
             if (count > 0)
             {
-                buffer = new T[count];
-                DoInsertRange(0, collection, count);
+                this.buffer = new T[count];
+                this.DoInsertRange(0, collection, count);
             }
             else
             {
-                buffer = new T[DefaultCapacity];
+                this.buffer = new T[DefaultCapacity];
             }
         }
 
@@ -88,13 +87,13 @@ namespace Nito
             get
             {
                 CheckExistingIndexArgument(this.Count, index);
-                return DoGetItem(index);
+                return this.DoGetItem(index);
             }
 
             set
             {
                 CheckExistingIndexArgument(this.Count, index);
-                DoSetItem(index, value);
+                this.DoSetItem(index, value);
             }
         }
 
@@ -111,8 +110,8 @@ namespace Nito
         /// </exception>
         public void Insert(int index, T item)
         {
-            CheckNewIndexArgument(Count, index);
-            DoInsert(index, item);
+            CheckNewIndexArgument(this.Count, index);
+            this.DoInsert(index, item);
         }
 
         /// <summary>
@@ -127,8 +126,8 @@ namespace Nito
         /// </exception>
         public void RemoveAt(int index)
         {
-            CheckExistingIndexArgument(Count, index);
-            DoRemoveAt(index);
+            CheckExistingIndexArgument(this.Count, index);
+            this.DoRemoveAt(index);
         }
 
         /// <summary>
@@ -159,7 +158,7 @@ namespace Nito
         /// </exception>
         void ICollection<T>.Add(T item)
         {
-            DoInsert(Count, item);
+            this.DoInsert(this.Count, item);
         }
 
         /// <summary>
@@ -215,11 +214,11 @@ namespace Nito
         /// </exception>
         public bool Remove(T item)
         {
-            int index = IndexOf(item);
+            int index = this.IndexOf(item);
             if (index == -1)
                 return false;
 
-            DoRemoveAt(index);
+            this.DoRemoveAt(index);
             return true;
         }
 
@@ -234,7 +233,7 @@ namespace Nito
             int count = this.Count;
             for (int i = 0; i != count; ++i)
             {
-                yield return DoGetItem(i);
+                yield return this.DoGetItem(i);
             }
         }
 
@@ -280,31 +279,31 @@ namespace Nito
 
         int System.Collections.IList.Add(object value)
         {
-            if (!ObjectIsT(value))
+            if (!this.ObjectIsT(value))
                 throw new ArgumentException("Item is not of the correct type.", "value");
-            AddToBack((T)value);
-            return Count - 1;
+            this.AddToBack((T)value);
+            return this.Count - 1;
         }
 
         bool System.Collections.IList.Contains(object value)
         {
-            if (!ObjectIsT(value))
+            if (!this.ObjectIsT(value))
                 throw new ArgumentException("Item is not of the correct type.", "value");
             return this.Contains((T)value);
         }
 
         int System.Collections.IList.IndexOf(object value)
         {
-            if (!ObjectIsT(value))
+            if (!this.ObjectIsT(value))
                 throw new ArgumentException("Item is not of the correct type.", "value");
-            return IndexOf((T)value);
+            return this.IndexOf((T)value);
         }
 
         void System.Collections.IList.Insert(int index, object value)
         {
-            if (!ObjectIsT(value))
+            if (!this.ObjectIsT(value))
                 throw new ArgumentException("Item is not of the correct type.", "value");
-            Insert(index, (T)value);
+            this.Insert(index, (T)value);
         }
 
         bool System.Collections.IList.IsFixedSize
@@ -319,9 +318,9 @@ namespace Nito
 
         void System.Collections.IList.Remove(object value)
         {
-            if (!ObjectIsT(value))
+            if (!this.ObjectIsT(value))
                 throw new ArgumentException("Item is not of the correct type.", "value");
-            Remove((T)value);
+            this.Remove((T)value);
         }
 
         object System.Collections.IList.this[int index]
@@ -333,7 +332,7 @@ namespace Nito
 
             set
             {
-                if (!ObjectIsT(value))
+                if (!this.ObjectIsT(value))
                     throw new ArgumentException("Item is not of the correct type.", "value");
                 this[index] = (T)value;
             }
@@ -343,9 +342,9 @@ namespace Nito
         {
             if (array == null)
                 throw new ArgumentNullException("array", "Destination array cannot be null.");
-            CheckRangeArguments(array.Length, index, Count);
+            CheckRangeArguments(array.Length, index, this.Count);
 
-            for (int i = 0; i != Count; ++i)
+            for (int i = 0; i != this.Count; ++i)
             {
                 try
                 {
@@ -432,7 +431,7 @@ namespace Nito
         /// </summary>
         private bool IsEmpty
         {
-            get { return Count == 0; }
+            get { return this.Count == 0; }
         }
 
         /// <summary>
@@ -440,7 +439,7 @@ namespace Nito
         /// </summary>
         private bool IsFull
         {
-            get { return Count == Capacity; }
+            get { return this.Count == this.Capacity; }
         }
 
         /// <summary>
@@ -451,7 +450,7 @@ namespace Nito
             get
             {
                 // Overflow-safe version of "(offset + Count) > Capacity"
-                return offset > (Capacity - Count);
+                return this.offset > (this.Capacity - this.Count);
             }
         }
 
@@ -463,7 +462,7 @@ namespace Nito
         {
             get
             {
-                return buffer.Length;
+                return this.buffer.Length;
             }
 
             set
@@ -471,30 +470,30 @@ namespace Nito
                 if (value < 1)
                     throw new ArgumentOutOfRangeException("value", "Capacity must be greater than 0.");
 
-                if (value < Count)
+                if (value < this.Count)
                     throw new InvalidOperationException("Capacity cannot be set to a value less than Count");
 
-                if (value == buffer.Length)
+                if (value == this.buffer.Length)
                     return;
 
                 // Create the new buffer and copy our existing range.
                 T[] newBuffer = new T[value];
-                if (IsSplit)
+                if (this.IsSplit)
                 {
                     // The existing buffer is split, so we have to copy it in parts
-                    int length = Capacity - offset;
-                    Array.Copy(buffer, offset, newBuffer, 0, length);
-                    Array.Copy(buffer, 0, newBuffer, length, Count - length);
+                    int length = this.Capacity - this.offset;
+                    Array.Copy(this.buffer, this.offset, newBuffer, 0, length);
+                    Array.Copy(this.buffer, 0, newBuffer, length, this.Count - length);
                 }
                 else
                 {
                     // The existing buffer is whole
-                    Array.Copy(buffer, offset, newBuffer, 0, Count);
+                    Array.Copy(this.buffer, this.offset, newBuffer, 0, this.Count);
                 }
 
                 // Set up to use the new buffer.
-                buffer = newBuffer;
-                offset = 0;
+                this.buffer = newBuffer;
+                this.offset = 0;
             }
         }
 
@@ -511,7 +510,7 @@ namespace Nito
         /// <returns>The buffer index.</returns>
         private int DequeIndexToBufferIndex(int index)
         {
-            return (index + offset) % Capacity;
+            return (index + this.offset) % this.Capacity;
         }
 
         /// <summary>
@@ -521,7 +520,7 @@ namespace Nito
         /// <returns>The element at the specified index.</returns>
         private T DoGetItem(int index)
         {
-            return buffer[DequeIndexToBufferIndex(index)];
+            return this.buffer[this.DequeIndexToBufferIndex(index)];
         }
 
         /// <summary>
@@ -531,7 +530,7 @@ namespace Nito
         /// <param name="item">The element to store in the list.</param>
         private void DoSetItem(int index, T item)
         {
-            buffer[DequeIndexToBufferIndex(index)] = item;
+            this.buffer[this.DequeIndexToBufferIndex(index)] = item;
         }
 
         /// <summary>
@@ -541,20 +540,20 @@ namespace Nito
         /// <param name="item">The element to store in the list.</param>
         private void DoInsert(int index, T item)
         {
-            EnsureCapacityForOneElement();
+            this.EnsureCapacityForOneElement();
 
             if (index == 0)
             {
-                DoAddToFront(item);
+                this.DoAddToFront(item);
                 return;
             }
-            else if (index == Count)
+            else if (index == this.Count)
             {
-                DoAddToBack(item);
+                this.DoAddToBack(item);
                 return;
             }
 
-            DoInsertRange(index, new[] { item }, 1);
+            this.DoInsertRange(index, new[] { item }, 1);
         }
 
         /// <summary>
@@ -565,16 +564,16 @@ namespace Nito
         {
             if (index == 0)
             {
-                DoRemoveFromFront();
+                this.DoRemoveFromFront();
                 return;
             }
-            else if (index == Count - 1)
+            else if (index == this.Count - 1)
             {
-                DoRemoveFromBack();
+                this.DoRemoveFromBack();
                 return;
             }
 
-            DoRemoveRange(index, 1);
+            this.DoRemoveRange(index, 1);
         }
 
         /// <summary>
@@ -584,9 +583,9 @@ namespace Nito
         /// <returns>The value of <see cref="offset"/> after it was incremented.</returns>
         private int PostIncrement(int value)
         {
-            int ret = offset;
-            offset += value;
-            offset %= Capacity;
+            int ret = this.offset;
+            this.offset += value;
+            this.offset %= this.Capacity;
             return ret;
         }
 
@@ -597,10 +596,10 @@ namespace Nito
         /// <returns>The value of <see cref="offset"/> before it was decremented.</returns>
         private int PreDecrement(int value)
         {
-            offset -= value;
-            if (offset < 0)
-                offset += Capacity;
-            return offset;
+            this.offset -= value;
+            if (this.offset < 0)
+                this.offset += this.Capacity;
+            return this.offset;
         }
 
         /// <summary>
@@ -609,8 +608,8 @@ namespace Nito
         /// <param name="value">The element to insert.</param>
         private void DoAddToBack(T value)
         {
-            buffer[DequeIndexToBufferIndex(Count)] = value;
-            ++Count;
+            this.buffer[this.DequeIndexToBufferIndex(this.Count)] = value;
+            ++this.Count;
         }
 
         /// <summary>
@@ -619,8 +618,8 @@ namespace Nito
         /// <param name="value">The element to insert.</param>
         private void DoAddToFront(T value)
         {
-            buffer[PreDecrement(1)] = value;
-            ++Count;
+            this.buffer[this.PreDecrement(1)] = value;
+            ++this.Count;
         }
 
         /// <summary>
@@ -629,8 +628,8 @@ namespace Nito
         /// <returns>The former last element.</returns>
         private T DoRemoveFromBack()
         {
-            T ret = buffer[DequeIndexToBufferIndex(Count - 1)];
-            --Count;
+            T ret = this.buffer[this.DequeIndexToBufferIndex(this.Count - 1)];
+            --this.Count;
             return ret;
         }
 
@@ -640,8 +639,8 @@ namespace Nito
         /// <returns>The former first element.</returns>
         private T DoRemoveFromFront()
         {
-            --Count;
-            return buffer[PostIncrement(1)];
+            --this.Count;
+            return this.buffer[this.PostIncrement(1)];
         }
 
         /// <summary>
@@ -653,7 +652,7 @@ namespace Nito
         private void DoInsertRange(int index, IEnumerable<T> collection, int collectionCount)
         {
             // Make room in the existing list
-            if (index < Count / 2)
+            if (index < this.Count / 2)
             {
                 // Inserting into the first half of the list
 
@@ -661,9 +660,9 @@ namespace Nito
                 // This clears out the low "index" number of items, moving them "collectionCount" places down;
                 //   after rotation, there will be a "collectionCount"-sized hole at "index".
                 int copyCount = index;
-                int writeIndex = Capacity - collectionCount;
+                int writeIndex = this.Capacity - collectionCount;
                 for (int j = 0; j != copyCount; ++j)
-                    buffer[DequeIndexToBufferIndex(writeIndex + j)] = buffer[DequeIndexToBufferIndex(j)];
+                    this.buffer[this.DequeIndexToBufferIndex(writeIndex + j)] = this.buffer[this.DequeIndexToBufferIndex(j)];
 
                 // Rotate to the new view
                 this.PreDecrement(collectionCount);
@@ -673,22 +672,22 @@ namespace Nito
                 // Inserting into the second half of the list
 
                 // Move higher items up: [index, count) -> [index + collectionCount, collectionCount + count)
-                int copyCount = Count - index;
+                int copyCount = this.Count - index;
                 int writeIndex = index + collectionCount;
                 for (int j = copyCount - 1; j != -1; --j)
-                    buffer[DequeIndexToBufferIndex(writeIndex + j)] = buffer[DequeIndexToBufferIndex(index + j)];
+                    this.buffer[this.DequeIndexToBufferIndex(writeIndex + j)] = this.buffer[this.DequeIndexToBufferIndex(index + j)];
             }
 
             // Copy new items into place
             int i = index;
             foreach (T item in collection)
             {
-                buffer[DequeIndexToBufferIndex(i)] = item;
+                this.buffer[this.DequeIndexToBufferIndex(i)] = item;
                 ++i;
             }
 
             // Adjust valid count
-            Count += collectionCount;
+            this.Count += collectionCount;
         }
 
         /// <summary>
@@ -702,17 +701,17 @@ namespace Nito
             {
                 // Removing from the beginning: rotate to the new view
                 this.PostIncrement(collectionCount);
-                Count -= collectionCount;
+                this.Count -= collectionCount;
                 return;
             }
-            else if (index == Count - collectionCount)
+            else if (index == this.Count - collectionCount)
             {
                 // Removing from the ending: trim the existing view
-                Count -= collectionCount;
+                this.Count -= collectionCount;
                 return;
             }
 
-            if ((index + (collectionCount / 2)) < Count / 2)
+            if ((index + (collectionCount / 2)) < this.Count / 2)
             {
                 // Removing from first half of list
 
@@ -720,7 +719,7 @@ namespace Nito
                 int copyCount = index;
                 int writeIndex = collectionCount;
                 for (int j = copyCount - 1; j != -1; --j)
-                    buffer[DequeIndexToBufferIndex(writeIndex + j)] = buffer[DequeIndexToBufferIndex(j)];
+                    this.buffer[this.DequeIndexToBufferIndex(writeIndex + j)] = this.buffer[this.DequeIndexToBufferIndex(j)];
 
                 // Rotate to new view
                 this.PostIncrement(collectionCount);
@@ -730,14 +729,14 @@ namespace Nito
                 // Removing from second half of list
 
                 // Move higher items down: [index + collectionCount, count) -> [index, count - collectionCount)
-                int copyCount = Count - collectionCount - index;
+                int copyCount = this.Count - collectionCount - index;
                 int readIndex = index + collectionCount;
                 for (int j = 0; j != copyCount; ++j)
-                    buffer[DequeIndexToBufferIndex(index + j)] = buffer[DequeIndexToBufferIndex(readIndex + j)];
+                    this.buffer[this.DequeIndexToBufferIndex(index + j)] = this.buffer[this.DequeIndexToBufferIndex(readIndex + j)];
             }
 
             // Adjust valid count
-            Count -= collectionCount;
+            this.Count -= collectionCount;
         }
 
         /// <summary>
@@ -757,8 +756,8 @@ namespace Nito
         /// <param name="value">The element to insert.</param>
         public void AddToBack(T value)
         {
-            EnsureCapacityForOneElement();
-            DoAddToBack(value);
+            this.EnsureCapacityForOneElement();
+            this.DoAddToBack(value);
         }
 
         /// <summary>
@@ -767,8 +766,8 @@ namespace Nito
         /// <param name="value">The element to insert.</param>
         public void AddToFront(T value)
         {
-            EnsureCapacityForOneElement();
-            DoAddToFront(value);
+            this.EnsureCapacityForOneElement();
+            this.DoAddToFront(value);
         }
 
         /// <summary>
@@ -780,12 +779,12 @@ namespace Nito
         public void InsertRange(int index, IEnumerable<T> collection)
         {
             int collectionCount = collection.Count();
-            CheckNewIndexArgument(Count, index);
+            CheckNewIndexArgument(this.Count, index);
 
             // Overflow-safe check for "this.Count + collectionCount > this.Capacity"
-            if (collectionCount > Capacity - Count)
+            if (collectionCount > this.Capacity - this.Count)
             {
-                this.Capacity = checked(Count + collectionCount);
+                this.Capacity = checked(this.Count + collectionCount);
             }
 
             if (collectionCount == 0)
@@ -805,7 +804,7 @@ namespace Nito
         /// <exception cref="ArgumentException">The range [<paramref name="offset"/>, <paramref name="offset"/> + <paramref name="count"/>) is not within the range [0, <see cref="Count"/>).</exception>
         public void RemoveRange(int offset, int count)
         {
-            CheckRangeArguments(Count, offset, count);
+            CheckRangeArguments(this.Count, offset, count);
 
             if (count == 0)
             {
@@ -865,8 +864,8 @@ namespace Nito
             {
                 get
                 {
-                    var array = new T[deque.Count];
-                    ((ICollection<T>)deque).CopyTo(array, 0);
+                    var array = new T[this.deque.Count];
+                    ((ICollection<T>)this.deque).CopyTo(array, 0);
                     return array;
                 }
             }

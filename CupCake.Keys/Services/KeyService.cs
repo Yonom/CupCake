@@ -1,14 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 using CupCake.Core.Events;
 using CupCake.Core.Services;
 using CupCake.EE.Blocks;
 using CupCake.EE.Events.Receive;
 
-namespace CupCake.KeyManager.Services
+namespace CupCake.Keys.Services
 {
     public class KeyService : CupCakeService
     {
@@ -16,7 +12,7 @@ namespace CupCake.KeyManager.Services
         public bool GreenKey { get; private set; }
         public bool BlueKey { get; private set; }
         public bool TimeDoor { get; private set; }
-        
+
         protected override void Enable()
         {
             this.Events.Bind<HideKeyReceiveEvent>(this.OnHideKey, EventPriority.High);
@@ -35,7 +31,7 @@ namespace CupCake.KeyManager.Services
 
         private void ChangeKey(IEnumerable<Key> keys, bool enabled)
         {
-            foreach (var k in keys)
+            foreach (Key k in keys)
             {
                 switch (k)
                 {
