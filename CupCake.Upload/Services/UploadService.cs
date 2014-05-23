@@ -82,6 +82,7 @@ namespace CupCake.Upload.Services
             BlockPlaceSendEvent e = request.SendEvent;
             e.Encryption = this._room.Encryption;
 
+            request.SendTries++;
             // If not block already exists
             if (!this.IsUploaded(e))
             {
@@ -90,6 +91,7 @@ namespace CupCake.Upload.Services
                 return true;
             }
 
+            request.Verified = true;
             return false;
         }
 
@@ -180,7 +182,10 @@ namespace CupCake.Upload.Services
 
                     this._uploaded[(int)er.Layer, er.X, er.Y] = false;
                     if (this.IsUploaded(er))
+                    {
+                        request.Verified = true;
                         break;
+                    }
 
                     request.IsUrgent = true;
                     this.Events.Raise(request);
