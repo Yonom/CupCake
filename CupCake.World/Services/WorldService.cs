@@ -27,7 +27,7 @@ namespace CupCake.World.Services
             get { return this._sizeY; }
         }
 
-        public WorldBlock this[int x, int y, Layer layer = Layer.Foreground]
+        public WorldBlock this[Layer layer, int x, int y]
         {
             get { return this._blocks[(int)layer, x, y]; }
         }
@@ -226,7 +226,7 @@ namespace CupCake.World.Services
             this.Events.Bind<ResetReceiveEvent>(this.OnReset);
             this.Events.Bind<ClearReceiveEvent>(this.OnClear);
         }
-
+        
         private void OnInit(object sender, InitReceiveEvent e)
         {
             this._sizeX = e.SizeX;

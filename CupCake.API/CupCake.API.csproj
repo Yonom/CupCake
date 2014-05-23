@@ -56,6 +56,10 @@
       <Project>{1934f8dd-1d6a-4ceb-af92-600c44d4e849}</Project>
       <Name>CupCake.EE</Name>
     </ProjectReference>
+    <ProjectReference Include="..\CupCake.KeyManager\CupCake.KeyManager.csproj">
+      <Project>{fd58ee13-1fe3-4555-a8bf-b96ef106562a}</Project>
+      <Name>CupCake.KeyManager</Name>
+    </ProjectReference>
     <ProjectReference Include="..\CupCake.Players\CupCake.Players.csproj">
       <Project>{d9df7c76-4de4-4270-bca6-cba724e639ae}</Project>
       <Name>CupCake.Players</Name>
@@ -63,6 +67,10 @@
     <ProjectReference Include="..\CupCake.Room\CupCake.Room.csproj">
       <Project>{f040f4fa-1a86-4417-b7a2-0ec04095f886}</Project>
       <Name>CupCake.Room</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CupCake.Upload\CupCake.Upload.csproj">
+      <Project>{0d920dd1-8605-4679-9d43-74a15314811b}</Project>
+      <Name>CupCake.Upload</Name>
     </ProjectReference>
     <ProjectReference Include="..\CupCake.World\CupCake.World.csproj">
       <Project>{a5791bdd-9b10-4597-8605-083ed4365d31}</Project>

@@ -3,8 +3,10 @@ using CupCake.Chat.Services;
 using CupCake.Core.Events;
 using CupCake.Core.Log;
 using CupCake.Core.Platforms;
+using CupCake.KeyManager.Services;
 using CupCake.Players.Services;
 using CupCake.Room;
+using CupCake.Upload.Services;
 using CupCake.World.Services;
 using MuffinFramework.Muffins;
 
@@ -19,6 +21,8 @@ namespace CupCake.API.Muffins
         private readonly Lazy<PlayerService> _playerService;
         private readonly Lazy<WorldService> _worldService;
         private readonly Lazy<RoomService> _roomService;
+        private readonly Lazy<KeyService> _keyService;
+        private readonly Lazy<UploadService> _uploadService;
 
         protected CupCakeMuffinPart()
         {
@@ -46,6 +50,8 @@ namespace CupCake.API.Muffins
             this._worldService = new Lazy<WorldService>(() => this.ServiceLoader.Get<WorldService>());
             this._roomService = new Lazy<RoomService>(() => this.ServiceLoader.Get<RoomService>());
             this._playerService = new Lazy<PlayerService>(() => this.ServiceLoader.Get<PlayerService>());
+            this._keyService = new Lazy<KeyService>(() => this.ServiceLoader.Get<KeyService>());
+            this._uploadService = new Lazy<UploadService>(() => this.ServiceLoader.Get<UploadService>());
         }
 
         public EventManager Events
@@ -83,6 +89,16 @@ namespace CupCake.API.Muffins
             get { return this._playerService.Value; }
         }
 
+        public KeyService KeyService
+        {
+            get { return this._keyService.Value; }
+        }
+
+        public UploadService UploadService
+        {
+            get { return this._uploadService.Value; }
+        }
+
         public virtual string GetName()
         {
             return this.GetType().Namespace;
@@ -90,7 +106,10 @@ namespace CupCake.API.Muffins
 
         protected override void Dispose(bool disposing)
         {
-            this.Events.Dispose();
+            if (disposing)
+            {
+                this.Events.Dispose();
+            }
 
             base.Dispose(disposing);
         }

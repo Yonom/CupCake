@@ -30,13 +30,16 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="MuffinFramework">
-      <HintPath>..\..\PineApple\Lib\MuffinFramework.dll</HintPath>
+    <Reference Include="MuffinFramework, Version=1.1.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Lib\MuffinFramework.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Events\InitCompleteEvent.cs" />
+    <Compile Include="Events\JoinCompleteEvent.cs" />
     <Compile Include="Services\RoomService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

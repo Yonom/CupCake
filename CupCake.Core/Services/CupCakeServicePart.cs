@@ -53,7 +53,10 @@ namespace CupCake.Core.Services
 
         protected override void Dispose(bool disposing)
         {
-            this.Events.Dispose();
+            if (disposing)
+            {
+                this.Events.Dispose();
+            }
 
             base.Dispose(disposing);
         }

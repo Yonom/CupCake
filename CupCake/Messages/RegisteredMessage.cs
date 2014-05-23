@@ -18,6 +18,7 @@ namespace CupCake.Messages
         {
             var instance = (T)Activator.CreateInstance(typeof(T), message);
 
+            this._events.Raise<ReceiveEvent>(instance);
             this._events.Raise(instance);
         }
     }

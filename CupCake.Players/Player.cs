@@ -133,7 +133,7 @@ namespace CupCake.Players
                         var instance = (TPlayer)Activator.CreateInstance(typeof(TPlayer), this, e);
                         this.Events.Raise(instance);
                     }
-                }, EventPriority.BeforeMost);
+                }, EventPriority.High);
         }
 
         private void ExtractHostData()

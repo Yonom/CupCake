@@ -1,6 +1,8 @@
-﻿using CupCake.Core.Services;
+﻿using CupCake.Core.Events;
+using CupCake.Core.Services;
 using CupCake.EE;
 using CupCake.EE.Events.Receive;
+using CupCake.Room.Events;
 
 namespace CupCake.Room
 {
@@ -19,12 +21,16 @@ namespace CupCake.Room
         public bool AllowPotions { get; private set; }
         public bool IsTutorialRoom { get; private set; }
 
+        public bool InitComplete { get; private set; }
+        public bool JoinComplete { get; private set; }
+
         protected override void Enable()
         {
-            this.Events.Bind<InitReceiveEvent>(this.OnInit);
-            this.Events.Bind<AccessReceiveEvent>(this.OnAccess);
-            this.Events.Bind<LostAccessReceiveEvent>(this.OnLostAccess);
-            this.Events.Bind<UpdateMetaReceiveEvent>(this.OnUpdateMeta);
+            this.Events.Bind<InitReceiveEvent>(this.OnInit, EventPriority.Low);
+            this.Events.Bind<AccessReceiveEvent>(this.OnAccess, EventPriority.Low);
+            this.Events.Bind<LostAccessReceiveEvent>(this.OnLostAccess, EventPriority.Low);
+            this.Events.Bind<UpdateMetaReceiveEvent>(this.OnUpdateMeta, EventPriority.Low);
+            this.Events.Bind<CrownReceiveEvent>(this.OnCrown, EventPriority.Low);
         }
 
         private void OnInit(object sender, InitReceiveEvent e)
@@ -47,6 +53,9 @@ namespace CupCake.Room
             {
                 this.AccessRight = AccessRight.Edit;
             }
+
+            this.InitComplete = true;
+            this.Events.Raise(new InitCompleteEvent());
         }
 
         private void OnAccess(object sender, AccessReceiveEvent e)
@@ -57,6 +66,15 @@ namespace CupCake.Room
         private void OnLostAccess(object sender, LostAccessReceiveEvent e)
         {
             this.AccessRight = AccessRight.None;
+        }
+
+        private void OnCrown(object sender, CrownReceiveEvent e)
+        {
+            if (!this.JoinComplete)
+            {
+                this.JoinComplete = true;
+                this.Events.Raise(new JoinCompleteEvent());
+            }
         }
 
         private void OnUpdateMeta(object sender, UpdateMetaReceiveEvent e)

@@ -7,7 +7,7 @@ namespace CupCake.Core.Events
 {
     public class EventHandle<T> : PlatformPart<object> where T : Event
     {
-        private readonly LinkedList<EventHandler<T>> _eventHandlers = new LinkedList<EventHandler<T>>();
+        private readonly Dictionary<EventPriority, IList<EventHandler<T>>> _eventHandlers = new Dictionary<EventPriority, IList<EventHandler<T>>>();
 
         public int Count
         {
@@ -36,7 +36,7 @@ namespace CupCake.Core.Events
         {
             lock (this._eventHandlers)
             {
-                return this._eventHandlers.Contains(item);
+                return this._eventHandlers.Values.Any(handlerGroup => handlerGroup.Contains(item));
             }
         }
 
@@ -44,7 +44,7 @@ namespace CupCake.Core.Events
         {
             lock (this._eventHandlers)
             {
-                return this._eventHandlers.Remove(item);
+                 return this._eventHandlers.Values.Any(handlerGroup => handlerGroup.Remove(item));
             }
         }
 
@@ -52,17 +52,10 @@ namespace CupCake.Core.Events
         {
             lock (this._eventHandlers)
             {
-                switch (priority)
-                {
-                    case EventPriority.Normal:
-                        this._eventHandlers.AddLast(callback);
-                        break;
-                    case EventPriority.BeforeMost:
-                        this._eventHandlers.AddFirst(callback);
-                        break;
-                    default:
-                        throw new InvalidOperationException("Unknown priority.");
-                }
+                if (!this._eventHandlers.ContainsKey(priority))
+                    this._eventHandlers.Add(priority, new List<EventHandler<T>>());
+
+                this._eventHandlers[priority].Add(callback);
             }
         }
 
@@ -71,7 +64,9 @@ namespace CupCake.Core.Events
             EventHandler<T>[] handlers;
             lock (this._eventHandlers)
             {
-                handlers = this._eventHandlers.ToArray();
+                // Create an array of all handlers in the right order
+                handlers = this._eventHandlers.OrderBy(k => k.Key)
+                    .SelectMany(k => k.Value).ToArray();
             }
 
             foreach (var handler in handlers)

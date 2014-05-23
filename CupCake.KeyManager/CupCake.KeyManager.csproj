@@ -31,7 +31,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="MuffinFramework">
-      <HintPath>..\..\PineApple\Lib\MuffinFramework.dll</HintPath>
+      <HintPath>..\Lib\MuffinFramework.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
