@@ -2,6 +2,7 @@
 using CupCake.Core.Services;
 using CupCake.EE.Blocks;
 using CupCake.EE.Events.Receive;
+using CupCake.EE.Events.Send;
 
 namespace CupCake.Potions.Services
 {
@@ -85,6 +86,11 @@ namespace CupCake.Potions.Services
                 }
                 pointer -= 2u;
             }
+        }
+
+        public void UsePotion(Potion pot)
+        {
+            this.Events.Raise(new PotionSendEvent(pot));
         }
     }
 }

@@ -1,8 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using CupCake.Core.Events;
 using CupCake.Core.Services;
 using CupCake.EE.Blocks;
 using CupCake.EE.Events.Receive;
+using CupCake.EE.Events.Send;
+using CupCake.Room.Services;
 
 namespace CupCake.Keys.Services
 {
@@ -16,7 +19,7 @@ namespace CupCake.Keys.Services
         protected override void Enable()
         {
             this.Events.Bind<HideKeyReceiveEvent>(this.OnHideKey, EventPriority.High);
-            this.Events.Bind<ShowKeyReceiveEvent>(this.OnShowKey, EventPriority.High);
+            this.Events.Bind<ShowKeyReceiveEvent>(this.OnShowKey, EventPriority.High);     
         }
 
         private void OnHideKey(object sender, HideKeyReceiveEvent e)
@@ -51,6 +54,27 @@ namespace CupCake.Keys.Services
                         this.TimeDoor = enabled;
                         break;
                 }
+            }
+        }
+
+        public void PressKey(Key key)
+        {
+            switch (key)
+            {
+                case Key.Blue:
+                    this.Events.Raise(new PressBlueKeySendEvent());
+                    break;
+
+                case Key.Green:
+                    this.Events.Raise(new PressGreenKeySendEvent());
+                    break;
+
+                case Key.Red:
+                    this.Events.Raise(new PressRedKeySendEvent());
+                    break;
+
+                default:
+                    throw new NotSupportedException("The given Key could not be sent.");
             }
         }
     }

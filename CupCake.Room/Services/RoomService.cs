@@ -1,7 +1,9 @@
-﻿using CupCake.Core.Events;
+﻿using System;
+using CupCake.Core.Events;
 using CupCake.Core.Services;
 using CupCake.EE;
 using CupCake.EE.Events.Receive;
+using CupCake.EE.Events.Send;
 using CupCake.Room.Events;
 
 namespace CupCake.Room.Services
@@ -31,6 +33,57 @@ namespace CupCake.Room.Services
             this.Events.Bind<AccessReceiveEvent>(this.OnAccess, EventPriority.High);
             this.Events.Bind<LostAccessReceiveEvent>(this.OnLostAccess, EventPriority.High);
             this.Events.Bind<UpdateMetaReceiveEvent>(this.OnUpdateMeta, EventPriority.High);
+
+            this.Events.Bind<SendEvent>(this.OnSend, EventPriority.Highest);
+        }
+
+        public void ChangeKey(string newKey)
+        {
+            if (this.AccessRight < AccessRight.Owner)
+                throw new InvalidOperationException("Only owners are allowed to change key");
+
+            this.Events.Raise(new ChangeWorldEditKeySendEvent(newKey));
+        }
+
+        public void Clear()
+        {
+            if (this.AccessRight < AccessRight.Owner)
+                throw new InvalidOperationException("Only owners are allowed to clear room");
+
+            this.Events.Raise(new ClearWorldSendEvent());
+        }
+
+        public void Save()
+        {
+            if (this.AccessRight < AccessRight.Owner)
+                throw new InvalidOperationException("Only owners are allowed to save");
+
+            this.Events.Raise(new SaveWorldSendEvent());
+        }
+
+        public void SetAllowPotions(bool allowed)
+        {
+            if (this.AccessRight < AccessRight.Owner)
+                throw new InvalidOperationException("Only owners are allowed to enable/disable potions");
+
+            this.Events.Raise(new AllowPotionsSendEvent(allowed));
+        }
+
+        public void SetName(string newName)
+        {
+            if (this.AccessRight < AccessRight.Owner)
+                throw new InvalidOperationException("Only owners are allowed to change room name");
+
+            this.Events.Raise(new ChangeWorldNameSendEvent(newName));
+        }
+
+        private void OnSend(object sender, SendEvent e)
+        {
+            var encryptedSend = e as IEncryptedSendEvent;
+            if (encryptedSend != null && String.IsNullOrEmpty(encryptedSend.Encryption))
+            {
+                encryptedSend.Encryption = this.Encryption;
+            }
         }
 
         private void OnInit(object sender, InitReceiveEvent e)
@@ -41,7 +94,7 @@ namespace CupCake.Room.Services
             this.Encryption = Rot13(e.Encryption);
             this.IsTutorialRoom = e.IsTutorialRoom;
             this.GravityMultiplier = e.Gravity;
-            this.AllowPotions = e.AllowPotions;
+            this.SetAllowPotions = e.AllowPotions;
             this.CurrentWoots = e.CurrentWoots;
             this.TotalWoots = e.TotalWoots;
 

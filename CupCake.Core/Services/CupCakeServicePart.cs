@@ -31,22 +31,22 @@ namespace CupCake.Core.Services
             });
         }
 
-        public Logger Logger
+        protected Logger Logger
         {
             get { return this._logger.Value; }
         }
 
-        public EventManager Events
+        protected EventManager Events
         {
             get { return this._events.Value; }
         }
 
-        public ConnectionPlatform ConnectionPlatform
+        protected ConnectionPlatform ConnectionPlatform
         {
             get { return this._connectionPlatform.Value; }
         }
 
-        public virtual string GetName()
+        protected virtual string GetName()
         {
             return this.GetType().Namespace;
         }

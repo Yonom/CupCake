@@ -4,11 +4,10 @@ using PlayerIOClient;
 
 namespace CupCake.EE.Events.Send
 {
-    public class BlockPlaceSendEvent : SendEvent
+    public class BlockPlaceSendEvent : SendEvent, IEncryptedSendEvent
     {
-        public BlockPlaceSendEvent(string encryption, Layer layer, int x, int y, Block block)
+        public BlockPlaceSendEvent(Layer layer, int x, int y, Block block)
         {
-            this.Encryption = encryption;
             this.Layer = layer;
             this.X = x;
             this.Y = y;

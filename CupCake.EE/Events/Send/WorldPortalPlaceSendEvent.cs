@@ -5,9 +5,9 @@ namespace CupCake.EE.Events.Send
 {
     public class WorldPortalPlaceSendEvent : BlockPlaceSendEvent
     {
-        public WorldPortalPlaceSendEvent(string encryption, Layer layer, int x, int y, WorldPortalBlock block,
+        public WorldPortalPlaceSendEvent(Layer layer, int x, int y, WorldPortalBlock block,
             string worldPortalTarget)
-            : base(encryption, layer, x, y, (Block)block)
+            : base(layer, x, y, (Block)block)
         {
             this.WorldPortalTarget = worldPortalTarget;
         }

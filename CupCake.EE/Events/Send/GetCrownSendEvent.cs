@@ -2,13 +2,8 @@ using PlayerIOClient;
 
 namespace CupCake.EE.Events.Send
 {
-    public class GetCrownSendEvent : SendEvent
+    public class GetCrownSendEvent : SendEvent, IEncryptedSendEvent
     {
-        public GetCrownSendEvent(string encryption)
-        {
-            this.Encryption = encryption;
-        }
-
         public string Encryption { get; set; }
 
         public override Message GetMessage()

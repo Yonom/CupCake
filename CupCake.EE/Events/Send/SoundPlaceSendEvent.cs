@@ -5,8 +5,8 @@ namespace CupCake.EE.Events.Send
 {
     public class SoundPlaceSendEvent : BlockPlaceSendEvent
     {
-        public SoundPlaceSendEvent(string encryption, Layer layer, int x, int y, SoundBlock block, int soundId)
-            : base(encryption, layer, x, y, (Block)block)
+        public SoundPlaceSendEvent(Layer layer, int x, int y, SoundBlock block, int soundId)
+            : base(layer, x, y, (Block)block)
         {
             this.SoundId = soundId;
         }

@@ -5,8 +5,8 @@ namespace CupCake.EE.Events.Send
 {
     public class LabelPlaceSendEvent : BlockPlaceSendEvent
     {
-        public LabelPlaceSendEvent(string encryption, Layer layer, int x, int y, LabelBlock block, string text)
-            : base(encryption, layer, x, y, (Block)block)
+        public LabelPlaceSendEvent(Layer layer, int x, int y, LabelBlock block, string text)
+            : base(layer, x, y, (Block)block)
         {
             this.Text = text;
         }

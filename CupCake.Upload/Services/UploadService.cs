@@ -205,44 +205,44 @@ namespace CupCake.Upload.Services
 
         public UploadRequestEvent UploadBlock(Layer layer, int x, int y, Block block)
         {
-            var e = new BlockPlaceSendEvent(null, layer, x, y, block);
+            var e = new BlockPlaceSendEvent(layer, x, y, block);
             return new UploadRequestEvent(e);
         }
 
         public UploadRequestEvent UploadCoinDoor(int x, int y, CoinDoorBlock block, int coinsToCollect)
         {
-            var e = new CoinDoorPlaceSendEvent(null, Layer.Foreground, x, y, block, coinsToCollect);
+            var e = new CoinDoorPlaceSendEvent(Layer.Foreground, x, y, block, coinsToCollect);
             return new UploadRequestEvent(e);
         }
 
         public UploadRequestEvent UploadLabel(int x, int y, LabelBlock block, string text)
         {
-            var e = new LabelPlaceSendEvent(null, Layer.Foreground, x, y, block, text);
+            var e = new LabelPlaceSendEvent(Layer.Foreground, x, y, block, text);
             return new UploadRequestEvent(e);
         }
 
         public UploadRequestEvent UploadPortal(int x, int y, PortalBlock block, int id, int target,
             PortalRotation rotation)
         {
-            var e = new PortalPlaceSendEvent(null, Layer.Foreground, x, y, block, id, target, rotation);
+            var e = new PortalPlaceSendEvent(Layer.Foreground, x, y, block, id, target, rotation);
             return new UploadRequestEvent(e);
         }
 
         public UploadRequestEvent UploadWorldPortal(int x, int y, WorldPortalBlock block, string roomId)
         {
-            var e = new WorldPortalPlaceSendEvent(null, Layer.Foreground, x, y, block, roomId);
+            var e = new WorldPortalPlaceSendEvent(Layer.Foreground, x, y, block, roomId);
             return new UploadRequestEvent(e);
         }
 
         public UploadRequestEvent UploadSound(int x, int y, SoundBlock block, int soundId)
         {
-            var e = new SoundPlaceSendEvent(null, Layer.Foreground, x, y, block, soundId);
+            var e = new SoundPlaceSendEvent(Layer.Foreground, x, y, block, soundId);
             return new UploadRequestEvent(e);
         }
 
         public UploadRequestEvent UploadRotatable(int x, int y, RotatableBlock block, int rotation)
         {
-            var e = new RotatablePlaceSendEvent(null, Layer.Foreground, x, y, block, rotation);
+            var e = new RotatablePlaceSendEvent(Layer.Foreground, x, y, block, rotation);
             return new UploadRequestEvent(e);
         }
 

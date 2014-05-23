@@ -5,9 +5,9 @@ namespace CupCake.EE.Events.Send
 {
     public class RotatablePlaceSendEvent : BlockPlaceSendEvent
     {
-        public RotatablePlaceSendEvent(string encryption, Layer layer, int x, int y, RotatableBlock block,
+        public RotatablePlaceSendEvent(Layer layer, int x, int y, RotatableBlock block,
             int rotation)
-            : base(encryption, layer, x, y, (Block)block)
+            : base(layer, x, y, (Block)block)
         {
             this.Rotation = rotation;
         }

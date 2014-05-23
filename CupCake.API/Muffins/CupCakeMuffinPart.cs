@@ -57,57 +57,57 @@ namespace CupCake.API.Muffins
             this._potionService = new Lazy<PotionService>(() => this.ServiceLoader.Get<PotionService>());
         }
 
-        public EventManager Events
+        protected EventManager Events
         {
             get { return this._events.Value; }
         }
 
-        public ConnectionPlatform ConnectionPlatform
+        protected ConnectionPlatform ConnectionPlatform
         {
             get { return this._connectionPlatform.Value; }
         }
 
-        public Logger Logger
+        protected Logger Logger
         {
             get { return this._logger.Value; }
         }
 
-        public Chatter Chatter
+        protected Chatter Chatter
         {
             get { return this._chatter.Value; }
         }
 
-        public WorldService WorldService
+        protected WorldService WorldService
         {
             get { return this._worldService.Value; }
         }
 
-        public RoomService RoomService
+        protected RoomService RoomService
         {
             get { return this._roomService.Value; }
         }
 
-        public PlayerService PlayerService
+        protected PlayerService PlayerService
         {
             get { return this._playerService.Value; }
         }
 
-        public KeyService KeyService
+        protected KeyService KeyService
         {
             get { return this._keyService.Value; }
         }
 
-        public UploadService UploadService
+        protected UploadService UploadService
         {
             get { return this._uploadService.Value; }
         }
 
-        public PotionService PotionService
+        protected PotionService PotionService
         {
             get { return this._potionService.Value; }
         }
 
-        public virtual string GetName()
+        protected virtual string GetName()
         {
             return this.GetType().Namespace;
         }

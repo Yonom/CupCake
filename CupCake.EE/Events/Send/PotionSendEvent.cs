@@ -4,11 +4,10 @@ using PlayerIOClient;
 
 namespace CupCake.EE.Events.Send
 {
-    public class PotionSendEvent : SendEvent
+    public class PotionSendEvent : SendEvent, IEncryptedSendEvent
     {
-        public PotionSendEvent(string encryption, Potion potion)
+        public PotionSendEvent(Potion potion)
         {
-            this.Encryption = encryption;
             this.Potion = potion;
         }
 

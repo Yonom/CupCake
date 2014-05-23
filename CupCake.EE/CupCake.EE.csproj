@@ -53,6 +53,7 @@
     <Compile Include="Blocks\SoundBlock.cs" />
     <Compile Include="Blocks\SpikeRotation.cs" />
     <Compile Include="Blocks\WorldPortalBlock.cs" />
+    <Compile Include="Events\Send\IEncryptedSendEvent.cs" />
     <Compile Include="Events\IUserEvent.cs" />
     <Compile Include="Events\IUserPosEvent.cs" />
     <Compile Include="Events\Receive\AccessReceiveEvent.cs" />

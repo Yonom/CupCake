@@ -6,9 +6,9 @@ namespace CupCake.EE.Events.Send
 {
     public class PortalPlaceSendEvent : BlockPlaceSendEvent
     {
-        public PortalPlaceSendEvent(string encryption, Layer layer, int x, int y, PortalBlock block, int portalId,
+        public PortalPlaceSendEvent(Layer layer, int x, int y, PortalBlock block, int portalId,
             int portalTarget, PortalRotation portalRotation)
-            : base(encryption, layer, x, y, (Block)block)
+            : base(layer, x, y, (Block)block)
         {
             this.PortalId = portalId;
             this.PortalTarget = portalTarget;

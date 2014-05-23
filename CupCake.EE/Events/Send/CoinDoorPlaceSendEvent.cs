@@ -5,9 +5,9 @@ namespace CupCake.EE.Events.Send
 {
     public class CoinDoorPlaceSendEvent : BlockPlaceSendEvent
     {
-        public CoinDoorPlaceSendEvent(string encryption, Layer layer, int x, int y, CoinDoorBlock block,
+        public CoinDoorPlaceSendEvent(Layer layer, int x, int y, CoinDoorBlock block,
             int coinsToCollect)
-            : base(encryption, layer, x, y, (Block)block)
+            : base(layer, x, y, (Block)block)
         {
             this.CoinsToCollect = coinsToCollect;
         }

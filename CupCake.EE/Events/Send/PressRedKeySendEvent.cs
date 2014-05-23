@@ -2,13 +2,8 @@ using PlayerIOClient;
 
 namespace CupCake.EE.Events.Send
 {
-    public class PressRedKeySendEvent : SendEvent
+    public class PressRedKeySendEvent : SendEvent, IEncryptedSendEvent
     {
-        public PressRedKeySendEvent(string encryption)
-        {
-            this.Encryption = encryption;
-        }
-
         public string Encryption { get; set; }
 
         public override Message GetMessage()
