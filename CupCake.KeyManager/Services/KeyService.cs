@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
+using CupCake.Core.Events;
 using CupCake.Core.Services;
 using CupCake.EE.Blocks;
 using CupCake.EE.Events.Receive;
@@ -18,8 +19,8 @@ namespace CupCake.KeyManager.Services
         
         protected override void Enable()
         {
-            this.Events.Bind<HideKeyReceiveEvent>(this.OnHideKey);
-            this.Events.Bind<ShowKeyReceiveEvent>(this.OnShowKey);
+            this.Events.Bind<HideKeyReceiveEvent>(this.OnHideKey, EventPriority.High);
+            this.Events.Bind<ShowKeyReceiveEvent>(this.OnShowKey, EventPriority.High);
         }
 
         private void OnHideKey(object sender, HideKeyReceiveEvent e)

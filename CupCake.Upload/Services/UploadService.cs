@@ -5,6 +5,7 @@ using System.Net.Sockets;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using CupCake.Core.Events;
 using CupCake.Core.Services;
 using CupCake.EE.Blocks;
 using CupCake.EE.Events.Send;
@@ -30,7 +31,7 @@ namespace CupCake.Upload.Services
 
             this._workThread = new DequeWorker();
 
-            this.Events.Bind<UploadRequestEvent>(this.OnUploadRequest);
+            this.Events.Bind<UploadRequestEvent>(this.OnUploadRequest, EventPriority.Lowest);
             this.Events.Bind<BlockPlaceEvent>(this.OnBlockPlace);
             this.Events.Bind<InitCompleteEvent>(this.OnInitComplete);
         }

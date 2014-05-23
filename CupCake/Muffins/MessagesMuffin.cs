@@ -1,5 +1,6 @@
 ﻿using System.Threading;
 using CupCake.API.Muffins;
+using CupCake.Core.Events;
 using CupCake.Core.Log;
 using CupCake.EE.Events.Receive;
 using CupCake.EE.Events.Send;
@@ -30,44 +31,44 @@ namespace CupCake.Muffins
             this.ConnectionPlatform.Connection.OnMessage += this.Connection_OnMessage;
 
             // Bind SendEvent event
-            this.Events.Bind<SendEvent>(this.OnSendEvent);
+            this.Events.Bind<SendEvent>(this.OnSendEvent, EventPriority.Lowest);
 
             // Bind all SendEvent events
-            this.Events.Bind<InitSendEvent>(this.OnAnySendEvent);
-            this.Events.Bind<Init2SendEvent>(this.OnAnySendEvent);
-            this.Events.Bind<BlockPlaceSendEvent>(this.OnAnySendEvent);
-            this.Events.Bind<CoinDoorPlaceSendEvent>(this.OnAnySendEvent);
-            this.Events.Bind<RotatablePlaceSendEvent>(this.OnAnySendEvent);
-            this.Events.Bind<SoundPlaceSendEvent>(this.OnAnySendEvent);
-            this.Events.Bind<PortalPlaceSendEvent>(this.OnAnySendEvent);
-            this.Events.Bind<WorldPortalPlaceSendEvent>(this.OnAnySendEvent);
-            this.Events.Bind<LabelPlaceSendEvent>(this.OnAnySendEvent);
-            this.Events.Bind<CoinSendEvent>(this.OnAnySendEvent);
-            this.Events.Bind<PressRedKeySendEvent>(this.OnAnySendEvent);
-            this.Events.Bind<PressBlueKeySendEvent>(this.OnAnySendEvent);
-            this.Events.Bind<PressGreenKeySendEvent>(this.OnAnySendEvent);
-            this.Events.Bind<GetCrownSendEvent>(this.OnAnySendEvent);
-            this.Events.Bind<TouchDiamondSendEvent>(this.OnAnySendEvent);
-            this.Events.Bind<TouchCakeSendEvent>(this.OnAnySendEvent);
-            this.Events.Bind<CompleteLevelSendEvent>(this.OnAnySendEvent);
-            this.Events.Bind<GodModeSendEvent>(this.OnAnySendEvent);
-            this.Events.Bind<ModModeSendEvent>(this.OnAnySendEvent);
-            this.Events.Bind<MoveSendEvent>(this.OnAnySendEvent);
-            this.Events.Bind<SaySendEvent>(this.OnAnySendEvent);
-            this.Events.Bind<AutoSaySendEvent>(this.OnAnySendEvent);
-            this.Events.Bind<AccessSendEvent>(this.OnAnySendEvent);
-            this.Events.Bind<ChangeFaceSendEvent>(this.OnAnySendEvent);
-            this.Events.Bind<SaveWorldSendEvent>(this.OnAnySendEvent);
-            this.Events.Bind<ChangeWorldNameSendEvent>(this.OnAnySendEvent);
-            this.Events.Bind<ChangeWorldEditKeySendEvent>(this.OnAnySendEvent);
-            this.Events.Bind<ClearWorldSendEvent>(this.OnAnySendEvent);
-            this.Events.Bind<KillWorldSendEvent>(this.OnAnySendEvent);
-            this.Events.Bind<PotionSendEvent>(this.OnAnySendEvent);
-            this.Events.Bind<AllowPotionsSendEvent>(this.OnAnySendEvent);
-            this.Events.Bind<WootUpSendEvent>(this.OnAnySendEvent);
-            this.Events.Bind<DeathSendEvent>(this.OnAnySendEvent);
-            this.Events.Bind<CheckpointSendEvent>(this.OnAnySendEvent);
-            this.Events.Bind<TouchUserSendEvent>(this.OnAnySendEvent);
+            this.Events.Bind<InitSendEvent>(this.OnAnySendEvent, EventPriority.Lowest);
+            this.Events.Bind<Init2SendEvent>(this.OnAnySendEvent, EventPriority.Lowest);
+            this.Events.Bind<BlockPlaceSendEvent>(this.OnAnySendEvent, EventPriority.Lowest);
+            this.Events.Bind<CoinDoorPlaceSendEvent>(this.OnAnySendEvent, EventPriority.Lowest);
+            this.Events.Bind<RotatablePlaceSendEvent>(this.OnAnySendEvent, EventPriority.Lowest);
+            this.Events.Bind<SoundPlaceSendEvent>(this.OnAnySendEvent, EventPriority.Lowest);
+            this.Events.Bind<PortalPlaceSendEvent>(this.OnAnySendEvent, EventPriority.Lowest);
+            this.Events.Bind<WorldPortalPlaceSendEvent>(this.OnAnySendEvent, EventPriority.Lowest);
+            this.Events.Bind<LabelPlaceSendEvent>(this.OnAnySendEvent, EventPriority.Lowest);
+            this.Events.Bind<CoinSendEvent>(this.OnAnySendEvent, EventPriority.Lowest);
+            this.Events.Bind<PressRedKeySendEvent>(this.OnAnySendEvent, EventPriority.Lowest);
+            this.Events.Bind<PressBlueKeySendEvent>(this.OnAnySendEvent, EventPriority.Lowest);
+            this.Events.Bind<PressGreenKeySendEvent>(this.OnAnySendEvent, EventPriority.Lowest);
+            this.Events.Bind<GetCrownSendEvent>(this.OnAnySendEvent, EventPriority.Lowest);
+            this.Events.Bind<TouchDiamondSendEvent>(this.OnAnySendEvent, EventPriority.Lowest);
+            this.Events.Bind<TouchCakeSendEvent>(this.OnAnySendEvent, EventPriority.Lowest);
+            this.Events.Bind<CompleteLevelSendEvent>(this.OnAnySendEvent, EventPriority.Lowest);
+            this.Events.Bind<GodModeSendEvent>(this.OnAnySendEvent, EventPriority.Lowest);
+            this.Events.Bind<ModModeSendEvent>(this.OnAnySendEvent, EventPriority.Lowest);
+            this.Events.Bind<MoveSendEvent>(this.OnAnySendEvent, EventPriority.Lowest);
+            this.Events.Bind<SaySendEvent>(this.OnAnySendEvent, EventPriority.Lowest);
+            this.Events.Bind<AutoSaySendEvent>(this.OnAnySendEvent, EventPriority.Lowest);
+            this.Events.Bind<AccessSendEvent>(this.OnAnySendEvent, EventPriority.Lowest);
+            this.Events.Bind<ChangeFaceSendEvent>(this.OnAnySendEvent, EventPriority.Lowest);
+            this.Events.Bind<SaveWorldSendEvent>(this.OnAnySendEvent, EventPriority.Lowest);
+            this.Events.Bind<ChangeWorldNameSendEvent>(this.OnAnySendEvent, EventPriority.Lowest);
+            this.Events.Bind<ChangeWorldEditKeySendEvent>(this.OnAnySendEvent, EventPriority.Lowest);
+            this.Events.Bind<ClearWorldSendEvent>(this.OnAnySendEvent, EventPriority.Lowest);
+            this.Events.Bind<KillWorldSendEvent>(this.OnAnySendEvent, EventPriority.Lowest);
+            this.Events.Bind<PotionSendEvent>(this.OnAnySendEvent, EventPriority.Lowest);
+            this.Events.Bind<AllowPotionsSendEvent>(this.OnAnySendEvent, EventPriority.Lowest);
+            this.Events.Bind<WootUpSendEvent>(this.OnAnySendEvent, EventPriority.Lowest);
+            this.Events.Bind<DeathSendEvent>(this.OnAnySendEvent, EventPriority.Lowest);
+            this.Events.Bind<CheckpointSendEvent>(this.OnAnySendEvent, EventPriority.Lowest);
+            this.Events.Bind<TouchUserSendEvent>(this.OnAnySendEvent, EventPriority.Lowest);
         }
 
         private void OnInit(object sender, InitReceiveEvent e)

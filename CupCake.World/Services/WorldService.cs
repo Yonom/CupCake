@@ -1,3 +1,4 @@
+using CupCake.Core.Events;
 using CupCake.Core.Services;
 using CupCake.EE.Blocks;
 using CupCake.EE.Events.Receive;
@@ -215,16 +216,16 @@ namespace CupCake.World.Services
 
         protected override void Enable()
         {
-            this.Events.Bind<InitReceiveEvent>(this.OnInit);
-            this.Events.Bind<BlockPlaceReceiveEvent>(this.OnBlockPlace);
-            this.Events.Bind<CoinDoorPlaceReceiveEvent>(this.OnCoinDoorPlace);
-            this.Events.Bind<LabelPlaceReceiveEvent>(this.OnLabelPlace);
-            this.Events.Bind<PortalPlaceReceiveEvent>(this.OnPortalPlace);
-            this.Events.Bind<WorldPortalPlaceReceiveEvent>(this.OnWorldPortalPlace);
-            this.Events.Bind<SoundPlaceReceiveEvent>(this.OnSoundPlace);
-            this.Events.Bind<RotatablePlaceReceiveEvent>(this.OnRotatablePlace);
-            this.Events.Bind<ResetReceiveEvent>(this.OnReset);
-            this.Events.Bind<ClearReceiveEvent>(this.OnClear);
+            this.Events.Bind<InitReceiveEvent>(this.OnInit, EventPriority.High);
+            this.Events.Bind<BlockPlaceReceiveEvent>(this.OnBlockPlace, EventPriority.Lowest);
+            this.Events.Bind<CoinDoorPlaceReceiveEvent>(this.OnCoinDoorPlace, EventPriority.Lowest);
+            this.Events.Bind<LabelPlaceReceiveEvent>(this.OnLabelPlace, EventPriority.Lowest);
+            this.Events.Bind<PortalPlaceReceiveEvent>(this.OnPortalPlace, EventPriority.Lowest);
+            this.Events.Bind<WorldPortalPlaceReceiveEvent>(this.OnWorldPortalPlace, EventPriority.Lowest);
+            this.Events.Bind<SoundPlaceReceiveEvent>(this.OnSoundPlace, EventPriority.Lowest);
+            this.Events.Bind<RotatablePlaceReceiveEvent>(this.OnRotatablePlace, EventPriority.Lowest);
+            this.Events.Bind<ResetReceiveEvent>(this.OnReset, EventPriority.High);
+            this.Events.Bind<ClearReceiveEvent>(this.OnClear, EventPriority.High);
         }
         
         private void OnInit(object sender, InitReceiveEvent e)

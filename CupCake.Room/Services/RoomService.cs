@@ -26,11 +26,11 @@ namespace CupCake.Room
 
         protected override void Enable()
         {
-            this.Events.Bind<InitReceiveEvent>(this.OnInit, EventPriority.Low);
-            this.Events.Bind<AccessReceiveEvent>(this.OnAccess, EventPriority.Low);
-            this.Events.Bind<LostAccessReceiveEvent>(this.OnLostAccess, EventPriority.Low);
-            this.Events.Bind<UpdateMetaReceiveEvent>(this.OnUpdateMeta, EventPriority.Low);
-            this.Events.Bind<CrownReceiveEvent>(this.OnCrown, EventPriority.Low);
+            this.Events.Bind<InitReceiveEvent>(this.OnInit, EventPriority.Lowest);
+            this.Events.Bind<CrownReceiveEvent>(this.OnCrown, EventPriority.Lowest);
+            this.Events.Bind<AccessReceiveEvent>(this.OnAccess, EventPriority.High);
+            this.Events.Bind<LostAccessReceiveEvent>(this.OnLostAccess, EventPriority.High);
+            this.Events.Bind<UpdateMetaReceiveEvent>(this.OnUpdateMeta, EventPriority.High);
         }
 
         private void OnInit(object sender, InitReceiveEvent e)

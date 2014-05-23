@@ -116,7 +116,7 @@ namespace CupCake.Players
             this.BindPlayerEvent<MagicReceiveEvent, MagicPlayerEvent>(this.OnMagic);
             this.BindPlayerEvent<CrownReceiveEvent, CrownPlayerEvent>(this.OnCrown);
 
-            this.Events.Bind<TeleportEveryoneReceiveEvent>(this.OnTeleportEveryone);
+            this.Events.Bind<TeleportEveryoneReceiveEvent>(this.OnTeleportEveryone, EventPriority.High);
         }
 
         private void BindPlayerEvent<T, TPlayer>(EventHandler<T> callback)
@@ -133,7 +133,7 @@ namespace CupCake.Players
                         var instance = (TPlayer)Activator.CreateInstance(typeof(TPlayer), this, e);
                         this.Events.Raise(instance);
                     }
-                }, EventPriority.High);
+                }, EventPriority.Lowest);
         }
 
         private void ExtractHostData()

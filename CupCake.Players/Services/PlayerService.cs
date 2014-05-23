@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Concurrent;
 using System.Linq;
+using CupCake.Core.Events;
 using CupCake.Core.Log;
 using CupCake.Core.Services;
 using CupCake.EE.Events.Receive;
@@ -28,9 +29,9 @@ namespace CupCake.Players.Services
         protected override void Enable()
         {
             this.Events.Bind<InitReceiveEvent>(this.OnInit);
-            this.Events.Bind<AddReceiveEvent>(this.OnAdd);
-            this.Events.Bind<CrownReceiveEvent>(this.OnCrown);
-            this.Events.Bind<LeftReceiveEvent>(this.OnLeft);
+            this.Events.Bind<AddReceiveEvent>(this.OnAdd, EventPriority.Lowest);
+            this.Events.Bind<CrownReceiveEvent>(this.OnCrown, EventPriority.Lowest);
+            this.Events.Bind<LeftReceiveEvent>(this.OnLeft, EventPriority.Lowest);
         }
 
         private void OnInit(object sender, InitReceiveEvent e)
