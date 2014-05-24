@@ -1,4 +1,4 @@
-﻿namespace CupCake.EE
+﻿namespace CupCake.Messages
 {
     public class Point
     {

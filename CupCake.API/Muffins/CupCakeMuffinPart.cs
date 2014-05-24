@@ -5,6 +5,7 @@ using CupCake.Core.Events;
 using CupCake.Core.Log;
 using CupCake.Core.Platforms;
 using CupCake.Keys.Services;
+using CupCake.Messages.Services;
 using CupCake.Players.Services;
 using CupCake.Potions.Services;
 using CupCake.Room.Services;
@@ -25,15 +26,15 @@ namespace CupCake.API.Muffins
         private readonly Lazy<PlayerService> _playerService;
         private readonly Lazy<PotionService> _potionService;
         private readonly Lazy<RoomService> _roomService;
-        private readonly Lazy<SynchronizePlatform> _synchronizePlatofrm;
+        private readonly Lazy<SynchronizePlatform> _synchronizePlatform;
         private readonly Lazy<UploadService> _uploadService;
         private readonly Lazy<WorldService> _worldService;
+        private readonly Lazy<MessageService> _messageService;
 
         protected CupCakeMuffinPart()
         {
             this._connectionPlatform = new Lazy<ConnectionPlatform>(() => this.PlatformLoader.Get<ConnectionPlatform>());
-            this._synchronizePlatofrm =
-                new Lazy<SynchronizePlatform>(() => this.PlatformLoader.Get<SynchronizePlatform>());
+            this._synchronizePlatform = new Lazy<SynchronizePlatform>(() => this.PlatformLoader.Get<SynchronizePlatform>());
 
             this._events = new Lazy<EventManager>(() =>
             {
@@ -61,6 +62,7 @@ namespace CupCake.API.Muffins
             this._uploadService = new Lazy<UploadService>(() => this.ServiceLoader.Get<UploadService>());
             this._potionService = new Lazy<PotionService>(() => this.ServiceLoader.Get<PotionService>());
             this._actionService = new Lazy<ActionService>(() => this.ServiceLoader.Get<ActionService>());
+            this._messageService = new Lazy<MessageService>(() => this.ServiceLoader.Get<MessageService>());
         }
 
         protected EventManager Events
@@ -75,7 +77,7 @@ namespace CupCake.API.Muffins
 
         protected SynchronizePlatform SynchronizePlatform
         {
-            get { return this._synchronizePlatofrm.Value; }
+            get { return this._synchronizePlatform.Value; }
         }
 
         protected Logger Logger
@@ -121,6 +123,11 @@ namespace CupCake.API.Muffins
         protected ActionService ActionService
         {
             get { return this._actionService.Value; }
+        }
+
+        protected MessageService MessageService
+        {
+            get { return this._messageService.Value; }
         }
 
         protected virtual string GetName()

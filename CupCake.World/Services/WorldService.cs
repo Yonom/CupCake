@@ -1,7 +1,7 @@
 using CupCake.Core.Events;
 using CupCake.Core.Services;
-using CupCake.EE.Blocks;
-using CupCake.EE.Events.Receive;
+using CupCake.Messages.Blocks;
+using CupCake.Messages.Events.Receive;
 using CupCake.World.Blocks;
 using CupCake.World.Events;
 using PlayerIOClient;
@@ -139,7 +139,7 @@ namespace CupCake.World.Services
                             worldArray[
                                 (int)layer, byteArrayX[i] * 256 + byteArrayX[i + 1],
                                 byteArrayY[i] * 256 + byteArrayY[i + 1]] =
-                                new WorldWorldPortalBlock((EE.Blocks.WorldPortalBlock)block1, worldPortalTarget);
+                                new WorldWorldPortalBlock((Messages.Blocks.WorldPortalBlock)block1, worldPortalTarget);
                         }
 
 

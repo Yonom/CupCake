@@ -1,9 +1,9 @@
 ﻿using System;
 using CupCake.Core.Events;
 using CupCake.Core.Services;
-using CupCake.EE;
-using CupCake.EE.Events.Receive;
-using CupCake.EE.Events.Send;
+using CupCake.Messages.Events.Receive;
+using CupCake.Messages.Events.Send;
+using CupCake.Messages.User;
 using CupCake.Room.Events;
 
 namespace CupCake.Room.Services

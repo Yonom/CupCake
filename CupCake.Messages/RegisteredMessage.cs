@@ -1,9 +1,9 @@
 ﻿using System;
 using CupCake.Core.Events;
-using CupCake.EE.Events.Receive;
+using CupCake.Messages.Events.Receive;
 using PlayerIOClient;
 
-namespace CupCake.EE.Messages
+namespace CupCake.Messages
 {
     public class RegisteredMessage<T> : IRegisteredMessage where T : ReceiveEvent
     {
