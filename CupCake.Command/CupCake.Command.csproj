@@ -51,10 +51,6 @@
     <Compile Include="Source\PlayerInvokeSource.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\CupCake.API\CupCake.API.csproj">
-      <Project>{cf660140-cc8d-40a0-8a0a-9d58540dec9b}</Project>
-      <Name>CupCake.API</Name>
-    </ProjectReference>
     <ProjectReference Include="..\CupCake.Core\CupCake.Core.csproj">
       <Project>{598D616C-4886-482B-AF57-7BC7DAA56CCE}</Project>
       <Name>CupCake.Core</Name>
@@ -66,6 +62,10 @@
     <ProjectReference Include="..\CupCake.Players\CupCake.Players.csproj">
       <Project>{d9df7c76-4de4-4270-bca6-cba724e639ae}</Project>
       <Name>CupCake.Players</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CupCake\CupCake.csproj">
+      <Project>{7c7bf5b3-db13-4672-ae6f-2ead4c2270b6}</Project>
+      <Name>CupCake</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup />

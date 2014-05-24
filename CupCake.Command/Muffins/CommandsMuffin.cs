@@ -1,4 +1,4 @@
-﻿using CupCake.API.Muffins;
+﻿using CupCake.Muffins;
 
 namespace CupCake.Command.Muffins
 {

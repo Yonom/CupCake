@@ -2,7 +2,7 @@
 using CupCake.Messages.Events.Receive;
 using CupCake.Messages.Events.Send;
 
-namespace CupCake.API.Muffins
+namespace CupCake.Muffins
 {
     public class EEMuffin : CupCakeMuffin
     {

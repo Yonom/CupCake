@@ -1,5 +1,4 @@
-﻿using CupCake.API;
-using CupCake.Players;
+﻿using CupCake.Players;
 
 namespace CupCake.Command.Source
 {

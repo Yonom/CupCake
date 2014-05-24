@@ -1,7 +1,7 @@
 ﻿using CupCake.Chat.Services;
 using CupCake.Messages.Blocks;
 
-namespace CupCake.API
+namespace CupCake
 {
     public class Chatter
     {

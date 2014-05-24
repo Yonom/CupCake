@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.Composition;
 using MuffinFramework.Muffins;
 
-namespace CupCake.API.Muffins
+namespace CupCake.Muffins
 {
     public abstract class CupCakeMuffin : CupCakeMuffin<object>
     {

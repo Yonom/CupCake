@@ -13,7 +13,7 @@ using CupCake.Upload.Services;
 using CupCake.World.Services;
 using MuffinFramework.Muffins;
 
-namespace CupCake.API.Muffins
+namespace CupCake.Muffins
 {
     public abstract class CupCakeMuffinPart<TProtocol> : MuffinPart<TProtocol>
     {
@@ -134,35 +134,6 @@ namespace CupCake.API.Muffins
         {
             return this.GetType().Namespace;
         }
-
-        //protected TPart EnableCommand<TPart, TCommmandProtocol>(TCommmandProtocol host) where TPart : class, ILayerPart<TCommmandProtocol, CommandArgs>, new()
-        //{
-        //    var part = new TPart();
-        //    part.Enable(host, new CommandArgs(this.PlatformLoader, this.ServiceLoader, this.MuffinLoader));
-
-        //    lock (this._lockObj)
-        //    {
-        //        this._commandParts.Add(part);
-        //    }
-
-        //    return part;
-        //}
-
-        //protected TPart EnableCommand<TPart, TCommmandProtocol>() where TPart : class, ILayerPart<TCommmandProtocol, CommandArgs>, new()
-        //{
-        //    var host = (TCommmandProtocol)(object)this;
-        //    return this.EnableCommand<TPart, TCommmandProtocol>(host);
-        //}
-
-        //protected TPart EnableCommand<TPart>(TProtocol host) where TPart : class, ILayerPart<TProtocol, CommandArgs>, new()
-        //{
-        //    return this.EnableCommand<TPart, TProtocol>(host);
-        //}
-
-        //protected TPart EnableCommand<TPart>() where TPart : class, ILayerPart<TProtocol, CommandArgs>, new()
-        //{
-        //    return this.EnableCommand<TPart, TProtocol>();
-        //}
 
         protected override void Dispose(bool disposing)
         {

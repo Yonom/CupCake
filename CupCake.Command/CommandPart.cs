@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using CupCake.API.Muffins;
 using CupCake.Command.Attributes;
 using CupCake.Command.Events;
 using CupCake.Command.Source;
 using CupCake.Core.Events;
+using CupCake.Muffins;
 using CupCake.Permissions;
 
 namespace CupCake.Command
