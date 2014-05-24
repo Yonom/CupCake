@@ -1,0 +1,40 @@
+using CupCake.Messages.User;
+using PlayerIOClient;
+
+namespace CupCake.Messages.Events.Receive
+{
+    public class AddReceiveEvent : ReceiveEvent, IUserPosEvent
+    {
+        public AddReceiveEvent(Message message)
+            : base(message)
+        {
+            this.UserId = message.GetInteger(0);
+            this.Username = message.GetString(1);
+            this.Face = (Smiley)message.GetInteger(2);
+            this.UserPosX = message.GetInteger(3);
+            this.UserPosY = message.GetInteger(4);
+            this.IsGod = message.GetBoolean(5);
+            this.IsMod = message.GetBoolean(6);
+            this.HasChat = message.GetBoolean(7);
+            this.Coins = message.GetInteger(8);
+            this.IsMyFriend = message.GetBoolean(9);
+            this.IsPurple = message.GetBoolean(10);
+            this.MagicClass = (MagicClass)message.GetInteger(11);
+            this.IsClubMember = message.GetBoolean(12);
+        }
+
+        public int Coins { get; private set; }
+        public Smiley Face { get; private set; }
+        public bool HasChat { get; private set; }
+        public bool IsClubMember { get; private set; }
+        public bool IsGod { get; private set; }
+        public bool IsMod { get; private set; }
+        public bool IsMyFriend { get; private set; }
+        public bool IsPurple { get; private set; }
+        public MagicClass MagicClass { get; private set; }
+        public string Username { get; private set; }
+        public int UserPosX { get; private set; }
+        public int UserPosY { get; private set; }
+        public int UserId { get; private set; }
+    }
+}

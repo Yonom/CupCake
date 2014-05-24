@@ -1,5 +1,5 @@
 ﻿using CupCake.Chat.Services;
-using CupCake.EE.Blocks;
+using CupCake.Messages.Blocks;
 
 namespace CupCake.API
 {

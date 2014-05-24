@@ -1,6 +1,6 @@
 ﻿using System;
-using CupCake.EE.Events.Receive;
-using CupCake.EE.Events.Send;
+using CupCake.Messages.Events.Receive;
+using CupCake.Messages.Events.Send;
 
 namespace CupCake.API.Muffins
 {

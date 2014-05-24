@@ -1,4 +1,4 @@
-﻿using CupCake.EE.Events.Receive;
+﻿using CupCake.Messages.Events.Receive;
 
 namespace CupCake.Players.Events
 {

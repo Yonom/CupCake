@@ -1,8 +1,8 @@
 ﻿using System;
 using CupCake.Core.Services;
-using CupCake.EE.Blocks;
-using CupCake.EE.Events.Send;
-using CupCake.EE.User;
+using CupCake.Messages.Blocks;
+using CupCake.Messages.Events.Send;
+using CupCake.Messages.User;
 using CupCake.Room.Services;
 
 namespace CupCake.Actions.Services

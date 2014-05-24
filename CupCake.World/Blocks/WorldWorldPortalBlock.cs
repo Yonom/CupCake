@@ -1,5 +1,5 @@
-using CupCake.EE.Blocks;
-using CupCake.EE.Events.Send;
+using CupCake.Messages.Blocks;
+using CupCake.Messages.Events.Send;
 
 namespace CupCake.World.Blocks
 {
@@ -7,7 +7,7 @@ namespace CupCake.World.Blocks
     {
         private readonly string _portalTarget;
 
-        public WorldWorldPortalBlock(EE.Blocks.WorldPortalBlock block, string portalTarget)
+        public WorldWorldPortalBlock(Messages.Blocks.WorldPortalBlock block, string portalTarget)
             : base((Block)block)
         {
             this._portalTarget = portalTarget;

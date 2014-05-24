@@ -1,5 +1,5 @@
-using CupCake.EE.Blocks;
-using CupCake.EE.Events.Send;
+using CupCake.Messages.Blocks;
+using CupCake.Messages.Events.Send;
 
 namespace CupCake.World.Blocks
 {

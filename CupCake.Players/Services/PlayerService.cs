@@ -4,7 +4,7 @@ using System.Linq;
 using CupCake.Core.Events;
 using CupCake.Core.Log;
 using CupCake.Core.Services;
-using CupCake.EE.Events.Receive;
+using CupCake.Messages.Events.Receive;
 using CupCake.Players.Events;
 using CupCake.Players.Join;
 

@@ -33,6 +33,10 @@
     <Reference Include="MuffinFramework">
       <HintPath>..\Lib\MuffinFramework.dll</HintPath>
     </Reference>
+    <Reference Include="PlayerIOClient, Version=2.3.6.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Lib\PlayerIOClient.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.Core" />
@@ -58,13 +62,13 @@
       <Project>{598d616c-4886-482b-af57-7bc7daa56cce}</Project>
       <Name>CupCake.Core</Name>
     </ProjectReference>
-    <ProjectReference Include="..\CupCake.EE\CupCake.EE.csproj">
-      <Project>{1934f8dd-1d6a-4ceb-af92-600c44d4e849}</Project>
-      <Name>CupCake.EE</Name>
-    </ProjectReference>
     <ProjectReference Include="..\CupCake.Keys\CupCake.Keys.csproj">
       <Project>{445870a4-3eca-4411-9a28-85bee51f27c6}</Project>
       <Name>CupCake.Keys</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CupCake.Messages\CupCake.Messages.csproj">
+      <Project>{4746f723-ee77-4434-983c-02d1dd1bd982}</Project>
+      <Name>CupCake.Messages</Name>
     </ProjectReference>
     <ProjectReference Include="..\CupCake.Players\CupCake.Players.csproj">
       <Project>{d9df7c76-4de4-4270-bca6-cba724e639ae}</Project>

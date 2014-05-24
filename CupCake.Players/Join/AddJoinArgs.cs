@@ -1,4 +1,4 @@
-﻿using CupCake.EE.Events.Receive;
+﻿using CupCake.Messages.Events.Receive;
 using CupCake.Players.Services;
 
 namespace CupCake.Players.Join

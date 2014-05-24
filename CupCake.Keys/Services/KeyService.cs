@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using CupCake.Core.Events;
 using CupCake.Core.Services;
-using CupCake.EE.Blocks;
-using CupCake.EE.Events.Receive;
-using CupCake.EE.Events.Send;
+using CupCake.Messages.Blocks;
+using CupCake.Messages.Events.Receive;
+using CupCake.Messages.Events.Send;
 
 namespace CupCake.Keys.Services
 {

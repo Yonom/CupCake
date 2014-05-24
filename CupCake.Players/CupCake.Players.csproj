@@ -69,9 +69,9 @@
       <Project>{598d616c-4886-482b-af57-7bc7daa56cce}</Project>
       <Name>CupCake.Core</Name>
     </ProjectReference>
-    <ProjectReference Include="..\CupCake.EE\CupCake.EE.csproj">
-      <Project>{1934f8dd-1d6a-4ceb-af92-600c44d4e849}</Project>
-      <Name>CupCake.EE</Name>
+    <ProjectReference Include="..\CupCake.Messages\CupCake.Messages.csproj">
+      <Project>{4746f723-ee77-4434-983c-02d1dd1bd982}</Project>
+      <Name>CupCake.Messages</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup />

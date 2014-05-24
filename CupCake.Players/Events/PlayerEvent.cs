@@ -1,5 +1,5 @@
 ﻿using CupCake.Core.Events;
-using CupCake.EE.Events;
+using CupCake.Messages.Events;
 
 namespace CupCake.Players.Events
 {
