@@ -41,7 +41,7 @@ namespace CupCake.World.Services
                 if (m[i] as string != null && m.GetString(i) == "ws")
                 {
                     start = i + 1u;
-                    break; // TODO: might not be correct. Was : Exit For
+                    break;
                 }
             }
 
@@ -53,7 +53,7 @@ namespace CupCake.World.Services
             {
                 if (m[pointer] as string != null && m.GetString(pointer) == "we")
                 {
-                    break; // TODO: might not be correct. Was : Exit Do
+                    break;
                 }
 
                 var block1 = (Block)m.GetInteger(pointer);

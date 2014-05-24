@@ -31,6 +31,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CupCake.Keys", "CupCake.Key
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CupCake.Actions", "CupCake.Actions\CupCake.Actions.csproj", "{5B264955-5D1C-4B16-9950-8F1667F8FEF6}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CupCake.Command", "CupCake.Command\CupCake.Command.csproj", "{3F7AFE9C-D511-43B2-B3CA-4B60A5D6B79D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -89,6 +91,10 @@ Global
 		{5B264955-5D1C-4B16-9950-8F1667F8FEF6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5B264955-5D1C-4B16-9950-8F1667F8FEF6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5B264955-5D1C-4B16-9950-8F1667F8FEF6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3F7AFE9C-D511-43B2-B3CA-4B60A5D6B79D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3F7AFE9C-D511-43B2-B3CA-4B60A5D6B79D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3F7AFE9C-D511-43B2-B3CA-4B60A5D6B79D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3F7AFE9C-D511-43B2-B3CA-4B60A5D6B79D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -103,5 +109,6 @@ Global
 		{868D260E-476E-45F3-B439-4C0186CF542A} = {FFE107C6-9B1F-4F61-870E-FBBA826D0161}
 		{445870A4-3ECA-4411-9A28-85BEE51F27C6} = {FFE107C6-9B1F-4F61-870E-FBBA826D0161}
 		{5B264955-5D1C-4B16-9950-8F1667F8FEF6} = {FFE107C6-9B1F-4F61-870E-FBBA826D0161}
+		{3F7AFE9C-D511-43B2-B3CA-4B60A5D6B79D} = {FFE107C6-9B1F-4F61-870E-FBBA826D0161}
 	EndGlobalSection
 EndGlobal

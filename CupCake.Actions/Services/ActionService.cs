@@ -58,5 +58,25 @@ namespace CupCake.Actions.Services
         {
             this.Events.Raise(new TouchDiamondSendEvent(x, y));
         }
+
+        public void Checkpoint(int x, int y)
+        {
+            this.Events.Raise(new CheckpointSendEvent(x, y));
+        }
+
+        public void CompleteLevel()
+        {
+            this.Events.Raise(new CompleteLevelSendEvent());
+        }
+
+        public void Die()
+        {
+            this.Events.Raise(new DeathSendEvent());
+        }
+
+        public void AutoSay(AutoText text)
+        {
+            this.Events.Raise(new AutoSaySendEvent(text));
+        }
     }
 }

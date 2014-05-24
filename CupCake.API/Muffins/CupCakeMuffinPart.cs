@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using CupCake.Actions.Services;
 using CupCake.Chat.Services;
 using CupCake.Core.Events;
 using CupCake.Core.Log;
@@ -6,9 +8,11 @@ using CupCake.Core.Platforms;
 using CupCake.Keys.Services;
 using CupCake.Players.Services;
 using CupCake.Potions.Services;
+using CupCake.Room.Events;
 using CupCake.Room.Services;
 using CupCake.Upload.Services;
 using CupCake.World.Services;
+using MuffinFramework;
 using MuffinFramework.Muffins;
 
 namespace CupCake.API.Muffins
@@ -25,6 +29,7 @@ namespace CupCake.API.Muffins
         private readonly Lazy<UploadService> _uploadService;
         private readonly Lazy<WorldService> _worldService;
         private readonly Lazy<PotionService> _potionService;
+        private readonly Lazy<ActionService> _actionService;
 
         protected CupCakeMuffinPart()
         {
@@ -55,6 +60,7 @@ namespace CupCake.API.Muffins
             this._keyService = new Lazy<KeyService>(() => this.ServiceLoader.Get<KeyService>());
             this._uploadService = new Lazy<UploadService>(() => this.ServiceLoader.Get<UploadService>());
             this._potionService = new Lazy<PotionService>(() => this.ServiceLoader.Get<PotionService>());
+            this._actionService = new Lazy<ActionService>(() => this.ServiceLoader.Get<ActionService>());
         }
 
         protected EventManager Events
@@ -107,10 +113,44 @@ namespace CupCake.API.Muffins
             get { return this._potionService.Value; }
         }
 
+        protected ActionService ActionService
+        {
+            get { return this._actionService.Value; }
+        }
+
         protected virtual string GetName()
         {
             return this.GetType().Namespace;
         }
+
+        //protected TPart EnableCommand<TPart, TCommmandProtocol>(TCommmandProtocol host) where TPart : class, ILayerPart<TCommmandProtocol, CommandArgs>, new()
+        //{
+        //    var part = new TPart();
+        //    part.Enable(host, new CommandArgs(this.PlatformLoader, this.ServiceLoader, this.MuffinLoader));
+
+        //    lock (this._lockObj)
+        //    {
+        //        this._commandParts.Add(part);
+        //    }
+
+        //    return part;
+        //}
+
+        //protected TPart EnableCommand<TPart, TCommmandProtocol>() where TPart : class, ILayerPart<TCommmandProtocol, CommandArgs>, new()
+        //{
+        //    var host = (TCommmandProtocol)(object)this;
+        //    return this.EnableCommand<TPart, TCommmandProtocol>(host);
+        //}
+
+        //protected TPart EnableCommand<TPart>(TProtocol host) where TPart : class, ILayerPart<TProtocol, CommandArgs>, new()
+        //{
+        //    return this.EnableCommand<TPart, TProtocol>(host);
+        //}
+
+        //protected TPart EnableCommand<TPart>() where TPart : class, ILayerPart<TProtocol, CommandArgs>, new()
+        //{
+        //    return this.EnableCommand<TPart, TProtocol>();
+        //}
 
         protected override void Dispose(bool disposing)
         {

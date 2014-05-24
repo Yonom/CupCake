@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Threading;
 using CupCake.Core.Events;
 using CupCake.Core.Services;
+using CupCake.EE;
 using CupCake.EE.Blocks;
 using CupCake.EE.Events.Send;
 using CupCake.Room.Events;
@@ -29,6 +30,20 @@ namespace CupCake.Upload.Services
             this.Events.Bind<UploadRequestEvent>(this.OnUploadRequest, EventPriority.Lowest);
             this.Events.Bind<BlockPlaceEvent>(this.OnBlockPlace);
             this.Events.Bind<InitCompleteEvent>(this.OnInitComplete);
+            this.Events.Bind<AccessRightChangeEvent>(this.OnAccessRightChange);
+
+        }
+
+        private void OnAccessRightChange(object sender, AccessRightChangeEvent e)
+        {
+            if (this._room.AccessRight >= AccessRight.Edit)
+            {
+                this._workThread.Start();
+            }
+            else
+            {
+                this._workThread.Stop();
+            }
         }
 
         private void ServiceLoader_EnableComplete(object sender, EventArgs e)
@@ -40,8 +55,6 @@ namespace CupCake.Upload.Services
         private void OnInitComplete(object sender, InitCompleteEvent e)
         {
             this._uploaded = new bool[1, this._world.SizeX, this._world.SizeY];
-
-            this._workThread.Start();
         }
 
         private void OnUploadRequest(object sender, UploadRequestEvent e)
@@ -105,7 +118,7 @@ namespace CupCake.Upload.Services
 
             lock (this._checkQueue)
             {
-                if (!this._uploaded[(int)e.Layer, e.X, e.Y])
+                if (!this._uploaded[(int)e.Layer, e.X, e.Y] && request.SendTries < 5)
                 {
                     this._uploaded[(int)e.Layer, e.X, e.Y] = true;
 

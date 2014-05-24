@@ -10,13 +10,26 @@ namespace CupCake.Room.Services
 {
     public class RoomService : CupCakeService
     {
+        private AccessRight _accessRight;
         public string WorldName { get; private set; }
         public string Owner { get; private set; }
         public int Plays { get; private set; }
         public int CurrentWoots { get; private set; }
         public int TotalWoots { get; private set; }
 
-        public AccessRight AccessRight { get; private set; }
+        public AccessRight AccessRight
+        {
+            get { return this._accessRight; }
+            private set
+            {
+                if (this.AccessRight != value)
+                {
+                    this._accessRight = value;
+                    this.Events.Raise(new AccessRightChangeEvent(_accessRight));
+                }
+            }
+        }
+
         public string Encryption { get; private set; }
 
         public double GravityMultiplier { get; private set; }
@@ -33,14 +46,23 @@ namespace CupCake.Room.Services
             this.Events.Bind<AccessReceiveEvent>(this.OnAccess, EventPriority.High);
             this.Events.Bind<LostAccessReceiveEvent>(this.OnLostAccess, EventPriority.High);
             this.Events.Bind<UpdateMetaReceiveEvent>(this.OnUpdateMeta, EventPriority.High);
+            this.Events.Bind<AllowPotionsReceiveEvent>(this.OnAllowPotions, EventPriority.High);
 
             this.Events.Bind<SendEvent>(this.OnSend, EventPriority.Highest);
+        }
+
+        public void Access(string roomKey)
+        {
+            if (this.AccessRight == AccessRight.None)
+                throw new InvalidOperationException("You already have access.");
+
+            this.Events.Raise(new AccessSendEvent(roomKey));
         }
 
         public void ChangeKey(string newKey)
         {
             if (this.AccessRight < AccessRight.Owner)
-                throw new InvalidOperationException("Only owners are allowed to change key");
+                throw new InvalidOperationException("Only owners are allowed to change key.");
 
             this.Events.Raise(new ChangeWorldEditKeySendEvent(newKey));
         }
@@ -48,7 +70,7 @@ namespace CupCake.Room.Services
         public void Clear()
         {
             if (this.AccessRight < AccessRight.Owner)
-                throw new InvalidOperationException("Only owners are allowed to clear room");
+                throw new InvalidOperationException("Only owners are allowed to clear room.");
 
             this.Events.Raise(new ClearWorldSendEvent());
         }
@@ -56,7 +78,7 @@ namespace CupCake.Room.Services
         public void Save()
         {
             if (this.AccessRight < AccessRight.Owner)
-                throw new InvalidOperationException("Only owners are allowed to save");
+                throw new InvalidOperationException("Only owners are allowed to save.");
 
             this.Events.Raise(new SaveWorldSendEvent());
         }
@@ -64,7 +86,7 @@ namespace CupCake.Room.Services
         public void SetAllowPotions(bool allowed)
         {
             if (this.AccessRight < AccessRight.Owner)
-                throw new InvalidOperationException("Only owners are allowed to enable/disable potions");
+                throw new InvalidOperationException("Only owners are allowed to enable/disable potions.");
 
             this.Events.Raise(new AllowPotionsSendEvent(allowed));
         }
@@ -72,9 +94,22 @@ namespace CupCake.Room.Services
         public void SetName(string newName)
         {
             if (this.AccessRight < AccessRight.Owner)
-                throw new InvalidOperationException("Only owners are allowed to change room name");
+                throw new InvalidOperationException("Only owners are allowed to change room name.");
 
             this.Events.Raise(new ChangeWorldNameSendEvent(newName));
+        }
+
+        public void GodMode(bool enabled)
+        {
+            if (this.AccessRight < AccessRight.Edit)
+                throw new InvalidOperationException("You need edit rights to enter god mode.");
+
+            this.Events.Raise(new GodModeSendEvent(enabled));
+        }
+
+        public void ModMode()
+        {
+            this.Events.Raise(new ModModeSendEvent());
         }
 
         private void OnSend(object sender, SendEvent e)
@@ -94,7 +129,7 @@ namespace CupCake.Room.Services
             this.Encryption = Rot13(e.Encryption);
             this.IsTutorialRoom = e.IsTutorialRoom;
             this.GravityMultiplier = e.Gravity;
-            this.SetAllowPotions = e.AllowPotions;
+            this.AllowPotions = e.AllowPotions;
             this.CurrentWoots = e.CurrentWoots;
             this.TotalWoots = e.TotalWoots;
 
@@ -106,9 +141,12 @@ namespace CupCake.Room.Services
             {
                 this.AccessRight = AccessRight.Edit;
             }
-
-            this.InitComplete = true;
-            this.Events.Raise(new InitCompleteEvent());
+            
+            if (!this.InitComplete)
+            {
+                this.InitComplete = true;
+                this.Events.Raise(new InitCompleteEvent());
+            }
         }
 
         private void OnAccess(object sender, AccessReceiveEvent e)
@@ -138,6 +176,12 @@ namespace CupCake.Room.Services
             this.CurrentWoots = e.CurrentWoots;
             this.TotalWoots = e.TotalWoots;
         }
+
+        private void OnAllowPotions(object sender, AllowPotionsReceiveEvent e)
+        {
+            this.AllowPotions = e.Allowed;
+        }
+
 
         private static string Rot13(string input)
         {

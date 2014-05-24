@@ -38,6 +38,7 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Events\AccessRightChangeEvent.cs" />
     <Compile Include="Events\InitCompleteEvent.cs" />
     <Compile Include="Events\JoinCompleteEvent.cs" />
     <Compile Include="Services\RoomService.cs" />
