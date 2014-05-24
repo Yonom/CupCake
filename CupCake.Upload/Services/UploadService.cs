@@ -5,6 +5,7 @@ using CupCake.Core.Events;
 using CupCake.Core.Services;
 using CupCake.EE;
 using CupCake.EE.Blocks;
+using CupCake.EE.Events.Receive;
 using CupCake.EE.Events.Send;
 using CupCake.Room.Events;
 using CupCake.Room.Services;
@@ -31,7 +32,18 @@ namespace CupCake.Upload.Services
             this.Events.Bind<BlockPlaceEvent>(this.OnBlockPlace);
             this.Events.Bind<InitCompleteEvent>(this.OnInitComplete);
             this.Events.Bind<AccessRightChangeEvent>(this.OnAccessRightChange);
+            this.Events.Bind<ClearReceiveEvent>(this.OnClear);
+            this.Events.Bind<ResetReceiveEvent>(this.OnReset);
+        }
 
+        private void OnReset(object sender, ResetReceiveEvent e)
+        {
+            this.Reset();
+        }
+
+        private void OnClear(object sender, ClearReceiveEvent e)
+        {
+            this.Reset();
         }
 
         private void OnAccessRightChange(object sender, AccessRightChangeEvent e)
@@ -71,7 +83,7 @@ namespace CupCake.Upload.Services
                     ThreadPool.QueueUserWorkItem(o =>
                     {
                         Thread.Sleep(1000);
-                        this.DoLagCheck();
+                        this.DoLagCheck(true);
                     });
                 }
             };
@@ -180,11 +192,11 @@ namespace CupCake.Upload.Services
         {
             if (this._uploaded[(int)e.Layer, e.PosX, e.PosY])
             {
-                this.DoLagCheck();
+                this.DoLagCheck(false);
             }
         }
 
-        private void DoLagCheck()
+        private void DoLagCheck(bool emptyQueue)
         {
             lock (this._checkQueue)
             {
@@ -197,6 +209,10 @@ namespace CupCake.Upload.Services
                     if (this.IsUploaded(er))
                     {
                         request.Verified = true;
+
+                        if (emptyQueue)
+                            continue;
+
                         break;
                     }
 
@@ -209,6 +225,26 @@ namespace CupCake.Upload.Services
         private bool IsUploaded(BlockPlaceSendEvent e)
         {
             return (this._world[e.Layer, e.X, e.Y] == e);
+        }
+
+        public void ClearQueue()
+        {
+            this._workThread.Clear();
+            this.DoLagCheck(true);
+        }
+
+        private void Reset()
+        {
+            this._workThread.Stop();
+            this.ClearQueue();
+            this.ResetUploaded();
+            this._workThread.Clear();
+            this._workThread.Start();
+        }
+
+        private void ResetUploaded()
+        {
+            this._uploaded = new bool[1, this._world.SizeX, this._world.SizeY];
         }
 
         public UploadRequestEvent UploadBlock(int x, int y, Block block)

@@ -45,8 +45,7 @@ namespace CupCake.World.Services
                 }
             }
 
-            var value = new WorldBlock[2, sizeX, sizeY];
-            ClearWorld(ref value, false);
+            var worldArray = GetEmptyWorld(sizeX, sizeY, Block.BlockGravityNothing, Block.BlockGravityNothing);
 
             uint pointer = start;
             do
@@ -71,7 +70,7 @@ namespace CupCake.World.Services
 
                         for (int i = 0; i <= byteArrayX.Length - 1; i += 2)
                         {
-                            value[
+                            worldArray[
                                 (int)layer, byteArrayX[i] * 256 + byteArrayX[i + 1],
                                 byteArrayY[i] * 256 + byteArrayY[i + 1]] = new WorldCoinDoorBlock(
                                     (CoinDoorBlock)block1, coinsToCollect);
@@ -86,7 +85,7 @@ namespace CupCake.World.Services
 
                         for (int i = 0; i <= byteArrayX.Length - 1; i += 2)
                         {
-                            value[
+                            worldArray[
                                 (int)layer, byteArrayX[i] * 256 + byteArrayX[i + 1],
                                 byteArrayY[i] * 256 + byteArrayY[i + 1]] = new WorldSoundBlock((SoundBlock)block1,
                                     soundId);
@@ -106,7 +105,7 @@ namespace CupCake.World.Services
 
                         for (int i = 0; i <= byteArrayX.Length - 1; i += 2)
                         {
-                            value[
+                            worldArray[
                                 (int)layer, byteArrayX[i] * 256 + byteArrayX[i + 1],
                                 byteArrayY[i] * 256 + byteArrayY[i + 1]] =
                                 new WorldRotatableBlock((RotatableBlock)block1, rotation);
@@ -123,7 +122,7 @@ namespace CupCake.World.Services
 
                         for (int i = 0; i <= byteArrayX.Length - 1; i += 2)
                         {
-                            value[
+                            worldArray[
                                 (int)layer, byteArrayX[i] * 256 + byteArrayX[i + 1],
                                 byteArrayY[i] * 256 + byteArrayY[i + 1]] = new WorldPortalBlock((PortalBlock)block1,
                                     portalRotation, portalId, portalTarget);
@@ -137,7 +136,7 @@ namespace CupCake.World.Services
 
                         for (int i = 0; i <= byteArrayX.Length - 1; i += 2)
                         {
-                            value[
+                            worldArray[
                                 (int)layer, byteArrayX[i] * 256 + byteArrayX[i + 1],
                                 byteArrayY[i] * 256 + byteArrayY[i + 1]] =
                                 new WorldWorldPortalBlock((EE.Blocks.WorldPortalBlock)block1, worldPortalTarget);
@@ -152,7 +151,7 @@ namespace CupCake.World.Services
 
                         for (int i = 0; i <= byteArrayX.Length - 1; i += 2)
                         {
-                            value[
+                            worldArray[
                                 (int)layer, byteArrayX[i] * 256 + byteArrayX[i + 1],
                                 byteArrayY[i] * 256 + byteArrayY[i + 1]] = new WorldLabelBlock((LabelBlock)block1, text);
                         }
@@ -162,7 +161,7 @@ namespace CupCake.World.Services
                     default:
                         for (int i = 0; i <= byteArrayX.Length - 1; i += 2)
                         {
-                            value[
+                            worldArray[
                                 (int)layer, byteArrayX[i] * 256 + byteArrayX[i + 1],
                                 byteArrayY[i] * 256 + byteArrayY[i + 1]] = new WorldBlock(block1);
                         }
@@ -171,47 +170,43 @@ namespace CupCake.World.Services
                 }
             } while (true);
 
-            return value;
+            return worldArray;
         }
 
-        private static void ClearWorld(ref WorldBlock[,,] blockArray, bool drawBorder = true)
+        private static WorldBlock[,,] GetEmptyWorld(int sizeX, int sizeY, Block fillBlock, Block borderBlock)
         {
-            dynamic sizeXMinusSomething = blockArray.GetLength(1) - 1;
-            dynamic sizeYMinus1 = blockArray.GetLength(2) - 1;
+            var blockArray = new WorldBlock[1, sizeX, sizeY];
+            int maxX = sizeX -1;
+            int maxY = sizeY -1;
 
-            //<Fill the middle with GravityNothing blocks>
+            // Fill the middle with GravityNothing blocks
             for (var l = Layer.Background; l >= Layer.Foreground; l += -1)
             {
-                for (int x = 1; x <= sizeXMinusSomething; x++)
+                for (int x = 1; x <= maxX; x++)
                 {
-                    for (int y = 1; y <= sizeYMinus1; y++)
+                    for (int y = 1; y <= maxY; y++)
                     {
-                        blockArray[(int)l, x, y] = new WorldBlock(Block.BlockGravityNothing);
+                        blockArray[(int)l, x, y] = new WorldBlock(fillBlock);
                         //Create a new instance for every block
                     }
                 }
             }
-            //</Fill the middle with GravityNothing blocks>
 
-            //<Border drawing>
-            Block blockToDraw = drawBorder ? Block.BlockBasicGrey : Block.BlockGravityNothing;
-
-            sizeXMinusSomething -= 1;
-            for (Layer l = (drawBorder ? Layer.Foreground : Layer.Background); l >= Layer.Foreground; l += -1)
+            // Border drawing
+            maxX -= 1;
+            for (var y = maxY; y >= 0; y += -1)
             {
-                for (dynamic y = sizeYMinus1; y >= 0; y += -1)
-                {
-                    blockArray[0, 0, y] = new WorldBlock(blockToDraw);
-                    blockArray[0, sizeYMinus1, y] = new WorldBlock(blockToDraw);
-                }
-
-                for (int x = 1; x <= sizeXMinusSomething; x++)
-                {
-                    blockArray[0, x, 0] = new WorldBlock(blockToDraw);
-                    blockArray[0, x, sizeYMinus1] = new WorldBlock(blockToDraw);
-                }
+                blockArray[0, 0, y] = new WorldBlock(borderBlock);
+                blockArray[0, maxY, y] = new WorldBlock(borderBlock);
             }
-            //</Border drawing>
+
+            for (var x = 1; x <= maxX; x++)
+            {
+                blockArray[0, x, 0] = new WorldBlock(borderBlock);
+                blockArray[0, x, maxY] = new WorldBlock(borderBlock);
+            }
+
+            return blockArray;
         }
 
         protected override void Enable()
@@ -298,7 +293,9 @@ namespace CupCake.World.Services
 
         private void OnClear(object sender, ClearReceiveEvent e)
         {
-            ClearWorld(ref this._blocks);
+            this._sizeX = e.RoomWidth;
+            this._sizeY = e.RoomHeight;
+            this._blocks = GetEmptyWorld(this.SizeX, this.SizeY, e.FillBlock, e.BorderBlock);
         }
     }
 }

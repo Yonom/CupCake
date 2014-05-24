@@ -5,7 +5,7 @@ namespace CupCake.Upload
 {
     internal sealed class DequeWorker
     {
-        private object _lockObj = new object();
+        private readonly object _lockObj = new object();
         private readonly Deque<Action> _deque = new Deque<Action>();
         private readonly ManualResetEvent _resetEvent = new ManualResetEvent(false);
         private readonly Thread _thread;
@@ -43,6 +43,7 @@ namespace CupCake.Upload
             {
                 if (!this._thread.IsAlive)
                 {
+                    this._stopping = false;
                     this._thread.Start();
                 }
             }
@@ -50,14 +51,18 @@ namespace CupCake.Upload
 
         public void Stop()
         {
+            bool enabledStop = false;
             lock (this._lockObj)
             {
                 if (this._thread.IsAlive)
                 {
+                    enabledStop = true;
                     this._stopping = true;
-                    this._thread.Join();
                 }
             }
+
+            if (enabledStop)
+                this._thread.Join();
         }
 
         public void QueueFront(Action task)
@@ -83,6 +88,15 @@ namespace CupCake.Upload
                 {
                     this._resetEvent.Set();
                 }
+            }
+        }
+
+        public void Clear()
+        {
+            lock (this._deque)
+            {
+                this._deque.Clear();
+                this._resetEvent.Reset();
             }
         }
 
