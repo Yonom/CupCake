@@ -2,7 +2,7 @@
 using CupCake.Core.Events;
 using CupCake.EE.Events.Receive;
 
-namespace CupCake.Messages
+namespace CupCake.EE.Messages
 {
     public class MessageManager
     {

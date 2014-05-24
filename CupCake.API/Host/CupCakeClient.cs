@@ -3,9 +3,8 @@ using System.ComponentModel.Composition.Hosting;
 using System.ComponentModel.Composition.Primitives;
 using CupCake.Core.Platforms;
 using MuffinFramework;
-using PlayerIOClient;
 
-namespace CupCake.Host
+namespace CupCake.API.Host
 {
     public class CupCakeClient : MuffinClient
     {

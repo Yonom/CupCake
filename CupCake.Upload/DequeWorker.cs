@@ -5,8 +5,8 @@ namespace CupCake.Upload
 {
     internal sealed class DequeWorker
     {
-        private readonly object _lockObj = new object();
         private readonly Deque<Action> _deque = new Deque<Action>();
+        private readonly object _lockObj = new object();
         private readonly ManualResetEvent _resetEvent = new ManualResetEvent(false);
         private readonly Thread _thread;
 

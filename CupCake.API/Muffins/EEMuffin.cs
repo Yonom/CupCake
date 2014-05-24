@@ -1,9 +1,8 @@
 ﻿using System;
-using CupCake.API.Muffins;
 using CupCake.EE.Events.Receive;
 using CupCake.EE.Events.Send;
 
-namespace CupCake.Muffins
+namespace CupCake.API.Muffins
 {
     public class EEMuffin : CupCakeMuffin
     {

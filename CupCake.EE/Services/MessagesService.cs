@@ -1,15 +1,14 @@
-﻿using System.Threading;
-using CupCake.API.Muffins;
-using CupCake.Core.Events;
+﻿using CupCake.Core.Events;
 using CupCake.Core.Log;
+using CupCake.Core.Services;
 using CupCake.EE.Events.Receive;
 using CupCake.EE.Events.Send;
-using CupCake.Messages;
+using CupCake.EE.Messages;
 using PlayerIOClient;
 
-namespace CupCake.Muffins
+namespace CupCake.EE.Services
 {
-    public class MessagesMuffin : CupCakeMuffin
+    public class MessagesService : CupCakeService
     {
         public MessageManager MessageManager { get; private set; }
 
@@ -120,12 +119,7 @@ namespace CupCake.Muffins
 
         private void Connection_OnMessage(object sender, Message e)
         {
-            ThreadPool.QueueUserWorkItem(this.ThreadPoolCallback, e);
-        }
-
-        private void ThreadPoolCallback(object state)
-        {
-            this.HandleMessage((Message)state);
+            this.SynchronizePlatform.Do(() => this.HandleMessage(e));
         }
 
         private void HandleMessage(Message e)

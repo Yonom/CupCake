@@ -5,7 +5,6 @@ using CupCake.Core.Services;
 using CupCake.EE.Blocks;
 using CupCake.EE.Events.Receive;
 using CupCake.EE.Events.Send;
-using CupCake.Room.Services;
 
 namespace CupCake.Keys.Services
 {
@@ -19,7 +18,7 @@ namespace CupCake.Keys.Services
         protected override void Enable()
         {
             this.Events.Bind<HideKeyReceiveEvent>(this.OnHideKey, EventPriority.High);
-            this.Events.Bind<ShowKeyReceiveEvent>(this.OnShowKey, EventPriority.High);     
+            this.Events.Bind<ShowKeyReceiveEvent>(this.OnShowKey, EventPriority.High);
         }
 
         private void OnHideKey(object sender, HideKeyReceiveEvent e)

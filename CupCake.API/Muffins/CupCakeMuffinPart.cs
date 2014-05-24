@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using CupCake.Actions.Services;
 using CupCake.Chat.Services;
 using CupCake.Core.Events;
@@ -8,32 +7,33 @@ using CupCake.Core.Platforms;
 using CupCake.Keys.Services;
 using CupCake.Players.Services;
 using CupCake.Potions.Services;
-using CupCake.Room.Events;
 using CupCake.Room.Services;
 using CupCake.Upload.Services;
 using CupCake.World.Services;
-using MuffinFramework;
 using MuffinFramework.Muffins;
 
 namespace CupCake.API.Muffins
 {
     public abstract class CupCakeMuffinPart<TProtocol> : MuffinPart<TProtocol>
     {
+        private readonly Lazy<ActionService> _actionService;
         private readonly Lazy<Chatter> _chatter;
         private readonly Lazy<ConnectionPlatform> _connectionPlatform;
         private readonly Lazy<EventManager> _events;
         private readonly Lazy<KeyService> _keyService;
         private readonly Lazy<Logger> _logger;
         private readonly Lazy<PlayerService> _playerService;
+        private readonly Lazy<PotionService> _potionService;
         private readonly Lazy<RoomService> _roomService;
+        private readonly Lazy<SynchronizePlatform> _synchronizePlatofrm;
         private readonly Lazy<UploadService> _uploadService;
         private readonly Lazy<WorldService> _worldService;
-        private readonly Lazy<PotionService> _potionService;
-        private readonly Lazy<ActionService> _actionService;
 
         protected CupCakeMuffinPart()
         {
             this._connectionPlatform = new Lazy<ConnectionPlatform>(() => this.PlatformLoader.Get<ConnectionPlatform>());
+            this._synchronizePlatofrm =
+                new Lazy<SynchronizePlatform>(() => this.PlatformLoader.Get<SynchronizePlatform>());
 
             this._events = new Lazy<EventManager>(() =>
             {
@@ -71,6 +71,11 @@ namespace CupCake.API.Muffins
         protected ConnectionPlatform ConnectionPlatform
         {
             get { return this._connectionPlatform.Value; }
+        }
+
+        protected SynchronizePlatform SynchronizePlatform
+        {
+            get { return this._synchronizePlatofrm.Value; }
         }
 
         protected Logger Logger

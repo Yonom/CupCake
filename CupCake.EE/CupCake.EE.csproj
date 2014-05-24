@@ -30,6 +30,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="MuffinFramework, Version=1.1.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Lib\MuffinFramework.dll</HintPath>
+    </Reference>
     <Reference Include="PlayerIOClient">
       <HintPath>..\Lib\PlayerIOClient.dll</HintPath>
     </Reference>
@@ -138,7 +142,11 @@
     <Compile Include="Events\Send\TouchUserSendEvent.cs" />
     <Compile Include="Events\Send\WootUpSendEvent.cs" />
     <Compile Include="Events\Send\WorldPortalPlaceSendEvent.cs" />
+    <Compile Include="Messages\IRegisteredMessage.cs" />
+    <Compile Include="Messages\MessageManager.cs" />
+    <Compile Include="Messages\RegisteredMessage.cs" />
     <Compile Include="ReadOnlyDictionary.cs" />
+    <Compile Include="Services\MessagesService.cs" />
     <Compile Include="User\AccountType.cs" />
     <Compile Include="User\AutoText.cs" />
     <Compile Include="User\MagicClass.cs" />

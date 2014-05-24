@@ -25,7 +25,7 @@ namespace CupCake.Room.Services
                 if (this.AccessRight != value)
                 {
                     this._accessRight = value;
-                    this.Events.Raise(new AccessRightChangeEvent(_accessRight));
+                    this.Events.Raise(new AccessRightChangeEvent(this._accessRight));
                 }
             }
         }
@@ -141,7 +141,7 @@ namespace CupCake.Room.Services
             {
                 this.AccessRight = AccessRight.Edit;
             }
-            
+
             if (!this.InitComplete)
             {
                 this.InitComplete = true;

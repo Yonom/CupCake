@@ -2,22 +2,23 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using System.Text;
 using CupCake.API.Muffins;
 using CupCake.Command.Attributes;
 using CupCake.Command.Events;
 using CupCake.Command.Source;
 using CupCake.Core.Events;
 using CupCake.Permissions;
-using MuffinFramework;
-using MuffinFramework.Muffins;
-using MuffinFramework.Platforms;
-using MuffinFramework.Services;
 
 namespace CupCake.Command
 {
     public abstract class CommandPart<TProtocol> : CupCakeMuffinPart<TProtocol>
     {
+        public List<string> LabelsList { get; set; }
+
+        public int MinArgs { get; set; }
+
+        public Group MinGroup { get; set; }
+
         protected override void Enable()
         {
             MethodBase method = this.GetType().GetMethod("Run", BindingFlags.Instance | BindingFlags.Public);
@@ -30,7 +31,8 @@ namespace CupCake.Command
             }
 
             // MinGroup attribute
-            var minGroup = (MinGroupAttribute)method.GetCustomAttributes(typeof(MinGroupAttribute), false).FirstOrDefault();
+            var minGroup =
+                (MinGroupAttribute)method.GetCustomAttributes(typeof(MinGroupAttribute), false).FirstOrDefault();
             if (minGroup != null)
             {
                 this.MinGroup = minGroup.Group;
@@ -46,12 +48,6 @@ namespace CupCake.Command
             this.Events.Bind<PlayerInvokeEvent>(this.OnPlayerInvoke, EventPriority.Lowest);
             this.Events.Bind<ExternalInvokeEvent>(this.OnExternalInvoke, EventPriority.Lowest);
         }
-
-        public List<string> LabelsList { get; set; }
-
-        public int MinArgs { get; set; }
-
-        public Group MinGroup { get; set; }
 
         private void OnExternalInvoke(object sender, ExternalInvokeEvent e)
         {
@@ -78,7 +74,7 @@ namespace CupCake.Command
 
         private void ExcecuteCommand(IInvokeSource source, string message)
         {
-            this.Run(new InvokeArgs(source,message));
+            this.Run(new InvokeArgs(source, message));
             source.Handled = true;
         }
 

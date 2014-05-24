@@ -45,7 +45,7 @@ namespace CupCake.World.Services
                 }
             }
 
-            var worldArray = GetEmptyWorld(sizeX, sizeY, Block.BlockGravityNothing, Block.BlockGravityNothing);
+            WorldBlock[,,] worldArray = GetEmptyWorld(sizeX, sizeY, Block.BlockGravityNothing, Block.BlockGravityNothing);
 
             uint pointer = start;
             do
@@ -176,8 +176,8 @@ namespace CupCake.World.Services
         private static WorldBlock[,,] GetEmptyWorld(int sizeX, int sizeY, Block fillBlock, Block borderBlock)
         {
             var blockArray = new WorldBlock[1, sizeX, sizeY];
-            int maxX = sizeX -1;
-            int maxY = sizeY -1;
+            int maxX = sizeX - 1;
+            int maxY = sizeY - 1;
 
             // Fill the middle with GravityNothing blocks
             for (var l = Layer.Background; l >= Layer.Foreground; l += -1)
@@ -194,13 +194,13 @@ namespace CupCake.World.Services
 
             // Border drawing
             maxX -= 1;
-            for (var y = maxY; y >= 0; y += -1)
+            for (int y = maxY; y >= 0; y += -1)
             {
                 blockArray[0, 0, y] = new WorldBlock(borderBlock);
                 blockArray[0, maxY, y] = new WorldBlock(borderBlock);
             }
 
-            for (var x = 1; x <= maxX; x++)
+            for (int x = 1; x <= maxX; x++)
             {
                 blockArray[0, x, 0] = new WorldBlock(borderBlock);
                 blockArray[0, x, maxY] = new WorldBlock(borderBlock);

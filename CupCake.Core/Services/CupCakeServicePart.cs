@@ -12,10 +12,13 @@ namespace CupCake.Core.Services
 
         private readonly Lazy<EventManager> _events;
         private readonly Lazy<Logger> _logger;
+        private readonly Lazy<SynchronizePlatform> _synchronizePlatofrm;
 
         protected CupCakeServicePart()
         {
             this._connectionPlatform = new Lazy<ConnectionPlatform>(() => this.PlatformLoader.Get<ConnectionPlatform>());
+            this._synchronizePlatofrm =
+                new Lazy<SynchronizePlatform>(() => this.PlatformLoader.Get<SynchronizePlatform>());
 
             this._logger = new Lazy<Logger>(() =>
             {
@@ -44,6 +47,11 @@ namespace CupCake.Core.Services
         protected ConnectionPlatform ConnectionPlatform
         {
             get { return this._connectionPlatform.Value; }
+        }
+
+        protected SynchronizePlatform SynchronizePlatform
+        {
+            get { return this._synchronizePlatofrm.Value; }
         }
 
         protected virtual string GetName()

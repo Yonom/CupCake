@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using CupCake.Core.Services;
 using CupCake.EE.Blocks;
 using CupCake.EE.Events.Send;
@@ -16,10 +13,10 @@ namespace CupCake.Actions.Services
 
         protected override void Enable()
         {
-            this.ServiceLoader.EnableComplete += ServiceLoader_EnableComplete;
+            this.ServiceLoader.EnableComplete += this.ServiceLoader_EnableComplete;
         }
 
-        void ServiceLoader_EnableComplete(object sender, EventArgs e)
+        private void ServiceLoader_EnableComplete(object sender, EventArgs e)
         {
             this._room = this.ServiceLoader.Get<RoomService>();
         }
@@ -33,7 +30,7 @@ namespace CupCake.Actions.Services
         {
             this.Events.Raise(new MoveSendEvent(x, y, 0, 0, 0, 0, 0, 0, this._room.GravityMultiplier));
         }
-        
+
         public void GetCrown()
         {
             this.Events.Raise(new GetCrownSendEvent());

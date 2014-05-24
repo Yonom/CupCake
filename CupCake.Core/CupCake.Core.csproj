@@ -33,6 +33,9 @@
     <Reference Include="MuffinFramework">
       <HintPath>..\Lib\MuffinFramework.dll</HintPath>
     </Reference>
+    <Reference Include="Nito.Async">
+      <HintPath>..\Lib\Nito.Async.dll</HintPath>
+    </Reference>
     <Reference Include="PlayerIOClient">
       <HintPath>..\Lib\PlayerIOClient.dll</HintPath>
     </Reference>
@@ -51,6 +54,7 @@
     <Compile Include="Platforms\ConnectionPlatform.cs" />
     <Compile Include="Platforms\EventsPlatform.cs" />
     <Compile Include="Platforms\LogPlatform.cs" />
+    <Compile Include="Platforms\SynchronizePlatform.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\CupCakeService.cs" />
     <Compile Include="Services\CupCakeServicePart.cs" />
