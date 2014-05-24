@@ -23,18 +23,19 @@ namespace CupCake.Muffins
         private readonly Lazy<EventManager> _events;
         private readonly Lazy<KeyService> _keyService;
         private readonly Lazy<Logger> _logger;
+        private readonly Lazy<MessageService> _messageService;
         private readonly Lazy<PlayerService> _playerService;
         private readonly Lazy<PotionService> _potionService;
         private readonly Lazy<RoomService> _roomService;
         private readonly Lazy<SynchronizePlatform> _synchronizePlatform;
         private readonly Lazy<UploadService> _uploadService;
         private readonly Lazy<WorldService> _worldService;
-        private readonly Lazy<MessageService> _messageService;
 
         protected CupCakeMuffinPart()
         {
             this._connectionPlatform = new Lazy<ConnectionPlatform>(() => this.PlatformLoader.Get<ConnectionPlatform>());
-            this._synchronizePlatform = new Lazy<SynchronizePlatform>(() => this.PlatformLoader.Get<SynchronizePlatform>());
+            this._synchronizePlatform =
+                new Lazy<SynchronizePlatform>(() => this.PlatformLoader.Get<SynchronizePlatform>());
 
             this._events = new Lazy<EventManager>(() =>
             {
