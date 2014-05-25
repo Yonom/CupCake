@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace CupCake.Command
 {
@@ -9,7 +7,7 @@ namespace CupCake.Command
     {
         public ParsedCommand(string source)
         {
-            var parts = source.Split(' ');
+            string[] parts = source.Split(' ');
             this.Type = parts[0];
             this.Args = parts.Skip(1).ToArray();
         }

@@ -1,6 +1,4 @@
-﻿using System;
-using CupCake.Command.Events;
-using CupCake.Command.Exceptions;
+﻿using CupCake.Command.Events;
 using CupCake.Command.Source;
 using CupCake.Core.Services;
 using CupCake.Permissions;

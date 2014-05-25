@@ -20,6 +20,7 @@ namespace CupCake.Muffins
     {
         private readonly Lazy<ActionService> _actionService;
         private readonly Lazy<Chatter> _chatter;
+        private readonly Lazy<CommandService> _commandService;
         private readonly Lazy<ConnectionPlatform> _connectionPlatform;
         private readonly Lazy<EventManager> _events;
         private readonly Lazy<KeyService> _keyService;
@@ -31,7 +32,7 @@ namespace CupCake.Muffins
         private readonly Lazy<SynchronizePlatform> _synchronizePlatform;
         private readonly Lazy<UploadService> _uploadService;
         private readonly Lazy<WorldService> _worldService;
-        private readonly Lazy<CommandService> _commandService;
+
         protected CupCakeMuffinPart()
         {
             this._connectionPlatform = new Lazy<ConnectionPlatform>(() => this.PlatformLoader.Get<ConnectionPlatform>());

@@ -49,7 +49,8 @@ namespace CupCake.Muffins
             }
 
             // CorrectUsage attribute
-            var correctUsage = (CorrectUsageAttribute)method.GetCustomAttributes(typeof(CorrectUsageAttribute), false).FirstOrDefault();
+            var correctUsage =
+                (CorrectUsageAttribute)method.GetCustomAttributes(typeof(CorrectUsageAttribute), false).FirstOrDefault();
             if (correctUsage != null)
             {
                 this.Usage = correctUsage.Usage;
