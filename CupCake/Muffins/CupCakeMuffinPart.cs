@@ -1,6 +1,7 @@
 ﻿using System;
 using CupCake.Actions.Services;
 using CupCake.Chat.Services;
+using CupCake.Command.Services;
 using CupCake.Core.Events;
 using CupCake.Core.Log;
 using CupCake.Core.Platforms;
@@ -30,7 +31,7 @@ namespace CupCake.Muffins
         private readonly Lazy<SynchronizePlatform> _synchronizePlatform;
         private readonly Lazy<UploadService> _uploadService;
         private readonly Lazy<WorldService> _worldService;
-
+        private readonly Lazy<CommandService> _commandService;
         protected CupCakeMuffinPart()
         {
             this._connectionPlatform = new Lazy<ConnectionPlatform>(() => this.PlatformLoader.Get<ConnectionPlatform>());
@@ -64,6 +65,7 @@ namespace CupCake.Muffins
             this._potionService = new Lazy<PotionService>(() => this.ServiceLoader.Get<PotionService>());
             this._actionService = new Lazy<ActionService>(() => this.ServiceLoader.Get<ActionService>());
             this._messageService = new Lazy<MessageService>(() => this.ServiceLoader.Get<MessageService>());
+            this._commandService = new Lazy<CommandService>(() => this.ServiceLoader.Get<CommandService>());
         }
 
         protected EventManager Events
@@ -129,6 +131,11 @@ namespace CupCake.Muffins
         protected MessageService MessageService
         {
             get { return this._messageService.Value; }
+        }
+
+        protected CommandService CommandService
+        {
+            get { return this._commandService.Value; }
         }
 
         protected virtual string GetName()

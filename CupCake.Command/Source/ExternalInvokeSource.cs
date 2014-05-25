@@ -1,4 +1,5 @@
 ﻿using System;
+using CupCake.Permissions;
 
 namespace CupCake.Command.Source
 {
@@ -6,14 +7,17 @@ namespace CupCake.Command.Source
     {
         private readonly Action<string> _onReply;
 
-        public ExternalInvokeSource(string name, Action<string> onReply)
+        public ExternalInvokeSource(object sender, Group @group, string name, Action<string> onReply)
         {
             this.Name = name;
             this._onReply = onReply;
+            this.Group = @group;
+            this.Sender = sender;
         }
 
         public string Name { get; set; }
-
+        public object Sender { get; private set; }
+        public Group Group { get; private set; }
         public bool Handled { get; set; }
 
         public void Reply(string message)

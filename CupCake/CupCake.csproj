@@ -43,9 +43,11 @@
   <ItemGroup>
     <Compile Include="Chatter.cs" />
     <Compile Include="Host\CupCakeClient.cs" />
+    <Compile Include="Muffins\CommandPart.cs" />
     <Compile Include="Muffins\CupCakeMuffin.cs" />
     <Compile Include="Muffins\CupCakeMuffinPart.cs" />
     <Compile Include="Muffins\EEMuffin.cs" />
+    <Compile Include="PlayerInvokeSource.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -56,6 +58,10 @@
     <ProjectReference Include="..\CupCake.Chat\CupCake.Chat.csproj">
       <Project>{7f69972f-c813-4850-887e-bc5029baf542}</Project>
       <Name>CupCake.Chat</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CupCake.Command\CupCake.Command.csproj">
+      <Project>{3f7afe9c-d511-43b2-b3ca-4b60a5d6b79d}</Project>
+      <Name>CupCake.Command</Name>
     </ProjectReference>
     <ProjectReference Include="..\CupCake.Core\CupCake.Core.csproj">
       <Project>{598d616c-4886-482b-af57-7bc7daa56cce}</Project>
@@ -68,6 +74,10 @@
     <ProjectReference Include="..\CupCake.Messages\CupCake.Messages.csproj">
       <Project>{4746f723-ee77-4434-983c-02d1dd1bd982}</Project>
       <Name>CupCake.Messages</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CupCake.Permissions\CupCake.Permissions.csproj">
+      <Project>{dd7dc89b-6824-4990-8955-d1ade39eb77c}</Project>
+      <Name>CupCake.Permissions</Name>
     </ProjectReference>
     <ProjectReference Include="..\CupCake.Players\CupCake.Players.csproj">
       <Project>{d9df7c76-4de4-4270-bca6-cba724e639ae}</Project>
