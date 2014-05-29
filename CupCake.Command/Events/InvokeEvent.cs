@@ -6,7 +6,7 @@ namespace CupCake.Command.Events
 {
     public class InvokeEvent : Event
     {
-        public InvokeEvent(IInvokeSource source, ParsedCommand message, Group group = Group.Host)
+        public InvokeEvent(IInvokeSource source, ParsedCommand message)
         {
             this.Source = source;
             this.Message = message;
@@ -14,5 +14,6 @@ namespace CupCake.Command.Events
 
         public IInvokeSource Source { get; private set; }
         public ParsedCommand Message { get; set; }
+        public bool Handled { get; set; }
     }
 }

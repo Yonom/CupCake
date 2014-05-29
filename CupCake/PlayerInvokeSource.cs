@@ -19,7 +19,6 @@ namespace CupCake
         public Player Player { get; private set; }
         public object Sender { get; private set; }
         public Group Group { get; private set; }
-        public bool Handled { get; set; }
 
         public void Reply(string message)
         {

@@ -18,7 +18,6 @@ namespace CupCake.Command.Source
         public string Name { get; set; }
         public object Sender { get; private set; }
         public Group Group { get; private set; }
-        public bool Handled { get; set; }
 
         public void Reply(string message)
         {

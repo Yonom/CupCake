@@ -175,7 +175,7 @@ namespace CupCake.World.Services
 
         private static WorldBlock[,,] GetEmptyWorld(int sizeX, int sizeY, Block fillBlock, Block borderBlock)
         {
-            var blockArray = new WorldBlock[1, sizeX, sizeY];
+            var blockArray = new WorldBlock[2, sizeX, sizeY];
             int maxX = sizeX - 1;
             int maxY = sizeY - 1;
 

@@ -6,7 +6,6 @@ namespace CupCake.Command.Source
     {
         object Sender { get; }
         Group Group { get; }
-        bool Handled { get; set; }
         void Reply(string message);
     }
 }

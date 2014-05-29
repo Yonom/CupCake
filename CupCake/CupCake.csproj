@@ -4,7 +4,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{7C7BF5B3-DB13-4672-AE6F-2EAD4C2270B6}</ProjectGuid>
+    <ProjectGuid>{BE55BBC5-DCDA-4AC8-920F-B6F414187E95}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>CupCake</RootNamespace>
@@ -43,7 +43,7 @@
   <ItemGroup>
     <Compile Include="Chatter.cs" />
     <Compile Include="Host\CupCakeClient.cs" />
-    <Compile Include="Muffins\CommandPart.cs" />
+    <Compile Include="Muffins\Command.cs" />
     <Compile Include="Muffins\CupCakeMuffin.cs" />
     <Compile Include="Muffins\CupCakeMuffinPart.cs" />
     <Compile Include="Muffins\EEMuffin.cs" />

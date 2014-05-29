@@ -11,7 +11,10 @@ namespace CupCake.Players.Metadata
             object metadataObj;
             bool success = this._metadatas.TryGetValue(metadataId, out metadataObj);
 
-            metadata = (TMetadata)metadataObj;
+            metadata = default(TMetadata);
+            if (metadataObj != null)
+                metadata = (TMetadata)metadataObj;
+
             return success;
         }
 

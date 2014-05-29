@@ -66,7 +66,7 @@ namespace CupCake.Upload.Services
 
         private void OnInitComplete(object sender, InitCompleteEvent e)
         {
-            this._uploaded = new bool[1, this._world.SizeX, this._world.SizeY];
+            this.ResetUploaded();
         }
 
         private void OnUploadRequest(object sender, UploadRequestEvent e)
@@ -244,7 +244,7 @@ namespace CupCake.Upload.Services
 
         private void ResetUploaded()
         {
-            this._uploaded = new bool[1, this._world.SizeX, this._world.SizeY];
+            this._uploaded = new bool[2, this._world.SizeX, this._world.SizeY];
         }
 
         public UploadRequestEvent UploadBlock(int x, int y, Block block)

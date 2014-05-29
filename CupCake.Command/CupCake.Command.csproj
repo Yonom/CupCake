@@ -53,6 +53,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\CupCake.Chat\CupCake.Chat.csproj">
+      <Project>{7f69972f-c813-4850-887e-bc5029baf542}</Project>
+      <Name>CupCake.Chat</Name>
+    </ProjectReference>
     <ProjectReference Include="..\CupCake.Core\CupCake.Core.csproj">
       <Project>{598D616C-4886-482B-AF57-7BC7DAA56CCE}</Project>
       <Name>CupCake.Core</Name>

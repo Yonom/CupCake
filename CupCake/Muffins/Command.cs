@@ -12,7 +12,7 @@ using CupCake.Permissions;
 
 namespace CupCake.Muffins
 {
-    public abstract class CommandPart<TProtocol> : CupCakeMuffinPart<TProtocol>
+    public abstract class Command<TProtocol> : CupCakeMuffinPart<TProtocol>
     {
         public List<string> LabelsList { get; set; }
 
@@ -65,6 +65,7 @@ namespace CupCake.Muffins
             if (this.CanHandle(e.Message))
             {
                 this.ExcecuteCommand(e.Source, e.Message);
+                e.Handled = true;
             }
         }
 
@@ -73,6 +74,7 @@ namespace CupCake.Muffins
             if (this.CanHandle(e.Message))
             {
                 this.ExcecuteCommand(new PlayerInvokeSource(sender, e.Group, e.Player, this.Chatter), e.Message);
+                e.Handled = true;
             }
         }
 
@@ -104,8 +106,6 @@ namespace CupCake.Muffins
             {
                 source.Reply("Error excecuting command: " + ex.Message);
             }
-
-            source.Handled = true;
         }
 
         protected abstract void Run(IInvokeSource source, ParsedCommand message);
