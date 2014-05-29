@@ -148,7 +148,10 @@ namespace CupCake.Muffins
         {
             if (disposing)
             {
-                this.Events.Dispose();
+                if (this._events.IsValueCreated)
+                {
+                    this._events.Value.Dispose();
+                }
             }
 
             base.Dispose(disposing);

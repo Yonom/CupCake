@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using MuffinFramework.Platforms;
+﻿using MuffinFramework.Platforms;
 
 namespace CupCake.Core.Platforms
 {
@@ -10,7 +6,6 @@ namespace CupCake.Core.Platforms
     {
         protected override void Enable()
         {
-            
         }
     }
 }

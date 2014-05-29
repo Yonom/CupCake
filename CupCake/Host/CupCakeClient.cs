@@ -21,7 +21,8 @@ namespace CupCake.Host
             this._connection = connection;
 
             this.AggregateCatalog.Catalogs.Add(new AssemblyCatalog(Assembly.GetExecutingAssembly()));
-            this.AggregateCatalog.Catalogs.Add(new DirectoryCatalog(AppDomain.CurrentDomain.BaseDirectory, "CupCake.*.dll"));
+            this.AggregateCatalog.Catalogs.Add(new DirectoryCatalog(AppDomain.CurrentDomain.BaseDirectory,
+                "CupCake.*.dll"));
             this.PlatformLoader.EnableComplete += this.PlatformLoader_EnableComplete;
         }
 

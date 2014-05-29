@@ -1,6 +1,5 @@
 ﻿using CupCake.Command.Source;
 using CupCake.Core.Events;
-using CupCake.Permissions;
 
 namespace CupCake.Command.Events
 {
