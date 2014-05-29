@@ -23,18 +23,18 @@ namespace CupCake.Messages.Events.Receive
             this.IsClubMember = message.GetBoolean(12);
         }
 
-        public int Coins { get; private set; }
-        public Smiley Face { get; private set; }
-        public bool HasChat { get; private set; }
-        public bool IsClubMember { get; private set; }
-        public bool IsGod { get; private set; }
-        public bool IsMod { get; private set; }
-        public bool IsMyFriend { get; private set; }
-        public bool IsPurple { get; private set; }
-        public MagicClass MagicClass { get; private set; }
-        public string Username { get; private set; }
-        public int UserPosX { get; private set; }
-        public int UserPosY { get; private set; }
-        public int UserId { get; private set; }
+        public int Coins { get; set; }
+        public Smiley Face { get; set; }
+        public bool HasChat { get; set; }
+        public bool IsClubMember { get; set; }
+        public bool IsGod { get; set; }
+        public bool IsMod { get; set; }
+        public bool IsMyFriend { get; set; }
+        public bool IsPurple { get; set; }
+        public MagicClass MagicClass { get; set; }
+        public string Username { get; set; }
+        public int UserPosX { get; set; }
+        public int UserPosY { get; set; }
+        public int UserId { get; set; }
     }
 }

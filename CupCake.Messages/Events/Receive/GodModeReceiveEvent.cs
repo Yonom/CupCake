@@ -11,7 +11,7 @@ namespace CupCake.Messages.Events.Receive
             this.IsGod = message.GetBoolean(1);
         }
 
-        public bool IsGod { get; private set; }
-        public int UserId { get; private set; }
+        public bool IsGod { get; set; }
+        public int UserId { get; set; }
     }
 }

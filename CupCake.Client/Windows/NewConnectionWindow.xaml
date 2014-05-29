@@ -9,6 +9,7 @@
     SizeToContent="Height"
     NonActiveGlowBrush="#3E3E40"
     GlowBrush="{DynamicResource BackgroundSelected}" 
+	Background="{StaticResource LightBackground}"
     WindowStartupLocation="CenterOwner"
     SnapsToDevicePixels="True">
 

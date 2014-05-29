@@ -14,7 +14,7 @@ namespace CupCake.Upload
             this.SendEvent = sendEvent;
         }
 
-        public BlockPlaceSendEvent SendEvent { get; private set; }
+        public BlockPlaceSendEvent SendEvent { get; set; }
 
         /// <summary>
         ///     Determines whether the message should be put in the front or back of the queue.

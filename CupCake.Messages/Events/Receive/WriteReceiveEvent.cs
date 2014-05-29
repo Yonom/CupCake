@@ -11,7 +11,7 @@ namespace CupCake.Messages.Events.Receive
             this.Text = message.GetString(1);
         }
 
-        public string Text { get; private set; }
-        public string Title { get; private set; }
+        public string Text { get; set; }
+        public string Title { get; set; }
     }
 }

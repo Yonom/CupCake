@@ -13,7 +13,7 @@ namespace CupCake.Messages.Events.Receive
             this.CoinsToOpen = message.GetInteger(3);
         }
 
-        public CoinDoorBlock CoinDoorBlock { get; private set; }
-        public int CoinsToOpen { get; private set; }
+        public CoinDoorBlock CoinDoorBlock { get; set; }
+        public int CoinsToOpen { get; set; }
     }
 }

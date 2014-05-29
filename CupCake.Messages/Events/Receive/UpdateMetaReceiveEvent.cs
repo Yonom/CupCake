@@ -14,10 +14,10 @@ namespace CupCake.Messages.Events.Receive
             this.TotalWoots = message.GetInteger(4);
         }
 
-        public int CurrentWoots { get; private set; }
-        public string OwnerUsername { get; private set; }
-        public int Plays { get; private set; }
-        public int TotalWoots { get; private set; }
-        public string WorldName { get; private set; }
+        public int CurrentWoots { get; set; }
+        public string OwnerUsername { get; set; }
+        public int Plays { get; set; }
+        public int TotalWoots { get; set; }
+        public string WorldName { get; set; }
     }
 }

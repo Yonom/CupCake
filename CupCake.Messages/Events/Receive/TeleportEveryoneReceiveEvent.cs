@@ -20,7 +20,7 @@ namespace CupCake.Messages.Events.Receive
             }
         }
 
-        public ReadOnlyDictionary<int, Point> Coordinates { get; private set; }
-        public bool ResetCoins { get; private set; }
+        public ReadOnlyDictionary<int, Point> Coordinates { get; set; }
+        public bool ResetCoins { get; set; }
     }
 }

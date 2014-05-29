@@ -13,7 +13,7 @@ namespace CupCake.Messages.Events.Receive
             this.SoundId = message.GetInteger(3);
         }
 
-        public SoundBlock SoundBlock { get; private set; }
-        public int SoundId { get; private set; }
+        public SoundBlock SoundBlock { get; set; }
+        public int SoundId { get; set; }
     }
 }

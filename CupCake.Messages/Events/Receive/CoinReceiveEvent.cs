@@ -11,7 +11,7 @@ namespace CupCake.Messages.Events.Receive
             this.Coins = message.GetInteger(1);
         }
 
-        public int Coins { get; private set; }
-        public int UserId { get; private set; }
+        public int Coins { get; set; }
+        public int UserId { get; set; }
     }
 }

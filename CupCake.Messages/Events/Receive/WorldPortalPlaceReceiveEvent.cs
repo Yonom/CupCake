@@ -13,7 +13,7 @@ namespace CupCake.Messages.Events.Receive
             this.WorldPortalTarget = message.GetString(3);
         }
 
-        public WorldPortalBlock WorldPortalBlock { get; private set; }
-        public string WorldPortalTarget { get; private set; }
+        public WorldPortalBlock WorldPortalBlock { get; set; }
+        public string WorldPortalTarget { get; set; }
     }
 }

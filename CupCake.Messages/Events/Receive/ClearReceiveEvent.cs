@@ -17,7 +17,7 @@ namespace CupCake.Messages.Events.Receive
         public Block FillBlock { get; set; }
         public Block BorderBlock { get; set; }
 
-        public int RoomHeight { get; private set; }
-        public int RoomWidth { get; private set; }
+        public int RoomHeight { get; set; }
+        public int RoomWidth { get; set; }
     }
 }

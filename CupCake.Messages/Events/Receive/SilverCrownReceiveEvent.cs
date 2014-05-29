@@ -10,6 +10,6 @@ namespace CupCake.Messages.Events.Receive
             this.UserId = message.GetInteger(0);
         }
 
-        public int UserId { get; private set; }
+        public int UserId { get; set; }
     }
 }

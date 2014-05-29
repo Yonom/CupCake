@@ -6,7 +6,8 @@
     Title="CupCake"
     GlowBrush="{StaticResource BackgroundSelected}" 
     NonActiveGlowBrush="#3E3E40"
-    SnapsToDevicePixels="True">
+    SnapsToDevicePixels="True" 
+	Background="{StaticResource LightBackground}">
     
     <DockPanel>
         <Menu DockPanel.Dock="Top" SnapsToDevicePixels="True" Margin="2,0,0,0">

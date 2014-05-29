@@ -11,7 +11,7 @@ namespace CupCake.Players.Events
             this.InnerEvent = innerEvent;
         }
 
-        public TBase InnerEvent { get; private set; }
-        public Player Player { get; private set; }
+        public TBase InnerEvent { get; set; }
+        public Player Player { get; set; }
     }
 }

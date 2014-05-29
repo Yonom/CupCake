@@ -22,8 +22,8 @@ namespace CupCake.Messages.Events.Receive
             get { return this.UserPosY + 8 >> 4; }
         }
 
-        public int UserPosX { get; private set; }
-        public int UserPosY { get; private set; }
-        public int UserId { get; private set; }
+        public int UserPosX { get; set; }
+        public int UserPosY { get; set; }
+        public int UserId { get; set; }
     }
 }

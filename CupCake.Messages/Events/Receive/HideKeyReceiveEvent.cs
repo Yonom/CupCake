@@ -16,6 +16,6 @@ namespace CupCake.Messages.Events.Receive
             }
         }
 
-        public Key[] Keys { get; private set; }
+        public Key[] Keys { get; set; }
     }
 }

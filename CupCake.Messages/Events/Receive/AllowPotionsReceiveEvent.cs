@@ -10,6 +10,6 @@ namespace CupCake.Messages.Events.Receive
             this.Allowed = message.GetBoolean(0);
         }
 
-        public bool Allowed { get; private set; }
+        public bool Allowed { get; set; }
     }
 }

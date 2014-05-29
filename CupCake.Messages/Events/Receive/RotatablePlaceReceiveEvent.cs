@@ -13,7 +13,7 @@ namespace CupCake.Messages.Events.Receive
             this.Rotation = message.GetInteger(3);
         }
 
-        public RotatableBlock RotatableBlock { get; private set; }
-        public int Rotation { get; private set; }
+        public RotatableBlock RotatableBlock { get; set; }
+        public int Rotation { get; set; }
     }
 }

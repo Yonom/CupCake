@@ -15,9 +15,9 @@ namespace CupCake.Messages.Events.Receive
             this.PortalTarget = message.GetInteger(5);
         }
 
-        public PortalBlock PortalBlock { get; private set; }
-        public int PortalId { get; private set; }
-        public PortalRotation PortalRotation { get; private set; }
-        public int PortalTarget { get; private set; }
+        public PortalBlock PortalBlock { get; set; }
+        public int PortalId { get; set; }
+        public PortalRotation PortalRotation { get; set; }
+        public int PortalTarget { get; set; }
     }
 }

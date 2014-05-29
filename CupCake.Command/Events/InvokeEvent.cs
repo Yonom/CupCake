@@ -11,7 +11,7 @@ namespace CupCake.Command.Events
             this.Message = message;
         }
 
-        public IInvokeSource Source { get; private set; }
+        public IInvokeSource Source { get; set; }
         public ParsedCommand Message { get; set; }
         public bool Handled { get; set; }
     }

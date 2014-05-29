@@ -11,7 +11,7 @@ namespace CupCake.Messages.Events.Receive
             this.AutoText = message.GetString(1);
         }
 
-        public string AutoText { get; private set; }
-        public int UserId { get; private set; }
+        public string AutoText { get; set; }
+        public int UserId { get; set; }
     }
 }

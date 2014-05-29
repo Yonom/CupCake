@@ -13,7 +13,7 @@ namespace CupCake.Command.Events
             this.Group = @group;
         }
 
-        public Player Player { get; private set; }
+        public Player Player { get; set; }
         public ParsedCommand Message { get; set; }
         public Group Group { get; set; }
         public bool Handled { get; set; }

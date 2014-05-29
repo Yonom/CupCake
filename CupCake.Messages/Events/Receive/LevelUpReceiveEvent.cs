@@ -12,7 +12,7 @@ namespace CupCake.Messages.Events.Receive
             this.NewClass = (MagicClass)message.GetInteger(1);
         }
 
-        public MagicClass NewClass { get; private set; }
-        public int UserId { get; private set; }
+        public MagicClass NewClass { get; set; }
+        public int UserId { get; set; }
     }
 }

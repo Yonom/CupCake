@@ -23,9 +23,9 @@ namespace CupCake.Messages.Events.Receive
             this.Block = block;
         }
 
-        public Block Block { get; private set; }
-        public Layer Layer { get; private set; }
-        public int PosX { get; private set; }
-        public int PosY { get; private set; }
+        public Block Block { get; set; }
+        public Layer Layer { get; set; }
+        public int PosX { get; set; }
+        public int PosY { get; set; }
     }
 }

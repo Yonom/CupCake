@@ -9,7 +9,8 @@
     SizeToContent="Height"
     NonActiveGlowBrush="#3E3E40"
     GlowBrush="{DynamicResource BackgroundSelected}" 
-    WindowStartupLocation="CenterOwner"
+    WindowStartupLocation="CenterOwner"	
+	Background="{StaticResource LightBackground}"
     SnapsToDevicePixels="True">
 
     <Grid Margin="15">

@@ -26,23 +26,23 @@ namespace CupCake.Messages.Events.Receive
             this.AllowPotions = message.GetBoolean(16);
         }
 
-        public bool AllowPotions { get; private set; }
-        public bool CanEdit { get; private set; }
-        public int CurrentWoots { get; private set; }
-        public string Encryption { get; private set; }
-        public double Gravity { get; private set; }
-        public bool IsOwner { get; private set; }
-        public bool IsTutorialRoom { get; private set; }
-        public string OwnerUsername { get; private set; }
-        public int Plays { get; private set; }
-        public int SizeX { get; private set; }
-        public int SizeY { get; private set; }
-        public int SpawnX { get; private set; }
-        public int SpawnY { get; private set; }
-        public int TotalWoots { get; private set; }
-        public string Username { get; private set; }
-        public string WorldName { get; private set; }
-        public int UserId { get; private set; }
+        public bool AllowPotions { get; set; }
+        public bool CanEdit { get; set; }
+        public int CurrentWoots { get; set; }
+        public string Encryption { get; set; }
+        public double Gravity { get; set; }
+        public bool IsOwner { get; set; }
+        public bool IsTutorialRoom { get; set; }
+        public string OwnerUsername { get; set; }
+        public int Plays { get; set; }
+        public int SizeX { get; set; }
+        public int SizeY { get; set; }
+        public int SpawnX { get; set; }
+        public int SpawnY { get; set; }
+        public int TotalWoots { get; set; }
+        public string Username { get; set; }
+        public string WorldName { get; set; }
+        public int UserId { get; set; }
 
         int IUserPosEvent.UserPosX
         {

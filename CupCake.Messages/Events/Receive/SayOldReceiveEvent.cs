@@ -12,8 +12,8 @@ namespace CupCake.Messages.Events.Receive
             this.IsMyFriend = message.GetBoolean(2);
         }
 
-        public bool IsMyFriend { get; private set; }
-        public string Text { get; private set; }
-        public string Username { get; private set; }
+        public bool IsMyFriend { get; set; }
+        public string Text { get; set; }
+        public string Username { get; set; }
     }
 }

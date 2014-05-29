@@ -20,14 +20,14 @@ namespace CupCake.Messages.Events.Receive
             this.IsPurple = message.GetBoolean(10);
         }
 
-        public int Coins { get; private set; }
-        public double Horizontal { get; private set; }
-        public bool IsPurple { get; private set; }
-        public double ModifierX { get; private set; }
-        public double ModifierY { get; private set; }
-        public double SpeedX { get; private set; }
-        public double SpeedY { get; private set; }
-        public double Vertical { get; private set; }
+        public int Coins { get; set; }
+        public double Horizontal { get; set; }
+        public bool IsPurple { get; set; }
+        public double ModifierX { get; set; }
+        public double ModifierY { get; set; }
+        public double SpeedX { get; set; }
+        public double SpeedY { get; set; }
+        public double Vertical { get; set; }
 
         public int BlockX
         {
@@ -39,8 +39,8 @@ namespace CupCake.Messages.Events.Receive
             get { return this.UserPosY + 8 >> 4; }
         }
 
-        public int UserPosX { get; private set; }
-        public int UserPosY { get; private set; }
-        public int UserId { get; private set; }
+        public int UserPosX { get; set; }
+        public int UserPosY { get; set; }
+        public int UserId { get; set; }
     }
 }

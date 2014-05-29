@@ -13,7 +13,7 @@ namespace CupCake.Messages.Events.Receive
             this.Text = message.GetString(3);
         }
 
-        public LabelBlock LabelBlock { get; private set; }
-        public string Text { get; private set; }
+        public LabelBlock LabelBlock { get; set; }
+        public string Text { get; set; }
     }
 }

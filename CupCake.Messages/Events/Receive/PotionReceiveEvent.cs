@@ -14,9 +14,9 @@ namespace CupCake.Messages.Events.Receive
             this.Timeout = message.GetInteger(3);
         }
 
-        public bool Enabled { get; private set; }
-        public Potion Potion { get; private set; }
-        public int Timeout { get; private set; }
-        public int UserId { get; private set; }
+        public bool Enabled { get; set; }
+        public Potion Potion { get; set; }
+        public int Timeout { get; set; }
+        public int UserId { get; set; }
     }
 }

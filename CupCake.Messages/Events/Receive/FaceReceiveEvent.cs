@@ -12,7 +12,7 @@ namespace CupCake.Messages.Events.Receive
             this.Face = (Smiley)message.GetInteger(1);
         }
 
-        public Smiley Face { get; private set; }
-        public int UserId { get; private set; }
+        public Smiley Face { get; set; }
+        public int UserId { get; set; }
     }
 }
