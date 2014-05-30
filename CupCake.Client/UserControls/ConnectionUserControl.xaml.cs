@@ -9,7 +9,7 @@ namespace CupCake.Client.UserControls
     /// <summary>
     /// Interaction logic for ConnectionUserControl.xaml
     /// </summary>
-    public partial class ConnectionUserControl : UserControl
+    public partial class ConnectionUserControl
     {
         private readonly ClientHandle _handle;
 
@@ -31,6 +31,11 @@ namespace CupCake.Client.UserControls
             this._handle.DoSendClose();
         }
 
+        public void Clear()
+        {
+            this.OutputTextBox.Text = "--- Log Cleared ---";
+        }
+
         void _handle_ReceiveWrongAuth()
         {
             this.AppendText("ERROR: Wrong authentication data provided.");
@@ -38,7 +43,7 @@ namespace CupCake.Client.UserControls
         
         void _handle_ReceiveTitle(Title title)
         {
-             this.Dispatcher.BeginInvoke(new Action(() => ((TabItem)this.Parent).Header = title.Text));
+             Dispatch.Invoke(() => ((TabItem)this.Parent).Header = title.Text);
         }
 
         void _handle_ConnectionClose()
@@ -58,7 +63,7 @@ namespace CupCake.Client.UserControls
 
         private void AppendText(string text)
         {
-            this.Dispatcher.BeginInvoke(new Action(() => this.OutputTextBox.AppendText(Environment.NewLine + text)));
+            Dispatch.Invoke(() => this.OutputTextBox.AppendText(Environment.NewLine + text));
         }
 
         private void TextBox_KeyDown(object sender, KeyEventArgs e)

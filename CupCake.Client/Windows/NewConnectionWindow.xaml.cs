@@ -28,10 +28,10 @@ namespace CupCake.Client.Windows
 
         void _handle_ReceiveClose()
         {
-            Application.Current.Dispatcher.BeginInvoke(new Action(() =>
+            Dispatch.Invoke(() =>
             {
                 this.DialogResult = false;
-            }));
+            });
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)

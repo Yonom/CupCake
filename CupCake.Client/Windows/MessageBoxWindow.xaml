@@ -5,6 +5,8 @@
     TitleCaps="False"
     ResizeMode="NoResize"
     SizeToContent="WidthAndHeight"
+    Icon="/Resources/CupCake.ico"
+    ShowIconOnTitleBar="False"
     NonActiveGlowBrush="#3E3E40"
     GlowBrush="{DynamicResource BackgroundSelected}" 
     WindowStartupLocation="CenterOwner"

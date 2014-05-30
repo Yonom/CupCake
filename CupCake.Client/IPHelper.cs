@@ -4,7 +4,7 @@ using System.Net;
 
 namespace CupCake.Client
 {
-    class IPHelper
+    public static class IPHelper
     {
         public static IPEndPoint Parse(string endpointstring)
         {

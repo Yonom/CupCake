@@ -6,50 +6,46 @@
     Title="CupCake"
     GlowBrush="{StaticResource BackgroundSelected}" 
     NonActiveGlowBrush="#3E3E40"
-    SnapsToDevicePixels="True" 
+    SnapsToDevicePixels="True"
+    Icon="/Resources/CupCake.ico"
+    ShowIconOnTitleBar="False"
 	Background="{StaticResource LightBackground}">
     
     <DockPanel>
         <Menu DockPanel.Dock="Top" SnapsToDevicePixels="True" Margin="2,0,0,0">
             <MenuItem Header="FILE">
-                <MenuItem Header="New Connection..." InputGestureText="Ctrl+N">
-                </MenuItem>
-                <MenuItem Header="New Connection... (Visible console)">
-                </MenuItem>
-                <MenuItem Header="Attach..." InputGestureText="Ctrl+Shift+N">
-                </MenuItem>
+                <MenuItem Header="New Connection..." InputGestureText="Ctrl+N" Click="NewConnectionMenuItem_OnClick"/>
+                <MenuItem Header="New Connection... (Visible console)" Click="NewConnectionVisibleConsoleMenuItem_OnClick"/>
+                <MenuItem Header="Attach..." Click="AttachMenuItem_Click"/>
                 <Separator/>
-                <MenuItem Header="Exit" InputGestureText="Alt+F4" Click="CloseMenuItem_OnClick">
-                </MenuItem>
+                <MenuItem Header="Exit" InputGestureText="Alt+F4" Click="CloseMenuItem_OnClick"/>
             </MenuItem>
             <MenuItem Header="CONNECTION">
-                <MenuItem Header="Save Log As...">
-                </MenuItem>
-                <MenuItem Header="Close connection">
-                </MenuItem>
+                <MenuItem Name="ClearLogMenuItem" Header="Clear Log" Click="ClearLogMenuItem_Click"/>
+                <MenuItem Name="CloseConnectionMenuItem" Header="Close connection" Click="CloseConnectionMenuItem_Click"/>
             </MenuItem>
             <MenuItem Header="TOOLS">
-                <MenuItem Header="Manage Profiles...">
+                <MenuItem Header="Manage Profiles..." Click="ProfilesMenuItem_OnClick">
                 </MenuItem>
-                <MenuItem Header="Manage Accounts...">
+                <MenuItem Header="Manage Accounts..." Click="AccountsMenuItem_OnClick">
                 </MenuItem>
                 <MenuItem Header="Settings...">
                 </MenuItem>
             </MenuItem>
             <MenuItem Header="HELP">
-                <MenuItem Header="About">
+                <MenuItem Header="About" Click="AboutMenuItem_OnClick">
                 </MenuItem>
             </MenuItem>
         </Menu>
         <StatusBar Height="23" DockPanel.Dock="Bottom" Background="{StaticResource BackgroundSelected}" Padding="1,0">
             <StatusBarItem>
                 <StackPanel Orientation="Horizontal">
-                    <TextBlock Foreground="{StaticResource Foreground}">Ready</TextBlock>
+                    <TextBlock Foreground="{StaticResource Foreground}" Name="StatusTextBlock">Ready</TextBlock>
                 </StackPanel>
             </StatusBarItem>
             <StatusBarItem HorizontalAlignment="Right" >
                     <StackPanel Orientation="Horizontal">
-                    <TextBlock Foreground="{StaticResource Foreground}">1 active connection(s)</TextBlock>
+                    <TextBlock Foreground="{StaticResource Foreground}"><Run Name="ActiveConnectionsRun">0</Run> active connection(s)</TextBlock>
                 </StackPanel>
             </StatusBarItem>
         </StatusBar>
@@ -58,16 +54,15 @@
                 <ColumnDefinition/>
                 <ColumnDefinition Width="300"/>
             </Grid.ColumnDefinitions>
-            <TabControl Name="ConnectionsTabControl" Visibility="Collapsed" />
+            <TabControl Name="ConnectionsTabControl"/>
             <StackPanel Grid.Column="1" Margin="40,25,25,0">
                 <TextBlock Margin="0,10,0,10" FontSize="18" Foreground="{StaticResource Foreground}" Text="Actions"/>
                 <Separator Background="#11FFFFFF"/>
                 <Button FontSize="14" Margin="0,10,0,3" Content="New Connection..." Style="{StaticResource LinkButton}" Click="ButtonNew_OnClick"/>
                 <Button FontSize="14" Margin="0,3,0,10" Content="Attach..." Style="{StaticResource LinkButton}" Click="ButtonAttach_Click"/>
-                <TextBlock Margin="0,10,0,10" FontSize="18" Foreground="{StaticResource Foreground}" Text="Settings"/>
+                <TextBlock Margin="0,10" FontSize="18" Foreground="{StaticResource Foreground}" Text="Recent"/>
                 <Separator Background="#11FFFFFF"/>
-                <Button FontSize="14" Margin="0,10,0,3" Content="Profiles" Style="{StaticResource LinkButton}"/>
-                <Button FontSize="14" Margin="0,3,0,3" Content="CupCake Settings" Style="{StaticResource LinkButton}"/>
+                <StackPanel Name="RecentStackPanel" Margin="0,10"/>
             </StackPanel>
         </Grid>
     </DockPanel>
