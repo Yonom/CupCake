@@ -103,5 +103,10 @@ namespace CupCake.Client.Windows
                 MessageBoxHelper.Show(this, "Error", "Error while connecting: " + ex.Message);
             }
         }
+
+        private void CloseMenuItem_OnClick(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
     }
 }

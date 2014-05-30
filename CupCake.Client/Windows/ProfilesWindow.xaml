@@ -17,20 +17,22 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
             <ColumnDefinition/>
+            <ColumnDefinition/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="300"/>
             <RowDefinition Height="40"/>
         </Grid.RowDefinitions>
+        
+        <ListBox Grid.ColumnSpan="3" Grid.Row="0">
+            <ListBox.Items>
+                <TextBlock Foreground="{StaticResource Foreground}" FontSize="16">Yo!Scroll Plugin</TextBlock>
+            </ListBox.Items>
+        </ListBox>
 
-        <Button Content="Attach"  Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Height="30" Margin="0,5"/>
-        <ListView Grid.ColumnSpan="2" HorizontalAlignment="Left" Height="299.667" Margin="0,0.333,0,0" VerticalAlignment="Top" Width="364">
-        	<ListView.View>
-        		<GridView>
-        			<GridViewColumn/>
-        		</GridView>
-        	</ListView.View>
-        </ListView>
+        <Button Content="New"  Grid.Row="1" Grid.Column="0" Height="30" Margin="5,5"/>
+        <Button Content="Edit"  Grid.Row="1" Grid.Column="1" Height="30" Margin="5,5"/>
+        <Button Content="Remove"  Grid.Row="1" Grid.Column="2" Height="30" Margin="5,5"/>
     </Grid>
 </controls:MetroWindow>
 
