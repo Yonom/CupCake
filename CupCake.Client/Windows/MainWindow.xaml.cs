@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Specialized;
 using System.Diagnostics;
-using System.Globalization;
+using System.Linq;
 using System.Net;
 using System.Net.Sockets;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
+using System.Windows.Documents;
 using CupCake.Client.Settings;
 using CupCake.Client.UserControls;
 using CupCake.Protocol;
@@ -20,6 +21,8 @@ namespace CupCake.Client.Windows
     {
         private ServerListener _listener;
         private int _connectionCount;
+        
+        public RecentWorld IncomingSettings { get; set; }
 
         private bool HasConnectionSelected
         {
@@ -46,7 +49,6 @@ namespace CupCake.Client.Windows
             }
         }
 
-
         public MainWindow()
         {
             InitializeComponent();
@@ -55,6 +57,7 @@ namespace CupCake.Client.Windows
             var view = CollectionViewSource.GetDefaultView(this.ConnectionsTabControl.Items);
             view.CollectionChanged += this.view_CollectionChanged;
 
+            this.UpdateRecent();
             this.StartServer();
 
             Application.Current.Exit += this.App_Exit;
@@ -139,13 +142,70 @@ namespace CupCake.Client.Windows
             this.ShowAbout();
         }
 
+        private void OpenProfilesMenuItem_OnClick(object sender, RoutedEventArgs e)
+        {
+            Process.Start(SettingsManager.ProfilesPath);
+        }
+
+        private void UpdateRecent()
+        {
+            this.RecentStackPanel.Children.Clear();
+            
+            var recentButton = this.FindResource("RecentButton") as Style;
+            var menuItem = this.FindResource("StandardMenuItem") as Style;
+            foreach (var recent in SettingsManager.Settings.RecentWorlds.OrderByDescending(v => v.Id))
+            {
+                RecentWorld localRecent = recent;
+                var removeFromListMenuItem = new MenuItem
+                {
+                    Header = "Remove from list",
+                    Style= menuItem
+                };
+
+                removeFromListMenuItem.Click += (sender, args) =>
+                {
+                    SettingsManager.Settings.RecentWorlds.Remove(localRecent);
+                    this.UpdateRecent();
+                };
+                
+                var buttonContextMenu = new ContextMenu();
+                buttonContextMenu.Items.Add(removeFromListMenuItem);
+
+                var button = new Button
+                {
+                    Style = recentButton,
+                    Content = new TextBlock(new Run(recent.Name)),
+                    ContextMenu = buttonContextMenu
+                };
+
+                button.Click += (sender, args) =>
+                {
+                    this.SetIncoming(localRecent);
+                    this.NewConnection(false);
+                };
+
+                this.RecentStackPanel.Children.Add(button);
+            }
+        }
+
+        private void SetIncoming(RecentWorld recent)
+        {
+            this.IncomingSettings = recent;
+        }
+
         private void StartServer()
         {
             // Start the server
             this._listener = new ServerListener(IPAddress.Loopback, ServerListener.ServerPort,
                 handle => this.HandleIncoming(handle, () =>
                 {
-                    if (new NewConnectionWindow(handle) {Owner = this}.ShowDialog() != true)
+                    var window = this.IncomingSettings != null 
+                        ? new NewConnectionWindow(handle, this.IncomingSettings) 
+                        : new NewConnectionWindow(handle, new RecentWorld());
+                    // TODO: handle add
+                    window.Owner = this;
+
+                    if (window.ShowDialog() != true)
                     {
                         handle.DoSendClose();
                     }

@@ -30,7 +30,7 @@ namespace CupCake.Client.Settings
             {
                 var deserializer = new XmlSerializer(typeof(T));
                 object obj = deserializer.Deserialize(reader);
-                T xmlData = (T)obj;
+                var xmlData = (T)obj;
                 return xmlData;
             }
         }

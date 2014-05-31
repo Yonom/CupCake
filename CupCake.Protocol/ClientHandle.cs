@@ -122,9 +122,9 @@ namespace CupCake.Protocol
             this.OnReceiveSetData(data);
         }
 
-        public void DoSendSetData(string email, string password, string worldId, string[] directories)
+        public void DoSendSetData(AccountType accountType, string email, string password, string worldId, string[] directories)
         {
-            this.OnSendSetData(new SetData { Email = email, Password = password, World = worldId, Directories = directories });
+            this.OnSendSetData(new SetData { AccountType = accountType, Email = email, Password = password, World = worldId, Directories = directories });
         }
 
         internal void DoReceiveInput(Input input)

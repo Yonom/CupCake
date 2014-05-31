@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using CupCake.Client.Settings;
@@ -37,14 +39,11 @@ namespace CupCake.Client.Windows
             this.Title = type == EditListType.Profile
                 ? "Manage Profiles"
                 : "Manage Accounts";
-
+           
             this.ItemsListBox.SelectionChanged += this.ItemsListBox_SelectionChanged;
             this.Closing += this.EditListWindow_Closing;
 
-            foreach (IConfig profile in this._collection)
-            {
-                this.AddToList(profile);
-            }
+            this.RefreshList();
         }
 
         void EditListWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
@@ -61,9 +60,9 @@ namespace CupCake.Client.Windows
         {
             IConfig p;
             if (this._type == EditListType.Profile) 
-                p = new Profile();
-            else 
-                p = new Account();
+                p = Profile.NewEmpty();
+            else
+                p = Account.NewEmpty();
 
             if (this.EditItem(p, true) == true)
             {
@@ -78,7 +77,7 @@ namespace CupCake.Client.Windows
             var cloneP = p.Clone();
             if (this.EditItem(cloneP, false) == true)
             {
-                this.RemoveItem(uiP, p);
+                this.RemoveItem(p);
                 this.AddItem(cloneP);
             }
         }
@@ -87,30 +86,34 @@ namespace CupCake.Client.Windows
         {
             var uiP = (TextBlock)this.ItemsListBox.SelectedItem;
             var p = (IConfig)uiP.Tag;
-            this.RemoveItem(uiP, p);
+            this.RemoveItem(p);
         }
 
         private void AddItem(IConfig p)
         {
             this._collection.Add(p);
-            this.AddToList(p);
+            this.RefreshList();
         }
-
-        private void AddToList(IConfig p)
-        {
-            var textBlockStyle = this.FindResource("TextBlockStyle") as Style;
-            this.ItemsListBox.Items.Add(new TextBlock
-            {
-                Style = textBlockStyle,
-                Text = p.Name,
-                Tag = p
-            });
-        }
-
-        private void RemoveItem(TextBlock uiP, IConfig p)
+        private void RemoveItem(IConfig p)
         {
             this._collection.Remove(p);
-            this.ItemsListBox.Items.Remove(uiP);
+            this.RefreshList();
+        }
+
+        private void RefreshList()
+        {
+            this.ItemsListBox.Items.Clear();
+
+            var textBlockStyle = this.FindResource("TextBlockStyle") as Style;
+            foreach (IConfig p in ((IEnumerable<IConfig>)this._collection).OrderBy(k => k.Id))
+            {
+                this.ItemsListBox.Items.Add(new TextBlock
+                {
+                    Style = textBlockStyle,
+                    Text = p.Name,
+                    Tag = p
+                });
+            }
         }
 
         private bool? EditItem(IConfig item, bool isNew)

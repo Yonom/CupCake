@@ -14,6 +14,7 @@
                 <ResourceDictionary Source="Styles/TextBlockStyles.xaml"/>
                 <ResourceDictionary Source="Styles/PasswordBoxStyles.xaml"/>
                 <ResourceDictionary Source="Styles/ButtonStyles.xaml"/>
+                <ResourceDictionary Source="Styles/ContextMenuStyles.xaml"/>
             </ResourceDictionary.MergedDictionaries>
          </ResourceDictionary>
     </Application.Resources>

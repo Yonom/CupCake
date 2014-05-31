@@ -6,7 +6,7 @@ using CupCake.Server.SyntaxProviders;
 
 namespace CupCake.Server.Services
 {
-    public class LogListenerService : CupCakeService
+    public class OutputService : CupCakeService
     {
         public IOutputSyntaxProvider SyntaxProvider { get; set; }
         public LogPriority MinPriority { get; set; }

@@ -1,4 +1,5 @@
 ﻿using System.Windows;
+using CupCake.Client.Settings;
 
 namespace CupCake.Client.Windows
 {
@@ -10,10 +11,17 @@ namespace CupCake.Client.Windows
         public AttachWindow()
         {
             InitializeComponent();
+
+            this.AddressTextBox.Text = SettingsManager.Settings.LastAttachAddress;
+            this.PinPasswordBox.Password = SettingsManager.Settings.LastAttachPin;
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
+            SettingsManager.Settings.LastAttachAddress = this.AddressTextBox.Text;
+            SettingsManager.Settings.LastAttachPin = this.PinPasswordBox.Password;
+            SettingsManager.Save();
+
             this.DialogResult = true;
         }
     }

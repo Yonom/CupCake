@@ -13,15 +13,22 @@ namespace CupCake.Client.Settings
         public AccountType Type { get; set; }
         public string Email { get; set; }
         public string Password { get; set; }
+        public int Id { get; set; }
 
         string IConfig.Name {
             get { return this.Email; }
+        }
+
+        public static Account NewEmpty()
+        {
+            return new Account { Id = ++SettingsManager.Settings.LastAccountId };
         }
 
         public IConfig Clone()
         {
             return new Account
             {
+                Id = this.Id,
                 Type = this.Type,
                 Email = this.Email,
                 Password = this.Password

@@ -1,17 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 using CupCake.Client.Settings;
 using CupCake.Protocol;
 
@@ -42,6 +32,8 @@ namespace CupCake.Client.Windows
             this.PasswordBox.Password = isNew
                 ? String.Empty
                 : new string('*', 12);
+
+            this.TypeComboBox.SelectionChanged += this.TypeComboBox_OnSelectionChanged;
         }
 
         void EditAccountWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
@@ -62,7 +54,7 @@ namespace CupCake.Client.Windows
             this.DialogResult = false;
         }
 
-        private void PasswordBox_OnTextInput(object sender, TextCompositionEventArgs e)
+        private void PreviewPasswordBox_OnTextInput(object sender, TextCompositionEventArgs e)
         {
             this._passwordChanged = true;
         }
