@@ -145,6 +145,20 @@ namespace CupCake.Server
         {
             bool authenticated = String.IsNullOrEmpty(_pin);
 
+            Output += s =>
+            {
+                if (!authenticated) return;
+
+                h.DoSendOutput(s);
+            };
+
+            Title += s =>
+            {
+                if (!authenticated) return;
+
+                h.DoSendTitle(s);
+            };
+
             h.ReceiveAuthentication += authentication =>
             {
                 if (_pin == authentication.Pin || authenticated)
@@ -181,20 +195,6 @@ namespace CupCake.Server
                 if (data.Directories != null)
                     _dirs.AddRange(data.Directories);
                 Start();
-            };
-
-            Output += s =>
-            {
-                if (!authenticated) return;
-
-                h.DoSendOutput(s);
-            };
-
-            Title += s =>
-            {
-                if (!authenticated) return;
-
-                h.DoSendTitle(s);
             };
         }
 

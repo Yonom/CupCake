@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
@@ -103,14 +104,34 @@ namespace CupCake.Client.Windows
             this.ItemsListBox.Items.Clear();
 
             var textBlockStyle = this.FindResource("TextBlockStyle") as Style;
+            var menuItem = this.FindResource("StandardMenuItem") as Style;
             foreach (IConfig p in ((IEnumerable<IConfig>)this._collection).OrderBy(k => k.Id))
-            {
-                this.ItemsListBox.Items.Add(new TextBlock
+            {                
+                var textBlock = new TextBlock
                 {
                     Style = textBlockStyle,
                     Text = p.Name,
                     Tag = p
-                });
+                };
+
+                if (this._type == EditListType.Profile)
+                {
+                    var localProfile = (Profile)p;
+                    var removeFromListMenuItem = new MenuItem
+                    {
+                        Header = "Open Folder In File Explorer",
+                        Style = menuItem
+                    };
+
+                    removeFromListMenuItem.Click += (sender, args) => Process.Start(localProfile.Folder);
+
+                    var textBlockContextMenu = new ContextMenu();
+                    textBlockContextMenu.Items.Add(removeFromListMenuItem);
+
+                    textBlock.ContextMenu = textBlockContextMenu;
+                }
+
+                this.ItemsListBox.Items.Add(textBlock);
             }
         }
 

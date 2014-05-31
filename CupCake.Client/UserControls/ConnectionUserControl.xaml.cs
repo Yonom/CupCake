@@ -49,6 +49,8 @@ namespace CupCake.Client.UserControls
         void _handle_ConnectionClose()
         {
             this.AppendText("--- Connection terminated ---");
+
+            Dispatch.Invoke(() => ((TabItem)this.Parent).Header += " (Disconnected)");
         }
 
         private void ConnectionUserControl_Loaded(object sender, RoutedEventArgs e)

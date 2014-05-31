@@ -44,6 +44,8 @@ namespace CupCake.Client.Windows
                 if (recentWorld.Profile == account.Id)
                     this.AccountComboBox.SelectedItem = item;
             }
+
+            this.WorldIdTextBox.Text = recentWorld.WorldId;
         }
 
         private void NewConnectionWindow_Closed(object sender, EventArgs e)
@@ -55,7 +57,8 @@ namespace CupCake.Client.Windows
         {
             Dispatch.Invoke(() =>
             {
-                this.DialogResult = false;
+                if (this.DialogResult == null)
+                    this.DialogResult = false;
             });
         }
 
@@ -73,6 +76,7 @@ namespace CupCake.Client.Windows
                 profile.Database
             });
 
+            this._recentWorld.UpdateId();
             this._recentWorld.Account = account.Id;
             this._recentWorld.Profile = profile.Id;
             this._recentWorld.WorldId = worldId;

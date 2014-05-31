@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Diagnostics;
 using System.Linq;
@@ -57,7 +58,7 @@ namespace CupCake.Client.Windows
             var view = CollectionViewSource.GetDefaultView(this.ConnectionsTabControl.Items);
             view.CollectionChanged += this.view_CollectionChanged;
 
-            this.UpdateRecent();
+            this.RefreshRecent();
             this.StartServer();
 
             Application.Current.Exit += this.App_Exit;
@@ -147,10 +148,10 @@ namespace CupCake.Client.Windows
             Process.Start(SettingsManager.ProfilesPath);
         }
 
-        private void UpdateRecent()
+        private void RefreshRecent()
         {
             this.RecentStackPanel.Children.Clear();
-            
+
             var recentButton = this.FindResource("RecentButton") as Style;
             var menuItem = this.FindResource("StandardMenuItem") as Style;
             foreach (var recent in SettingsManager.Settings.RecentWorlds.OrderByDescending(v => v.Id))
@@ -158,14 +159,15 @@ namespace CupCake.Client.Windows
                 RecentWorld localRecent = recent;
                 var removeFromListMenuItem = new MenuItem
                 {
-                    Header = "Remove from list",
+                    Header = "Remove From List",
                     Style= menuItem
                 };
 
                 removeFromListMenuItem.Click += (sender, args) =>
                 {
                     SettingsManager.Settings.RecentWorlds.Remove(localRecent);
-                    this.UpdateRecent();
+                    SettingsManager.Save();
+                    this.RefreshRecent();
                 };
                 
                 var buttonContextMenu = new ContextMenu();
@@ -174,7 +176,7 @@ namespace CupCake.Client.Windows
                 var button = new Button
                 {
                     Style = recentButton,
-                    Content = new TextBlock(new Run(recent.Name)),
+                    Content = new TextBlock(new Run(recent.Name ?? recent.WorldId)),
                     ContextMenu = buttonContextMenu
                 };
 
@@ -199,15 +201,31 @@ namespace CupCake.Client.Windows
             this._listener = new ServerListener(IPAddress.Loopback, ServerListener.ServerPort,
                 handle => this.HandleIncoming(handle, () =>
                 {
-                    var window = this.IncomingSettings != null 
-                        ? new NewConnectionWindow(handle, this.IncomingSettings) 
-                        : new NewConnectionWindow(handle, new RecentWorld());
-                    // TODO: handle add
-                    window.Owner = this;
+                    // Get the incoming
+                    var isNew = false;
+                    var recent = this.IncomingSettings;
+                    this.IncomingSettings = null;
+                    if (recent == null)
+                    {
+                        isNew = true;
+                        recent = new RecentWorld();
+                    }
 
-                    if (window.ShowDialog() != true)
+                    if (new NewConnectionWindow(handle, recent) {Owner = this}.ShowDialog() != true)
                     {
                         handle.DoSendClose();
+                    }
+                    else if (isNew)
+                    {
+                        var old = SettingsManager.Settings.RecentWorlds.FirstOrDefault(
+                            v => (String.IsNullOrWhiteSpace(v.Name) && v.WorldId == recent.WorldId));
+                        if (old != null)
+                        {
+                            SettingsManager.Settings.RecentWorlds.Remove(old);
+                        }
+                        SettingsManager.Settings.RecentWorlds.Add(recent);
+                        SettingsManager.Save();
+                        this.RefreshRecent();
                     }
                 }));
         }
