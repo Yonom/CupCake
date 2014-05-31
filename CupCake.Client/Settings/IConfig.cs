@@ -10,6 +10,5 @@ namespace CupCake.Client.Settings
     {
         int Id { get; }
         string Name { get; }
-        IConfig Clone();
     }
 }

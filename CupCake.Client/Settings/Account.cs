@@ -23,16 +23,5 @@ namespace CupCake.Client.Settings
         {
             return new Account { Id = ++SettingsManager.Settings.LastAccountId };
         }
-
-        public IConfig Clone()
-        {
-            return new Account
-            {
-                Id = this.Id,
-                Type = this.Type,
-                Email = this.Email,
-                Password = this.Password
-            };
-        }
     }
 }

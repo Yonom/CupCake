@@ -17,16 +17,5 @@ namespace CupCake.Client.Settings
         {
             return new Profile {Id = ++SettingsManager.Settings.LastProfileId};
         }
-
-        public IConfig Clone()
-        {
-            return new Profile
-            {
-                Id = this.Id,
-                Name = Name,
-                Folder = Folder,
-                Database = Database
-            };
-        }
     }
 }

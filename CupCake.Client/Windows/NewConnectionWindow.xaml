@@ -21,7 +21,8 @@
             <RowDefinition Height="15"/>
             <RowDefinition Height="40"/>
             <RowDefinition Height="40"/>
-            <RowDefinition Height="40"/>
+            <RowDefinition Height="5"/>
+            <RowDefinition Height="30"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
@@ -30,14 +31,14 @@
         <TextBlock FontSize="16" Foreground="{StaticResource Foreground}" VerticalAlignment="Center">Profile</TextBlock>
         <ComboBox Name="ProfileComboBox" VerticalAlignment="Center" FontSize="16" Grid.Row="0" Grid.Column="1" SelectedIndex="0" />
 
-        <Separator Grid.Row="1" Grid.ColumnSpan="2" Grid.Column="0" Margin="0,5" Background="#11FFFFFF"/>
+        <Separator Grid.Row="1" Grid.ColumnSpan="2" Grid.Column="0" Background="#11FFFFFF"/>
 
         <TextBlock FontSize="16" Grid.Row="2" Grid.Column="0" Foreground="{StaticResource Foreground}" VerticalAlignment="Center">Account</TextBlock>
-        <ComboBox Name="AccountComboBox" VerticalAlignment="Center" FontSize="16" Grid.Row="2" Grid.Column="1" SelectedIndex="0"/>
+        <ComboBox Name="AccountComboBox" VerticalAlignment="Center" FontSize="16" Grid.Row="2" Grid.Column="1" SelectedIndex="0" />
 
         <TextBlock FontSize="16" Grid.Row="3" Grid.Column="0" Foreground="{StaticResource Foreground}" VerticalAlignment="Center">World ID</TextBlock>
-        <TextBox Name="WorldIdTextBox"  FontSize="16" Grid.Row="3" Foreground="{StaticResource Foreground}" Grid.Column="1" Padding="2" VerticalAlignment="Center"/>
-        <Button Content="Create" Height="30"  Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" Click="Button_Click" />
+        <TextBox Name="WorldIdTextBox"  FontSize="16" Grid.Row="3" Foreground="{StaticResource Foreground}" Grid.Column="1" Padding="2" VerticalAlignment="Center" />
+        <Button Content="Create" Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2" Click="Button_Click" />
 
     </Grid>
 </controls:MetroWindow>

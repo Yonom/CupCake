@@ -13,10 +13,5 @@ namespace CupCake.Client.Settings
         public int Account { get; set; }
         public int Id { get; set; }
         public string Name { get; set; }
-
-        public IConfig Clone()
-        {
-            throw new NotImplementedException();
-        }
     }
 }

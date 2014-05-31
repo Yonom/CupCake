@@ -74,11 +74,9 @@ namespace CupCake.Client.Windows
         {
             var uiP = (TextBlock)this.ItemsListBox.SelectedItem;
             var p = (IConfig)uiP.Tag;
-            var cloneP = p.Clone();
-            if (this.EditItem(cloneP, false) == true)
+            if (this.EditItem(p, false) == true)
             {
-                this.RemoveItem(p);
-                this.AddItem(cloneP);
+                this.RefreshList();
             }
         }
 

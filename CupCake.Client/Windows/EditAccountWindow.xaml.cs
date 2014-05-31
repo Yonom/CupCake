@@ -25,27 +25,20 @@ namespace CupCake.Client.Windows
                 ? "New Account"
                 : "Edit Account";
 
-            this.Closing += EditAccountWindow_Closing;
-
             this.TypeComboBox.SelectedIndex = (int)account.Type;
             this.EmailTextBox.Text = account.Email;
             this.PasswordBox.Password = isNew
                 ? String.Empty
                 : new string('*', 12);
-
-            this.TypeComboBox.SelectionChanged += this.TypeComboBox_OnSelectionChanged;
         }
-
-        void EditAccountWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        private void OkButton_Click(object sender, RoutedEventArgs e)
         {
+            this._account.Type = (AccountType)this.TypeComboBox.SelectedIndex;
+            this._account.Email = EmailTextBox.Text;
             if (this._passwordChanged)
             {
                 this._account.Password = this.PasswordBox.SecurePassword.EncryptString();
             }
-        }
-
-        private void OkButton_Click(object sender, RoutedEventArgs e)
-        {
             this.DialogResult = true;
         }
 
@@ -57,16 +50,6 @@ namespace CupCake.Client.Windows
         private void PreviewPasswordBox_OnTextInput(object sender, TextCompositionEventArgs e)
         {
             this._passwordChanged = true;
-        }
-
-        private void EmailTextBox_OnTextChanged(object sender, TextChangedEventArgs e)
-        {
-            this._account.Email = EmailTextBox.Text;
-        }
-
-        private void TypeComboBox_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            this._account.Type = (AccountType)this.TypeComboBox.SelectedIndex;
         }
     }
 }

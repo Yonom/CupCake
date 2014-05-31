@@ -14,30 +14,32 @@
     WindowStartupLocation="CenterOwner"
     SnapsToDevicePixels="True">
 
-    <Grid Margin="10">
+    <Grid Margin="15">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="0.5*"/>
             <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="10"/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="40"/>
             <RowDefinition Height="40"/>
             <RowDefinition Height="40"/>
-            <RowDefinition Height="40"/>
+            <RowDefinition Height="5"/>
+            <RowDefinition Height="30"/>
         </Grid.RowDefinitions>
 
-        <TextBlock FontSize="16" Foreground="{StaticResource Foreground}" VerticalAlignment="Center">Name</TextBlock>
-        <TextBox Name="NameTextBox" VerticalAlignment="Center" FontSize="16" Grid.Column="1" Grid.ColumnSpan="2"  Padding="2" TextChanged="NameTextBox_OnTextChanged" />
+        <TextBlock FontSize="16" Foreground="{StaticResource Foreground}" VerticalAlignment="Center" Margin="0,9">Name</TextBlock>
+        <TextBox Name="NameTextBox" VerticalAlignment="Center" FontSize="16" Grid.Column="1" Grid.ColumnSpan="3"  Padding="2" TextChanged="NameTextBox_OnTextChanged" Margin="0,6" />
 
-        <TextBlock FontSize="16" Foreground="{StaticResource Foreground}" VerticalAlignment="Center" Grid.Row="1">Folder</TextBlock>
-        <TextBox Name="FolderTextBox" VerticalAlignment="Center" FontSize="16" Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="1" Padding="2" Margin="0,6,20,6" TextChanged="FolderTextBox_OnTextChanged"/>
-        <Button Content="..." Grid.Column="2" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Right" MinWidth="15" Height="20" Click="BrowseButton_Click"/>
-        
-        <TextBlock FontSize="16" Foreground="{StaticResource Foreground}" VerticalAlignment="Center" Grid.Row="2">Database</TextBlock>
-        <TextBox Name="DatabaseTextBox" VerticalAlignment="Center" FontSize="16" Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="2" Padding="2" IsEnabled="False" Text="Not supported yet..."/>
-        
-        <Button Content="Cancel"  Grid.Row="3" Grid.Column="1" Height="30" Margin="0,5,5,5" Click="CancelButton_Click"/>
-        <Button Content="Save"  Grid.Row="3" Grid.Column="2" Height="30" Margin="5,5,0,5" Click="OkButton_Click"/>
+        <TextBlock FontSize="16" Foreground="{StaticResource Foreground}" VerticalAlignment="Center" Grid.Row="1" Margin="0,9">Folder</TextBlock>
+        <TextBox Name="FolderTextBox" VerticalAlignment="Center" FontSize="16" Grid.Column="1" Grid.ColumnSpan="3" Grid.Row="1" Padding="2" Margin="0,6,20,6"/>
+        <Button Content="..." Grid.Column="3" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Right" MinWidth="15" Height="20" Click="BrowseButton_Click" Margin="0,10"/>
+
+        <TextBlock FontSize="16" Foreground="{StaticResource Foreground}" VerticalAlignment="Center" Grid.Row="2" Margin="0,9">Database</TextBlock>
+        <TextBox Name="DatabaseTextBox" VerticalAlignment="Center" FontSize="16" Grid.Column="1" Grid.ColumnSpan="3" Grid.Row="2" Padding="2" IsEnabled="False" Text="Not supported yet..." Margin="0,6"/>
+
+        <Button Content="Cancel"  Grid.Row="4" Grid.Column="1" Click="CancelButton_Click"/>
+        <Button Content="Save"  Grid.Row="4" Grid.Column="3" Click="OkButton_Click"/>
     </Grid>
 </controls:MetroWindow>

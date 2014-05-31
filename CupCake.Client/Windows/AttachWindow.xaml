@@ -19,18 +19,19 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="40"/>
             <RowDefinition Height="40"/>
-            <RowDefinition Height="40"/>
+            <RowDefinition Height="5"/>
+            <RowDefinition Height="30"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
             <ColumnDefinition Width="2*"/>
         </Grid.ColumnDefinitions>
 
-        <TextBlock FontSize="16" Foreground="{StaticResource Foreground}" VerticalAlignment="Center">Address</TextBlock>
+        <TextBlock FontSize="16" Foreground="{StaticResource Foreground}" VerticalAlignment="Center" Margin="0,9">Address</TextBlock>
         <TextBox Name="AddressTextBox" VerticalAlignment="Center" FontSize="16" Grid.Column="1" Padding="2" />
 
-        <TextBlock FontSize="16" Grid.Row="1" Foreground="{StaticResource Foreground}" VerticalAlignment="Center">Pin</TextBlock>
+        <TextBlock FontSize="16" Grid.Row="1" Foreground="{StaticResource Foreground}" VerticalAlignment="Center" Margin="0,9">Pin</TextBlock>
         <PasswordBox Name="PinPasswordBox" VerticalAlignment="Center"  FontSize="16" Grid.Row="1" Foreground="{StaticResource Foreground}" Grid.Column="1" Padding="2" />
-        <Button Content="Attach"  Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Click="Button_Click" Height="30"/>
+        <Button Content="Attach"  Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Click="Button_Click" />
     </Grid>
 </controls:MetroWindow>

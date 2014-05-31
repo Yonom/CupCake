@@ -27,9 +27,9 @@
         
         <ListBox Name="ItemsListBox" Grid.ColumnSpan="3" Grid.Row="0" Margin="5"/>
 
-        <Button Content="New"  Grid.Row="1" Grid.Column="0" Height="30" Margin="5,5" Click="AddButton_Click"/>
-        <Button Content="Edit" Name="EditButton" Grid.Row="1" Grid.Column="1" Height="30" Margin="5,5" Click="EditButton_Click"/>
-        <Button Content="Remove" Name="RemoveButton" Grid.Row="1" Grid.Column="2" Height="30" Margin="5,5" Click="RemoveButton_Click"/>
+        <Button Content="New"  Grid.Row="1" Grid.Column="0" Height="30" Margin="5" Click="AddButton_Click"/>
+        <Button Content="Edit" Name="EditButton" Grid.Row="1" Grid.Column="1" Height="30" Margin="5" Click="EditButton_Click"/>
+        <Button Content="Remove" Name="RemoveButton" Grid.Row="1" Grid.Column="2" Height="30" Margin="5" Click="RemoveButton_Click"/>
     </Grid>
 </controls:MetroWindow>
 

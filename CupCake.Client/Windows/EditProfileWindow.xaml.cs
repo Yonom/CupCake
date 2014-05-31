@@ -23,6 +23,7 @@ namespace CupCake.Client.Windows
     public partial class EditProfileWindow
     {
         private readonly Profile _profile;
+        private string _lastName;
 
         public EditProfileWindow(Profile profile, bool isNew)
         {
@@ -32,22 +33,20 @@ namespace CupCake.Client.Windows
                 ? "New Player"
                 : "Edit Player";
 
-            this.Closing += EditProfileWindow_Closing;
-
             this._profile = profile;
             this.NameTextBox.Text = profile.Name;
             this.FolderTextBox.Text = profile.Folder ?? SettingsManager.ProfilesPath + "\\";
         }
 
-        void EditProfileWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        private void OkButton_Click(object sender, RoutedEventArgs e)
         {
+            _profile.Name = this.NameTextBox.Text;
+            _profile.Folder = this.FolderTextBox.Text;
+
             var path = this.FolderTextBox.Text;
             if (!Directory.Exists(path))
                 Directory.CreateDirectory(path);
-        }
 
-        private void OkButton_Click(object sender, RoutedEventArgs e)
-        {
             this.DialogResult = true;
         }
 
@@ -56,22 +55,17 @@ namespace CupCake.Client.Windows
             this.DialogResult = false;
         }
 
-        private void FolderTextBox_OnTextChanged(object sender, TextChangedEventArgs e)
-        {
-            _profile.Folder = FolderTextBox.Text;
-        }
-
         private void NameTextBox_OnTextChanged(object sender, TextChangedEventArgs e)
         {
             var folderName = this.FolderTextBox.Text;
 
             if (folderName.EndsWith("\\"))
                 this.FolderTextBox.Text += this.NameTextBox.Text;
-            else if (!String.IsNullOrEmpty(_profile.Name) &&  folderName.EndsWith(_profile.Name))
-                this.FolderTextBox.Text = folderName.Substring(0, folderName.Length - _profile.Name.Length) + this.NameTextBox.Text;
+            else if (!String.IsNullOrEmpty(_lastName) && folderName.EndsWith(_lastName))
+                this.FolderTextBox.Text = folderName.Substring(0, folderName.Length - _lastName.Length) + this.NameTextBox.Text;
 
 
-            _profile.Name = NameTextBox.Text;
+            _lastName = NameTextBox.Text;
         }
 
         private void BrowseButton_Click(object sender, RoutedEventArgs e)

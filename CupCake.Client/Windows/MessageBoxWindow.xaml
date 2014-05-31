@@ -17,10 +17,11 @@
     <Grid Margin="15">
         <Grid.RowDefinitions>
             <RowDefinition/>
-            <RowDefinition Height="45"/>
+            <RowDefinition Height="5"/>
+            <RowDefinition Height="30"/>
         </Grid.RowDefinitions>
 
         <TextBlock Name="BodyTextBlock" FontSize="16" Foreground="{StaticResource Foreground}" MaxWidth="400" TextWrapping="Wrap" />
-        <Button Content="OK" Grid.Row="1" Grid.Column="0" Click="Button_Click" Height="30" Margin="0,0,0,5" VerticalAlignment="Bottom" />
+        <Button Content="OK" Grid.Row="2" Grid.Column="0" Click="Button_Click" />
     </Grid>
 </controls:MetroWindow>
