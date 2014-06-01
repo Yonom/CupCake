@@ -56,13 +56,7 @@
     <SignManifests>false</SignManifests>
   </PropertyGroup>
   <PropertyGroup>
-    <ManifestCertificateThumbprint>6F93A40E57100A50D060E15CF657C73C3031FF28</ManifestCertificateThumbprint>
-  </PropertyGroup>
-  <PropertyGroup>
     <NoWin32Manifest>true</NoWin32Manifest>
-  </PropertyGroup>
-  <PropertyGroup>
-    <ManifestKeyFile>CupCake_Cert.pfx</ManifestKeyFile>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="MuffinFramework">
