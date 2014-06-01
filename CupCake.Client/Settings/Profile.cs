@@ -11,7 +11,7 @@ namespace CupCake.Client.Settings
         public int Id { get; set; }
         public string Name { get; set; }
         public string Folder { get; set; }
-        public string Database { get; set; }
+        public int Database { get; set; }
 
         public static Profile NewEmpty()
         {

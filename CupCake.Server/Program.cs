@@ -16,6 +16,9 @@ namespace CupCake.Server
         private static string _email;
         private static string _password;
         private static string _world;
+        private static AccountType _accountType;
+        private static DatabaseType _databaseType;
+        private static string _connectionString;
         private static bool _standalone;
         private static readonly List<string> _dirs = new List<string>();
 
@@ -64,6 +67,9 @@ namespace CupCake.Server
                 {
                     "pin=",
                     v => { _pin = v; }
+                },                {
+                    "t|accounttype|type=",
+                    v => { _accountType = (AccountType)Enum.Parse(typeof(AccountType), v); }
                 },
                 {
                     "e|email=",
@@ -80,6 +86,14 @@ namespace CupCake.Server
                 {
                     "d|dir=",
                     _dirs.Add
+                },               
+                {
+                    "db|dbtype=",
+                    v => { _databaseType = (DatabaseType)Enum.Parse(typeof(DatabaseType), v); }
+                },
+                {
+                    "cs|connectionstring|connectionstr|connstr=",
+                    v => { _connectionString = v; }
                 }
             };
             try
@@ -189,11 +203,14 @@ namespace CupCake.Server
             {
                 if (!authenticated) return;
 
+                _accountType = data.AccountType;
                 _email = data.Email;
                 _password = data.Password;
                 _world = data.World;
                 if (data.Directories != null)
                     _dirs.AddRange(data.Directories);
+                _databaseType = data.DatabaseType;
+                _connectionString = data.ConnectionString;
                 Start();
             };
         }
@@ -203,7 +220,7 @@ namespace CupCake.Server
             if (_started) return;
 
             _started = true;
-            _clientEx.Start(_email, _password, _world, _dirs.ToArray());
+            _clientEx.Start(_accountType, _email, _password, _world, _dirs.ToArray(), _databaseType, _connectionString);
         }
     }
 }

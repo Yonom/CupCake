@@ -50,6 +50,7 @@
     <Compile Include="AccountType.cs" />
     <Compile Include="Authentication.cs" />
     <Compile Include="ClientHandle.cs" />
+    <Compile Include="DatabaseType.cs" />
     <Compile Include="Hello.cs" />
     <Compile Include="Input.cs" />
     <Compile Include="Message.cs" />

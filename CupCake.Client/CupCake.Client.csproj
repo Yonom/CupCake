@@ -94,12 +94,14 @@
     <Compile Include="MessageBoxHelper.cs" />
     <Compile Include="SecureIt.cs" />
     <Compile Include="Settings\Account.cs" />
+    <Compile Include="Settings\Database.cs" />
     <Compile Include="Settings\IConfig.cs" />
     <Compile Include="Settings\Profile.cs" />
     <Compile Include="Settings\RecentWorld.cs" />
     <Compile Include="Settings\Settings.cs" />
     <Compile Include="Settings\SettingsManager.cs" />
     <Compile Include="Settings\XmlSerialize.cs" />
+    <Compile Include="StringExtensions.cs" />
     <Compile Include="UserControls\ConnectionUserControl.xaml.cs">
       <DependentUpon>ConnectionUserControl.xaml</DependentUpon>
     </Compile>
@@ -111,6 +113,12 @@
     </Compile>
     <Compile Include="Windows\EditAccountWindow.xaml.cs">
       <DependentUpon>EditAccountWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\EditDatabaseWindow.xaml.cs">
+      <DependentUpon>EditDatabaseWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\EditLocalDatabaseWindow.xaml.cs">
+      <DependentUpon>EditLocalDatabaseWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Windows\EditProfileWindow.xaml.cs">
       <DependentUpon>EditProfileWindow.xaml</DependentUpon>
@@ -127,6 +135,9 @@
     </Compile>
     <Compile Include="Windows\EditListWindow.xaml.cs">
       <DependentUpon>EditListWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\RenameWindow.xaml.cs">
+      <DependentUpon>RenameWindow.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -193,6 +204,14 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Windows\EditDatabaseWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\EditLocalDatabaseWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Windows\EditProfileWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -212,6 +231,10 @@
     <Page Include="Windows\EditListWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Windows\RenameWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
   <ItemGroup>

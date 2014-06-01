@@ -27,15 +27,16 @@
             <MenuItem Header="TOOLS">
                 <MenuItem Header="Manage Accounts..." Click="AccountsMenuItem_OnClick"/>
                 <MenuItem Header="Manage Profiles..." Click="ProfilesMenuItem_OnClick"/>
-                <MenuItem Header="Manage Databases..." IsEnabled="False"/>
+                <MenuItem Header="Manage Databases..." Click="DatabasesMenuItem_OnClick"/>
                 <Separator/>
                 <MenuItem Header="Open Profiles Folder" Click="OpenProfilesMenuItem_OnClick"/>
+                <MenuItem Header="Open Databases Folder" Click="OpenDatabasesMenuItem_OnClick"/>
             </MenuItem>
             <MenuItem Header="HELP">
-                <MenuItem Header="Getting Started"/>
-                <MenuItem Header="Github Repository"/>
+                <MenuItem Header="Getting Started" IsEnabled ="False"/>
+                <MenuItem Header="Github Repository" Click="GithubMenuItem_OnClick"/>
                 <Separator/>
-                <MenuItem Header="Check For Updates"/>
+                <MenuItem Header="Check For Updates" IsEnabled ="False"/>
                 <Separator/>
                 <MenuItem Header="About" Click="AboutMenuItem_OnClick"/>
             </MenuItem>

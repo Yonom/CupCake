@@ -9,6 +9,10 @@ namespace CupCake.Client.Settings
         public static string CupCakePath { get; private set; }
         public static string ProfilesPath { get; private set; }
         public static string DefaultProfilePath { get; set; }
+        public static string DatabasesPath { get; private set; }
+        public static string DefaultDatabasePath { get; set; }
+        public static string PluginsPath { get; set; }
+
         private static readonly string _settingsPath;
 
         public static Settings Settings { get; private set; }
@@ -28,16 +32,26 @@ namespace CupCake.Client.Settings
             if (!Directory.Exists(DefaultProfilePath))
                 Directory.CreateDirectory(DefaultProfilePath);
 
+            DatabasesPath = CupCakePath + "\\Databases";
+            if (!Directory.Exists(DatabasesPath))
+                Directory.CreateDirectory(DatabasesPath);
+
+            DefaultDatabasePath = DatabasesPath + "\\Default.db";
+
+            PluginsPath = CupCakePath + "\\Plugins";
+            if (!Directory.Exists(PluginsPath))
+                Directory.CreateDirectory(PluginsPath);
+
             try
             {
                 _settingsPath = CupCakePath + "\\Settings.xml";
                 Settings = !File.Exists(_settingsPath)
-                    ? new Settings()
+                    ? new Settings(true)
                     : XmlSerialize.Deserialize<Settings>(_settingsPath);
             }
             catch (Exception)
             {
-                Settings = new Settings();
+                Settings = new Settings(true);
                 MessageBoxHelper.Show(null, "Error", "Failed to load settings.");
             }
         }

@@ -15,5 +15,9 @@ namespace CupCake.Protocol
         public string[] Directories { get; set; }
         [ProtoMember(5)]
         public AccountType AccountType { get; set; }
+        [ProtoMember(6)]
+        public DatabaseType DatabaseType { get; set; }
+        [ProtoMember(7)]
+        public string ConnectionString { get; set; }
     }
 }

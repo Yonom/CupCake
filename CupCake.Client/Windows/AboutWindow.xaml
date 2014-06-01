@@ -12,7 +12,8 @@
     GlowBrush="{DynamicResource BackgroundSelected}" 
     WindowStartupLocation="CenterOwner"	
 	Background="{StaticResource LightBackground}"
-    SnapsToDevicePixels="True">
+    SnapsToDevicePixels="True"
+    WindowTransitionsEnabled="False">
 
     <Grid>
         <Image Source="/Resources/CupCake.ico" Height="256" Width="256"/>

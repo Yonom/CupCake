@@ -13,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using CupCake.Client.Settings;
+using CupCake.Protocol;
 using Microsoft.WindowsAPICodePack.Dialogs;
 
 namespace CupCake.Client.Windows
@@ -30,8 +31,17 @@ namespace CupCake.Client.Windows
             InitializeComponent();
 
             this.Title = isNew
-                ? "New Player"
-                : "Edit Player";
+                ? "New Profile"
+                : "Edit Profile";
+
+            foreach (var database in SettingsManager.Settings.Databases.OrderBy(v => v.Id))
+            {
+                var item = new TextBlock(new Run(database.Name.GetVisualName())) { Tag = database };
+                this.DatabaseComboBox.Items.Add(item);
+
+                if (profile.Database == database.Id)
+                    this.DatabaseComboBox.SelectedItem = item;
+            }
 
             this._profile = profile;
             this.NameTextBox.Text = profile.Name;
@@ -40,14 +50,28 @@ namespace CupCake.Client.Windows
 
         private void OkButton_Click(object sender, RoutedEventArgs e)
         {
-            _profile.Name = this.NameTextBox.Text;
-            _profile.Folder = this.FolderTextBox.Text;
+            try
+            {
+                var path = this.FolderTextBox.Text;
+                if (!Directory.Exists(path))
+                    Directory.CreateDirectory(path);
 
-            var path = this.FolderTextBox.Text;
-            if (!Directory.Exists(path))
-                Directory.CreateDirectory(path);
 
-            this.DialogResult = true;
+                _profile.Name = this.NameTextBox.Text;
+                _profile.Folder = this.FolderTextBox.Text;
+
+                if (this.DatabaseComboBox.SelectedItem != null)
+                {
+                    var database = (Database)((TextBlock)this.DatabaseComboBox.SelectedItem).Tag;
+                    _profile.Database = database.Id;
+                }
+
+                this.DialogResult = true;
+            }
+            catch (IOException ex)
+            {
+                MessageBoxHelper.Show(this, "Error", "Unable to create folder for profile: " + ex.Message);
+            }
         }
 
         private void CancelButton_Click(object sender, RoutedEventArgs e)
@@ -76,7 +100,7 @@ namespace CupCake.Client.Windows
                 IsFolderPicker = true,
                 AddToMostRecentlyUsedList = false,
                 AllowNonFileSystemItems = false,
-                DefaultDirectory = SettingsManager.CupCakePath,
+                DefaultDirectory = SettingsManager.ProfilesPath,
                 EnsurePathExists = false,
                 EnsureReadOnly = false,
                 EnsureValidNames = true,

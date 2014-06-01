@@ -7,7 +7,7 @@ namespace CupCake.Protocol
 {
     public enum AccountType
     {
-        Simple,
+        Regular,
         Facebook
     }
 }

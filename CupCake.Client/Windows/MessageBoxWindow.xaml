@@ -12,7 +12,8 @@
     WindowStartupLocation="CenterOwner"
     SnapsToDevicePixels="True"
     MinWidth="150"
-	Background="{StaticResource LightBackground}">
+	Background="{StaticResource LightBackground}"
+    WindowTransitionsEnabled="False">
 
     <Grid Margin="15">
         <Grid.RowDefinitions>

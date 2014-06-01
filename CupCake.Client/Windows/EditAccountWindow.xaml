@@ -12,7 +12,8 @@
     GlowBrush="{DynamicResource BackgroundSelected}"
 	Background="{StaticResource LightBackground}"
     WindowStartupLocation="CenterOwner"
-    SnapsToDevicePixels="True">
+    SnapsToDevicePixels="True"
+    WindowTransitionsEnabled="False">
 
     <Grid Margin="15">
         <Grid.ColumnDefinitions>
@@ -32,7 +33,7 @@
         <TextBlock FontSize="16" Foreground="{StaticResource Foreground}" VerticalAlignment="Center" Margin="0,9">Type</TextBlock>
         <ComboBox Name="TypeComboBox" VerticalAlignment="Center" FontSize="16" Grid.Column="1" SelectedIndex="0" Grid.Row="0" Grid.ColumnSpan="3">
             <ComboBox.Items>
-                <TextBlock>Simple</TextBlock>
+                <TextBlock>Regular</TextBlock>
                 <TextBlock>Facebook</TextBlock>
             </ComboBox.Items>
         </ComboBox>

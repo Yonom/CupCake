@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Diagnostics;
 using System.Linq;
@@ -133,9 +132,19 @@ namespace CupCake.Client.Windows
             this.ShowList(EditListType.Profile);
         }
 
+        private void DatabasesMenuItem_OnClick(object sender, RoutedEventArgs e)
+        {
+            this.ShowList(EditListType.Database);
+        }
+
         private void AccountsMenuItem_OnClick(object sender, RoutedEventArgs e)
         {
             this.ShowList(EditListType.Account);
+        }
+
+        private void GithubMenuItem_OnClick(object sender, RoutedEventArgs e)
+        {
+            Process.Start("https://github.com/Yonom/CupCake");
         }
 
         private void AboutMenuItem_OnClick(object sender, RoutedEventArgs e)
@@ -148,6 +157,11 @@ namespace CupCake.Client.Windows
             Process.Start(SettingsManager.ProfilesPath);
         }
 
+        private void OpenDatabasesMenuItem_OnClick(object sender, RoutedEventArgs e)
+        {
+            Process.Start(SettingsManager.DatabasesPath);
+        }
+
         private void RefreshRecent()
         {
             this.RecentStackPanel.Children.Clear();
@@ -157,26 +171,33 @@ namespace CupCake.Client.Windows
             foreach (var recent in SettingsManager.Settings.RecentWorlds.OrderByDescending(v => v.Id))
             {
                 RecentWorld localRecent = recent;
+
+                // Rename
+                var renameMenuItem = new MenuItem
+                {
+                    Header = "Rename",
+                    Style = menuItem
+                };
+
+                renameMenuItem.Click += (sender, args) => this.ShowRename(localRecent);
+
+                // Remove
                 var removeFromListMenuItem = new MenuItem
                 {
                     Header = "Remove From List",
                     Style= menuItem
                 };
 
-                removeFromListMenuItem.Click += (sender, args) =>
-                {
-                    SettingsManager.Settings.RecentWorlds.Remove(localRecent);
-                    SettingsManager.Save();
-                    this.RefreshRecent();
-                };
-                
+                removeFromListMenuItem.Click += (sender, args) => this.RemoveRecent(localRecent);
+
                 var buttonContextMenu = new ContextMenu();
+                buttonContextMenu.Items.Add(renameMenuItem);
                 buttonContextMenu.Items.Add(removeFromListMenuItem);
 
                 var button = new Button
                 {
                     Style = recentButton,
-                    Content = new TextBlock(new Run(recent.Name ?? recent.WorldId)),
+                    Content = new TextBlock(new Run((recent.Name ?? recent.WorldId).GetVisualName())),
                     ContextMenu = buttonContextMenu
                 };
 
@@ -190,6 +211,26 @@ namespace CupCake.Client.Windows
             }
         }
 
+        private void AddRecent(RecentWorld recent)
+        {
+            // If there is an unnamed connection with the same world id, remove it to avoid duplicates
+            var old = SettingsManager.Settings.RecentWorlds.FirstOrDefault(
+                v => (String.IsNullOrWhiteSpace(v.Name) && v.WorldId == recent.WorldId));
+            if (old != null)
+            {
+                SettingsManager.Settings.RecentWorlds.Remove(old);
+            }
+
+            SettingsManager.Settings.RecentWorlds.Add(recent);
+        }
+
+        private void RemoveRecent(RecentWorld recent)
+        {
+            SettingsManager.Settings.RecentWorlds.Remove(recent);
+            SettingsManager.Save();
+            this.RefreshRecent();
+        }
+
         private void SetIncoming(RecentWorld recent)
         {
             this.IncomingSettings = recent;
@@ -201,31 +242,31 @@ namespace CupCake.Client.Windows
             this._listener = new ServerListener(IPAddress.Loopback, ServerListener.ServerPort,
                 handle => this.HandleIncoming(handle, () =>
                 {
-                    // Get the incoming
-                    var isNew = false;
+                    // Use requested settings
                     var recent = this.IncomingSettings;
                     this.IncomingSettings = null;
+
+                    var isNew = false;
                     if (recent == null)
                     {
                         isNew = true;
-                        recent = new RecentWorld();
+
+                        recent = SettingsManager.Settings.RecentWorlds.Count == 0
+                            ? new RecentWorld()
+                            : SettingsManager.Settings.RecentWorlds[0].Clone();
                     }
 
-                    if (new NewConnectionWindow(handle, recent) {Owner = this}.ShowDialog() != true)
+                    if (new NewConnectionWindow(handle, recent) {Owner = this}.ShowDialog() == true)
                     {
-                        handle.DoSendClose();
-                    }
-                    else if (isNew)
-                    {
-                        var old = SettingsManager.Settings.RecentWorlds.FirstOrDefault(
-                            v => (String.IsNullOrWhiteSpace(v.Name) && v.WorldId == recent.WorldId));
-                        if (old != null)
-                        {
-                            SettingsManager.Settings.RecentWorlds.Remove(old);
-                        }
-                        SettingsManager.Settings.RecentWorlds.Add(recent);
+                        if (isNew)
+                            this.AddRecent(recent);
+
                         SettingsManager.Save();
                         this.RefreshRecent();
+                    }
+                    else
+                    {
+                        handle.DoSendClose();
                     }
                 }));
         }
@@ -243,7 +284,7 @@ namespace CupCake.Client.Windows
 
                 var tabItem = new TabItem
                 {
-                    Header = "<Unnamed>",
+                    Header = String.Empty.GetVisualName(),
                     Content = new ConnectionUserControl(handle)
                 };
 
@@ -327,6 +368,18 @@ namespace CupCake.Client.Windows
         {
             var profiles = new EditListWindow(type) { Owner = this };
             profiles.ShowDialog();
+        }
+
+        private void ShowRename(RecentWorld recent)
+        {
+            var rename = new RenameWindow {Owner = this, NameTextBox = {Text = recent.Name}};
+            if (rename.ShowDialog() == true)
+            {
+                recent.Name = rename.NameTextBox.Text;
+            }
+
+            SettingsManager.Save();
+            this.RefreshRecent();
         }
     }
 }

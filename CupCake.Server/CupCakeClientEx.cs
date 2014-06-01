@@ -6,10 +6,14 @@ using CupCake.Command;
 using CupCake.Command.Services;
 using CupCake.Command.Source;
 using CupCake.Core.Platforms;
+using CupCake.Core.Storage;
 using CupCake.Host;
 using CupCake.Messages.Events.Receive;
 using CupCake.Permissions;
+using CupCake.Players;
+using CupCake.Protocol;
 using CupCake.Server.Output;
+using CupCake.Server.StorageProviders;
 using CupCake.Server.SyntaxProviders;
 using PlayerIOClient;
 
@@ -17,8 +21,10 @@ namespace CupCake.Server
 {
     public class CupCakeClientEx
     {
-        private const string GameId = "everybody-edits-su9rn58o40itdbnw69plyw";
+        public const string GameId = "everybody-edits-su9rn58o40itdbnw69plyw";
         private CupCakeClient _client;
+        private DatabaseType _dbType;
+        private string _cs;
 
         public event Action<string> Output;
 
@@ -47,6 +53,12 @@ namespace CupCake.Server
 
         private void PlatformLoader_EnableComplete(object sender, EventArgs e)
         {
+            var storagePlatform = this._client.PlatformLoader.Get<StoragePlatform>();
+            if (this._dbType == DatabaseType.MySql)
+                storagePlatform.StorageProvider = new MySqlStorageProvider(this._cs);
+            else
+                storagePlatform.StorageProvider = new SQLiteStorageProvider(this._cs);
+
             var eventsPlatform = this._client.PlatformLoader.Get<EventsPlatform>();
             eventsPlatform.Event<CupCakeOutputEvent>().Bind(this.OnCupCakeOutput);
             eventsPlatform.Event<UpdateMetaReceiveEvent>().Bind(this.OnUpdateMeta);
@@ -67,10 +79,27 @@ namespace CupCake.Server
             this.OnTitle(e.WorldName);
         }
 
-        public void Start(string email, string password, string roomId, string[] directories)
+        void connection_OnDisconnect(object sender, string message)
         {
-            Client playerioclient = PlayerIO.QuickConnect.SimpleConnect(GameId, email, password);
-            Connection connection = playerioclient.Multiplayer.JoinRoom(roomId, null);
+            this._client.Dispose();
+            this.OnOutput("*** Disconnected from Everybody Edits ***");
+            Environment.Exit(1);
+        }
+
+        public void Start(AccountType accType, string email, string password, string roomId, string[] directories, DatabaseType dbType, string cs)
+        {
+            this._dbType = dbType;
+            this._cs = cs;
+
+            // Connect to playerIO
+            Client playerioclient = accType == AccountType.Regular
+                ? PlayerIO.QuickConnect.SimpleConnect(GameId, email, password)
+                : PlayerIO.QuickConnect.FacebookOAuthConnect(GameId, email, String.Empty);
+
+            var version = RoomHelper.GetVersion();
+            var roomType = RoomHelper.GetRoomType(roomId, version);
+            Connection connection = playerioclient.Multiplayer.CreateJoinRoom(roomId, roomType, true, null, null);
+            connection.OnDisconnect += connection_OnDisconnect;
 
             this._client = new CupCakeClient(connection, new AssemblyCatalog(Assembly.GetExecutingAssembly()));
 

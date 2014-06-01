@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
@@ -32,15 +33,23 @@ namespace CupCake.Client.Windows
             InitializeComponent();
             this.HasSelection = false;
 
-            if (type == EditListType.Profile) 
-                this._collection = SettingsManager.Settings.Profiles;
-            else 
-                this._collection = SettingsManager.Settings.Accounts;
+            switch (type)
+            {
+                case EditListType.Profile:
+                    this._collection = SettingsManager.Settings.Profiles;
+                    this.Title = "Manage Profiles";
+                    break;
+                case EditListType.Account:
+                    this._collection = SettingsManager.Settings.Accounts;
+                    this.Title = "Manage Accounts";
+                    break;
+                case EditListType.Database:
+                    this._collection = SettingsManager.Settings.Databases;
+                    this.Title = "Manage Databases";
+                    this.AddButton.ContextMenu = this.Resources["AdvancedContextMenu"] as ContextMenu;
+                    break;
+            }
 
-            this.Title = type == EditListType.Profile
-                ? "Manage Profiles"
-                : "Manage Accounts";
-           
             this.ItemsListBox.SelectionChanged += this.ItemsListBox_SelectionChanged;
             this.Closing += this.EditListWindow_Closing;
 
@@ -59,11 +68,19 @@ namespace CupCake.Client.Windows
 
         private void AddButton_Click(object sender, RoutedEventArgs e)
         {
-            IConfig p;
-            if (this._type == EditListType.Profile) 
-                p = Profile.NewEmpty();
-            else
-                p = Account.NewEmpty();
+            IConfig p = null;
+            switch (this._type)
+            {
+                case EditListType.Profile:
+                    p = Profile.NewEmpty();
+                    break;
+                case EditListType.Account:
+                    p = Account.NewEmpty();
+                    break;
+                case EditListType.Database:
+                    p = Database.NewEmpty();
+                    break;
+            }
 
             if (this.EditItem(p, true) == true)
             {
@@ -110,7 +127,7 @@ namespace CupCake.Client.Windows
                 var textBlock = new TextBlock
                 {
                     Style = textBlockStyle,
-                    Text = p.Name,
+                    Text = p.Name.GetVisualName(),
                     Tag = p
                 };
 
@@ -123,7 +140,14 @@ namespace CupCake.Client.Windows
                         Style = menuItem
                     };
 
-                    removeFromListMenuItem.Click += (sender, args) => Process.Start(localProfile.Folder);
+                    removeFromListMenuItem.Click += (sender, args) =>
+                    {
+                        var dir = localProfile.Folder;
+                        if (!dir.EndsWith("\\"))
+                            dir += "\\";
+
+                        Process.Start(dir);
+                    };
 
                     var textBlockContextMenu = new ContextMenu();
                     textBlockContextMenu.Items.Add(removeFromListMenuItem);
@@ -135,22 +159,48 @@ namespace CupCake.Client.Windows
             }
         }
 
-        private bool? EditItem(IConfig item, bool isNew)
+        private bool? EditItem(IConfig item, bool isNew, bool isAdvanced = false)
         {
-            if (this._type == EditListType.Profile)
+            switch (this._type)
             {
-                var profile = (Profile)item;
-                var editProfile = new EditProfileWindow(profile, isNew) { Owner = this };
-                return editProfile.ShowDialog();
-            } 
+                case EditListType.Profile:
+                    var profile = (Profile)item;
+                    var editProfile = new EditProfileWindow(profile, isNew) {Owner = this};
+                    return editProfile.ShowDialog();
 
-            if (this._type == EditListType.Account)
-            {
-                var account = (Account)item;
-                var editAccount = new EditAccountWindow(account, isNew) { Owner = this };
-                return editAccount.ShowDialog();
+                case EditListType.Account:
+                    var account = (Account)item;
+                    var editAccount = new EditAccountWindow(account, isNew) {Owner = this};
+                    return editAccount.ShowDialog();
+
+                case EditListType.Database:
+
+                    var database = (Database)item;
+
+                    Window editDatabase;
+                    if (!isAdvanced && isNew) 
+                        editDatabase = new EditLocalDatabaseWindow(database) {Owner = this};
+                    else 
+                        editDatabase = new EditDatabaseWindow(database, isNew) {Owner = this};
+
+                    return editDatabase.ShowDialog();
+
+                default:
+                    return null;
             }
-            return null;
+        }
+
+        private void AdvancedMenuItem_OnClick(object sender, RoutedEventArgs e)
+        {
+            if (this._type == EditListType.Database)
+            {
+                var p =  Database.NewEmpty();
+
+                if (this.EditItem(p, true, true) == true)
+                {
+                    this.AddItem(p);
+                }
+            }
         }
     }
 }

@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace CupCake.Client.Settings
+﻿namespace CupCake.Client.Settings
 {
     public class RecentWorld : IConfig
     {
@@ -17,6 +11,17 @@ namespace CupCake.Client.Settings
         public void UpdateId()
         {
             this.Id = ++SettingsManager.Settings.LastRecentWorldId;
+        }
+
+        public RecentWorld Clone()
+        {
+            return new RecentWorld
+            {
+                WorldId = this.WorldId,
+                Profile = this.Profile,
+                Account = this.Account,
+                Id = this.Id
+            };
         }
     }
 }

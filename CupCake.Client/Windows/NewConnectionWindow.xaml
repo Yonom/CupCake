@@ -13,7 +13,8 @@
     GlowBrush="{DynamicResource BackgroundSelected}" 
 	Background="{StaticResource LightBackground}"
     WindowStartupLocation="CenterOwner"
-    SnapsToDevicePixels="True">
+    SnapsToDevicePixels="True"
+    WindowTransitionsEnabled="False">
 
     <Grid Margin="15">
         <Grid.RowDefinitions>
