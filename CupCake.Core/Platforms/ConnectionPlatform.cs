@@ -5,7 +5,7 @@ namespace CupCake.Core.Platforms
 {
     public class ConnectionPlatform : Platform
     {
-        public Connection Connection { get; internal set; }
+        public Connection Connection { get; set; }
 
         protected override void Enable()
         {
