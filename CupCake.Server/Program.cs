@@ -19,6 +19,7 @@ namespace CupCake.Server
         private static AccountType _accountType;
         private static DatabaseType _databaseType;
         private static string _connectionString;
+        private static bool _debug;
         private static bool _standalone;
         private static readonly List<string> _dirs = new List<string>();
 
@@ -55,7 +56,11 @@ namespace CupCake.Server
             _clientEx.Title += OnTitle;
 
             var p = new OptionSet
-            {
+            {               
+                {
+                    "debug",
+                    v => { _debug = v != null; }
+                },  
                 {
                     "standalone",
                     v => { _standalone = v != null; }
@@ -218,8 +223,11 @@ namespace CupCake.Server
         private static void Start()
         {
             if (_started) return;
-
             _started = true;
+
+            if (_debug)
+                _dirs.Add(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\CupCake\Profiles\Debug");
+
             _clientEx.Start(_accountType, _email, _password, _world, _dirs.ToArray(), _databaseType, _connectionString);
         }
     }
