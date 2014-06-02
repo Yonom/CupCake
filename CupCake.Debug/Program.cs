@@ -1,40 +1,76 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
+using System.Net;
+using System.Net.Sockets;
 
 namespace CupCake.Debug
 {
-    class Program
+    internal class Program
     {
-        static void Main(string[] args)
+        private static void Main(string[] args)
         {
-            var cupCakePath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\CupCake";
-            if (!Directory.Exists(cupCakePath))
-                Directory.CreateDirectory(cupCakePath);
-
-           var  profilesPath = cupCakePath + "\\Profiles";
-            if (!Directory.Exists(profilesPath))
-                Directory.CreateDirectory(profilesPath);
-
-            var debugProfilePath = profilesPath + "\\Debug";
-            if (Directory.Exists(debugProfilePath))
-                Directory.Delete(debugProfilePath, true);
-
-            Directory.CreateDirectory(debugProfilePath);
-
-            var sourcePath = String.Join(" ", args);
-            if (Directory.Exists(sourcePath))
+            if (args.Length > 0)
             {
-                string[] files = Directory.GetFiles(sourcePath);
+                string command = args[0].ToLower();
 
-                foreach (string s in files)
+                if (command == "deploy")
                 {
-                    var fileName = Path.GetFileName(s);
-                    var destFile = Path.Combine(debugProfilePath, fileName);
-                    File.Copy(s, destFile, true);
+                    string cupCakePath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\CupCake";
+                    if (!Directory.Exists(cupCakePath))
+                        Directory.CreateDirectory(cupCakePath);
+
+                    string profilesPath = cupCakePath + "\\Profiles";
+                    if (!Directory.Exists(profilesPath))
+                        Directory.CreateDirectory(profilesPath);
+
+                    string debugProfilePath = profilesPath + "\\Debug";
+                    if (Directory.Exists(debugProfilePath))
+                        Directory.Delete(debugProfilePath, true);
+
+                    Directory.CreateDirectory(debugProfilePath);
+
+                    string sourcePath = String.Join(" ", args);
+
+                    string[] files = Directory.GetFiles(sourcePath);
+
+                    foreach (string s in files)
+                    {
+                        string fileName = Path.GetFileName(s);
+                        string destFile = Path.Combine(debugProfilePath, fileName);
+                        File.Copy(s, destFile, true);
+                    }
                 }
+                else if (command == "debug")
+                {
+                    try
+                    {
+                        using (var client = new TcpClient())
+                        {
+                            client.Connect(IPAddress.Loopback, 4570);
+
+                            using (NetworkStream stream = client.GetStream())
+                            {
+                                // Request Debug
+                                stream.WriteByte(0xE1);
+
+                                // Wait until the connection is closed by cupcake
+                                stream.ReadByte();
+                            }
+                        }
+                    }
+                    catch (SocketException)
+                    {
+                        Console.WriteLine("Problem communicating with the client, make sure it is running.");
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("Invalid command specified.");
+                }
+            }
+            else
+            {
+                Console.WriteLine("Please specify a command to run");
             }
         }
     }

@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using CupCake.Client.Settings;
 
 namespace CupCake.Client
 {
@@ -10,7 +7,7 @@ namespace CupCake.Client
     {
         public static string GetVisualName(this string str)
         {
-            return String.IsNullOrWhiteSpace(str) ? "<Unnamed>" : str;
+            return String.IsNullOrWhiteSpace(str) ? SettingsManager.UnnamedString : str;
         }
     }
 }

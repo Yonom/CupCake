@@ -1,28 +1,30 @@
 ﻿<controls:MetroWindow x:Class="CupCake.Client.Windows.AboutWindow"
-    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
-    TitleCaps="False"
-    Title="About CupCake"
-    ResizeMode="NoResize"
-    SizeToContent="WidthAndHeight"
-    Icon="/Resources/CupCake.ico"
-    ShowIconOnTitleBar="False"
-    NonActiveGlowBrush="#3E3E40"
-    GlowBrush="{DynamicResource BackgroundSelected}" 
-    WindowStartupLocation="CenterOwner"	
-	Background="{StaticResource LightBackground}"
-    SnapsToDevicePixels="True"
-    WindowTransitionsEnabled="False">
+                      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                      xmlns:controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+                      TitleCaps="False"
+                      Title="About CupCake"
+                      ResizeMode="NoResize"
+                      SizeToContent="WidthAndHeight"
+                      Icon="/Resources/CupCake.ico"
+                      ShowIconOnTitleBar="False"
+                      NonActiveGlowBrush="#3E3E40"
+                      GlowBrush="{DynamicResource BackgroundSelected}"
+                      WindowStartupLocation="CenterOwner"
+                      Background="{StaticResource LightBackground}"
+                      SnapsToDevicePixels="True"
+                      WindowTransitionsEnabled="False">
 
     <Grid>
-        <Image Source="/Resources/CupCake.ico" Height="256" Width="256"/>
-        <TextBlock Style="{StaticResource TextBlockStyle}" HorizontalAlignment="Center" FontSize="18" Margin="0,12,0,0" VerticalAlignment="Top">
-             <Bold>CupCake</Bold>
+        <Image Source="/Resources/CupCake.ico" Height="256" Width="256" />
+        <TextBlock Style="{StaticResource TextBlockStyle}" HorizontalAlignment="Center" FontSize="18" Margin="0,12,0,0"
+                   VerticalAlignment="Top">
+            <Bold>CupCake</Bold>
         </TextBlock>
-        <TextBlock Style="{StaticResource TextBlockStyle}" HorizontalAlignment="Center"  Margin="0,220,0,0" VerticalAlignment="Top">
+        <TextBlock Style="{StaticResource TextBlockStyle}" HorizontalAlignment="Center" Margin="0,220,0,0"
+                   VerticalAlignment="Top">
             <Bold>Version:</Bold>
-            <Run Name="VersionRun"/>
+            <Run Name="VersionRun" />
         </TextBlock>
     </Grid>
 </controls:MetroWindow>

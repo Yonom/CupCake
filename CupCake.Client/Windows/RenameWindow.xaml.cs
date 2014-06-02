@@ -3,13 +3,13 @@
 namespace CupCake.Client.Windows
 {
     /// <summary>
-    /// Interaction logic for RenameWindow.xaml
+    ///     Interaction logic for RenameWindow.xaml
     /// </summary>
     public partial class RenameWindow
     {
         public RenameWindow()
         {
-            InitializeComponent();
+            this.InitializeComponent();
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)

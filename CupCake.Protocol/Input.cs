@@ -2,7 +2,6 @@
 
 namespace CupCake.Protocol
 {
-
     [ProtoContract]
     public class Input
     {

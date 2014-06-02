@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using CupCake.Core.Storage;
 using MySql.Data.MySqlClient;
 
@@ -63,7 +60,8 @@ namespace CupCake.Server.StorageProviders
         {
             using (var conn = new MySqlConnection(this._connectionString))
             {
-                const string query = "CREATE TABLE IF NOT EXISTS cupcake (id VARCHAR(45) NOT NULL,key VARCHAR(45) NOT NULL,value TEXT NULL,PRIMARY KEY (id, key));";
+                const string query =
+                    "CREATE TABLE IF NOT EXISTS cupcake (id VARCHAR(45) NOT NULL,key VARCHAR(45) NOT NULL,value TEXT NULL,PRIMARY KEY (id, key));";
                 using (var cmd = new MySqlCommand(query, conn))
                 {
                     conn.Open();

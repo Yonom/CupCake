@@ -18,7 +18,7 @@ namespace CupCake.Client
                 return null;
             }
 
-            var encryptedData = ProtectedData.Protect(
+            byte[] encryptedData = ProtectedData.Protect(
                 Encoding.Unicode.GetBytes(input.ToInsecureString()),
                 _entropy,
                 DataProtectionScope.CurrentUser);
@@ -35,7 +35,7 @@ namespace CupCake.Client
 
             try
             {
-                var decryptedData = ProtectedData.Unprotect(
+                byte[] decryptedData = ProtectedData.Unprotect(
                     Convert.FromBase64String(encryptedData),
                     _entropy,
                     DataProtectionScope.CurrentUser);
@@ -57,7 +57,7 @@ namespace CupCake.Client
 
             var secure = new SecureString();
 
-            foreach (var c in input)
+            foreach (char c in input)
             {
                 secure.AppendChar(c);
             }
@@ -73,7 +73,7 @@ namespace CupCake.Client
                 return null;
             }
 
-            var ptr = Marshal.SecureStringToBSTR(input);
+            IntPtr ptr = Marshal.SecureStringToBSTR(input);
 
             try
             {

@@ -17,7 +17,7 @@ namespace CupCake.Server.StorageProviders
 
         public void Set(string id, string key, string value)
         {
-            using (var conn = new SQLiteConnection(_connectionString))
+            using (var conn = new SQLiteConnection(this._connectionString))
             {
                 const string query = "INSERT OR REPLACE INTO cupcake VALUES (@id, @key, @value)";
                 using (var cmd = new SQLiteCommand(query, conn))
@@ -60,7 +60,8 @@ namespace CupCake.Server.StorageProviders
         {
             using (var conn = new SQLiteConnection(this._connectionString))
             {
-                const string query = "CREATE TABLE IF NOT EXISTS cupcake (id VARCHAR(45) NOT NULL,key VARCHAR(45) NOT NULL,value TEXT NULL,PRIMARY KEY (id, key));";
+                const string query =
+                    "CREATE TABLE IF NOT EXISTS cupcake (id VARCHAR(45) NOT NULL,key VARCHAR(45) NOT NULL,value TEXT NULL,PRIMARY KEY (id, key));";
                 using (var cmd = new SQLiteCommand(query, conn))
                 {
                     conn.Open();

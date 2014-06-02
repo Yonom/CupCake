@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security;
-using System.Text;
-using System.Threading.Tasks;
-using CupCake.Protocol;
+﻿using CupCake.Protocol;
 
 namespace CupCake.Client.Settings
 {
@@ -15,13 +9,14 @@ namespace CupCake.Client.Settings
         public string Password { get; set; }
         public int Id { get; set; }
 
-        string IConfig.Name {
+        string IConfig.Name
+        {
             get { return this.Email; }
         }
 
         public static Account NewEmpty()
         {
-            return new Account { Id = ++SettingsManager.Settings.LastAccountId };
+            return new Account {Id = ++SettingsManager.Settings.LastAccountId};
         }
     }
 }

@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Input;
 using CupCake.Client.Settings;
 using CupCake.Protocol;
@@ -8,18 +7,18 @@ using CupCake.Protocol;
 namespace CupCake.Client.Windows
 {
     /// <summary>
-    /// Interaction logic for EditAccountWindow.xaml
+    ///     Interaction logic for EditAccountWindow.xaml
     /// </summary>
     public partial class EditAccountWindow
     {
-        private bool _passwordChanged;
         private readonly Account _account;
+        private bool _passwordChanged;
 
         public EditAccountWindow(Account account, bool isNew)
         {
             this._account = account;
 
-            InitializeComponent();
+            this.InitializeComponent();
 
             this.Title = isNew
                 ? "New Account"
@@ -31,10 +30,11 @@ namespace CupCake.Client.Windows
                 ? String.Empty
                 : new string('*', 12);
         }
+
         private void OkButton_Click(object sender, RoutedEventArgs e)
         {
             this._account.Type = (AccountType)this.TypeComboBox.SelectedIndex;
-            this._account.Email = EmailTextBox.Text;
+            this._account.Email = this.EmailTextBox.Text;
             if (this._passwordChanged)
             {
                 this._account.Password = this.PasswordBox.SecurePassword.EncryptString();

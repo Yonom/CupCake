@@ -1,25 +1,19 @@
 ﻿using System;
 using System.IO;
-using System.Windows;
 
 namespace CupCake.Client.Settings
 {
     public static class SettingsManager
     {
-        public static string CupCakePath { get; private set; }
-        public static string ProfilesPath { get; private set; }
-        public static string DefaultProfilePath { get; set; }
-        public static string DatabasesPath { get; private set; }
-        public static string DefaultDatabasePath { get; set; }
-        public static string PluginsPath { get; set; }
+        public const int DebugId = -1;
+        public const int DefaultId = -2;
 
+        public const string UnnamedString = "<Unnamed>";
+        public const string DefaultString = "<Default>";
         private static readonly string _settingsPath;
-
-        public static Settings Settings { get; private set; }
 
         static SettingsManager()
         {
-
             CupCakePath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\CupCake";
             if (!Directory.Exists(CupCakePath))
                 Directory.CreateDirectory(CupCakePath);
@@ -31,6 +25,8 @@ namespace CupCake.Client.Settings
             DefaultProfilePath = ProfilesPath + "\\Default";
             if (!Directory.Exists(DefaultProfilePath))
                 Directory.CreateDirectory(DefaultProfilePath);
+
+            DefaultProfilePath = ProfilesPath + "\\Debug";
 
             DatabasesPath = CupCakePath + "\\Databases";
             if (!Directory.Exists(DatabasesPath))
@@ -55,6 +51,17 @@ namespace CupCake.Client.Settings
                 MessageBoxHelper.Show(null, "Error", "Failed to load settings.");
             }
         }
+
+        public static string CupCakePath { get; private set; }
+        public static string ProfilesPath { get; private set; }
+        public static string DefaultProfilePath { get; private set; }
+        public static string DatabasesPath { get; private set; }
+        public static string DefaultDatabasePath { get; private set; }
+        public static string PluginsPath { get; private set; }
+
+        public static Settings Settings { get; private set; }
+
+        public static string DebugPath { get; set; }
 
         public static void Save()
         {

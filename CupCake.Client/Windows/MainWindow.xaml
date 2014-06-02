@@ -1,44 +1,47 @@
 ﻿<controls:MetroWindow x:Class="CupCake.Client.Windows.MainWindow"
-    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
-    TitleCaps="False"
-    Title="CupCake"
-    GlowBrush="{StaticResource BackgroundSelected}" 
-    NonActiveGlowBrush="#3E3E40"
-    SnapsToDevicePixels="True"
-    Icon="/Resources/CupCake.ico"
-    ShowIconOnTitleBar="False"
-	Background="{StaticResource LightBackground}">
-    
+                      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                      xmlns:controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+                      TitleCaps="False"
+                      Title="CupCake"
+                      GlowBrush="{StaticResource BackgroundSelected}"
+                      NonActiveGlowBrush="#3E3E40"
+                      SnapsToDevicePixels="True"
+                      Icon="/Resources/CupCake.ico"
+                      ShowIconOnTitleBar="False"
+                      Background="{StaticResource LightBackground}">
+
     <DockPanel>
         <Menu DockPanel.Dock="Top" SnapsToDevicePixels="True" Margin="2,0,0,0">
             <MenuItem Header="FILE">
-                <MenuItem Header="New Connection..." InputGestureText="Ctrl+N" Click="NewConnectionMenuItem_OnClick"/>
-                <MenuItem Header="New Connection... (Visible console)" Click="NewConnectionVisibleConsoleMenuItem_OnClick"/>
-                <MenuItem Header="Attach..." Click="AttachMenuItem_Click"/>
-                <Separator/>
-                <MenuItem Header="Exit" InputGestureText="Alt+F4" Click="CloseMenuItem_OnClick"/>
+                <MenuItem Header="New Connection..." InputGestureText="Ctrl+N" Click="NewConnectionMenuItem_OnClick" />
+                <MenuItem Header="New Connection... (Visible Console)"
+                          Click="NewConnectionVisibleConsoleMenuItem_OnClick" />
+                <MenuItem Header="New Connection... (Debug Mode)" Click="NewConnectionDebugEnabledMenuItem_OnClick" />
+                <MenuItem Header="Attach..." Click="AttachMenuItem_Click" />
+                <Separator />
+                <MenuItem Header="Exit" InputGestureText="Alt+F4" Click="CloseMenuItem_OnClick" />
             </MenuItem>
             <MenuItem Header="CONNECTION">
-                <MenuItem Name="ClearLogMenuItem" Header="Clear Log" Click="ClearLogMenuItem_Click"/>
-                <MenuItem Name="CloseConnectionMenuItem" Header="Close Connection" Click="CloseConnectionMenuItem_Click"/>
+                <MenuItem Name="ClearLogMenuItem" Header="Clear Log" Click="ClearLogMenuItem_Click" />
+                <MenuItem Name="CloseConnectionMenuItem" Header="Close Connection"
+                          Click="CloseConnectionMenuItem_Click" />
             </MenuItem>
             <MenuItem Header="TOOLS">
-                <MenuItem Header="Manage Accounts..." Click="AccountsMenuItem_OnClick"/>
-                <MenuItem Header="Manage Profiles..." Click="ProfilesMenuItem_OnClick"/>
-                <MenuItem Header="Manage Databases..." Click="DatabasesMenuItem_OnClick"/>
-                <Separator/>
-                <MenuItem Header="Open Profiles Folder" Click="OpenProfilesMenuItem_OnClick"/>
-                <MenuItem Header="Open Databases Folder" Click="OpenDatabasesMenuItem_OnClick"/>
+                <MenuItem Header="Manage Accounts..." Click="AccountsMenuItem_OnClick" />
+                <MenuItem Header="Manage Profiles..." Click="ProfilesMenuItem_OnClick" />
+                <MenuItem Header="Manage Databases..." Click="DatabasesMenuItem_OnClick" />
+                <Separator />
+                <MenuItem Header="Open Profiles Folder" Click="OpenProfilesMenuItem_OnClick" />
+                <MenuItem Header="Open Databases Folder" Click="OpenDatabasesMenuItem_OnClick" />
             </MenuItem>
             <MenuItem Header="HELP">
-                <MenuItem Header="Getting Started" IsEnabled ="False"/>
-                <MenuItem Header="Github Repository" Click="GithubMenuItem_OnClick"/>
-                <Separator/>
-                <MenuItem Header="Check For Updates" IsEnabled ="False"/>
-                <Separator/>
-                <MenuItem Header="About" Click="AboutMenuItem_OnClick"/>
+                <MenuItem Header="Getting Started" IsEnabled="False" />
+                <MenuItem Header="Github Repository" Click="GithubMenuItem_OnClick" />
+                <Separator />
+                <MenuItem Header="Check For Updates" IsEnabled="False" />
+                <Separator />
+                <MenuItem Header="About" Click="AboutMenuItem_OnClick" />
             </MenuItem>
         </Menu>
         <StatusBar Height="23" DockPanel.Dock="Bottom" Background="{StaticResource BackgroundSelected}" Padding="1,0">
@@ -47,26 +50,28 @@
                     <TextBlock Foreground="{StaticResource Foreground}" Name="StatusTextBlock">Ready</TextBlock>
                 </StackPanel>
             </StatusBarItem>
-            <StatusBarItem HorizontalAlignment="Right" >
-                    <StackPanel Orientation="Horizontal">
+            <StatusBarItem HorizontalAlignment="Right">
+                <StackPanel Orientation="Horizontal">
                     <TextBlock Foreground="{StaticResource Foreground}"><Run Name="ActiveConnectionsRun">0</Run> active connection(s)</TextBlock>
                 </StackPanel>
             </StatusBarItem>
         </StatusBar>
         <Grid Margin="6">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition/>
-                <ColumnDefinition Width="300"/>
+                <ColumnDefinition />
+                <ColumnDefinition Width="300" />
             </Grid.ColumnDefinitions>
-            <TabControl Name="ConnectionsTabControl"/>
+            <TabControl Name="ConnectionsTabControl" />
             <StackPanel Grid.Column="1" Margin="40,25,25,0">
-                <TextBlock Margin="0,10,0,10" FontSize="18" Foreground="{StaticResource Foreground}" Text="Actions"/>
-                <Separator Background="#11FFFFFF"/>
-                <Button FontSize="14" Margin="0,10,0,3" Content="New Connection..." Style="{StaticResource LinkButton}" Click="ButtonNew_OnClick"/>
-                <Button FontSize="14" Margin="0,3,0,10" Content="Attach..." Style="{StaticResource LinkButton}" Click="ButtonAttach_Click"/>
-                <TextBlock Margin="0,10" FontSize="18" Foreground="{StaticResource Foreground}" Text="Recent"/>
-                <Separator Background="#11FFFFFF"/>
-                <StackPanel Name="RecentStackPanel" Margin="0,10"/>
+                <TextBlock Margin="0,10,0,10" FontSize="18" Foreground="{StaticResource Foreground}" Text="Actions" />
+                <Separator Background="#11FFFFFF" />
+                <Button FontSize="14" Margin="0,10,0,3" Content="New Connection..." Style="{StaticResource LinkButton}"
+                        Click="ButtonNew_OnClick" />
+                <Button FontSize="14" Margin="0,3,0,10" Content="Attach..." Style="{StaticResource LinkButton}"
+                        Click="ButtonAttach_Click" />
+                <TextBlock Margin="0,10" FontSize="18" Foreground="{StaticResource Foreground}" Text="Recent" />
+                <Separator Background="#11FFFFFF" />
+                <StackPanel Name="RecentStackPanel" Margin="0,10" />
             </StackPanel>
         </Grid>
     </DockPanel>

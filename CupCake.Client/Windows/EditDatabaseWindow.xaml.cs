@@ -5,7 +5,7 @@ using CupCake.Protocol;
 namespace CupCake.Client.Windows
 {
     /// <summary>
-    /// Interaction logic for EditDatabaseWindow.xaml
+    ///     Interaction logic for EditDatabaseWindow.xaml
     /// </summary>
     public partial class EditDatabaseWindow
     {
@@ -14,7 +14,7 @@ namespace CupCake.Client.Windows
         public EditDatabaseWindow(Database database, bool isNew)
         {
             this._database = database;
-            InitializeComponent();
+            this.InitializeComponent();
 
             this.Title = isNew
                 ? "New Database"
@@ -32,9 +32,9 @@ namespace CupCake.Client.Windows
 
         private void OkButton_Click(object sender, RoutedEventArgs e)
         {
-            _database.Name = this.NameTextBox.Text;
-            _database.Type = (DatabaseType)this.EngineComboBox.SelectedIndex;
-            _database.ConnectionString = this.CsTextBox.Text;
+            this._database.Name = this.NameTextBox.Text;
+            this._database.Type = (DatabaseType)this.EngineComboBox.SelectedIndex;
+            this._database.ConnectionString = this.CsTextBox.Text;
 
             this.DialogResult = true;
         }

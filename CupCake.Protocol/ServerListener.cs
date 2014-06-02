@@ -13,31 +13,41 @@ namespace CupCake.Protocol
 
         public ServerListener(IPAddress ipAddress, int port, Action<ClientHandle> onConnection)
         {
-            this._listener = new CupCakeListener(ipAddress, port, (c, s) =>
-            {
-                var handle = new ClientHandle();
-                onConnection(handle);
-                this.MessageLoop(handle, c, s);
-            });
+            this._listener = new CupCakeListener(ipAddress, port, (c, s) => this.Handleconnection(c, s, onConnection));
+            this._listener.DebugRequest += this.OnDebugRequest;
+        }
+
+        public event Action DebugRequest;
+
+        protected virtual void OnDebugRequest()
+        {
+            Action handler = this.DebugRequest;
+            if (handler != null) handler();
         }
 
         public void Connect(IPEndPoint endPoint, Action<ClientHandle> onConnection)
         {
-            this._listener.Connect(endPoint, (c, s) =>
+            this._listener.Connect(endPoint, (c, s) => this.Handleconnection(c, s, onConnection));
+        }
+
+        private void Handleconnection(TcpClient c, NetworkStream s, Action<ClientHandle> onConnection)
+        {
+            var handle = new ClientHandle();
+            this.BindHandle(handle, c, s, () =>
             {
-                var handle = new ClientHandle();
                 onConnection(handle);
                 this.MessageLoop(handle, c, s);
             });
         }
 
-        private void MessageLoop(ClientHandle handle, TcpClient client, NetworkStream stream)
+        private void BindHandle(ClientHandle handle, TcpClient client, NetworkStream stream, Action callback)
         {
             Action<Authentication> onAuthentication = m => this.Send(stream, Message.Authentication, m);
             Action<Input> onInput = m => this.Send(stream, Message.Input, m);
             Action<Output> onOutput = m => this.Send(stream, Message.Output, m);
             Action<Title> onTitle = m => this.Send(stream, Message.Title, m);
             Action<SetData> onSetData = m => this.Send(stream, Message.SetData, m);
+            Action<RequestData> onRequestData = m => this.Send(stream, Message.RequestData, m);
             Action onWrongAuth = () => this.Send(stream, Message.WrongAuth);
             Action onClose = client.Close;
 
@@ -48,7 +58,22 @@ namespace CupCake.Protocol
             handle.SendSetData += onSetData;
             handle.SendClose += onClose;
             handle.SendWrongAuth += onWrongAuth;
+            handle.SendRequestData += onRequestData;
 
+            callback();
+
+            handle.SendAuthentication -= onAuthentication;
+            handle.SendInput -= onInput;
+            handle.SendOutput -= onOutput;
+            handle.SendTitle -= onTitle;
+            handle.SendSetData -= onSetData;
+            handle.SendRequestData -= onRequestData;
+            handle.SendWrongAuth -= onWrongAuth;
+            handle.SendClose -= onClose;
+        }
+
+        private void MessageLoop(ClientHandle handle, TcpClient client, NetworkStream stream)
+        {
             try
             {
                 bool closing = false;
@@ -82,6 +107,10 @@ namespace CupCake.Protocol
                             handle.DoReceiveSetData(data);
                             break;
 
+                        case Message.RequestData:
+                            var reqData = this._listener.Get<RequestData>(stream);
+                            handle.DoReceiveRequestData(reqData);
+                            break;
 
                         case Message.WrongAuth:
                             handle.DoReceiveWrongAuth();
@@ -96,14 +125,8 @@ namespace CupCake.Protocol
             }
             finally
             {
-                handle.SendAuthentication -= onAuthentication;
-                handle.SendInput -= onInput;
-                handle.SendOutput -= onOutput;
-                handle.SendTitle -= onTitle;
-                handle.SendSetData -= onSetData;
-                handle.SendClose -= onClose;
-
                 handle.DoReceiveClose();
+                client.Close();
             }
         }
 

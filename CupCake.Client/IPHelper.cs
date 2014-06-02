@@ -21,12 +21,12 @@ namespace CupCake.Client
 
             if (defaultport != -1 &&
                 (defaultport < IPEndPoint.MinPort
-                || defaultport > IPEndPoint.MaxPort))
+                 || defaultport > IPEndPoint.MaxPort))
             {
                 throw new ArgumentException(string.Format("Invalid default port '{0}'", defaultport));
             }
 
-            string[] values = endpointstring.Split(new char[] { ':' });
+            string[] values = endpointstring.Split(new[] {':'});
             IPAddress ipaddy;
             int port = -1;
 
@@ -74,8 +74,8 @@ namespace CupCake.Client
             int port;
 
             if (!int.TryParse(p, out port)
-             || port < IPEndPoint.MinPort
-             || port > IPEndPoint.MaxPort)
+                || port < IPEndPoint.MinPort
+                || port > IPEndPoint.MaxPort)
             {
                 throw new FormatException(string.Format("Invalid end point port '{0}'", p));
             }
@@ -85,7 +85,7 @@ namespace CupCake.Client
 
         private static IPAddress getIPfromHost(string p)
         {
-            var hosts = Dns.GetHostAddresses(p);
+            IPAddress[] hosts = Dns.GetHostAddresses(p);
 
             if (hosts == null || hosts.Length == 0)
                 throw new ArgumentException(string.Format("Host not found: {0}", p));

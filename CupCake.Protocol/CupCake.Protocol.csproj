@@ -63,6 +63,7 @@
     <Compile Include="Output.cs" />
     <Compile Include="CupCakeListener.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RequestData.cs" />
     <Compile Include="ServerListener.cs" />
     <Compile Include="SetData.cs" />
     <Compile Include="Title.cs" />

@@ -1,25 +1,16 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
 using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 using CupCake.Client.Settings;
-using CupCake.Protocol;
 using Microsoft.WindowsAPICodePack.Dialogs;
 
 namespace CupCake.Client.Windows
 {
     /// <summary>
-    /// Interaction logic for EditProfileWindow.xaml
+    ///     Interaction logic for EditProfileWindow.xaml
     /// </summary>
     public partial class EditProfileWindow
     {
@@ -28,15 +19,15 @@ namespace CupCake.Client.Windows
 
         public EditProfileWindow(Profile profile, bool isNew)
         {
-            InitializeComponent();
+            this.InitializeComponent();
 
             this.Title = isNew
                 ? "New Profile"
                 : "Edit Profile";
 
-            foreach (var database in SettingsManager.Settings.Databases.OrderBy(v => v.Id))
+            foreach (Database database in SettingsManager.Settings.Databases.OrderBy(v => v.Id))
             {
-                var item = new TextBlock(new Run(database.Name.GetVisualName())) { Tag = database };
+                var item = new TextBlock(new Run(database.Name.GetVisualName())) {Tag = database};
                 this.DatabaseComboBox.Items.Add(item);
 
                 if (profile.Database == database.Id)
@@ -52,18 +43,18 @@ namespace CupCake.Client.Windows
         {
             try
             {
-                var path = this.FolderTextBox.Text;
+                string path = this.FolderTextBox.Text;
                 if (!Directory.Exists(path))
                     Directory.CreateDirectory(path);
 
 
-                _profile.Name = this.NameTextBox.Text;
-                _profile.Folder = this.FolderTextBox.Text;
+                this._profile.Name = this.NameTextBox.Text;
+                this._profile.Folder = this.FolderTextBox.Text;
 
                 if (this.DatabaseComboBox.SelectedItem != null)
                 {
                     var database = (Database)((TextBlock)this.DatabaseComboBox.SelectedItem).Tag;
-                    _profile.Database = database.Id;
+                    this._profile.Database = database.Id;
                 }
 
                 this.DialogResult = true;
@@ -81,15 +72,16 @@ namespace CupCake.Client.Windows
 
         private void NameTextBox_OnTextChanged(object sender, TextChangedEventArgs e)
         {
-            var folderName = this.FolderTextBox.Text;
+            string folderName = this.FolderTextBox.Text;
 
             if (folderName.EndsWith("\\"))
                 this.FolderTextBox.Text += this.NameTextBox.Text;
-            else if (!String.IsNullOrEmpty(_lastName) && folderName.EndsWith(_lastName))
-                this.FolderTextBox.Text = folderName.Substring(0, folderName.Length - _lastName.Length) + this.NameTextBox.Text;
+            else if (!String.IsNullOrEmpty(this._lastName) && folderName.EndsWith(this._lastName))
+                this.FolderTextBox.Text = folderName.Substring(0, folderName.Length - this._lastName.Length) +
+                                          this.NameTextBox.Text;
 
 
-            _lastName = NameTextBox.Text;
+            this._lastName = this.NameTextBox.Text;
         }
 
         private void BrowseButton_Click(object sender, RoutedEventArgs e)
@@ -110,7 +102,7 @@ namespace CupCake.Client.Windows
 
             if (dlg.ShowDialog() == CommonFileDialogResult.Ok)
             {
-                var folder = dlg.FileName;
+                string folder = dlg.FileName;
 
                 this.FolderTextBox.Text = folder;
             }

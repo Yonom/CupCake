@@ -4,13 +4,13 @@ using CupCake.Client.Settings;
 namespace CupCake.Client.Windows
 {
     /// <summary>
-    /// Interaction logic for AttachWindow.xaml
+    ///     Interaction logic for AttachWindow.xaml
     /// </summary>
     public partial class AttachWindow
     {
         public AttachWindow()
         {
-            InitializeComponent();
+            this.InitializeComponent();
 
             this.AddressTextBox.Text = SettingsManager.Settings.LastAttachAddress;
             this.PinPasswordBox.Password = SettingsManager.Settings.LastAttachPin;

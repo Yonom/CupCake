@@ -10,8 +10,6 @@ namespace CupCake.Protocol
 {
     public class CupCakeListener
     {
-        public EndPoint EndPoint { get; private set; }
-
         public CupCakeListener(IPAddress ipAddress, int port, Action<TcpClient, NetworkStream> callback)
         {
             var server = new TcpListener(ipAddress, port);
@@ -23,10 +21,20 @@ namespace CupCake.Protocol
             {
                 while (true)
                 {
-                    var client = server.AcceptTcpClient();
+                    TcpClient client = server.AcceptTcpClient();
                     this.HandleConnectionNewThread(client, callback);
                 }
-            }) { IsBackground = true }.Start();
+            }) {IsBackground = true}.Start();
+        }
+
+        public EndPoint EndPoint { get; private set; }
+
+        public event Action DebugRequest;
+
+        protected virtual void OnDebugRequest()
+        {
+            Action handler = this.DebugRequest;
+            if (handler != null) handler();
         }
 
         private void HandleConnectionNewThread(TcpClient client, Action<TcpClient, NetworkStream> callback)
@@ -38,18 +46,27 @@ namespace CupCake.Protocol
         {
             try
             {
-                using (var client = state)
+                using (TcpClient client = state)
                 using (NetworkStream stream = client.GetStream())
                 {
-                    Serializer.SerializeWithLengthPrefix(stream, new Hello {Version = Hello.VersionNumber},
-                        PrefixStyle.Base128);
-                    var hello = this.Get<Hello>(stream);
-                    if (hello.Version != Hello.VersionNumber)
-                    {
-                        throw new InvalidDataException("Server and Client version numbers do not match.");
-                    }
+                    this.Send(stream, Message.Hello, new Hello {Version = Hello.VersionNumber});
+                    var cmd = (Message)stream.ReadByte();
 
-                    callback(client, stream);
+                    if (cmd == Message.Hello)
+                    {
+                        var hello = this.Get<Hello>(stream);
+                        if (hello.Version != Hello.VersionNumber)
+                        {
+                            throw new InvalidDataException("Server and Client version numbers do not match.");
+                        }
+
+                        callback(client, stream);
+                    }
+                    else if (cmd == Message.RequestDebug)
+                    {
+                        client.Close();
+                        this.OnDebugRequest();
+                    }
                 }
             }
             catch (SocketException ex)

@@ -7,7 +7,7 @@ using CupCake.Protocol;
 namespace CupCake.Client.UserControls
 {
     /// <summary>
-    /// Interaction logic for ConnectionUserControl.xaml
+    ///     Interaction logic for ConnectionUserControl.xaml
     /// </summary>
     public partial class ConnectionUserControl
     {
@@ -15,7 +15,7 @@ namespace CupCake.Client.UserControls
 
         public ConnectionUserControl(ClientHandle handle)
         {
-            InitializeComponent();
+            this.InitializeComponent();
 
             this.Loaded += this.ConnectionUserControl_Loaded;
 
@@ -36,17 +36,17 @@ namespace CupCake.Client.UserControls
             this.OutputTextBox.Text = "--- Log Cleared ---";
         }
 
-        void _handle_ReceiveWrongAuth()
+        private void _handle_ReceiveWrongAuth()
         {
             this.AppendText("ERROR: Wrong authentication data provided.");
         }
-        
-        void _handle_ReceiveTitle(Title title)
+
+        private void _handle_ReceiveTitle(Title title)
         {
-             Dispatch.Invoke(() => ((TabItem)this.Parent).Header = title.Text);
+            Dispatch.Invoke(() => ((TabItem)this.Parent).Header = title.Text);
         }
 
-        void _handle_ConnectionClose()
+        private void _handle_ConnectionClose()
         {
             this.AppendText("--- Connection terminated ---");
 

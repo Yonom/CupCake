@@ -1,6 +1,5 @@
 ﻿using System;
-using System.Configuration;
-using System.Data;
+using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
@@ -11,35 +10,37 @@ using CupCake.Protocol;
 namespace CupCake.Client.Windows
 {
     /// <summary>
-    /// Interaction logic for NewConnectionWindow.xaml
+    ///     Interaction logic for NewConnectionWindow.xaml
     /// </summary>
     public partial class NewConnectionWindow
     {
-        private readonly RecentWorld _recentWorld;
         private readonly ClientHandle _handle;
-        
-        public NewConnectionWindow(ClientHandle handle, RecentWorld recentWorld)
+        private readonly bool _isDebug;
+        private readonly RecentWorld _recentWorld;
+
+        public NewConnectionWindow(ClientHandle handle, RecentWorld recentWorld, bool isDebug)
         {
             this._recentWorld = recentWorld;
-            InitializeComponent();
+            this._isDebug = isDebug;
+            this.InitializeComponent();
 
             this._handle = handle;
             this._handle.ReceiveClose += this._handle_ReceiveClose;
 
             this.Closed += this.NewConnectionWindow_Closed;
 
-            foreach (var profile in SettingsManager.Settings.Profiles.OrderBy(v => v.Id))
+            foreach (Profile profile in SettingsManager.Settings.Profiles.OrderBy(v => v.Id))
             {
-                var item = new TextBlock(new Run(profile.Name.GetVisualName())) { Tag = profile };
+                var item = new TextBlock(new Run(profile.Name.GetVisualName())) {Tag = profile};
                 this.ProfileComboBox.Items.Add(item);
 
                 if (recentWorld.Profile == profile.Id)
                     this.ProfileComboBox.SelectedItem = item;
             }
 
-            foreach (var account in SettingsManager.Settings.Accounts.OrderBy(v => v.Id))
+            foreach (Account account in SettingsManager.Settings.Accounts.OrderBy(v => v.Id))
             {
-                var item = new TextBlock(new Run(account.Email.GetVisualName())) { Tag = account };
+                var item = new TextBlock(new Run(account.Email.GetVisualName())) {Tag = account};
                 this.AccountComboBox.Items.Add(item);
 
                 if (recentWorld.Profile == account.Id)
@@ -54,7 +55,7 @@ namespace CupCake.Client.Windows
             this._handle.ReceiveClose -= this._handle_ReceiveClose;
         }
 
-        void _handle_ReceiveClose()
+        private void _handle_ReceiveClose()
         {
             Dispatch.Invoke(() =>
             {
@@ -65,10 +66,10 @@ namespace CupCake.Client.Windows
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            var pId = default(int);
-            var pFolder = String.Empty;
-            var dbType = default(DatabaseType);
-            var dbCs = String.Empty;
+            int pId = default(int);
+            string pFolder = String.Empty;
+            DatabaseType dbType = default(DatabaseType);
+            string dbCs = String.Empty;
 
             if (this.ProfileComboBox.SelectedItem != null)
             {
@@ -76,7 +77,7 @@ namespace CupCake.Client.Windows
                 pId = profile.Id;
                 pFolder = profile.Folder;
 
-                var database = SettingsManager.Settings.Databases.FirstOrDefault(db => db.Id == profile.Database);
+                Database database = SettingsManager.Settings.Databases.FirstOrDefault(db => db.Id == profile.Database);
 
                 if (database != null)
                 {
@@ -85,10 +86,10 @@ namespace CupCake.Client.Windows
                 }
             }
 
-            var aId = default(int);
-            var aType = default(AccountType);
-            var aEmail = String.Empty;
-            var aPass = String.Empty;
+            int aId = default(int);
+            AccountType aType = default(AccountType);
+            string aEmail = String.Empty;
+            string aPass = String.Empty;
 
             if (this.AccountComboBox.SelectedItem != null)
             {
@@ -99,15 +100,19 @@ namespace CupCake.Client.Windows
                 aPass = account.Password.DecryptString().ToInsecureString();
             }
 
-            var worldId = this.WorldIdTextBox.Text;
+            string worldId = this.WorldIdTextBox.Text;
 
-            this._handle.DoSendSetData(aType,aEmail, aPass, worldId, new []
+            var folders = new List<string>
             {
                 SettingsManager.PluginsPath,
                 pFolder
-            }, dbType, dbCs);
+            };
 
-            this._recentWorld.UpdateId();
+            if (this._isDebug)
+                folders.Add(SettingsManager.DebugPath);
+
+            this._handle.DoSendSetData(aType, aEmail, aPass, worldId, folders.ToArray(), dbType, dbCs);
+
             this._recentWorld.Account = aId;
             this._recentWorld.Profile = pId;
             this._recentWorld.WorldId = worldId;

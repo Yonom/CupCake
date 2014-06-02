@@ -1,8 +1,7 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Diagnostics;
-using System.IO;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
@@ -11,26 +10,18 @@ using CupCake.Client.Settings;
 namespace CupCake.Client.Windows
 {
     /// <summary>
-    /// Interaction logic for Profiles.xaml
+    ///     Interaction logic for Profiles.xaml
     /// </summary>
     public partial class EditListWindow
     {
+        private readonly IList _collection;
         private readonly EditListType _type;
-        private readonly IList _collection; 
-
-        private bool HasSelection {
-            set
-            {
-                this.EditButton.IsEnabled = value;
-                this.RemoveButton.IsEnabled = value;
-            }
-        }
 
         public EditListWindow(EditListType type)
         {
             this._type = type;
 
-            InitializeComponent();
+            this.InitializeComponent();
             this.HasSelection = false;
 
             switch (type)
@@ -56,12 +47,21 @@ namespace CupCake.Client.Windows
             this.RefreshList();
         }
 
-        void EditListWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        private bool HasSelection
+        {
+            set
+            {
+                this.EditButton.IsEnabled = value;
+                this.RemoveButton.IsEnabled = value;
+            }
+        }
+
+        private void EditListWindow_Closing(object sender, CancelEventArgs e)
         {
             SettingsManager.Save();
         }
 
-        void ItemsListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void ItemsListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             this.HasSelection = this.ItemsListBox.SelectedItem != null;
         }
@@ -110,6 +110,7 @@ namespace CupCake.Client.Windows
             this._collection.Add(p);
             this.RefreshList();
         }
+
         private void RemoveItem(IConfig p)
         {
             this._collection.Remove(p);
@@ -123,7 +124,7 @@ namespace CupCake.Client.Windows
             var textBlockStyle = this.FindResource("TextBlockStyle") as Style;
             var menuItem = this.FindResource("StandardMenuItem") as Style;
             foreach (IConfig p in ((IEnumerable<IConfig>)this._collection).OrderBy(k => k.Id))
-            {                
+            {
                 var textBlock = new TextBlock
                 {
                     Style = textBlockStyle,
@@ -142,7 +143,7 @@ namespace CupCake.Client.Windows
 
                     removeFromListMenuItem.Click += (sender, args) =>
                     {
-                        var dir = localProfile.Folder;
+                        string dir = localProfile.Folder;
                         if (!dir.EndsWith("\\"))
                             dir += "\\";
 
@@ -178,9 +179,9 @@ namespace CupCake.Client.Windows
                     var database = (Database)item;
 
                     Window editDatabase;
-                    if (!isAdvanced && isNew) 
+                    if (!isAdvanced && isNew)
                         editDatabase = new EditLocalDatabaseWindow(database) {Owner = this};
-                    else 
+                    else
                         editDatabase = new EditDatabaseWindow(database, isNew) {Owner = this};
 
                     return editDatabase.ShowDialog();
@@ -194,7 +195,7 @@ namespace CupCake.Client.Windows
         {
             if (this._type == EditListType.Database)
             {
-                var p =  Database.NewEmpty();
+                Database p = Database.NewEmpty();
 
                 if (this.EditItem(p, true, true) == true)
                 {

@@ -22,82 +22,82 @@ namespace CupCake.Protocol
 
         public event Action<Input> ReceiveInput;
 
-        protected virtual void OnReceiveInput(Input obj)
+        protected virtual void OnReceiveInput(Input input)
         {
             Action<Input> handler = this.ReceiveInput;
-            if (handler != null) handler(obj);
+            if (handler != null) handler(input);
         }
 
         internal event Action<Input> SendInput;
 
-        private void OnSendInput(Input obj)
+        private void OnSendInput(Input input)
         {
             Action<Input> handler = this.SendInput;
-            if (handler != null) handler(obj);
+            if (handler != null) handler(input);
         }
 
         public event Action<Output> ReceiveOutput;
 
-        protected virtual void OnReceiveOutput(Output obj)
+        protected virtual void OnReceiveOutput(Output output)
         {
             Action<Output> handler = this.ReceiveOutput;
-            if (handler != null) handler(obj);
+            if (handler != null) handler(output);
         }
 
         internal event Action<Output> SendOutput;
 
-        private void OnSendOutput(Output obj)
+        private void OnSendOutput(Output output)
         {
             Action<Output> handler = this.SendOutput;
-            if (handler != null) handler(obj);
+            if (handler != null) handler(output);
         }
 
         public event Action<SetData> ReceiveSetData;
 
-        protected virtual void OnReceiveSetData(SetData obj)
+        protected virtual void OnReceiveSetData(SetData setData)
         {
             Action<SetData> handler = this.ReceiveSetData;
-            if (handler != null) handler(obj);
+            if (handler != null) handler(setData);
         }
 
         internal event Action<SetData> SendSetData;
 
-        private void OnSendSetData(SetData obj)
+        private void OnSendSetData(SetData setData)
         {
             Action<SetData> handler = this.SendSetData;
-            if (handler != null) handler(obj);
+            if (handler != null) handler(setData);
         }
 
         public event Action<Authentication> ReceiveAuthentication;
 
-        protected virtual void OnReceiveAuthentication(Authentication obj)
+        protected virtual void OnReceiveAuthentication(Authentication auth)
         {
             Action<Authentication> handler = this.ReceiveAuthentication;
-            if (handler != null) handler(obj);
+            if (handler != null) handler(auth);
         }
 
         internal event Action<Authentication> SendAuthentication;
 
-        private void OnSendAuthentication(Authentication obj)
+        private void OnSendAuthentication(Authentication auth)
         {
             Action<Authentication> handler = this.SendAuthentication;
-            if (handler != null) handler(obj);
+            if (handler != null) handler(auth);
         }
 
         public event Action<Title> ReceiveTitle;
 
-        protected virtual void OnReceiveTitle(Title obj)
+        protected virtual void OnReceiveTitle(Title title)
         {
             Action<Title> handler = this.ReceiveTitle;
-            if (handler != null) handler(obj);
+            if (handler != null) handler(title);
         }
 
         internal event Action<Title> SendTitle;
 
-        private void OnSendTitle(Title obj)
+        private void OnSendTitle(Title title)
         {
             Action<Title> handler = this.SendTitle;
-            if (handler != null) handler(obj);
+            if (handler != null) handler(title);
         }
 
         public event Action ReceiveWrongAuth;
@@ -116,15 +116,41 @@ namespace CupCake.Protocol
             if (handler != null) handler();
         }
 
+        public event Action<RequestData> ReceiveRequestData;
+
+        protected virtual void OnReceiveRequestData(RequestData reqData)
+        {
+            Action<RequestData> handler = this.ReceiveRequestData;
+            if (handler != null) handler(reqData);
+        }
+
+        internal event Action<RequestData> SendRequestData;
+
+        private void OnSendRequestData(RequestData reqData)
+        {
+            Action<RequestData> handler = this.SendRequestData;
+            if (handler != null) handler(reqData);
+        }
+
 
         internal void DoReceiveSetData(SetData data)
         {
             this.OnReceiveSetData(data);
         }
 
-        public void DoSendSetData(AccountType accountType, string email, string password, string worldId, string[] directories, DatabaseType dbType, string cs)
+        public void DoSendSetData(AccountType accountType, string email, string password, string worldId,
+            string[] directories, DatabaseType dbType, string cs)
         {
-            this.OnSendSetData(new SetData { AccountType = accountType, Email = email, Password = password, World = worldId, Directories = directories, DatabaseType = dbType, ConnectionString = cs });
+            this.OnSendSetData(new SetData
+            {
+                AccountType = accountType,
+                Email = email,
+                Password = password,
+                World = worldId,
+                Directories = directories,
+                DatabaseType = dbType,
+                ConnectionString = cs
+            });
         }
 
         internal void DoReceiveInput(Input input)
@@ -134,7 +160,7 @@ namespace CupCake.Protocol
 
         public void DoSendInput(string text)
         {
-            this.OnSendInput(new Input { Text = text });
+            this.OnSendInput(new Input {Text = text});
         }
 
         internal void DoReceiveOutput(Output output)
@@ -144,7 +170,7 @@ namespace CupCake.Protocol
 
         public void DoSendOutput(string text)
         {
-            this.OnSendOutput(new Output { Text = text });
+            this.OnSendOutput(new Output {Text = text});
         }
 
         internal void DoReceiveTitle(Title title)
@@ -154,7 +180,7 @@ namespace CupCake.Protocol
 
         public void DoSendTitle(string text)
         {
-            this.OnSendTitle(new Title { Text = text });
+            this.OnSendTitle(new Title {Text = text});
         }
 
         internal void DoReceiveAuthentication(Authentication auth)
@@ -164,9 +190,9 @@ namespace CupCake.Protocol
 
         public void DoSendAuthentication(string pin)
         {
-            this.OnSendAuthentication(new Authentication { Pin = pin });
+            this.OnSendAuthentication(new Authentication {Pin = pin});
         }
-        
+
         internal void DoReceiveClose()
         {
             this.OnReceiveClose();
@@ -185,6 +211,16 @@ namespace CupCake.Protocol
         internal void DoReceiveWrongAuth()
         {
             this.OnReceiveWrongAuth();
+        }
+
+        internal void DoReceiveRequestData(RequestData reqData)
+        {
+            this.OnReceiveRequestData(reqData);
+        }
+
+        public void DoSendRequestData(bool debug)
+        {
+            this.OnSendRequestData(new RequestData {IsDebug = debug});
         }
     }
 }

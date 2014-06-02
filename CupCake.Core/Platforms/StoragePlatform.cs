@@ -7,10 +7,6 @@ namespace CupCake.Core.Platforms
     {
         public IStorageProvider StorageProvider { get; set; }
 
-        protected override void Enable()
-        {
-        }
-
         public void Set(string id, string key, string value)
         {
             this.StorageProvider.Set(id, key, value);
@@ -19,6 +15,10 @@ namespace CupCake.Core.Platforms
         public string Get(string id, string key)
         {
             return this.StorageProvider.Get(id, key);
+        }
+
+        protected override void Enable()
+        {
         }
     }
 }

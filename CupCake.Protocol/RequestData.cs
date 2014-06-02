@@ -3,9 +3,9 @@
 namespace CupCake.Protocol
 {
     [ProtoContract]
-    public class Title
+    public class RequestData
     {
         [ProtoMember(1)]
-        public string Text { get; set; }
+        public bool IsDebug { get; set; }
     }
 }

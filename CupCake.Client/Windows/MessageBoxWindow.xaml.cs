@@ -3,13 +3,13 @@
 namespace CupCake.Client.Windows
 {
     /// <summary>
-    /// Interaction logic for MessageBoxWindow.xaml
+    ///     Interaction logic for MessageBoxWindow.xaml
     /// </summary>
     public partial class MessageBoxWindow
     {
         public MessageBoxWindow(string title, string body)
         {
-            InitializeComponent();
+            this.InitializeComponent();
 
             this.Title = title;
             this.BodyTextBlock.Text = body;

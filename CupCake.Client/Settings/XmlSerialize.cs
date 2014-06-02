@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Text;
 using System.Xml;
 using System.Xml.Serialization;
 
@@ -24,7 +19,7 @@ namespace CupCake.Client.Settings
             }
         }
 
-        static public T Deserialize<T>(string path)
+        public static T Deserialize<T>(string path)
         {
             using (var reader = new XmlTextReader(path))
             {

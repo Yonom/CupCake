@@ -1,36 +1,36 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using CupCake.Protocol;
 
 namespace CupCake.Client.Settings
 {
     public class Settings
     {
-        public Settings() : this(false)
+        public Settings()
+            : this(false)
         {
         }
 
         public Settings(bool isNew)
         {
-            Accounts = new List<Account>();
-            Profiles = new List<Profile>();
-            RecentWorlds = new List<RecentWorld>();
-            Databases = new List<Database>();
+            this.Accounts = new List<Account>();
+            this.Profiles = new List<Profile>();
+            this.RecentWorlds = new List<RecentWorld>();
+            this.Databases = new List<Database>();
 
             if (isNew)
             {
                 this.Profiles.Add(new Profile
                 {
-                    Name = "<Default>",
+                    Id = SettingsManager.DefaultId,
+                    Name = SettingsManager.DefaultString,
                     Folder = SettingsManager.ProfilesPath
                 });
 
                 this.Databases.Add(new Database
                 {
-                    Name = "<Default>",
+                    Id = SettingsManager.DefaultId,
+                    Name = SettingsManager.DefaultString,
                     Type = DatabaseType.SQLite,
                     ConnectionString = String.Format(Database.SQLiteFormat, SettingsManager.DefaultDatabasePath)
                 });

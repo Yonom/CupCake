@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using PlayerIOClient;
+﻿using PlayerIOClient;
 
 namespace CupCake.Server
 {
@@ -10,8 +6,8 @@ namespace CupCake.Server
     {
         public static int GetVersion()
         {
-            var client = PlayerIO.QuickConnect.SimpleConnect(CupCakeClientEx.GameId, "guest", "guest");
-            var dbO = client.BigDB.Load("config", "config");
+            Client client = PlayerIO.QuickConnect.SimpleConnect(CupCakeClientEx.GameId, "guest", "guest");
+            DatabaseObject dbO = client.BigDB.Load("config", "config");
             return dbO.GetInt("version");
         }
 

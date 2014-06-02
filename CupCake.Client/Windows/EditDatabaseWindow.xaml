@@ -1,50 +1,64 @@
 ﻿<controls:MetroWindow x:Class="CupCake.Client.Windows.EditDatabaseWindow"
-    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
-    TitleCaps="False"
-    ResizeMode="NoResize"
-    Width="500"
-    SizeToContent="Height"
-    Icon="/Resources/CupCake.ico"
-    ShowIconOnTitleBar="False"
-    NonActiveGlowBrush="#3E3E40"
-    GlowBrush="{DynamicResource BackgroundSelected}"
-	Background="{StaticResource LightBackground}"
-    WindowStartupLocation="CenterOwner"
-    SnapsToDevicePixels="True"
-    WindowTransitionsEnabled="False">
+                      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                      xmlns:controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+                      TitleCaps="False"
+                      ResizeMode="NoResize"
+                      Width="500"
+                      SizeToContent="Height"
+                      Icon="/Resources/CupCake.ico"
+                      ShowIconOnTitleBar="False"
+                      NonActiveGlowBrush="#3E3E40"
+                      GlowBrush="{DynamicResource BackgroundSelected}"
+                      Background="{StaticResource LightBackground}"
+                      WindowStartupLocation="CenterOwner"
+                      SnapsToDevicePixels="True"
+                      WindowTransitionsEnabled="False">
 
     <Grid Margin="15">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition/>
-            <ColumnDefinition/>
-            <ColumnDefinition Width="10"/>
-            <ColumnDefinition/>
+            <ColumnDefinition />
+            <ColumnDefinition />
+            <ColumnDefinition Width="10" />
+            <ColumnDefinition />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="40"/>
-            <RowDefinition Height="40"/>
-            <RowDefinition Height="120"/>
-            <RowDefinition Height="5"/>
-            <RowDefinition Height="30"/>
+            <RowDefinition Height="40" />
+            <RowDefinition Height="40" />
+            <RowDefinition Height="120" />
+            <RowDefinition Height="5" />
+            <RowDefinition Height="30" />
         </Grid.RowDefinitions>
 
-        <TextBlock FontSize="16" Foreground="{StaticResource Foreground}" VerticalAlignment="Center" Grid.Row="0" Grid.Column="0" Margin="0,9">Name</TextBlock>
-        <TextBox Name="NameTextBox" VerticalAlignment="Center" FontSize="16" Grid.Column="1" Grid.ColumnSpan="3" Grid.Row="0" Padding="2" />
-        
-        <TextBlock Grid.Row="1" Grid.Column="0" FontSize="16" Foreground="{StaticResource Foreground}" VerticalAlignment="Center" Margin="0,9">Engine</TextBlock>
-        <ComboBox Name="EngineComboBox" VerticalAlignment="Center" FontSize="16" Grid.Column="1" SelectedIndex="0" Grid.Row="1" Grid.ColumnSpan="3">
+        <TextBlock FontSize="16" Foreground="{StaticResource Foreground}" VerticalAlignment="Center" Grid.Row="0"
+                   Grid.Column="0" Margin="0,9">
+            Name
+        </TextBlock>
+        <TextBox Name="NameTextBox" VerticalAlignment="Center" FontSize="16" Grid.Column="1" Grid.ColumnSpan="3"
+                 Grid.Row="0" Padding="2" />
+
+        <TextBlock Grid.Row="1" Grid.Column="0" FontSize="16" Foreground="{StaticResource Foreground}"
+                   VerticalAlignment="Center" Margin="0,9">
+            Engine
+        </TextBlock>
+        <ComboBox Name="EngineComboBox" VerticalAlignment="Center" FontSize="16" Grid.Column="1" SelectedIndex="0"
+                  Grid.Row="1" Grid.ColumnSpan="3">
             <ComboBox.Items>
                 <TextBlock>MySQL</TextBlock>
                 <TextBlock>SQLite</TextBlock>
             </ComboBox.Items>
         </ComboBox>
 
-        <TextBlock FontSize="16" Foreground="{StaticResource Foreground}" VerticalAlignment="Top" Grid.Row="2" Grid.Column="0" Margin="0,9,0,0">Connection String</TextBlock>
-        <TextBox Name="CsTextBox" FontSize="16" Grid.Column="1" Grid.ColumnSpan="3" Grid.Row="2" Padding="2" TextWrapping="Wrap"/>
+        <TextBlock FontSize="16" Foreground="{StaticResource Foreground}" VerticalAlignment="Top" Grid.Row="2"
+                   Grid.Column="0" Margin="0,9,0,0">
+            Connection String
+        </TextBlock>
+        <TextBox Name="CsTextBox" FontSize="16" Grid.Column="1" Grid.ColumnSpan="3" Grid.Row="2" Padding="2"
+                 TextWrapping="Wrap" />
 
-        <Button Content="Cancel"  Grid.Row="3" Grid.Column="1" Height="30" Click="CancelButton_Click" Margin="0,5,0,0" Grid.RowSpan="2"/>
-        <Button Content="Save"  Grid.Row="3" Grid.Column="3" Height="30" Click="OkButton_Click" Margin="0,5,0,0" Grid.RowSpan="2" />
+        <Button Content="Cancel" Grid.Row="3" Grid.Column="1" Height="30" Click="CancelButton_Click" Margin="0,5,0,0"
+                Grid.RowSpan="2" />
+        <Button Content="Save" Grid.Row="3" Grid.Column="3" Height="30" Click="OkButton_Click" Margin="0,5,0,0"
+                Grid.RowSpan="2" />
     </Grid>
 </controls:MetroWindow>

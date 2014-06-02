@@ -6,11 +6,9 @@ using CupCake.Command;
 using CupCake.Command.Services;
 using CupCake.Command.Source;
 using CupCake.Core.Platforms;
-using CupCake.Core.Storage;
 using CupCake.Host;
 using CupCake.Messages.Events.Receive;
 using CupCake.Permissions;
-using CupCake.Players;
 using CupCake.Protocol;
 using CupCake.Server.Output;
 using CupCake.Server.StorageProviders;
@@ -23,8 +21,8 @@ namespace CupCake.Server
     {
         public const string GameId = "everybody-edits-su9rn58o40itdbnw69plyw";
         private CupCakeClient _client;
-        private DatabaseType _dbType;
         private string _cs;
+        private DatabaseType _dbType;
 
         public event Action<string> Output;
 
@@ -79,14 +77,15 @@ namespace CupCake.Server
             this.OnTitle(e.WorldName);
         }
 
-        void connection_OnDisconnect(object sender, string message)
+        private void connection_OnDisconnect(object sender, string message)
         {
             this._client.Dispose();
             this.OnOutput("*** Disconnected from Everybody Edits ***");
             Environment.Exit(1);
         }
 
-        public void Start(AccountType accType, string email, string password, string roomId, string[] directories, DatabaseType dbType, string cs)
+        public void Start(AccountType accType, string email, string password, string roomId, string[] directories,
+            DatabaseType dbType, string cs)
         {
             this._dbType = dbType;
             this._cs = cs;
@@ -96,10 +95,10 @@ namespace CupCake.Server
                 ? PlayerIO.QuickConnect.SimpleConnect(GameId, email, password)
                 : PlayerIO.QuickConnect.FacebookOAuthConnect(GameId, email, String.Empty);
 
-            var version = RoomHelper.GetVersion();
-            var roomType = RoomHelper.GetRoomType(roomId, version);
+            int version = RoomHelper.GetVersion();
+            string roomType = RoomHelper.GetRoomType(roomId, version);
             Connection connection = playerioclient.Multiplayer.CreateJoinRoom(roomId, roomType, true, null, null);
-            connection.OnDisconnect += connection_OnDisconnect;
+            connection.OnDisconnect += this.connection_OnDisconnect;
 
             this._client = new CupCakeClient(connection, new AssemblyCatalog(Assembly.GetExecutingAssembly()));
 

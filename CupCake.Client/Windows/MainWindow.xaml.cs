@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Specialized;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Net;
@@ -15,13 +16,26 @@ using CupCake.Protocol;
 namespace CupCake.Client.Windows
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    ///     Interaction logic for MainWindow.xaml
     /// </summary>
     public partial class MainWindow
     {
-        private ServerListener _listener;
         private int _connectionCount;
-        
+        private ServerListener _listener;
+
+        public MainWindow()
+        {
+            this.InitializeComponent();
+            this.HasConnectionSelected = false;
+
+            ICollectionView view = CollectionViewSource.GetDefaultView(this.ConnectionsTabControl.Items);
+            view.CollectionChanged += this.view_CollectionChanged;
+
+            this.ContentRendered += this.MainWindow_ContentRendered;
+
+            Application.Current.Exit += this.App_Exit;
+        }
+
         public RecentWorld IncomingSettings { get; set; }
 
         private bool HasConnectionSelected
@@ -49,21 +63,13 @@ namespace CupCake.Client.Windows
             }
         }
 
-        public MainWindow()
+        private void MainWindow_ContentRendered(object sender, EventArgs e)
         {
-            InitializeComponent();
-            this.HasConnectionSelected = false;
-
-            var view = CollectionViewSource.GetDefaultView(this.ConnectionsTabControl.Items);
-            view.CollectionChanged += this.view_CollectionChanged;
-
             this.RefreshRecent();
             this.StartServer();
-
-            Application.Current.Exit += this.App_Exit;
         }
 
-        void App_Exit(object sender, ExitEventArgs e)
+        private void App_Exit(object sender, ExitEventArgs e)
         {
             SettingsManager.Save();
         }
@@ -104,6 +110,11 @@ namespace CupCake.Client.Windows
             this.NewConnection(true);
         }
 
+        private void NewConnectionDebugEnabledMenuItem_OnClick(object sender, RoutedEventArgs e)
+        {
+            this.NewConnection(true, true);
+        }
+
         private void AttachMenuItem_Click(object sender, RoutedEventArgs e)
         {
             this.ShowAttach();
@@ -111,7 +122,7 @@ namespace CupCake.Client.Windows
 
         private void CloseConnectionMenuItem_Click(object sender, RoutedEventArgs e)
         {
-            var tab = this.ConnectionsTabControl.SelectedItem;
+            object tab = this.ConnectionsTabControl.SelectedItem;
             if (tab != null)
             {
                 this.CloseConnection((TabItem)tab);
@@ -120,7 +131,7 @@ namespace CupCake.Client.Windows
 
         private void ClearLogMenuItem_Click(object sender, RoutedEventArgs e)
         {
-            var tab = this.ConnectionsTabControl.SelectedItem;
+            object tab = this.ConnectionsTabControl.SelectedItem;
             if (tab != null)
             {
                 this.ClearLog((TabItem)tab);
@@ -168,7 +179,7 @@ namespace CupCake.Client.Windows
 
             var recentButton = this.FindResource("RecentButton") as Style;
             var menuItem = this.FindResource("StandardMenuItem") as Style;
-            foreach (var recent in SettingsManager.Settings.RecentWorlds.OrderByDescending(v => v.Id))
+            foreach (RecentWorld recent in SettingsManager.Settings.RecentWorlds.OrderByDescending(v => v.Id))
             {
                 RecentWorld localRecent = recent;
 
@@ -185,7 +196,7 @@ namespace CupCake.Client.Windows
                 var removeFromListMenuItem = new MenuItem
                 {
                     Header = "Remove From List",
-                    Style= menuItem
+                    Style = menuItem
                 };
 
                 removeFromListMenuItem.Click += (sender, args) => this.RemoveRecent(localRecent);
@@ -214,7 +225,7 @@ namespace CupCake.Client.Windows
         private void AddRecent(RecentWorld recent)
         {
             // If there is an unnamed connection with the same world id, remove it to avoid duplicates
-            var old = SettingsManager.Settings.RecentWorlds.FirstOrDefault(
+            RecentWorld old = SettingsManager.Settings.RecentWorlds.FirstOrDefault(
                 v => (String.IsNullOrWhiteSpace(v.Name) && v.WorldId == recent.WorldId));
             if (old != null)
             {
@@ -238,15 +249,40 @@ namespace CupCake.Client.Windows
 
         private void StartServer()
         {
-            // Start the server
-            this._listener = new ServerListener(IPAddress.Loopback, ServerListener.ServerPort,
-                handle => this.HandleIncoming(handle, () =>
+            try
+            {
+                // Start the server
+                this._listener = new ServerListener(IPAddress.Loopback, ServerListener.ServerPort, this.HandleIncoming);
+                this._listener.DebugRequest += this._listener_DebugRequest;
+            }
+            catch (SocketException ex)
+            {
+                MessageBoxHelper.Show(this, "Unable to open TCP Listener",
+                    "Could not listen on port 4577. " + ex.Message);
+                this.Close();
+            }
+        }
+
+        private void _listener_DebugRequest()
+        {
+            this.NewConnection(true, true);
+        }
+
+        private void HandleIncoming(ClientHandle handle)
+        {
+            Dispatch.Invoke(() =>
+            {
+                this.ConnectionCount++;
+
+                handle.ReceiveClose += () => Dispatch.Invoke(() => { this.ConnectionCount--; });
+
+                handle.ReceiveRequestData += data => Dispatch.Invoke(() =>
                 {
                     // Use requested settings
-                    var recent = this.IncomingSettings;
+                    RecentWorld recent = this.IncomingSettings;
                     this.IncomingSettings = null;
 
-                    var isNew = false;
+                    bool isNew = false;
                     if (recent == null)
                     {
                         isNew = true;
@@ -256,30 +292,19 @@ namespace CupCake.Client.Windows
                             : SettingsManager.Settings.RecentWorlds[0].Clone();
                     }
 
-                    if (new NewConnectionWindow(handle, recent) {Owner = this}.ShowDialog() == true)
+                    if (new NewConnectionWindow(handle, recent, data.IsDebug) {Owner = this}.ShowDialog() == true)
                     {
                         if (isNew)
                             this.AddRecent(recent);
-
-                        SettingsManager.Save();
-                        this.RefreshRecent();
                     }
                     else
                     {
                         handle.DoSendClose();
                     }
-                }));
-        }
 
-        private void HandleIncoming(ClientHandle handle, Action afferBind)
-        {
-            Dispatch.Invoke(() =>
-            {
-                this.ConnectionCount++;
-
-                handle.ReceiveClose += () => Dispatch.Invoke(() =>
-                {
-                    this.ConnectionCount--;
+                    recent.UpdateId();
+                    SettingsManager.Save();
+                    this.RefreshRecent();
                 });
 
                 var tabItem = new TabItem
@@ -288,14 +313,12 @@ namespace CupCake.Client.Windows
                     Content = new ConnectionUserControl(handle)
                 };
 
-                afferBind();
-
                 this.ConnectionsTabControl.Items.Add(tabItem);
                 tabItem.IsSelected = true;
             });
         }
 
-        private void NewConnection(bool showConsole)
+        private void NewConnection(bool showConsole, bool isDebug = false)
         {
             var p = new Process
             {
@@ -309,6 +332,11 @@ namespace CupCake.Client.Windows
             {
                 p.StartInfo.UseShellExecute = false;
                 p.StartInfo.CreateNoWindow = true;
+            }
+
+            if (isDebug)
+            {
+                p.StartInfo.Arguments = "--debug";
             }
 
             p.Start();
@@ -325,10 +353,11 @@ namespace CupCake.Client.Windows
 
                     try
                     {
-                        this._listener.Connect(endPoint,
-                            handle =>
-                                this.HandleIncoming(handle,
-                                    () => handle.DoSendAuthentication(attach.PinPasswordBox.Password)));
+                        this._listener.Connect(endPoint, handle =>
+                        {
+                            this.HandleIncoming(handle);
+                            handle.DoSendAuthentication(attach.PinPasswordBox.Password);
+                        });
                     }
                     catch (SocketException ex)
                     {
@@ -366,7 +395,7 @@ namespace CupCake.Client.Windows
 
         private void ShowList(EditListType type)
         {
-            var profiles = new EditListWindow(type) { Owner = this };
+            var profiles = new EditListWindow(type) {Owner = this};
             profiles.ShowDialog();
         }
 
