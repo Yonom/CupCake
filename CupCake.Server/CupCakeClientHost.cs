@@ -17,7 +17,7 @@ using PlayerIOClient;
 
 namespace CupCake.Server
 {
-    public class CupCakeClientEx
+    public class CupCakeClientHost
     {
         public const string GameId = "everybody-edits-su9rn58o40itdbnw69plyw";
         private CupCakeClient _client;
@@ -45,7 +45,7 @@ namespace CupCake.Server
             this.OnOutput("> " + input);
 
             this._client.ServiceLoader.Get<CommandService>().Invoke(
-                new ExternalInvokeSource(this, Group.Host, "CupCakeClient", this.OnOutput),
+                new ExternalInvokeSource(this, Group.Host, "CupCakeHost", this.OnOutput),
                 new ParsedCommand(input));
         }
 

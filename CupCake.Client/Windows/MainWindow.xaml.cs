@@ -2,9 +2,12 @@
 using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Sockets;
+using System.Reflection;
+using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -263,9 +266,11 @@ namespace CupCake.Client.Windows
             }
         }
 
-        private void _listener_DebugRequest()
+        private void _listener_DebugRequest(Stream obj)
         {
-            this.NewConnection(true, true);
+            var str = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+                var msgBytes = Encoding.Unicode.GetBytes(str);
+                obj.Write(msgBytes, 0, msgBytes.Length);
         }
 
         private void HandleIncoming(ClientHandle handle)

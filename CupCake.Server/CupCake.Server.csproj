@@ -86,7 +86,7 @@
     <Compile Include="Muffins\DebugMuffin.cs" />
     <Compile Include="Output\IOutputSyntaxProvider.cs" />
     <Compile Include="Output\CupCakeOutputEvent.cs" />
-    <Compile Include="CupCakeClientEx.cs" />
+    <Compile Include="CupCakeClientHost.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RoomHelper.cs" />

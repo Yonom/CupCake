@@ -2,6 +2,9 @@
 using System.IO;
 using System.Net;
 using System.Net.Sockets;
+using System.Security.Policy;
+using System.Text;
+using System.Threading;
 
 namespace CupCake.Debug
 {
@@ -42,6 +45,7 @@ namespace CupCake.Debug
                 }
                 else if (command == "debug")
                 {
+                    string path;
                     try
                     {
                         using (var client = new TcpClient())
@@ -49,19 +53,25 @@ namespace CupCake.Debug
                             client.Connect(IPAddress.Loopback, 4570);
 
                             using (NetworkStream stream = client.GetStream())
+                            using (var reader = new StreamReader(stream, Encoding.Unicode))
                             {
                                 // Request Debug
                                 stream.WriteByte(0xE1);
 
-                                // Wait until the connection is closed by cupcake
+                                // Skip one byte
                                 stream.ReadByte();
+                                // Wait until the connection is closed by cupcake
+                                path = reader.ReadToEnd();
                             }
                         }
                     }
                     catch (SocketException)
                     {
                         Console.WriteLine("Problem communicating with the client, make sure it is running.");
+                        return;
                     }
+
+                    AppDomain.CurrentDomain.ExecuteAssembly(path + "\\CupCake.Server.exe", new[] { "--envpath", path });
                 }
                 else
                 {

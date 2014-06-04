@@ -24,7 +24,7 @@ namespace CupCake.Server
         private static readonly List<string> _dirs = new List<string>();
 
         private static bool _started;
-        private static readonly CupCakeClientEx _clientEx = new CupCakeClientEx();
+        private static readonly CupCakeClientHost _clientEx = new CupCakeClientHost();
 
         private static string _title;
         private static readonly List<string> _outputs = new List<string>();
@@ -64,6 +64,10 @@ namespace CupCake.Server
                 {
                     "standalone",
                     v => { _standalone = v != null; }
+                },
+                {
+                    "envpath=",
+                    v => { Environment.CurrentDirectory = v; }
                 },
                 {
                     "port=",

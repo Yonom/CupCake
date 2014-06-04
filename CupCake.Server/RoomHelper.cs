@@ -6,7 +6,7 @@ namespace CupCake.Server
     {
         public static int GetVersion()
         {
-            Client client = PlayerIO.QuickConnect.SimpleConnect(CupCakeClientEx.GameId, "guest", "guest");
+            Client client = PlayerIO.QuickConnect.SimpleConnect(CupCakeClientHost.GameId, "guest", "guest");
             DatabaseObject dbO = client.BigDB.Load("config", "config");
             return dbO.GetInt("version");
         }

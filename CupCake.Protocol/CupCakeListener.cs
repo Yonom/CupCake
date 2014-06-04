@@ -29,12 +29,12 @@ namespace CupCake.Protocol
 
         public EndPoint EndPoint { get; private set; }
 
-        public event Action DebugRequest;
+        public event Action<Stream> DebugRequest;
 
-        protected virtual void OnDebugRequest()
+        protected virtual void OnDebugRequest(Stream stream)
         {
-            Action handler = this.DebugRequest;
-            if (handler != null) handler();
+            Action<Stream> handler = this.DebugRequest;
+            if (handler != null) handler(stream);
         }
 
         private void HandleConnectionNewThread(TcpClient client, Action<TcpClient, NetworkStream> callback)
@@ -49,11 +49,13 @@ namespace CupCake.Protocol
                 using (TcpClient client = state)
                 using (NetworkStream stream = client.GetStream())
                 {
-                    this.Send(stream, Message.Hello, new Hello {Version = Hello.VersionNumber});
+                    this.Send(stream, Message.Hello);
                     var cmd = (Message)stream.ReadByte();
 
                     if (cmd == Message.Hello)
                     {
+                        this.Send(stream, new Hello {Version = Hello.VersionNumber});
+
                         var hello = this.Get<Hello>(stream);
                         if (hello.Version != Hello.VersionNumber)
                         {
@@ -64,8 +66,7 @@ namespace CupCake.Protocol
                     }
                     else if (cmd == Message.RequestDebug)
                     {
-                        client.Close();
-                        this.OnDebugRequest();
+                        this.OnDebugRequest(stream);
                     }
                 }
             }
@@ -106,7 +107,12 @@ namespace CupCake.Protocol
 
         public void Send<T>(NetworkStream stream, Message message, T messageObj)
         {
-            stream.WriteByte((byte)message);
+            this.Send(stream, message);
+            this.Send(stream, messageObj);
+        }
+
+        public void Send<T>(NetworkStream stream, T messageObj)
+        {
             Serializer.SerializeWithLengthPrefix(stream, messageObj, PrefixStyle.Base128);
         }
     }

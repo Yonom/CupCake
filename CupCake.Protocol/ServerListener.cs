@@ -17,12 +17,12 @@ namespace CupCake.Protocol
             this._listener.DebugRequest += this.OnDebugRequest;
         }
 
-        public event Action DebugRequest;
+        public event Action<Stream> DebugRequest;
 
-        protected virtual void OnDebugRequest()
+        protected virtual void OnDebugRequest(Stream stream)
         {
-            Action handler = this.DebugRequest;
-            if (handler != null) handler();
+            Action<Stream> handler = this.DebugRequest;
+            if (handler != null) handler(stream);
         }
 
         public void Connect(IPEndPoint endPoint, Action<ClientHandle> onConnection)
