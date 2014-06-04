@@ -13,7 +13,6 @@
       <file src="bin\Release\Cupcake.*.dll" target="lib\net40" />
       <file src="bin\Release\MuffinFramework.dll" target="lib\net40" />
       <file src="..\CupCake.Debug\bin\Release\CupCake.Debug.exe" target="content" />
-      <file src="build\CupCake.props" target="build" />
       <file src="tools\install.ps1" target="tools" />
     </files>
 </package>

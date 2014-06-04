@@ -11,3 +11,7 @@ foreach ($reference in $project.Object.References)
         $reference.CopyLocal = $false;
     }
 }
+
+$project.Properties | where { $_.Name -eq "StartAction" } | foreach { $_.Value = "Program" }
+$project.Properties | where { $_.Name -eq "StartProgram" } | foreach { $_.Value = "$(MSBuildProjectDirectory)\CupCake.Debug.exe" }
+$project.Properties | where { $_.Name -eq "StartArguments" } | foreach { $_.Value = "Debug" }
