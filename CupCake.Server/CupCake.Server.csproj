@@ -83,7 +83,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Muffins\BasicLogMuffin.cs" />
-    <Compile Include="Muffins\DebugMuffin.cs" />
     <Compile Include="Output\IOutputSyntaxProvider.cs" />
     <Compile Include="Output\CupCakeOutputEvent.cs" />
     <Compile Include="CupCakeClientHost.cs" />
