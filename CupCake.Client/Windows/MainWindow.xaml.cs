@@ -294,7 +294,7 @@ namespace CupCake.Client.Windows
 
                         recent = SettingsManager.Settings.RecentWorlds.Count == 0
                             ? new RecentWorld()
-                            : SettingsManager.Settings.RecentWorlds[0].Clone();
+                            : SettingsManager.Settings.RecentWorlds.OrderByDescending(r => r.Id).First().Clone();
                     }
 
                     if (new NewConnectionWindow(handle, recent, data.IsDebug) {Owner = this}.ShowDialog() == true)

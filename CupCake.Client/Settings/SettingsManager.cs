@@ -26,7 +26,7 @@ namespace CupCake.Client.Settings
             if (!Directory.Exists(DefaultProfilePath))
                 Directory.CreateDirectory(DefaultProfilePath);
 
-            DefaultProfilePath = ProfilesPath + "\\Debug";
+            DebugPath = ProfilesPath + "\\Debug";
 
             DatabasesPath = CupCakePath + "\\Databases";
             if (!Directory.Exists(DatabasesPath))
@@ -61,7 +61,7 @@ namespace CupCake.Client.Settings
 
         public static Settings Settings { get; private set; }
 
-        public static string DebugPath { get; set; }
+        public static string DebugPath { get; private set; }
 
         public static void Save()
         {

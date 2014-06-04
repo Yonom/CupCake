@@ -1,6 +1,6 @@
 param($installPath, $toolsPath, $package, $project)
 
-$project.Properties.Item("PostBuildEvent").Value = "if `$(ConfigurationName) == Debug ""`$(ProjectDir)CupCake.Debug.exe"" `$(TargetDir)"
+$project.Properties.Item("PostBuildEvent").Value = "if `$(ConfigurationName) == Debug ""`$(ProjectDir)CupCake.Debug.exe"" Deploy `$(TargetDir)"
 
 $asms = $package.AssemblyReferences | %{$_.Name}
 
