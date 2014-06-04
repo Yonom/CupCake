@@ -9,4 +9,9 @@
         <requireLicenseAcceptance>false</requireLicenseAcceptance>
         <description>CupCake can be used to write plugins for CupCake.Server</description>
     </metadata>
+    <files>
+      <file src="bin\Release\CupCake.Actions.dll" target="CupCake.Actions.dll" />
+      <file src="..\CupCake.Debug\bin\Release\CupCake.Debug.dll" target="CupCake.Debug.dll" />
+      <file src="tools\install.ps1" target="tools\install.ps1" />
+    </files>
 </package>
