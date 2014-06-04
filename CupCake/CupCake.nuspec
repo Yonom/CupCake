@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2013/01/nuspec.xsd">
     <metadata>
         <id>CupCake</id>
-        <version>0.0.5</version>
+        <version>0.0.0</version>
         <title>CupCake</title>
         <authors>Yonom</authors>
         <owners>Yonom</owners>
@@ -10,8 +10,8 @@
         <description>CupCake can be used to write plugins for CupCake.Server</description>
     </metadata>
     <files>
-      <file src="bin\Release\CupCake.Actions.dll" target="CupCake.Actions.dll" />
-      <file src="..\CupCake.Debug\bin\Release\CupCake.Debug.dll" target="CupCake.Debug.dll" />
+      <file src="bin\Release\CupCake.Actions.dll" target="lib\net40\CupCake.Actions.dll" />
+      <file src="..\CupCake.Debug\bin\Release\CupCake.Debug.exe target="content\CupCake.Debug.exe" />
       <file src="tools\install.ps1" target="tools\install.ps1" />
     </files>
 </package>
