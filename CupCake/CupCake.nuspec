@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2013/01/nuspec.xsd">
+    <metadata>
+        <id>CupCake</id>
+        <version>0.0.5</version>
+        <title>CupCake</title>
+        <authors>Yonom</authors>
+        <owners>Yonom</owners>
+        <requireLicenseAcceptance>false</requireLicenseAcceptance>
+        <description>CupCake can be used to write plugins for CupCake.Server</description>
+    </metadata>
+</package>

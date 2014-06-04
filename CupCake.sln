@@ -39,6 +39,13 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CupCake.Client", "CupCake.C
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CupCake.Debug", "CupCake.Debug\CupCake.Debug.csproj", "{CB9B8FD7-3B68-4D9F-BCFC-8075B6B7C9F6}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{95A56A37-EB53-4743-A01E-7BEC0758A472}"
+	ProjectSection(SolutionItems) = preProject
+		.nuget\NuGet.Config = .nuget\NuGet.Config
+		.nuget\NuGet.exe = .nuget\NuGet.exe
+		.nuget\NuGet.targets = .nuget\NuGet.targets
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
