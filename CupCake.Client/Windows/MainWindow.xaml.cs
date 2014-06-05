@@ -268,9 +268,12 @@ namespace CupCake.Client.Windows
 
         private void _listener_DebugRequest(Stream obj)
         {
-            var str = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
-                var msgBytes = Encoding.Unicode.GetBytes(str);
+            string str = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+            if (str != null)
+            {
+                byte[] msgBytes = Encoding.Unicode.GetBytes(str);
                 obj.Write(msgBytes, 0, msgBytes.Length);
+            }
         }
 
         private void HandleIncoming(ClientHandle handle)

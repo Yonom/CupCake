@@ -28,20 +28,16 @@ namespace CupCake.Client
 
             string[] values = endpointstring.Split(new[] {':'});
             IPAddress ipaddy;
-            int port = -1;
+            int port;
 
             //check if we have an IPv6 or ports
             if (values.Length <= 2) // ipv4 or hostname
             {
-                if (values.Length == 1)
-                    //no port is specified, default
-                    port = defaultport;
-                else
-                    port = getPort(values[1]);
+                port = values.Length == 1 ? defaultport : GetPort(values[1]);
 
                 //try to use the address as IPv4, otherwise get hostname
                 if (!IPAddress.TryParse(values[0], out ipaddy))
-                    ipaddy = getIPfromHost(values[0]);
+                    ipaddy = GetIPfromHost(values[0]);
             }
             else if (values.Length > 2) //ipv6
             {
@@ -50,7 +46,7 @@ namespace CupCake.Client
                 {
                     string ipaddressstring = string.Join(":", values.Take(values.Length - 1).ToArray());
                     ipaddy = IPAddress.Parse(ipaddressstring);
-                    port = getPort(values[values.Length - 1]);
+                    port = GetPort(values[values.Length - 1]);
                 }
                 else //[a:b:c] or a:b:c
                 {
@@ -69,7 +65,7 @@ namespace CupCake.Client
             return new IPEndPoint(ipaddy, port);
         }
 
-        private static int getPort(string p)
+        private static int GetPort(string p)
         {
             int port;
 
@@ -83,7 +79,7 @@ namespace CupCake.Client
             return port;
         }
 
-        private static IPAddress getIPfromHost(string p)
+        private static IPAddress GetIPfromHost(string p)
         {
             IPAddress[] hosts = Dns.GetHostAddresses(p);
 

@@ -24,7 +24,6 @@ namespace CupCake.Client.Windows
             this._database = database;
             this.NameTextBox.Text = database.Name;
             this.FolderTextBox.Text = SettingsManager.DatabasesPath + "\\";
-            ;
         }
 
         private void OkButton_Click(object sender, RoutedEventArgs e)

@@ -25,7 +25,7 @@ namespace CupCake.Upload
             this.ServiceLoader.EnableComplete += this.ServiceLoader_EnableComplete;
 
             this._workThread = new DequeWorker();
-            
+
             this.Events.Bind<UploadRequestEvent>(this.OnUploadRequest, EventPriority.Lowest);
             this.Events.Bind<BlockPlaceEvent>(this.OnBlockPlace);
             this.Events.Bind<InitCompleteEvent>(this.OnInitComplete);
@@ -245,49 +245,85 @@ namespace CupCake.Upload
             this._uploaded = new bool[2, this._world.SizeX, this._world.SizeY];
         }
 
-        public UploadRequestEvent UploadBlock(int x, int y, Block block)
+        public void UploadBlock(int x, int y, Block block)
         {
-            return this.UploadBlock(Layer.Foreground, x, y, block);
+            this.UploadBlock(Layer.Foreground, x, y, block);
         }
 
-        public UploadRequestEvent UploadBlock(Layer layer, int x, int y, Block block)
+        public void UploadBlock(Layer layer, int x, int y, Block block)
+        {
+            this.Events.Raise(this.GetBlock(layer, x, y, block));
+        }
+
+        public void UploadCoinDoor(int x, int y, CoinDoorBlock block, int coinsToCollect)
+        {
+            this.Events.Raise(this.GetCoinDoor(x, y, block, coinsToCollect));
+        }
+
+        public void UploadLabel(int x, int y, LabelBlock block, string text)
+        {
+            this.Events.Raise(this.GetLabel(x, y, block, text));
+        }
+
+        public void UploadPortal(int x, int y, PortalBlock block, int id, int target,
+            PortalRotation rotation)
+        {
+            this.Events.Raise(this.GetPortal(x, y, block, id, target, rotation));
+        }
+
+        public void UploadWorldPortal(int x, int y, WorldPortalBlock block, string roomId)
+        {
+            this.Events.Raise(this.GetWorldPortal(x, y, block, roomId));
+        }
+
+        public void UploadSound(int x, int y, SoundBlock block, int soundId)
+        {
+            this.Events.Raise(this.GetSound(x, y, block, soundId));
+        }
+
+        public void UploadRotatable(int x, int y, RotatableBlock block, int rotation)
+        {
+            this.Events.Raise(this.GetRotatable(x, y, block, rotation));
+        }
+
+        public UploadRequestEvent GetBlock(Layer layer, int x, int y, Block block)
         {
             var e = new BlockPlaceSendEvent(layer, x, y, block);
             return new UploadRequestEvent(e);
         }
 
-        public UploadRequestEvent UploadCoinDoor(int x, int y, CoinDoorBlock block, int coinsToCollect)
+        public UploadRequestEvent GetCoinDoor(int x, int y, CoinDoorBlock block, int coinsToCollect)
         {
             var e = new CoinDoorPlaceSendEvent(Layer.Foreground, x, y, block, coinsToCollect);
             return new UploadRequestEvent(e);
         }
 
-        public UploadRequestEvent UploadLabel(int x, int y, LabelBlock block, string text)
+        public UploadRequestEvent GetLabel(int x, int y, LabelBlock block, string text)
         {
             var e = new LabelPlaceSendEvent(Layer.Foreground, x, y, block, text);
             return new UploadRequestEvent(e);
         }
 
-        public UploadRequestEvent UploadPortal(int x, int y, PortalBlock block, int id, int target,
+        public UploadRequestEvent GetPortal(int x, int y, PortalBlock block, int id, int target,
             PortalRotation rotation)
         {
             var e = new PortalPlaceSendEvent(Layer.Foreground, x, y, block, id, target, rotation);
             return new UploadRequestEvent(e);
         }
 
-        public UploadRequestEvent UploadWorldPortal(int x, int y, WorldPortalBlock block, string roomId)
+        public UploadRequestEvent GetWorldPortal(int x, int y, WorldPortalBlock block, string roomId)
         {
             var e = new WorldPortalPlaceSendEvent(Layer.Foreground, x, y, block, roomId);
             return new UploadRequestEvent(e);
         }
 
-        public UploadRequestEvent UploadSound(int x, int y, SoundBlock block, int soundId)
+        public UploadRequestEvent GetSound(int x, int y, SoundBlock block, int soundId)
         {
             var e = new SoundPlaceSendEvent(Layer.Foreground, x, y, block, soundId);
             return new UploadRequestEvent(e);
         }
 
-        public UploadRequestEvent UploadRotatable(int x, int y, RotatableBlock block, int rotation)
+        public UploadRequestEvent GetRotatable(int x, int y, RotatableBlock block, int rotation)
         {
             var e = new RotatablePlaceSendEvent(Layer.Foreground, x, y, block, rotation);
             return new UploadRequestEvent(e);

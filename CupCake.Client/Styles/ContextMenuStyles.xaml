@@ -86,6 +86,7 @@
                                       Data="M0,0 L0,8 L4,4 z" />
                             </Grid>
                             <Popup
+                                Grid.Column="0"
                                 IsOpen="{Binding Path=IsSubmenuOpen, RelativeSource={RelativeSource TemplatedParent}}"
                                 Placement="Right"
                                 HorizontalOffset="-1"

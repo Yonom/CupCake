@@ -66,10 +66,10 @@ namespace CupCake.Client.Windows
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            int pId = default(int);
-            string pFolder = String.Empty;
-            DatabaseType dbType = default(DatabaseType);
-            string dbCs = String.Empty;
+            int pId;
+            string pFolder;
+            DatabaseType dbType;
+            string dbCs;
 
             if (this.ProfileComboBox.SelectedItem != null)
             {
@@ -86,13 +86,15 @@ namespace CupCake.Client.Windows
                 }
                 else
                 {
-                    MessageBoxHelper.Show(this, "Unable to load database data", "The profile's database was not found, make sure it still exists.");
+                    MessageBoxHelper.Show(this, "Unable to load database data",
+                        "The profile's database was not found, make sure it still exists.");
                     return;
                 }
             }
             else
             {
-                MessageBoxHelper.Show(this, "Profile not set", "Please select a profile. If none are available, use the Settings -> Manage Profiles window to create a new one.");
+                MessageBoxHelper.Show(this, "Profile not set",
+                    "Please select a profile. If none are available, use the Settings -> Manage Profiles window to create a new one.");
                 return;
             }
 

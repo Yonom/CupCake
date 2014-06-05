@@ -96,7 +96,7 @@ namespace CupCake.Debug
                 throw new ConnectionException("Problem communicating with the client, make sure it is running.", ex);
             }
 
-            AppDomain.CurrentDomain.ExecuteAssembly(path + "\\CupCake.Server.exe", new[] { "--envpath", path, "--debug" });
+            AppDomain.CurrentDomain.ExecuteAssembly(path + "\\CupCake.Server.exe", new[] {"--envpath", path, "--debug"});
         }
     }
 }

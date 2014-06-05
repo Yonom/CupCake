@@ -58,7 +58,8 @@ namespace CupCake.Client.Windows
                 }
                 else
                 {
-                    MessageBoxHelper.Show(this, "Database not set", "Please select a database. If none are available, use the Settings -> Manage Databases window to create a new one.");
+                    MessageBoxHelper.Show(this, "Database not set",
+                        "Please select a database. If none are available, use the Settings -> Manage Databases window to create a new one.");
                     return;
                 }
 

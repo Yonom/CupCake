@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Sockets;
-using System.Text;
 
 namespace CupCake.Debug
 {
@@ -13,7 +9,7 @@ namespace CupCake.Debug
         {
         }
 
-        public ConnectionException(string message, Exception innerException) 
+        public ConnectionException(string message, Exception innerException)
             : base(message, innerException)
         {
         }
