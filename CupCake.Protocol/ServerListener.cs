@@ -125,8 +125,8 @@ namespace CupCake.Protocol
             }
             finally
             {
-                handle.DoReceiveClose();
                 client.Close();
+                handle.DoReceiveClose();
             }
         }
 
@@ -144,13 +144,16 @@ namespace CupCake.Protocol
 
         private void Send<T>(NetworkStream stream, Message message, T messageObj)
         {
-            try
+            if (stream.CanWrite)
             {
-                this._listener.Send(stream, message, messageObj);
-            }
-            catch (IOException ex)
-            {
-                Debug.WriteLine("Error while writing: " + ex.Message);
+                try
+                {
+                    this._listener.Send(stream, message, messageObj);
+                }
+                catch (IOException ex)
+                {
+                    Debug.WriteLine("Error while writing: " + ex.Message);
+                }
             }
         }
     }

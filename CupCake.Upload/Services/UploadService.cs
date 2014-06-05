@@ -27,7 +27,7 @@ namespace CupCake.Upload.Services
             this.ServiceLoader.EnableComplete += this.ServiceLoader_EnableComplete;
 
             this._workThread = new DequeWorker();
-
+            
             this.Events.Bind<UploadRequestEvent>(this.OnUploadRequest, EventPriority.Lowest);
             this.Events.Bind<BlockPlaceEvent>(this.OnBlockPlace);
             this.Events.Bind<InitCompleteEvent>(this.OnInitComplete);

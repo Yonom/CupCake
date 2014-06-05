@@ -24,7 +24,9 @@ namespace CupCake.Muffins
 
         protected override void Enable()
         {
-            MethodBase method = this.GetType().GetMethod("Run", BindingFlags.Instance | BindingFlags.Public);
+            this.LabelsList = new List<string>();
+
+            MethodBase method = this.GetType().GetMethod("Run", BindingFlags.Instance | BindingFlags.NonPublic);
 
             // Alias attribute
             var labels = (LabelAttribute)method.GetCustomAttributes(typeof(LabelAttribute), false).FirstOrDefault();
