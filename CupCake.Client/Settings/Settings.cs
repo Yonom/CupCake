@@ -24,7 +24,8 @@ namespace CupCake.Client.Settings
                 {
                     Id = SettingsManager.DefaultId,
                     Name = SettingsManager.DefaultString,
-                    Folder = SettingsManager.ProfilesPath
+                    Folder = SettingsManager.ProfilesPath,
+                    Database = SettingsManager.DefaultId
                 });
 
                 this.Databases.Add(new Database
