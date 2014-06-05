@@ -10,7 +10,7 @@ namespace CupCake.Debug
 {
     internal class Program
     {
-        private static void Main(string[] args)
+        private static int Main(string[] args)
         {
             if (args.Length > 0)
             {
@@ -27,12 +27,15 @@ namespace CupCake.Debug
                 else
                 {
                     Console.WriteLine("Invalid command specified.");
+                    return 1;
                 }
             }
             else
             {
                 Console.WriteLine("Please specify a command to run");
+                return 1;
             }
+            return 0;
         }
 
         private static void Deploy(IEnumerable<string> args)
@@ -88,10 +91,9 @@ namespace CupCake.Debug
                     }
                 }
             }
-            catch (SocketException)
+            catch (SocketException ex)
             {
-                Console.WriteLine("Problem communicating with the client, make sure it is running.");
-                return;
+                throw new Exception("Problem communicating with the client, make sure it is running.", ex);
             }
 
             AppDomain.CurrentDomain.ExecuteAssembly(path + "\\CupCake.Server.exe", new[] { "--envpath", path, "--debug" });
