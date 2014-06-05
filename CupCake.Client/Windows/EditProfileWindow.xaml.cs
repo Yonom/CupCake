@@ -56,6 +56,11 @@ namespace CupCake.Client.Windows
                     var database = (Database)((TextBlock)this.DatabaseComboBox.SelectedItem).Tag;
                     this._profile.Database = database.Id;
                 }
+                else
+                {
+                    MessageBoxHelper.Show(this, "Database not set", "Please select a database. If none are available, use the Settings -> Manage Databases window to create a new one.");
+                    return;
+                }
 
                 this.DialogResult = true;
             }
