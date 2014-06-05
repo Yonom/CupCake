@@ -84,14 +84,14 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Muffins\BasicLogMuffin.cs" />
+    <Compile Include="BasicLogMuffin.cs" />
     <Compile Include="Output\IOutputSyntaxProvider.cs" />
     <Compile Include="Output\CupCakeOutputEvent.cs" />
     <Compile Include="CupCakeClientHost.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RoomHelper.cs" />
-    <Compile Include="Services\OutputService.cs" />
+    <Compile Include="OutputService.cs" />
     <Compile Include="StorageProviders\MySqlStorageProvider.cs" />
     <Compile Include="StorageProviders\SQLiteStorageProvider.cs" />
     <Compile Include="SyntaxProviders\CupCakeChatSyntaxProvider.cs" />

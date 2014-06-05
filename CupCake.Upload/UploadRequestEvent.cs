@@ -1,6 +1,6 @@
 ﻿using System;
 using CupCake.Core.Events;
-using CupCake.Messages.Events.Send;
+using CupCake.Messages.Send;
 
 namespace CupCake.Upload
 {

@@ -1,4 +1,4 @@
-﻿using CupCake.Chat.Services;
+﻿using CupCake.Chat;
 using CupCake.Messages.Blocks;
 
 namespace CupCake

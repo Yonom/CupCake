@@ -1,6 +1,4 @@
-﻿using CupCake.Players.Services;
-
-namespace CupCake.Players.Join
+﻿namespace CupCake.Players.Join
 {
     public abstract class JoinArgs
     {

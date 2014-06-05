@@ -1,6 +1,6 @@
 ﻿using System;
 using CupCake.Core.Events;
-using CupCake.Messages.Events.Receive;
+using CupCake.Messages.Receive;
 using PlayerIOClient;
 
 namespace CupCake.Messages

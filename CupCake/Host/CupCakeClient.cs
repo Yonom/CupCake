@@ -2,7 +2,7 @@
 using System.ComponentModel.Composition.Hosting;
 using System.ComponentModel.Composition.Primitives;
 using System.Reflection;
-using CupCake.Core.Platforms;
+using CupCake.Core;
 using MuffinFramework;
 using PlayerIOClient;
 

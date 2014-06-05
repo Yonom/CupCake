@@ -48,7 +48,7 @@
     <Compile Include="Deque.cs" />
     <Compile Include="DequeWorker.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Services\UploadService.cs" />
+    <Compile Include="UploadService.cs" />
     <Compile Include="UploadRequestEvent.cs" />
   </ItemGroup>
   <ItemGroup>

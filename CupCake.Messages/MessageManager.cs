@@ -1,6 +1,6 @@
 ﻿using System.Collections.Concurrent;
 using CupCake.Core.Events;
-using CupCake.Messages.Events.Receive;
+using CupCake.Messages.Receive;
 
 namespace CupCake.Messages
 {

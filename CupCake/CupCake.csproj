@@ -49,10 +49,10 @@
   <ItemGroup>
     <Compile Include="Chatter.cs" />
     <Compile Include="Host\CupCakeClient.cs" />
-    <Compile Include="Muffins\Command.cs" />
-    <Compile Include="Muffins\CupCakeMuffin.cs" />
-    <Compile Include="Muffins\CupCakeMuffinPart.cs" />
-    <Compile Include="Muffins\EEMuffin.cs" />
+    <Compile Include="Command.cs" />
+    <Compile Include="CupCakeMuffin.cs" />
+    <Compile Include="CupCakeMuffinPart.cs" />
+    <Compile Include="EEMuffin.cs" />
     <Compile Include="PlayerInvokeSource.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

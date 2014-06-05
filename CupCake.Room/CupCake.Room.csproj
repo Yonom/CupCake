@@ -44,10 +44,10 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Events\AccessRightChangeEvent.cs" />
-    <Compile Include="Events\InitCompleteEvent.cs" />
-    <Compile Include="Events\JoinCompleteEvent.cs" />
-    <Compile Include="Services\RoomService.cs" />
+    <Compile Include="AccessRightChangeEvent.cs" />
+    <Compile Include="InitCompleteEvent.cs" />
+    <Compile Include="JoinCompleteEvent.cs" />
+    <Compile Include="RoomService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

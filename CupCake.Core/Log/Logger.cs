@@ -1,6 +1,4 @@
-﻿using CupCake.Core.Platforms;
-
-namespace CupCake.Core.Log
+﻿namespace CupCake.Core.Log
 {
     public class Logger
     {

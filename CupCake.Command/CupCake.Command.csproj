@@ -43,16 +43,16 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Attributes\CorrectUsageAttribute.cs" />
-    <Compile Include="Attributes\LabelAttribute.cs" />
-    <Compile Include="Attributes\MinArgsAttribute.cs" />
-    <Compile Include="Attributes\MinGroupAttribute.cs" />
-    <Compile Include="Events\InvokeEvent.cs" />
-    <Compile Include="Events\PlayerInvokeEvent.cs" />
-    <Compile Include="Exceptions\AccessDeniedException.cs" />
-    <Compile Include="Exceptions\CommandException.cs" />
-    <Compile Include="Exceptions\SyntaxException.cs" />
-    <Compile Include="Services\CommandService.cs" />
+    <Compile Include="CorrectUsageAttribute.cs" />
+    <Compile Include="LabelAttribute.cs" />
+    <Compile Include="MinArgsAttribute.cs" />
+    <Compile Include="MinGroupAttribute.cs" />
+    <Compile Include="InvokeEvent.cs" />
+    <Compile Include="PlayerInvokeEvent.cs" />
+    <Compile Include="AccessDeniedException.cs" />
+    <Compile Include="CommandException.cs" />
+    <Compile Include="SyntaxException.cs" />
+    <Compile Include="CommandService.cs" />
     <Compile Include="ParsedCommand.cs" />
     <Compile Include="Source\ExternalInvokeSource.cs" />
     <Compile Include="Source\IInvokeSource.cs" />
@@ -83,6 +83,7 @@
   <ItemGroup>
     <None Include="Key.snk" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

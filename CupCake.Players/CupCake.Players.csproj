@@ -44,31 +44,31 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Events\AddPlayerEvent.cs" />
-    <Compile Include="Events\AutoTextPlayerEvent.cs" />
-    <Compile Include="Events\CoinPlayerEvent.cs" />
-    <Compile Include="Events\CrownPlayerEvent.cs" />
-    <Compile Include="Events\FacePlayerEvent.cs" />
-    <Compile Include="Events\GodModePlayerEvent.cs" />
-    <Compile Include="Events\KillPlayerEvent.cs" />
-    <Compile Include="Events\LeftPlayerEvent.cs" />
-    <Compile Include="Events\LevelUpPlayerEvent.cs" />
-    <Compile Include="Events\MagicPlayerEvent.cs" />
-    <Compile Include="Events\ModModePlayerEvent.cs" />
-    <Compile Include="Events\MovePlayerEvent.cs" />
-    <Compile Include="Events\PotionPlayerEvent.cs" />
-    <Compile Include="Events\SayPlayerEvent.cs" />
-    <Compile Include="Events\SilverCrownPlayerEvent.cs" />
-    <Compile Include="Events\TeleportPlayerEvent.cs" />
-    <Compile Include="Events\WootUpPlayerEvent.cs" />
+    <Compile Include="AddPlayerEvent.cs" />
+    <Compile Include="AutoTextPlayerEvent.cs" />
+    <Compile Include="CoinPlayerEvent.cs" />
+    <Compile Include="CrownPlayerEvent.cs" />
+    <Compile Include="FacePlayerEvent.cs" />
+    <Compile Include="GodModePlayerEvent.cs" />
+    <Compile Include="KillPlayerEvent.cs" />
+    <Compile Include="LeftPlayerEvent.cs" />
+    <Compile Include="LevelUpPlayerEvent.cs" />
+    <Compile Include="MagicPlayerEvent.cs" />
+    <Compile Include="ModModePlayerEvent.cs" />
+    <Compile Include="MovePlayerEvent.cs" />
+    <Compile Include="PotionPlayerEvent.cs" />
+    <Compile Include="SayPlayerEvent.cs" />
+    <Compile Include="SilverCrownPlayerEvent.cs" />
+    <Compile Include="TeleportPlayerEvent.cs" />
+    <Compile Include="WootUpPlayerEvent.cs" />
     <Compile Include="Join\AddJoinArgs.cs" />
-    <Compile Include="Events\PlayerEvent.cs" />
+    <Compile Include="PlayerEvent.cs" />
     <Compile Include="Join\InitJoinArgs.cs" />
     <Compile Include="Join\JoinArgs.cs" />
     <Compile Include="Metadata\MetadataManager.cs" />
     <Compile Include="Player.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Services\PlayerService.cs" />
+    <Compile Include="PlayerService.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\CupCake.Core\CupCake.Core.csproj">

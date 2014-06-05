@@ -1,13 +1,12 @@
 ﻿using System;
 using System.ComponentModel.Composition.Hosting;
 using System.Reflection;
-using CupCake.Chat.Services;
+using CupCake.Chat;
 using CupCake.Command;
-using CupCake.Command.Services;
 using CupCake.Command.Source;
-using CupCake.Core.Platforms;
+using CupCake.Core;
 using CupCake.Host;
-using CupCake.Messages.Events.Receive;
+using CupCake.Messages.Receive;
 using CupCake.Permissions;
 using CupCake.Protocol;
 using CupCake.Server.Output;
