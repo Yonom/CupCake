@@ -93,7 +93,7 @@ namespace CupCake.Debug
             }
             catch (SocketException ex)
             {
-                throw new Exception("Problem communicating with the client, make sure it is running.", ex);
+                throw new ConnectionException("Problem communicating with the client, make sure it is running.", ex);
             }
 
             AppDomain.CurrentDomain.ExecuteAssembly(path + "\\CupCake.Server.exe", new[] { "--envpath", path, "--debug" });
