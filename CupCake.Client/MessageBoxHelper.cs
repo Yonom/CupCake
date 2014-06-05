@@ -5,9 +5,9 @@ namespace CupCake.Client
 {
     public static class MessageBoxHelper
     {
-        public static void Show(Window owner, string title, string body)
+        public static bool? Show(Window owner, string title, string body)
         {
-            new MessageBoxWindow(title, body) {Owner = owner}.ShowDialog();
+            return new MessageBoxWindow(title, body) {Owner = owner}.ShowDialog();
         }
     }
 }

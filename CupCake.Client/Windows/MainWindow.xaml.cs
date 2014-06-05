@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Specialized;
 using System.ComponentModel;
+using System.Deployment.Application;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
@@ -31,12 +32,14 @@ namespace CupCake.Client.Windows
             this.InitializeComponent();
             this.HasConnectionSelected = false;
 
+            // Disable Check for Updates if it is not supported
+            this.CheckForUpdatesMenuItem.IsEnabled = ApplicationDeployment.IsNetworkDeployed;
+
+            // Bind to the content rendered event
             ICollectionView view = CollectionViewSource.GetDefaultView(this.ConnectionsTabControl.Items);
             view.CollectionChanged += this.view_CollectionChanged;
 
             this.ContentRendered += this.MainWindow_ContentRendered;
-
-            Application.Current.Exit += this.App_Exit;
         }
 
         public RecentWorld IncomingSettings { get; set; }
@@ -70,11 +73,6 @@ namespace CupCake.Client.Windows
         {
             this.RefreshRecent();
             this.StartServer();
-        }
-
-        private void App_Exit(object sender, ExitEventArgs e)
-        {
-            SettingsManager.Save();
         }
 
         private void view_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
@@ -174,6 +172,11 @@ namespace CupCake.Client.Windows
         private void OpenDatabasesMenuItem_OnClick(object sender, RoutedEventArgs e)
         {
             Process.Start(SettingsManager.DatabasesPath);
+        }
+
+        private void CheckForUpdatesMenuItem_OnClick(object sender, RoutedEventArgs e)
+        {
+            this.CheckForUpdates();
         }
 
         private void RefreshRecent()
@@ -324,6 +327,59 @@ namespace CupCake.Client.Windows
                 this.ConnectionsTabControl.Items.Add(tabItem);
                 tabItem.IsSelected = true;
             });
+        }
+
+        private void CheckForUpdates()
+        {
+            if (ApplicationDeployment.IsNetworkDeployed)
+            {
+                ApplicationDeployment ad = ApplicationDeployment.CurrentDeployment;
+
+                UpdateCheckInfo info;
+                try
+                {
+                    info = ad.CheckForDetailedUpdate();
+                }
+                catch (DeploymentDownloadException dde)
+                {
+                    MessageBoxHelper.Show(this, "Error", "The new version of the application cannot be downloaded at this time. \n\nPlease check your network connection, or try again later. Error: " + dde.Message);
+                    return;
+                }
+                catch (InvalidDeploymentException ide)
+                {
+                    MessageBoxHelper.Show(this, "Error", "Cannot check for a new version of the application. The ClickOnce deployment is corrupt. Please redeploy the application and try again. Error: " + ide.Message);
+                    return;
+                }
+                catch (InvalidOperationException ioe)
+                {
+                    MessageBoxHelper.Show(this, "Error", "This application cannot be updated. It is likely not a ClickOnce application. Error: " + ioe.Message);
+                    return;
+                }
+
+                if (info.UpdateAvailable)
+                {
+                    var result =  MessageBoxHelper.Show(this, "Update Available", "An update is available. Press OK to update or close the window to cancel");
+
+                    if (result == true)
+                    {
+                        try
+                        {
+                            ad.Update();
+                            MessageBoxHelper.Show(this, "Update succeeded", "The application has been upgraded, and will now restart."); 
+                            System.Windows.Forms.Application.Restart();
+                            Application.Current.Shutdown();
+                        }
+                        catch (DeploymentDownloadException dde)
+                        {
+                            MessageBoxHelper.Show(this, "Update failed", "Cannot install the latest version of the application. \n\nPlease check your network connection, or try again later. Error: " + dde);
+                        }
+                    }
+                }
+                else
+                {
+                    MessageBoxHelper.Show(this, "No updates found", "You are already running the lastest version of CupCake");
+                }
+            }
         }
 
         private void NewConnection(bool showConsole, bool isDebug = false)
