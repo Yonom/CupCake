@@ -23,12 +23,12 @@ namespace CupCake.Messages
 
         internal static bool IsCoinDoor(Block id)
         {
-            return id == Block.BlockDoorCoinDoor || id == Block.BlockGateCoinGate;
+            return id == Block.DoorCoinDoor || id == Block.GateCoinGate;
         }
 
         internal static bool IsRotatable(Block id)
         {
-            return id == Block.BlockHazardSpike || id == Block.DecorationSciFi2013BlueSlope ||
+            return id == Block.HazardSpike || id == Block.DecorationSciFi2013BlueSlope ||
                    id == Block.DecorationSciFi2013BlueStraight || id == Block.DecorationSciFi2013YellowSlope ||
                    id == Block.DecorationSciFi2013YellowStraight || id == Block.DecorationSciFi2013GreenSlope ||
                    id == Block.DecorationSciFi2013GreenStraight;
@@ -36,17 +36,17 @@ namespace CupCake.Messages
 
         internal static bool IsSound(Block id)
         {
-            return id == Block.BlockMusicPiano || id == Block.BlockMusicDrum;
+            return id == Block.MusicPiano || id == Block.MusicDrum;
         }
 
         internal static bool IsPortal(Block id)
         {
-            return id == Block.BlockPortal || id == Block.BlockInvisiblePortal;
+            return id == Block.Portal || id == Block.InvisiblePortal;
         }
 
         internal static bool IsWorldPortal(Block id)
         {
-            return id == Block.BlockWorldPortal;
+            return id == Block.WorldPortal;
         }
 
         internal static bool IsLabel(Block id)

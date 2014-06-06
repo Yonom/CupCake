@@ -44,7 +44,7 @@ namespace CupCake.World
                 }
             }
 
-            WorldBlock[,,] worldArray = GetEmptyWorld(sizeX, sizeY, Block.BlockGravityNothing, Block.BlockGravityNothing);
+            WorldBlock[,,] worldArray = GetEmptyWorld(sizeX, sizeY, Block.GravityNothing, Block.GravityNothing);
 
             uint pointer = start;
             do
@@ -62,8 +62,8 @@ namespace CupCake.World
 
                 switch (block1)
                 {
-                    case Block.BlockDoorCoinDoor:
-                    case Block.BlockGateCoinGate:
+                    case Block.DoorCoinDoor:
+                    case Block.GateCoinGate:
                         int coinsToCollect = m.GetInteger(pointer);
                         pointer += 1u;
 

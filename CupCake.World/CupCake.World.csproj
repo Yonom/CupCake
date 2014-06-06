@@ -51,13 +51,7 @@
     <Compile Include="BlockPlaceEvent.cs" />
     <Compile Include="BlockType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Blocks\WorldBlock.cs" />
-    <Compile Include="Blocks\WorldCoinDoorBlock.cs" />
-    <Compile Include="Blocks\WorldLabelBlock.cs" />
-    <Compile Include="Blocks\WorldPortalBlock.cs" />
-    <Compile Include="Blocks\WorldRotatableBlock.cs" />
-    <Compile Include="Blocks\WorldSoundBlock.cs" />
-    <Compile Include="Blocks\WorldWorldPortalBlock.cs" />
+    <Compile Include="WorldBlock.cs" />
     <Compile Include="WorldService.cs" />
   </ItemGroup>
   <ItemGroup>

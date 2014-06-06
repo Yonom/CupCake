@@ -2,7 +2,7 @@ namespace CupCake.Messages.Blocks
 {
     public enum RotatableBlock
     {
-        BlockHazardSpike = Block.BlockHazardSpike,
+        BlockHazardSpike = Block.HazardSpike,
 
         DecorationSciFi2013BlueSlope = Block.DecorationSciFi2013BlueSlope,
         DecorationSciFi2013BlueStraight = Block.DecorationSciFi2013BlueStraight,
