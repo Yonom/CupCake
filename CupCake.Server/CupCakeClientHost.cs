@@ -58,6 +58,7 @@ namespace CupCake.Server
 
             var eventsPlatform = this._client.PlatformLoader.Get<EventsPlatform>();
             eventsPlatform.Event<CupCakeOutputEvent>().Bind(this.OnCupCakeOutput);
+            eventsPlatform.Event<InitReceiveEvent>().Bind(this.OnInit);
             eventsPlatform.Event<UpdateMetaReceiveEvent>().Bind(this.OnUpdateMeta);
         }
 
@@ -72,6 +73,11 @@ namespace CupCake.Server
         }
 
         private void OnUpdateMeta(object sender, UpdateMetaReceiveEvent e)
+        {
+            this.OnTitle(e.WorldName);
+        }
+
+        private void OnInit(object sender, InitReceiveEvent e)
         {
             this.OnTitle(e.WorldName);
         }
