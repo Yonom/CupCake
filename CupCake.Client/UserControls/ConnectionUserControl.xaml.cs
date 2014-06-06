@@ -31,6 +31,13 @@ namespace CupCake.Client.UserControls
             this._handle.DoSendClose();
         }
 
+        public void RemoveTab()
+        {
+            var parent = (TabItem)this.Parent;
+            var parentParent = (TabControl)parent.Parent;
+            parentParent.Items.Remove(parent);
+        }
+
         public void Clear()
         {
             this.OutputTextBox.Text = "--- Log Cleared ---";

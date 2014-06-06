@@ -285,6 +285,17 @@ namespace CupCake.Client.Windows
             {
                 this.ConnectionCount++;
 
+                var userControl = new ConnectionUserControl(handle);
+                var tabItem = new TabItem
+                {
+                    Header = String.Empty.GetVisualName(),
+                    Content = userControl
+                };
+                
+                this.ConnectionsTabControl.Items.Add(tabItem);
+                tabItem.IsSelected = true;
+
+
                 handle.ReceiveClose += () => Dispatch.Invoke(() => { this.ConnectionCount--; });
 
                 handle.ReceiveRequestData += data => Dispatch.Invoke(() =>
@@ -310,22 +321,13 @@ namespace CupCake.Client.Windows
                     }
                     else
                     {
-                        handle.DoSendClose();
+                        userControl.RemoveTab();
                     }
 
                     recent.UpdateId();
                     SettingsManager.Save();
                     this.RefreshRecent();
                 });
-
-                var tabItem = new TabItem
-                {
-                    Header = String.Empty.GetVisualName(),
-                    Content = new ConnectionUserControl(handle)
-                };
-
-                this.ConnectionsTabControl.Items.Add(tabItem);
-                tabItem.IsSelected = true;
             });
         }
 
