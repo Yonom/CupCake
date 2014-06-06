@@ -29,11 +29,11 @@ namespace CupCake.Protocol
 
         public EndPoint EndPoint { get; private set; }
 
-        public event Action<Stream> DebugRequest;
+        public event Action<Stream> PathRequest;
 
-        protected virtual void OnDebugRequest(Stream stream)
+        protected virtual void OnPathRequest(Stream stream)
         {
-            Action<Stream> handler = this.DebugRequest;
+            Action<Stream> handler = this.PathRequest;
             if (handler != null) handler(stream);
         }
 
@@ -64,9 +64,9 @@ namespace CupCake.Protocol
 
                         callback(client, stream);
                     }
-                    else if (cmd == Message.RequestDebug)
+                    else if (cmd == Message.RequestPath)
                     {
-                        this.OnDebugRequest(stream);
+                        this.OnPathRequest(stream);
                     }
                 }
             }

@@ -259,7 +259,7 @@ namespace CupCake.Client.Windows
             {
                 // Start the server
                 this._listener = new ServerListener(IPAddress.Loopback, ServerListener.ServerPort, this.HandleIncoming);
-                this._listener.DebugRequest += this._listener_DebugRequest;
+                this._listener.PathRequest += this.ListenerPathRequest;
             }
             catch (SocketException ex)
             {
@@ -269,7 +269,7 @@ namespace CupCake.Client.Windows
             }
         }
 
-        private void _listener_DebugRequest(Stream obj)
+        private void ListenerPathRequest(Stream obj)
         {
             string str = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
             if (str != null)

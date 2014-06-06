@@ -14,14 +14,14 @@ namespace CupCake.Protocol
         public ServerListener(IPAddress ipAddress, int port, Action<ClientHandle> onConnection)
         {
             this._listener = new CupCakeListener(ipAddress, port, (c, s) => this.Handleconnection(c, s, onConnection));
-            this._listener.DebugRequest += this.OnDebugRequest;
+            this._listener.PathRequest += this.OnPathRequest;
         }
 
-        public event Action<Stream> DebugRequest;
+        public event Action<Stream> PathRequest;
 
-        protected virtual void OnDebugRequest(Stream stream)
+        protected virtual void OnPathRequest(Stream stream)
         {
-            Action<Stream> handler = this.DebugRequest;
+            Action<Stream> handler = this.PathRequest;
             if (handler != null) handler(stream);
         }
 

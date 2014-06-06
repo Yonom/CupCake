@@ -9,7 +9,7 @@
         Output = 0x21,
         Title = 0x22,
         Hello = 0xE0,
-        RequestDebug = 0xE1,
+        RequestPath = 0xE1,
         WrongAuth = 0xF0,
     }
 }
