@@ -223,7 +223,7 @@ namespace CupCake.Upload
 
         private bool IsUploaded(IBlockPlaceSendEvent e)
         {
-            return (this._world[e.Layer, e.X, e.Y] == e);
+            return (this._world[e.Layer, e.X, e.Y].IsSame(e));
         }
 
         public void ClearQueue()

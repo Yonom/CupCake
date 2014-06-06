@@ -7,7 +7,6 @@ namespace CupCake.World
 {
     public class WorldBlock
     {
-        private readonly Block _block;
         private BlockData _data;
         public Layer Layer { get; set; }
         public int X { get; set; }
@@ -24,14 +23,14 @@ namespace CupCake.World
                 return _data.Text;
             }
         }
-        public string WorldPortalWorldId
+        public string WorldPortalTarget
         {
             get
             {
                 if (this.BlockType != BlockType.WorldPortal)
                     throw new InvalidOperationException("This property can only be accessed on WorldPortal blocks.");
 
-                return _data.WorldPortalWorldId;
+                return _data.WorldPortalTarget;
             }
         }
         public int CoinsToCollect
@@ -178,40 +177,76 @@ namespace CupCake.World
 
             this._data = new BlockData
             {
-                WorldPortalWorldId = worldId
+                WorldPortalTarget = worldId
             };
         }
 
-
-        public static bool operator ==(WorldBlock a, IBlockPlaceSendEvent b)
-        {
-            if (((object)a == null) || (b == null))
-            {
-                return false;
-            }
-
-            return a.Equals(b);
-        }
-
-        public static bool operator !=(WorldBlock a, IBlockPlaceSendEvent b)
-        {
-            return !(a == b);
-        }
-
-        protected virtual bool Equals(IBlockPlaceSendEvent other)
+        public bool IsSame(IBlockPlaceSendEvent other)
         {
             if (other == null)
             {
                 return false;
             }
 
-            return this.Block == other.Block;
+            bool result = this.Block == other.Block;
+
+            if (other is BlockPlaceSendEvent)
+            {
+                return result;
+            }
+            var coinEvent = other as CoinDoorPlaceSendEvent;
+            if (coinEvent != null)
+            {
+                if (this._data.CoinsToCollect != coinEvent.CoinsToCollect)
+                    result = false;
+                return result;
+            }
+            var labelEvent = other as LabelPlaceSendEvent;
+            if (labelEvent != null)
+            {
+                if (this._data.Text != labelEvent.Text)
+                    result = false;
+                return result;
+            }
+            var worldPortalEvent = other as WorldPortalPlaceSendEvent;
+            if (worldPortalEvent != null)
+            {
+                if (this._data.WorldPortalTarget != worldPortalEvent.WorldPortalTarget)
+                    result = false;
+                return result;
+            }
+            var rotatableEvent = other as RotatablePlaceSendEvent;
+            if (rotatableEvent != null)
+            {
+                if (this._data.Rotation != rotatableEvent.Rotation)
+                    result = false;
+                return result;
+            }
+            var soundEvent = other as SoundPlaceSendEvent;
+            if (soundEvent != null)
+            {
+                if (this._data.SoundId != soundEvent.SoundId)
+                    result = false;
+                return result;
+            }
+            var portalEvent = other as PortalPlaceSendEvent;
+            if (portalEvent != null)
+            {
+                if (this._data.PortalId != portalEvent.PortalId ||
+                    this._data.PortalTarget != portalEvent.PortalTarget ||
+                    this._data.PortalRotation != portalEvent.PortalRotation)
+                    result = false;
+
+                return result;
+            }
+
+            throw new NotSupportedException("The given send message is not supported.");
         }
 
         private struct BlockData
         {
             internal string Text { get; set; }
-            internal string WorldPortalWorldId { get; set; }
+            internal string WorldPortalTarget { get; set; }
             internal int CoinsToCollect { get; set; }
             internal int PortalId { get; set; }
             internal int PortalTarget { get; set; }
