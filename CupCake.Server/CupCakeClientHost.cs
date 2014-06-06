@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel.Composition.Hosting;
+using System.Linq;
 using System.Reflection;
 using CupCake.Chat;
 using CupCake.Command;
@@ -65,6 +66,8 @@ namespace CupCake.Server
         private void ServiceLoader_EnableComplete(object sender, EventArgs e)
         {
             this._client.ServiceLoader.Get<ChatService>().ChatSyntaxProvider = new CupCakeChatSyntaxProvider();
+            
+            this.LogMessage("Enabling plugins...");
         }
 
         private void OnCupCakeOutput(object sender, CupCakeOutputEvent e)
@@ -85,8 +88,13 @@ namespace CupCake.Server
         private void connection_OnDisconnect(object sender, string message)
         {
             this._client.Dispose();
-            this.OnOutput("*** Disconnected from Everybody Edits ***");
+            this.LogMessage("Disconnected from Everybody Edits");
             Environment.Exit(1);
+        }
+
+        private void LogMessage(string str)
+        {
+            this.OnOutput(String.Format("*** {0} ***", str));
         }
 
         public void Start(AccountType accType, string email, string password, string roomId, string[] directories,
@@ -95,18 +103,24 @@ namespace CupCake.Server
             this._dbType = dbType;
             this._cs = cs;
 
+            this.LogMessage("Logging in...");
             // Connect to playerIO
             Client playerioclient = accType == AccountType.Regular
                 ? PlayerIO.QuickConnect.SimpleConnect(GameId, email, password)
                 : PlayerIO.QuickConnect.FacebookOAuthConnect(GameId, email, String.Empty);
 
+            this.LogMessage("Login successful. Getting room version...");
             int version = RoomHelper.GetVersion();
             string roomType = RoomHelper.GetRoomType(roomId, version);
+
+
+            this.LogMessage("Done. Joining room...");
             Connection connection = playerioclient.Multiplayer.CreateJoinRoom(roomId, roomType, true, null, null);
             connection.OnDisconnect += this.connection_OnDisconnect;
 
             this._client = new CupCakeClient(connection, new AssemblyCatalog(Assembly.GetExecutingAssembly()));
 
+            this.LogMessage("Join complete. Loading plugin dlls...");
             foreach (string dir in directories)
             {
                 this._client.AggregateCatalog.Catalogs.Add(new DirectoryCatalog(dir));
@@ -114,7 +128,22 @@ namespace CupCake.Server
 
             this._client.PlatformLoader.EnableComplete += this.PlatformLoader_EnableComplete;
             this._client.ServiceLoader.EnableComplete += this.ServiceLoader_EnableComplete;
+            
+            this.LogMessage("Setting up the plugin enviornment...");
             this._client.Start();
+            this.LogMessage("All setup.");
+            this.LogMessage(String.Format("Welcome to CupCake! (API version: {0})", this.GetVersion()));
+        }
+
+        private string GetVersion()
+        {
+            var attribute =
+                (AssemblyInformationalVersionAttribute)Assembly.GetAssembly(typeof(CupCakeClient))
+                    .GetCustomAttributes(typeof(AssemblyInformationalVersionAttribute), false).FirstOrDefault();
+
+            if (attribute != null)
+                return attribute.InformationalVersion;
+            return "Unknown!";
         }
     }
 }
