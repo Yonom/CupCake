@@ -118,7 +118,7 @@ namespace CupCake.Players
         }
 
         private void BindPlayerEvent<T, TPlayer>(EventHandler<T> callback)
-            where T : Event, IUserEvent
+            where T : Event, IUserReceiveEvent
             where TPlayer : PlayerEvent<T>
         {
             this.Events.Bind<T>(

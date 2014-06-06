@@ -3,7 +3,7 @@ using PlayerIOClient;
 
 namespace CupCake.Messages.Receive
 {
-    public class BlockPlaceReceiveEvent : ReceiveEvent
+    public sealed class BlockPlaceReceiveEvent : ReceiveEvent, IBlockPlaceReceiveEvent
     {
         public BlockPlaceReceiveEvent(Message message)
             : base(message)
@@ -14,14 +14,14 @@ namespace CupCake.Messages.Receive
             this.Block = (Block)message.GetInteger(3);
         }
 
-        protected BlockPlaceReceiveEvent(Message message, Layer layer, int posX, int posY, Block block)
-            : base(message)
-        {
-            this.Layer = layer;
-            this.PosX = posX;
-            this.PosY = posY;
-            this.Block = block;
-        }
+        //protected BlockPlaceReceiveEvent(Message message, Layer layer, int posX, int posY, Block block)
+        //    : base(message)
+        //{
+        //    this.Layer = layer;
+        //    this.PosX = posX;
+        //    this.PosY = posY;
+        //    this.Block = block;
+        //}
 
         public Block Block { get; set; }
         public Layer Layer { get; set; }

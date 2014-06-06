@@ -2,7 +2,7 @@ using PlayerIOClient;
 
 namespace CupCake.Messages.Receive
 {
-    public class InitReceiveEvent : ReceiveEvent, IUserPosEvent
+    public class InitReceiveEvent : ReceiveEvent, IUserPosReceiveEvent
     {
         public InitReceiveEvent(Message message)
             : base(message)
@@ -44,14 +44,16 @@ namespace CupCake.Messages.Receive
         public string WorldName { get; set; }
         public int UserId { get; set; }
 
-        int IUserPosEvent.UserPosX
+        int IUserPosReceiveEvent.UserPosX
         {
             get { return this.SpawnX; }
+            set { this.SpawnX = value; }
         }
 
-        int IUserPosEvent.UserPosY
+        int IUserPosReceiveEvent.UserPosY
         {
             get { return this.SpawnY; }
+            set { this.SpawnY = value; }
         }
     }
 }

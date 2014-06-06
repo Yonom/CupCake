@@ -2,7 +2,7 @@ using PlayerIOClient;
 
 namespace CupCake.Messages.Receive
 {
-    public class MoveReceiveEvent : ReceiveEvent, IUserPosEvent
+    public class MoveReceiveEvent : ReceiveEvent, IUserPosReceiveEvent
     {
         public MoveReceiveEvent(Message message)
             : base(message)

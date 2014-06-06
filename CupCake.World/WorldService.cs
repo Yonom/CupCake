@@ -239,7 +239,7 @@ namespace CupCake.World
 
         private void OnCoinDoorPlace(object sender, CoinDoorPlaceReceiveEvent e)
         {
-            var block = new WorldCoinDoorBlock(e.CoinDoorBlock, e.CoinsToOpen);
+            var block = new WorldCoinDoorBlock(e.Block, e.CoinsToOpen);
             this._blocks[(int)e.Layer, e.PosX, e.PosY] = block;
 
             this.Events.Raise(new BlockPlaceEvent(e.PosX, e.PosY, e.Layer, block));
@@ -247,7 +247,7 @@ namespace CupCake.World
 
         private void OnLabelPlace(object sender, LabelPlaceReceiveEvent e)
         {
-            var block = new WorldLabelBlock(e.LabelBlock, e.Text);
+            var block = new WorldLabelBlock(e.Block, e.Text);
             this._blocks[(int)e.Layer, e.PosX, e.PosY] = block;
 
             this.Events.Raise(new BlockPlaceEvent(e.PosX, e.PosY, e.Layer, block));
@@ -255,7 +255,7 @@ namespace CupCake.World
 
         private void OnPortalPlace(object sender, PortalPlaceReceiveEvent e)
         {
-            var block = new WorldPortalBlock(e.PortalBlock, e.PortalRotation, e.PortalId, e.PortalTarget);
+            var block = new WorldPortalBlock(e.Block, e.PortalRotation, e.PortalId, e.PortalTarget);
             this._blocks[(int)e.Layer, e.PosX, e.PosY] = block;
 
             this.Events.Raise(new BlockPlaceEvent(e.PosX, e.PosY, e.Layer, block));
@@ -263,7 +263,7 @@ namespace CupCake.World
 
         private void OnWorldPortalPlace(object sender, WorldPortalPlaceReceiveEvent e)
         {
-            var block = new WorldWorldPortalBlock(e.WorldPortalBlock, e.WorldPortalTarget);
+            var block = new WorldWorldPortalBlock(e.Block, e.WorldPortalTarget);
             this._blocks[(int)e.Layer, e.PosX, e.PosY] = block;
 
             this.Events.Raise(new BlockPlaceEvent(e.PosX, e.PosY, e.Layer, block));
@@ -271,7 +271,7 @@ namespace CupCake.World
 
         private void OnSoundPlace(object sender, SoundPlaceReceiveEvent e)
         {
-            var block = new WorldSoundBlock(e.SoundBlock, e.SoundId);
+            var block = new WorldSoundBlock(e.Block, e.SoundId);
             this._blocks[(int)e.Layer, e.PosX, e.PosY] = block;
 
             this.Events.Raise(new BlockPlaceEvent(e.PosX, e.PosY, e.Layer, block));
@@ -279,7 +279,7 @@ namespace CupCake.World
 
         private void OnRotatablePlace(object sender, RotatablePlaceReceiveEvent e)
         {
-            var block = new WorldRotatableBlock(e.RotatableBlock, e.Rotation);
+            var block = new WorldRotatableBlock(e.Block, e.Rotation);
             this._blocks[(int)e.Layer, e.PosX, e.PosY] = block;
 
             this.Events.Raise(new BlockPlaceEvent(e.PosX, e.PosY, e.Layer, block));

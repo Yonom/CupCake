@@ -3,7 +3,7 @@ using PlayerIOClient;
 
 namespace CupCake.Messages.Send
 {
-    public class TouchUserSendEvent : SendEvent, IUserEvent
+    public class TouchUserSendEvent : SendEvent
     {
         public TouchUserSendEvent(int userId, Potion reason)
         {

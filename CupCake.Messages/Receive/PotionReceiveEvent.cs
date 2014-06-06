@@ -3,7 +3,7 @@ using PlayerIOClient;
 
 namespace CupCake.Messages.Receive
 {
-    public class PotionReceiveEvent : ReceiveEvent, IUserEvent
+    public class PotionReceiveEvent : ReceiveEvent, IUserReceiveEvent
     {
         public PotionReceiveEvent(Message message)
             : base(message)

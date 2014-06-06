@@ -46,6 +46,7 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Receive\IBlockPlaceReceiveEvent.cs" />
     <Compile Include="User\AccessRight.cs" />
     <Compile Include="Blocks\Block.cs" />
     <Compile Include="Blocks\BlockType.cs" />
@@ -62,8 +63,8 @@
     <Compile Include="Blocks\SoundBlock.cs" />
     <Compile Include="Blocks\SpikeRotation.cs" />
     <Compile Include="Blocks\WorldPortalBlock.cs" />
-    <Compile Include="IUserEvent.cs" />
-    <Compile Include="IUserPosEvent.cs" />
+    <Compile Include="Receive\IUserReceiveEvent.cs" />
+    <Compile Include="Receive\IUserPosReceiveEvent.cs" />
     <Compile Include="Receive\AccessReceiveEvent.cs" />
     <Compile Include="Receive\AddReceiveEvent.cs" />
     <Compile Include="Receive\AllowPotionsReceiveEvent.cs" />
