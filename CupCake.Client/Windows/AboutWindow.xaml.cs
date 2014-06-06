@@ -1,4 +1,5 @@
-﻿using System.Reflection;
+﻿using System.Deployment.Application;
+using System.Reflection;
 
 namespace CupCake.Client.Windows
 {
@@ -11,7 +12,9 @@ namespace CupCake.Client.Windows
         {
             this.InitializeComponent();
 
-            this.VersionRun.Text = Assembly.GetExecutingAssembly().GetName().Version.ToString();
+            this.VersionRun.Text = ApplicationDeployment.IsNetworkDeployed
+                ? ApplicationDeployment.CurrentDeployment.CurrentVersion.ToString()
+                : "Debug";
         }
     }
 }
