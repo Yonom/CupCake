@@ -95,7 +95,8 @@ namespace CupCake
             }
             catch (AccessDeniedException)
             {
-                source.Reply("You are not allowed to run this command!");
+                if (source.Group >= CommandService.ResponseMinGroup)
+                    source.Reply("You are not allowed to run this command!");
             }
             catch (SyntaxException ex)
             {
