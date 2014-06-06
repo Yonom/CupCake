@@ -13,6 +13,8 @@ using CupCake.Room;
 using CupCake.Upload;
 using CupCake.World;
 using MuffinFramework.Muffins;
+using Nito.Async;
+using Timer = System.Timers.Timer;
 
 namespace CupCake
 {
@@ -137,6 +139,11 @@ namespace CupCake
         protected CommandService CommandService
         {
             get { return this._commandService.Value; }
+        }
+
+        protected Timer GetTimer(int interval)
+        {
+            return new Timer(interval) { SynchronizingObject = new GenericSynchronizingObject() };
         }
 
         protected virtual string GetName()
