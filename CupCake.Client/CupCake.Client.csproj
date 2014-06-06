@@ -279,6 +279,10 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\CupCake.DefaultCommands\CupCake.DefaultCommands.csproj">
+      <Project>{e5fc97af-27cb-44b8-a16a-8a691dd78ccd}</Project>
+      <Name>CupCake.DefaultCommands</Name>
+    </ProjectReference>
     <ProjectReference Include="..\CupCake.Protocol\CupCake.Protocol.csproj">
       <Project>{e68a7dbd-97db-43ee-9392-52d86822e8e3}</Project>
       <Name>CupCake.Protocol</Name>

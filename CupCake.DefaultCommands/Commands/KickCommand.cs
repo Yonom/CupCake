@@ -1,5 +1,6 @@
 ﻿using CupCake.Command;
 using CupCake.Command.Source;
+using CupCake.Messages.User;
 using CupCake.Permissions;
 using CupCake.Players;
 
@@ -13,8 +14,10 @@ namespace CupCake.DefaultCommands.Commands
         [CorrectUsage("player [reason]")]
         protected override void Run(IInvokeSource source, ParsedCommand message)
         {
-            Player player = this.PlayerService.MatchPlayer(message.Args[0]);
+            if (RoomService.AccessRight < AccessRight.Owner)
+                throw new CommandException("Bot must be world owner to be able to kick.");
 
+            Player player = this.PlayerService.MatchPlayer(message.Args[0]);
             if (player.GetGroup() > source.Group)
                 throw new CommandException("You may not kick a player with a higher rank.");
 

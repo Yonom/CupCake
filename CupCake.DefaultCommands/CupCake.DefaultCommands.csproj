@@ -50,6 +50,10 @@
       <Project>{598d616c-4886-482b-af57-7bc7daa56cce}</Project>
       <Name>CupCake.Core</Name>
     </ProjectReference>
+    <ProjectReference Include="..\CupCake.Messages\CupCake.Messages.csproj">
+      <Project>{4746f723-ee77-4434-983c-02d1dd1bd982}</Project>
+      <Name>CupCake.Messages</Name>
+    </ProjectReference>
     <ProjectReference Include="..\CupCake.Permissions\CupCake.Permissions.csproj">
       <Project>{dd7dc89b-6824-4990-8955-d1ade39eb77c}</Project>
       <Name>CupCake.Permissions</Name>
@@ -57,6 +61,10 @@
     <ProjectReference Include="..\CupCake.Players\CupCake.Players.csproj">
       <Project>{d9df7c76-4de4-4270-bca6-cba724e639ae}</Project>
       <Name>CupCake.Players</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CupCake.Room\CupCake.Room.csproj">
+      <Project>{f040f4fa-1a86-4417-b7a2-0ec04095f886}</Project>
+      <Name>CupCake.Room</Name>
     </ProjectReference>
     <ProjectReference Include="..\CupCake\CupCake.csproj">
       <Project>{7c7bf5b3-db13-4672-ae6f-2ead4c2270b6}</Project>
