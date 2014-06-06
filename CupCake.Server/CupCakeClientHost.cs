@@ -92,7 +92,7 @@ namespace CupCake.Server
 
         private void LogMessage(string str)
         {
-            this.OnOutput(String.Format("*** {0} ***", str));
+            this.OnOutput(String.Format("*** {0}", str));
         }
 
         public void Start(AccountType accType, string email, string password, string roomId, string[] directories,
