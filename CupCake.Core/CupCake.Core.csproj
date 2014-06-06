@@ -60,6 +60,7 @@
     <Compile Include="ConnectionPlatform.cs" />
     <Compile Include="EventsPlatform.cs" />
     <Compile Include="LogPlatform.cs" />
+    <Compile Include="Metadata\MetadataManager.cs" />
     <Compile Include="StoragePlatform.cs" />
     <Compile Include="SynchronizePlatform.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

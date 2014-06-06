@@ -2,12 +2,12 @@
 using System.Diagnostics;
 using CupCake.Core;
 using CupCake.Core.Events;
+using CupCake.Core.Metadata;
 using CupCake.Messages;
 using CupCake.Messages.Blocks;
 using CupCake.Messages.Receive;
 using CupCake.Messages.User;
 using CupCake.Players.Join;
-using CupCake.Players.Metadata;
 
 namespace CupCake.Players
 {

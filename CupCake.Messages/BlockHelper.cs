@@ -10,7 +10,7 @@ namespace CupCake.Messages
     {
         internal static Layer CorrectLayer(Block id, Layer layer)
         {
-            if ((id > 0 && (int)id < 500) || id == Block.DecorationLabel)
+            if ((id > 0 && (int)id < 500) || id == Block.DecorLabel)
             {
                 return Layer.Foreground;
             }
@@ -28,10 +28,10 @@ namespace CupCake.Messages
 
         internal static bool IsRotatable(Block id)
         {
-            return id == Block.HazardSpike || id == Block.DecorationSciFi2013BlueSlope ||
-                   id == Block.DecorationSciFi2013BlueStraight || id == Block.DecorationSciFi2013YellowSlope ||
-                   id == Block.DecorationSciFi2013YellowStraight || id == Block.DecorationSciFi2013GreenSlope ||
-                   id == Block.DecorationSciFi2013GreenStraight;
+            return id == Block.HazardSpike || id == Block.DecorSciFi2013BlueSlope ||
+                   id == Block.DecorSciFi2013BlueStraight || id == Block.DecorSciFi2013YellowSlope ||
+                   id == Block.DecorSciFi2013YellowStraight || id == Block.DecorSciFi2013GreenSlope ||
+                   id == Block.DecorSciFi2013GreenStraight;
         }
 
         internal static bool IsSound(Block id)
@@ -51,7 +51,7 @@ namespace CupCake.Messages
 
         internal static bool IsLabel(Block id)
         {
-            return id == Block.DecorationSign || id == Block.DecorationLabel;
+            return id == Block.DecorSign || id == Block.DecorLabel;
         }
     }
 }

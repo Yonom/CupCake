@@ -1,10 +1,9 @@
+using System.Runtime.Remoting.Metadata;
 using CupCake.Core;
 using CupCake.Core.Events;
 using CupCake.Messages.Blocks;
 using CupCake.Messages.Receive;
-using CupCake.World.Blocks;
 using PlayerIOClient;
-using WorldPortalBlock = CupCake.World.Blocks.WorldPortalBlock;
 
 namespace CupCake.World
 {
@@ -34,125 +33,122 @@ namespace CupCake.World
 
         private static WorldBlock[,,] ParseWorld(Message m, int sizeX, int sizeY, uint offset)
         {
+            // Find the start of the world
             uint start = 0;
-            for (uint i = offset; i <= m.Count - 1u; i++)
+            for (uint i = offset; i <= m.Count - 1; i++)
             {
                 if (m[i] as string != null && m.GetString(i) == "ws")
                 {
-                    start = i + 1u;
+                    start = i + 1;
                     break;
                 }
             }
 
+            // Generate an empty world
             WorldBlock[,,] worldArray = GetEmptyWorld(sizeX, sizeY, Block.GravityNothing, Block.GravityNothing);
 
+            // Parse the world data
             uint pointer = start;
             do
             {
+                // Exit once we reached the end
                 if (m[pointer] as string != null && m.GetString(pointer) == "we")
-                {
                     break;
-                }
 
-                var block1 = (Block)m.GetInteger(pointer);
-                var layer = (Layer)m.GetInteger(pointer + 1u);
-                byte[] byteArrayX = m.GetByteArray(pointer + 2u);
-                byte[] byteArrayY = m.GetByteArray(pointer + 3u);
-                pointer += 4u;
+                var block = (Block)m.GetInteger(pointer);
+                int l = m.GetInteger(pointer + 1);
+                byte[] byteArrayX = m.GetByteArray(pointer + 2);
+                byte[] byteArrayY = m.GetByteArray(pointer + 3);
+                pointer += 4;
 
-                switch (block1)
+                switch (block)
                 {
                     case Block.DoorCoinDoor:
                     case Block.GateCoinGate:
                         int coinsToCollect = m.GetInteger(pointer);
-                        pointer += 1u;
+                        pointer += 1;
 
                         for (int i = 0; i <= byteArrayX.Length - 1; i += 2)
                         {
-                            worldArray[
-                                (int)layer, byteArrayX[i] * 256 + byteArrayX[i + 1],
-                                byteArrayY[i] * 256 + byteArrayY[i + 1]] = new WorldCoinDoorBlock(
-                                    (CoinDoorBlock)block1, coinsToCollect);
+                            var x = byteArrayX[i] * 256 + byteArrayX[i + 1];
+                            var y = byteArrayY[i] * 256 + byteArrayY[i + 1];
+                            worldArray[l, x, y].SetCoinDoor((CoinDoorBlock)block, coinsToCollect);
                         }
 
 
                         break;
-                    case Block.BlockMusicPiano:
-                    case Block.BlockMusicDrum:
+                    case Block.MusicPiano:
+                    case Block.MusicDrum:
                         int soundId = m.GetInteger(pointer);
-                        pointer += 1u;
+                        pointer += 1;
 
                         for (int i = 0; i <= byteArrayX.Length - 1; i += 2)
                         {
-                            worldArray[
-                                (int)layer, byteArrayX[i] * 256 + byteArrayX[i + 1],
-                                byteArrayY[i] * 256 + byteArrayY[i + 1]] = new WorldSoundBlock((SoundBlock)block1,
-                                    soundId);
+                            var x = byteArrayX[i] * 256 + byteArrayX[i + 1];
+                            var y = byteArrayY[i] * 256 + byteArrayY[i + 1];
+                            worldArray[l, x, y].SetSound((SoundBlock)block, soundId);
                         }
 
 
                         break;
-                    case Block.BlockHazardSpike:
-                    case Block.DecorationSciFi2013BlueSlope:
-                    case Block.DecorationSciFi2013BlueStraight:
-                    case Block.DecorationSciFi2013YellowSlope:
-                    case Block.DecorationSciFi2013YellowStraight:
-                    case Block.DecorationSciFi2013GreenSlope:
-                    case Block.DecorationSciFi2013GreenStraight:
+                    case Block.HazardSpike:
+                    case Block.DecorSciFi2013BlueSlope:
+                    case Block.DecorSciFi2013BlueStraight:
+                    case Block.DecorSciFi2013YellowSlope:
+                    case Block.DecorSciFi2013YellowStraight:
+                    case Block.DecorSciFi2013GreenSlope:
+                    case Block.DecorSciFi2013GreenStraight:
                         int rotation = m.GetInteger(pointer);
-                        pointer += 1u;
+                        pointer += 1;
 
                         for (int i = 0; i <= byteArrayX.Length - 1; i += 2)
                         {
-                            worldArray[
-                                (int)layer, byteArrayX[i] * 256 + byteArrayX[i + 1],
-                                byteArrayY[i] * 256 + byteArrayY[i + 1]] =
-                                new WorldRotatableBlock((RotatableBlock)block1, rotation);
+                            var x = byteArrayX[i] * 256 + byteArrayX[i + 1];
+                            var y = byteArrayY[i] * 256 + byteArrayY[i + 1];
+                            worldArray[l, x, y].SetRotatable((RotatableBlock)block, rotation);
                         }
 
 
                         break;
-                    case Block.BlockPortal:
-                    case Block.BlockInvisiblePortal:
+                    case Block.Portal:
+                    case Block.InvisiblePortal:
                         var portalRotation = (PortalRotation)m.GetInteger(pointer);
                         int portalId = m.GetInteger(pointer + 1u);
                         int portalTarget = m.GetInteger(pointer + 2u);
-                        pointer += 3u;
+                        pointer += 3;
 
                         for (int i = 0; i <= byteArrayX.Length - 1; i += 2)
                         {
-                            worldArray[
-                                (int)layer, byteArrayX[i] * 256 + byteArrayX[i + 1],
-                                byteArrayY[i] * 256 + byteArrayY[i + 1]] = new WorldPortalBlock((PortalBlock)block1,
-                                    portalRotation, portalId, portalTarget);
+                            var x = byteArrayX[i] * 256 + byteArrayX[i + 1];
+                            var y = byteArrayY[i] * 256 + byteArrayY[i + 1];
+                            worldArray[l, x, y].SetPortal((PortalBlock)block, portalId, portalTarget, portalRotation);
                         }
 
 
                         break;
-                    case Block.BlockWorldPortal:
+                    case Block.WorldPortal:
                         string worldPortalTarget = m.GetString(pointer);
-                        pointer += 1u;
+                        pointer += 1;
 
                         for (int i = 0; i <= byteArrayX.Length - 1; i += 2)
                         {
-                            worldArray[
-                                (int)layer, byteArrayX[i] * 256 + byteArrayX[i + 1],
-                                byteArrayY[i] * 256 + byteArrayY[i + 1]] =
-                                new WorldWorldPortalBlock((Messages.Blocks.WorldPortalBlock)block1, worldPortalTarget);
+                            var x = byteArrayX[i] * 256 + byteArrayX[i + 1];
+                            var y = byteArrayY[i] * 256 + byteArrayY[i + 1];
+                            worldArray[l, x, y].SetWorldPortal((WorldPortalBlock)block, worldPortalTarget);
                         }
 
 
                         break;
-                    case Block.DecorationSign:
-                    case Block.DecorationLabel:
+                    case Block.DecorSign:
+                    case Block.DecorLabel:
                         string text = m.GetString(pointer);
-                        pointer += 1u;
+                        pointer += 1;
 
                         for (int i = 0; i <= byteArrayX.Length - 1; i += 2)
                         {
-                            worldArray[
-                                (int)layer, byteArrayX[i] * 256 + byteArrayX[i + 1],
-                                byteArrayY[i] * 256 + byteArrayY[i + 1]] = new WorldLabelBlock((LabelBlock)block1, text);
+                            var x = byteArrayX[i] * 256 + byteArrayX[i + 1];
+                            var y = byteArrayY[i] * 256 + byteArrayY[i + 1];
+                            worldArray[l, x, y].SetLabel((LabelBlock)block, text);
                         }
 
 
@@ -160,9 +156,9 @@ namespace CupCake.World
                     default:
                         for (int i = 0; i <= byteArrayX.Length - 1; i += 2)
                         {
-                            worldArray[
-                                (int)layer, byteArrayX[i] * 256 + byteArrayX[i + 1],
-                                byteArrayY[i] * 256 + byteArrayY[i + 1]] = new WorldBlock(block1);
+                            var x = byteArrayX[i] * 256 + byteArrayX[i + 1];
+                            var y = byteArrayY[i] * 256 + byteArrayY[i + 1];
+                            worldArray[l, x, y].SetBlock(block);
                         }
 
                         break;
@@ -185,7 +181,7 @@ namespace CupCake.World
                 {
                     for (int y = 1; y <= maxY; y++)
                     {
-                        blockArray[(int)l, x, y] = new WorldBlock(fillBlock);
+                        blockArray[(int)l, x, y] = new WorldBlock(l, x, y, Block.GravityNothing);
                         //Create a new instance for every block
                     }
                 }
@@ -195,14 +191,14 @@ namespace CupCake.World
             maxX -= 1;
             for (int y = maxY; y >= 0; y += -1)
             {
-                blockArray[0, 0, y] = new WorldBlock(borderBlock);
-                blockArray[0, maxY, y] = new WorldBlock(borderBlock);
+                blockArray[0, 0, y] = new WorldBlock(Layer.Foreground, 0, y, borderBlock);
+                blockArray[0, maxY, y] = new WorldBlock(Layer.Foreground, maxY, y, borderBlock);
             }
 
             for (int x = 1; x <= maxX; x++)
             {
-                blockArray[0, x, 0] = new WorldBlock(borderBlock);
-                blockArray[0, x, maxY] = new WorldBlock(borderBlock);
+                blockArray[0, x, 0] = new WorldBlock(Layer.Foreground, x, 0,borderBlock);
+                blockArray[0, x, maxY] = new WorldBlock(Layer.Foreground, x, maxY, borderBlock);
             }
 
             return blockArray;
@@ -231,58 +227,57 @@ namespace CupCake.World
 
         private void OnBlockPlace(object sender, BlockPlaceReceiveEvent e)
         {
-            var block = new WorldBlock(e.Block);
-            this._blocks[(int)e.Layer, e.PosX, e.PosY] = block;
-
-            this.Events.Raise(new BlockPlaceEvent(e.PosX, e.PosY, e.Layer, block));
+            var b = this._blocks[(int)e.Layer, e.PosX, e.PosY];
+            b.SetBlock(e.Block);
+            this.Events.Raise(new BlockPlaceEvent(b));
         }
 
         private void OnCoinDoorPlace(object sender, CoinDoorPlaceReceiveEvent e)
         {
-            var block = new WorldCoinDoorBlock(e.Block, e.CoinsToOpen);
-            this._blocks[(int)e.Layer, e.PosX, e.PosY] = block;
+            var b = this._blocks[(int)e.Layer, e.PosX, e.PosY];
+            b.SetCoinDoor(e.Block, e.CoinsToOpen);
 
-            this.Events.Raise(new BlockPlaceEvent(e.PosX, e.PosY, e.Layer, block));
+            this.Events.Raise(new BlockPlaceEvent(b));
         }
 
         private void OnLabelPlace(object sender, LabelPlaceReceiveEvent e)
         {
-            var block = new WorldLabelBlock(e.Block, e.Text);
-            this._blocks[(int)e.Layer, e.PosX, e.PosY] = block;
+            var b = this._blocks[(int)e.Layer, e.PosX, e.PosY];
+            b.SetLabel(e.Block, e.Text);
 
-            this.Events.Raise(new BlockPlaceEvent(e.PosX, e.PosY, e.Layer, block));
+            this.Events.Raise(new BlockPlaceEvent(b));
         }
 
         private void OnPortalPlace(object sender, PortalPlaceReceiveEvent e)
         {
-            var block = new WorldPortalBlock(e.Block, e.PortalRotation, e.PortalId, e.PortalTarget);
-            this._blocks[(int)e.Layer, e.PosX, e.PosY] = block;
+            var b = this._blocks[(int)e.Layer, e.PosX, e.PosY];
+            b.SetPortal(e.Block, e.PortalId, e.PortalTarget, e.PortalRotation);
 
-            this.Events.Raise(new BlockPlaceEvent(e.PosX, e.PosY, e.Layer, block));
+            this.Events.Raise(new BlockPlaceEvent(b));
         }
 
         private void OnWorldPortalPlace(object sender, WorldPortalPlaceReceiveEvent e)
         {
-            var block = new WorldWorldPortalBlock(e.Block, e.WorldPortalTarget);
-            this._blocks[(int)e.Layer, e.PosX, e.PosY] = block;
+            var b = this._blocks[(int)e.Layer, e.PosX, e.PosY];
+            b.SetWorldPortal(e.Block, e.WorldPortalTarget);
 
-            this.Events.Raise(new BlockPlaceEvent(e.PosX, e.PosY, e.Layer, block));
+            this.Events.Raise(new BlockPlaceEvent(b));
         }
 
         private void OnSoundPlace(object sender, SoundPlaceReceiveEvent e)
         {
-            var block = new WorldSoundBlock(e.Block, e.SoundId);
-            this._blocks[(int)e.Layer, e.PosX, e.PosY] = block;
+            var b = this._blocks[(int)e.Layer, e.PosX, e.PosY];
+            b.SetSound(e.Block, e.SoundId);
 
-            this.Events.Raise(new BlockPlaceEvent(e.PosX, e.PosY, e.Layer, block));
+            this.Events.Raise(new BlockPlaceEvent(b));
         }
 
         private void OnRotatablePlace(object sender, RotatablePlaceReceiveEvent e)
         {
-            var block = new WorldRotatableBlock(e.Block, e.Rotation);
-            this._blocks[(int)e.Layer, e.PosX, e.PosY] = block;
+            var b = this._blocks[(int)e.Layer, e.PosX, e.PosY];
+            b.SetRotatable(e.Block, e.Rotation);
 
-            this.Events.Raise(new BlockPlaceEvent(e.PosX, e.PosY, e.Layer, block));
+            this.Events.Raise(new BlockPlaceEvent(b));
         }
 
         private void OnReset(object sender, ResetReceiveEvent e)

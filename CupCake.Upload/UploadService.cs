@@ -189,7 +189,7 @@ namespace CupCake.Upload
 
         private void OnBlockPlace(object sender, BlockPlaceEvent e)
         {
-            if (this._uploaded[(int)e.Layer, e.PosX, e.PosY])
+            if (this._uploaded[(int)e.Block.Layer, e.Block.X, e.Block.Y])
             {
                 this.DoLagCheck(false);
             }

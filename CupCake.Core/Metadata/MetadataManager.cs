@@ -1,6 +1,6 @@
 ﻿using System.Collections.Concurrent;
 
-namespace CupCake.Players.Metadata
+namespace CupCake.Core.Metadata
 {
     public class MetadataManager
     {
