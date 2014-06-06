@@ -358,7 +358,7 @@ namespace CupCake.Client.Windows
 
                 if (info.UpdateAvailable)
                 {
-                    var result =  MessageBoxHelper.Show(this, "Update Available", "An update is available. Press OK to update or close the window to cancel");
+                    var result =  MessageBoxHelper.Show(this, "Update Available", "An update is available. Press OK to update or close the window to cancel.");
 
                     if (result == true)
                     {
@@ -377,7 +377,7 @@ namespace CupCake.Client.Windows
                 }
                 else
                 {
-                    MessageBoxHelper.Show(this, "No updates found", "You are already running the lastest version of CupCake");
+                    MessageBoxHelper.Show(this, "No updates found", "You are already running the lastest version of CupCake.");
                 }
             }
         }
