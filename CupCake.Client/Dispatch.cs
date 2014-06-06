@@ -7,7 +7,7 @@ namespace CupCake.Client
     {
         public static void Invoke(Action callback)
         {
-            Application.Current.Dispatcher.BeginInvoke(callback);
+            Application.Current.Dispatcher.Invoke(callback);
         }
     }
 }
