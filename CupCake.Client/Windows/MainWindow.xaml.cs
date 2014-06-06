@@ -300,6 +300,8 @@ namespace CupCake.Client.Windows
 
                 handle.ReceiveRequestData += data => Dispatch.Invoke(() =>
                 {
+                    userControl.IsDebug = data.IsDebug;
+
                     // Use requested settings
                     RecentWorld recent = this.IncomingSettings;
                     this.IncomingSettings = null;
