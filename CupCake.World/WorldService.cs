@@ -193,12 +193,17 @@ namespace CupCake.World
             {
                 blockArray[0, 0, y] = new WorldBlock(Layer.Foreground, 0, y, borderBlock);
                 blockArray[0, maxY, y] = new WorldBlock(Layer.Foreground, maxY, y, borderBlock);
+                blockArray[1, 0, y] = new WorldBlock(Layer.Background, 0, y, Block.GravityNothing);
+                blockArray[1, maxY, y] = new WorldBlock(Layer.Background, maxY, y, Block.GravityNothing);
+
             }
 
             for (int x = 1; x <= maxX; x++)
             {
-                blockArray[0, x, 0] = new WorldBlock(Layer.Foreground, x, 0,borderBlock);
+                blockArray[0, x, 0] = new WorldBlock(Layer.Foreground, x, 0, borderBlock);
                 blockArray[0, x, maxY] = new WorldBlock(Layer.Foreground, x, maxY, borderBlock);
+                blockArray[1, x, 0] = new WorldBlock(Layer.Background, x, 0, Block.GravityNothing);
+                blockArray[1, x, maxY] = new WorldBlock(Layer.Background, x, maxY, Block.GravityNothing);
             }
 
             return blockArray;
