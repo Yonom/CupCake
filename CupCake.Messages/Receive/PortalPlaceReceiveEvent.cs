@@ -17,32 +17,28 @@ namespace CupCake.Messages.Receive
             this.PortalTarget = message.GetInteger(5);
         }
 
-        public int PosX { get; set; }
-        public int PosY { get; set; }
-        Layer IBlockPlaceReceiveEvent.Layer
+        public Layer Layer
         {
-            get
-            {
-                return this.Layer;
-            }
-            set { throw new NotSupportedException("Can not set Layer on this kind of block"); }
-        }
-        Block IBlockPlaceReceiveEvent.Block
-        {
-            get { return (Block)this.Block; }
-            set { this.Block = (PortalBlock)value; }
-        }
-
-        public Layer Layer {
-            get
-            {
-                return Layer.Foreground;
-            }
+            get { return Layer.Foreground; }
         }
 
         public PortalBlock Block { get; set; }
         public int PortalId { get; set; }
         public PortalRotation PortalRotation { get; set; }
         public int PortalTarget { get; set; }
+        public int PosX { get; set; }
+        public int PosY { get; set; }
+
+        Layer IBlockPlaceReceiveEvent.Layer
+        {
+            get { return this.Layer; }
+            set { throw new NotSupportedException("Can not set Layer on this kind of block"); }
+        }
+
+        Block IBlockPlaceReceiveEvent.Block
+        {
+            get { return (Block)this.Block; }
+            set { this.Block = (PortalBlock)value; }
+        }
     }
 }

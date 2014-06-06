@@ -126,7 +126,7 @@ namespace CupCake.Server
 
             this._client.PlatformLoader.EnableComplete += this.PlatformLoader_EnableComplete;
             this._client.ServiceLoader.EnableComplete += this.ServiceLoader_EnableComplete;
-            
+
             this.LogMessage("Getting stuff ready...");
             this._client.Start();
             this.LogMessage(String.Format("Welcome to CupCake! (API version: {0})", this.GetVersion()));

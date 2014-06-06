@@ -131,7 +131,7 @@ namespace CupCake.Messages
             {
                 message.Invoke(e);
             }
-            else if (_inited)
+            else if (this._inited)
             {
                 this.Logger.Log(LogPriority.Debug, "Received unregistered message with type: " + e.Type);
             }

@@ -15,31 +15,27 @@ namespace CupCake.Messages.Receive
             this.SoundId = message.GetInteger(3);
         }
 
+        public Layer Layer
+        {
+            get { return Layer.Foreground; }
+        }
+
+        public SoundBlock Block { get; set; }
+        public int SoundId { get; set; }
+
         public int PosX { get; set; }
         public int PosY { get; set; }
+
         Layer IBlockPlaceReceiveEvent.Layer
         {
-            get
-            {
-                return this.Layer;
-            }
+            get { return this.Layer; }
             set { throw new NotSupportedException("Can not set Layer on this kind of block"); }
         }
+
         Block IBlockPlaceReceiveEvent.Block
         {
             get { return (Block)this.Block; }
             set { this.Block = (SoundBlock)value; }
         }
-
-        public Layer Layer
-        {
-            get
-            {
-                return Layer.Foreground;
-            }
-        }
-
-        public SoundBlock Block { get; set; }
-        public int SoundId { get; set; }
     }
 }

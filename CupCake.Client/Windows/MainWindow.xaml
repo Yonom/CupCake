@@ -39,7 +39,8 @@
                 <MenuItem Header="Getting Started" IsEnabled="False" />
                 <MenuItem Header="Github Repository" Click="GithubMenuItem_OnClick" />
                 <Separator />
-                <MenuItem Name="CheckForUpdatesMenuItem"  Header="Check For Updates" Click="CheckForUpdatesMenuItem_OnClick" />
+                <MenuItem Name="CheckForUpdatesMenuItem" Header="Check For Updates"
+                          Click="CheckForUpdatesMenuItem_OnClick" />
                 <Separator />
                 <MenuItem Header="About" Click="AboutMenuItem_OnClick" />
             </MenuItem>

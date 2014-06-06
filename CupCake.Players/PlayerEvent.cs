@@ -1,5 +1,4 @@
 ﻿using CupCake.Core.Events;
-using CupCake.Messages;
 using CupCake.Messages.Receive;
 
 namespace CupCake.Players

@@ -16,7 +16,7 @@ namespace CupCake.Messages.Receive
 
         public override string ToString()
         {
-            return PlayerIOMessage.ToString();
+            return this.PlayerIOMessage.ToString();
         }
     }
 }

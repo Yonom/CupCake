@@ -14,20 +14,21 @@ namespace CupCake.Messages.Send
 
             this.Rotation = rotation;
         }
-        
+
+        public RotatableBlock Block { get; set; }
+        public int Rotation { get; set; }
+
         Block IBlockPlaceSendEvent.Block
         {
             get { return (Block)this.Block; }
             set { this.Block = (RotatableBlock)value; }
         }
-        public RotatableBlock Block { get; set; }
+
         public Layer Layer { get; set; }
         public int X { get; set; }
         public int Y { get; set; }
 
         public string Encryption { get; set; }
-
-        public int Rotation { get; set; }
 
         public override Message GetMessage()
         {

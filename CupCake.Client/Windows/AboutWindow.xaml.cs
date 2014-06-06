@@ -1,5 +1,4 @@
 ﻿using System.Deployment.Application;
-using System.Reflection;
 
 namespace CupCake.Client.Windows
 {

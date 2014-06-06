@@ -100,11 +100,11 @@ namespace CupCake
             }
             catch (SyntaxException ex)
             {
-                source.Reply("Error excecuting command: " + ex.Message + "\nCorrect usage: !command " + this.Usage);
+                source.Reply(ex.Message + " Correct usage: " + CommandService.CommandPrefix + "command " + this.Usage);
             }
             catch (CommandException ex)
             {
-                source.Reply("Error excecuting command: " + ex.Message);
+                source.Reply("Error: " + ex.Message);
             }
         }
 

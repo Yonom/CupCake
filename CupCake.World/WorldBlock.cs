@@ -7,97 +7,8 @@ namespace CupCake.World
 {
     public class WorldBlock
     {
+        private readonly Lazy<MetadataManager> _metadata;
         private BlockData _data;
-        public Layer Layer { get; set; }
-        public int X { get; set; }
-        public int Y { get; set; }
-        public virtual BlockType BlockType { get; private set; }
-        public Block Block { get; private set; }
-
-        private Lazy<MetadataManager> _metadata;
-        public MetadataManager Metadata
-        {
-            get { return this._metadata.Value; }
-        }
-
-        public string Text {
-            get
-            {
-                if (this.BlockType != BlockType.Label)
-                    throw new InvalidOperationException("This property can only be accessed on Label blocks.");
-
-                return _data.Text;
-            }
-        }
-        public string WorldPortalTarget
-        {
-            get
-            {
-                if (this.BlockType != BlockType.WorldPortal)
-                    throw new InvalidOperationException("This property can only be accessed on WorldPortal blocks.");
-
-                return _data.WorldPortalTarget;
-            }
-        }
-        public int CoinsToCollect
-        {
-            get
-            {
-                if (this.BlockType != BlockType.CoinDoor)
-                    throw new InvalidOperationException("This property can only be accessed on CoinDoor blocks.");
-
-                return _data.CoinsToCollect;
-            }
-        }
-        public int PortalId {             
-            get
-            {
-                if (this.BlockType != BlockType.Portal)
-                    throw new InvalidOperationException("This property can only be accessed on Portal blocks.");
-
-                return _data.PortalId;
-            }
-        }
-        public int PortalTarget
-        {
-            get
-            {
-                if (this.BlockType != BlockType.Portal)
-                    throw new InvalidOperationException("This property can only be accessed on Portal blocks.");
-
-                return _data.PortalTarget;
-            }
-        }
-        public PortalRotation PortalRotation
-        {
-            get
-            {
-                if (this.BlockType != BlockType.Portal)
-                    throw new InvalidOperationException("This property can only be accessed on Portal blocks.");
-
-                return _data.PortalRotation;
-            }
-        }
-        public int SoundId
-        {
-            get
-            {
-                if (this.BlockType != BlockType.Sound)
-                    throw new InvalidOperationException("This property can only be accessed on Sound blocks.");
-
-                return _data.SoundId;
-            }
-        }
-        public int Rotation
-        {
-            get
-            {
-                if (this.BlockType != BlockType.Rotatable)
-                    throw new InvalidOperationException("This property can only be accessed on Rotatable blocks.");
-
-                return _data.Rotation;
-            }
-        }
 
         public WorldBlock()
         {
@@ -105,13 +16,112 @@ namespace CupCake.World
             this._metadata = new Lazy<MetadataManager>(() => new MetadataManager());
         }
 
-        internal WorldBlock(Layer layer, int x, int y, Block block) 
+        internal WorldBlock(Layer layer, int x, int y, Block block)
             : this()
         {
             this.Layer = layer;
             this.X = x;
             this.Y = y;
             this.SetBlock(block);
+        }
+
+        public Layer Layer { get; set; }
+        public int X { get; set; }
+        public int Y { get; set; }
+        public virtual BlockType BlockType { get; private set; }
+        public Block Block { get; private set; }
+
+        public MetadataManager Metadata
+        {
+            get { return this._metadata.Value; }
+        }
+
+        public string Text
+        {
+            get
+            {
+                if (this.BlockType != BlockType.Label)
+                    throw new InvalidOperationException("This property can only be accessed on Label blocks.");
+
+                return this._data.Text;
+            }
+        }
+
+        public string WorldPortalTarget
+        {
+            get
+            {
+                if (this.BlockType != BlockType.WorldPortal)
+                    throw new InvalidOperationException("This property can only be accessed on WorldPortal blocks.");
+
+                return this._data.WorldPortalTarget;
+            }
+        }
+
+        public int CoinsToCollect
+        {
+            get
+            {
+                if (this.BlockType != BlockType.CoinDoor)
+                    throw new InvalidOperationException("This property can only be accessed on CoinDoor blocks.");
+
+                return this._data.CoinsToCollect;
+            }
+        }
+
+        public int PortalId
+        {
+            get
+            {
+                if (this.BlockType != BlockType.Portal)
+                    throw new InvalidOperationException("This property can only be accessed on Portal blocks.");
+
+                return this._data.PortalId;
+            }
+        }
+
+        public int PortalTarget
+        {
+            get
+            {
+                if (this.BlockType != BlockType.Portal)
+                    throw new InvalidOperationException("This property can only be accessed on Portal blocks.");
+
+                return this._data.PortalTarget;
+            }
+        }
+
+        public PortalRotation PortalRotation
+        {
+            get
+            {
+                if (this.BlockType != BlockType.Portal)
+                    throw new InvalidOperationException("This property can only be accessed on Portal blocks.");
+
+                return this._data.PortalRotation;
+            }
+        }
+
+        public int SoundId
+        {
+            get
+            {
+                if (this.BlockType != BlockType.Sound)
+                    throw new InvalidOperationException("This property can only be accessed on Sound blocks.");
+
+                return this._data.SoundId;
+            }
+        }
+
+        public int Rotation
+        {
+            get
+            {
+                if (this.BlockType != BlockType.Rotatable)
+                    throw new InvalidOperationException("This property can only be accessed on Rotatable blocks.");
+
+                return this._data.Rotation;
+            }
         }
 
         internal void SetBlock(Block block)

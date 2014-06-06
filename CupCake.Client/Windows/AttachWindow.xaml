@@ -29,9 +29,11 @@
         </Grid.ColumnDefinitions>
 
         <TextBlock FontSize="16" Foreground="{StaticResource Foreground}" VerticalAlignment="Center" Margin="0,9">Address</TextBlock>
-        <TextBox Name="AddressTextBox" VerticalAlignment="Center" FontSize="16" Grid.Row="0" Grid.Column="1" Padding="2" />
+        <TextBox Name="AddressTextBox" VerticalAlignment="Center" FontSize="16" Grid.Row="0" Grid.Column="1"
+                 Padding="2" />
 
-        <TextBlock FontSize="16" Grid.Row="1" Grid.Column="0" Foreground="{StaticResource Foreground}" VerticalAlignment="Center"
+        <TextBlock FontSize="16" Grid.Row="1" Grid.Column="0" Foreground="{StaticResource Foreground}"
+                   VerticalAlignment="Center"
                    Margin="0,9">
             Pin
         </TextBlock>

@@ -15,19 +15,20 @@ namespace CupCake.Messages.Send
             this.Text = text;
         }
 
+        public LabelBlock Block { get; set; }
+        public string Text { get; set; }
+
         Block IBlockPlaceSendEvent.Block
         {
             get { return (Block)this.Block; }
             set { this.Block = (LabelBlock)value; }
         }
-        public LabelBlock Block { get; set; }
+
         public Layer Layer { get; set; }
         public int X { get; set; }
         public int Y { get; set; }
 
         public string Encryption { get; set; }
-
-        public string Text { get; set; }
 
         public override Message GetMessage()
         {

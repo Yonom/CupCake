@@ -143,7 +143,7 @@ namespace CupCake
 
         protected Timer GetTimer(int interval)
         {
-            return new Timer(interval) { SynchronizingObject = new GenericSynchronizingObject() };
+            return new Timer(interval) {SynchronizingObject = new GenericSynchronizingObject()};
         }
 
         protected virtual string GetName()

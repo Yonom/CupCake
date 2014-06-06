@@ -15,19 +15,20 @@ namespace CupCake.Messages.Send
             this.CoinsToCollect = coinsToCollect;
         }
 
+        public CoinDoorBlock Block { get; set; }
+        public int CoinsToCollect { get; set; }
+
         Block IBlockPlaceSendEvent.Block
         {
             get { return (Block)this.Block; }
             set { this.Block = (CoinDoorBlock)value; }
         }
-        public CoinDoorBlock Block { get; set; }
+
         public Layer Layer { get; set; }
         public int X { get; set; }
         public int Y { get; set; }
 
         public string Encryption { get; set; }
-
-        public int CoinsToCollect { get; set; }
 
         public override Message GetMessage()
         {

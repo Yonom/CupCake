@@ -1,11 +1,9 @@
 ﻿using System;
-using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Threading;
 using CupCake.Protocol;
-using Timer = System.Timers.Timer;
 
 namespace CupCake.Client.UserControls
 {
@@ -16,7 +14,6 @@ namespace CupCake.Client.UserControls
     {
         private readonly ClientHandle _handle;
         private bool _cancelClose;
-        public bool IsDebug { get; set; }
 
         public ConnectionUserControl(ClientHandle handle)
         {
@@ -30,6 +27,8 @@ namespace CupCake.Client.UserControls
             this._handle.ReceiveTitle += this._handle_ReceiveTitle;
             this._handle.ReceiveWrongAuth += this._handle_ReceiveWrongAuth;
         }
+
+        public bool IsDebug { get; set; }
 
         private void KeepOpenButton_OnClick(object sender, RoutedEventArgs e)
         {
@@ -68,10 +67,11 @@ namespace CupCake.Client.UserControls
         private void _handle_ConnectionClose()
         {
             this.AppendText("--- Connection terminated ---");
-            Dispatch.Invoke(() => {
+            Dispatch.Invoke(() =>
+            {
                 ((TabItem)this.Parent).Header += " (Disconnected)";
 
-                if (IsDebug)
+                if (this.IsDebug)
                 {
                     this.ClosingGrid.Visibility = Visibility.Visible;
 

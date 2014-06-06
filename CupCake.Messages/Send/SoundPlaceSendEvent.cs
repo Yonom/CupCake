@@ -15,19 +15,20 @@ namespace CupCake.Messages.Send
             this.SoundId = soundId;
         }
 
+        public SoundBlock Block { get; set; }
+        public int SoundId { get; set; }
+
         Block IBlockPlaceSendEvent.Block
         {
             get { return (Block)this.Block; }
             set { this.Block = (SoundBlock)value; }
         }
-        public SoundBlock Block { get; set; }
+
         public Layer Layer { get; set; }
         public int X { get; set; }
         public int Y { get; set; }
 
         public string Encryption { get; set; }
-
-        public int SoundId { get; set; }
 
         public override Message GetMessage()
         {

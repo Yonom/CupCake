@@ -16,6 +16,7 @@ using System.Windows.Documents;
 using CupCake.Client.Settings;
 using CupCake.Client.UserControls;
 using CupCake.Protocol;
+using Application = System.Windows.Forms.Application;
 
 namespace CupCake.Client.Windows
 {
@@ -291,7 +292,7 @@ namespace CupCake.Client.Windows
                     Header = String.Empty.GetVisualName(),
                     Content = userControl
                 };
-                
+
                 this.ConnectionsTabControl.Items.Add(tabItem);
                 tabItem.IsSelected = true;
 
@@ -346,42 +347,53 @@ namespace CupCake.Client.Windows
                 }
                 catch (DeploymentDownloadException dde)
                 {
-                    MessageBoxHelper.Show(this, "Error", "The new version of the application cannot be downloaded at this time. \n\nPlease check your network connection, or try again later. Error: " + dde.Message);
+                    MessageBoxHelper.Show(this, "Error",
+                        "The new version of the application cannot be downloaded at this time. \n\nPlease check your network connection, or try again later. Error: " +
+                        dde.Message);
                     return;
                 }
                 catch (InvalidDeploymentException ide)
                 {
-                    MessageBoxHelper.Show(this, "Error", "Cannot check for a new version of the application. The ClickOnce deployment is corrupt. Please redeploy the application and try again. Error: " + ide.Message);
+                    MessageBoxHelper.Show(this, "Error",
+                        "Cannot check for a new version of the application. The ClickOnce deployment is corrupt. Please redeploy the application and try again. Error: " +
+                        ide.Message);
                     return;
                 }
                 catch (InvalidOperationException ioe)
                 {
-                    MessageBoxHelper.Show(this, "Error", "This application cannot be updated. It is likely not a ClickOnce application. Error: " + ioe.Message);
+                    MessageBoxHelper.Show(this, "Error",
+                        "This application cannot be updated. It is likely not a ClickOnce application. Error: " +
+                        ioe.Message);
                     return;
                 }
 
                 if (info.UpdateAvailable)
                 {
-                    var result =  MessageBoxHelper.Show(this, "Update Available", "An update is available. Press OK to update or close the window to cancel.");
+                    bool? result = MessageBoxHelper.Show(this, "Update Available",
+                        "An update is available. Press OK to update or close the window to cancel.");
 
                     if (result == true)
                     {
                         try
                         {
                             ad.Update();
-                            MessageBoxHelper.Show(this, "Update succeeded", "The application has been upgraded, and will now restart."); 
-                            System.Windows.Forms.Application.Restart();
-                            Application.Current.Shutdown();
+                            MessageBoxHelper.Show(this, "Update succeeded",
+                                "The application has been upgraded, and will now restart.");
+                            Application.Restart();
+                            System.Windows.Application.Current.Shutdown();
                         }
                         catch (DeploymentDownloadException dde)
                         {
-                            MessageBoxHelper.Show(this, "Update failed", "Cannot install the latest version of the application. \n\nPlease check your network connection, or try again later. Error: " + dde);
+                            MessageBoxHelper.Show(this, "Update failed",
+                                "Cannot install the latest version of the application. \n\nPlease check your network connection, or try again later. Error: " +
+                                dde);
                         }
                     }
                 }
                 else
                 {
-                    MessageBoxHelper.Show(this, "No updates found", "You are already running the lastest version of CupCake.");
+                    MessageBoxHelper.Show(this, "No updates found",
+                        "You are already running the lastest version of CupCake.");
                 }
             }
         }

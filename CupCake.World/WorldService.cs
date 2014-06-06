@@ -1,4 +1,3 @@
-using System.Runtime.Remoting.Metadata;
 using CupCake.Core;
 using CupCake.Core.Events;
 using CupCake.Messages.Blocks;
@@ -70,8 +69,8 @@ namespace CupCake.World
 
                         for (int i = 0; i <= byteArrayX.Length - 1; i += 2)
                         {
-                            var x = byteArrayX[i] * 256 + byteArrayX[i + 1];
-                            var y = byteArrayY[i] * 256 + byteArrayY[i + 1];
+                            int x = byteArrayX[i] * 256 + byteArrayX[i + 1];
+                            int y = byteArrayY[i] * 256 + byteArrayY[i + 1];
                             worldArray[l, x, y].SetCoinDoor((CoinDoorBlock)block, coinsToCollect);
                         }
 
@@ -84,8 +83,8 @@ namespace CupCake.World
 
                         for (int i = 0; i <= byteArrayX.Length - 1; i += 2)
                         {
-                            var x = byteArrayX[i] * 256 + byteArrayX[i + 1];
-                            var y = byteArrayY[i] * 256 + byteArrayY[i + 1];
+                            int x = byteArrayX[i] * 256 + byteArrayX[i + 1];
+                            int y = byteArrayY[i] * 256 + byteArrayY[i + 1];
                             worldArray[l, x, y].SetSound((SoundBlock)block, soundId);
                         }
 
@@ -103,8 +102,8 @@ namespace CupCake.World
 
                         for (int i = 0; i <= byteArrayX.Length - 1; i += 2)
                         {
-                            var x = byteArrayX[i] * 256 + byteArrayX[i + 1];
-                            var y = byteArrayY[i] * 256 + byteArrayY[i + 1];
+                            int x = byteArrayX[i] * 256 + byteArrayX[i + 1];
+                            int y = byteArrayY[i] * 256 + byteArrayY[i + 1];
                             worldArray[l, x, y].SetRotatable((RotatableBlock)block, rotation);
                         }
 
@@ -119,8 +118,8 @@ namespace CupCake.World
 
                         for (int i = 0; i <= byteArrayX.Length - 1; i += 2)
                         {
-                            var x = byteArrayX[i] * 256 + byteArrayX[i + 1];
-                            var y = byteArrayY[i] * 256 + byteArrayY[i + 1];
+                            int x = byteArrayX[i] * 256 + byteArrayX[i + 1];
+                            int y = byteArrayY[i] * 256 + byteArrayY[i + 1];
                             worldArray[l, x, y].SetPortal((PortalBlock)block, portalId, portalTarget, portalRotation);
                         }
 
@@ -132,8 +131,8 @@ namespace CupCake.World
 
                         for (int i = 0; i <= byteArrayX.Length - 1; i += 2)
                         {
-                            var x = byteArrayX[i] * 256 + byteArrayX[i + 1];
-                            var y = byteArrayY[i] * 256 + byteArrayY[i + 1];
+                            int x = byteArrayX[i] * 256 + byteArrayX[i + 1];
+                            int y = byteArrayY[i] * 256 + byteArrayY[i + 1];
                             worldArray[l, x, y].SetWorldPortal((WorldPortalBlock)block, worldPortalTarget);
                         }
 
@@ -146,8 +145,8 @@ namespace CupCake.World
 
                         for (int i = 0; i <= byteArrayX.Length - 1; i += 2)
                         {
-                            var x = byteArrayX[i] * 256 + byteArrayX[i + 1];
-                            var y = byteArrayY[i] * 256 + byteArrayY[i + 1];
+                            int x = byteArrayX[i] * 256 + byteArrayX[i + 1];
+                            int y = byteArrayY[i] * 256 + byteArrayY[i + 1];
                             worldArray[l, x, y].SetLabel((LabelBlock)block, text);
                         }
 
@@ -156,8 +155,8 @@ namespace CupCake.World
                     default:
                         for (int i = 0; i <= byteArrayX.Length - 1; i += 2)
                         {
-                            var x = byteArrayX[i] * 256 + byteArrayX[i + 1];
-                            var y = byteArrayY[i] * 256 + byteArrayY[i + 1];
+                            int x = byteArrayX[i] * 256 + byteArrayX[i + 1];
+                            int y = byteArrayY[i] * 256 + byteArrayY[i + 1];
                             worldArray[l, x, y].SetBlock(block);
                         }
 
@@ -195,7 +194,6 @@ namespace CupCake.World
                 blockArray[0, maxY, y] = new WorldBlock(Layer.Foreground, maxY, y, borderBlock);
                 blockArray[1, 0, y] = new WorldBlock(Layer.Background, 0, y, Block.GravityNothing);
                 blockArray[1, maxY, y] = new WorldBlock(Layer.Background, maxY, y, Block.GravityNothing);
-
             }
 
             for (int x = 1; x <= maxX; x++)
@@ -232,14 +230,14 @@ namespace CupCake.World
 
         private void OnBlockPlace(object sender, BlockPlaceReceiveEvent e)
         {
-            var b = this._blocks[(int)e.Layer, e.PosX, e.PosY];
+            WorldBlock b = this._blocks[(int)e.Layer, e.PosX, e.PosY];
             b.SetBlock(e.Block);
             this.Events.Raise(new BlockPlaceEvent(b));
         }
 
         private void OnCoinDoorPlace(object sender, CoinDoorPlaceReceiveEvent e)
         {
-            var b = this._blocks[(int)e.Layer, e.PosX, e.PosY];
+            WorldBlock b = this._blocks[(int)e.Layer, e.PosX, e.PosY];
             b.SetCoinDoor(e.Block, e.CoinsToOpen);
 
             this.Events.Raise(new BlockPlaceEvent(b));
@@ -247,7 +245,7 @@ namespace CupCake.World
 
         private void OnLabelPlace(object sender, LabelPlaceReceiveEvent e)
         {
-            var b = this._blocks[(int)e.Layer, e.PosX, e.PosY];
+            WorldBlock b = this._blocks[(int)e.Layer, e.PosX, e.PosY];
             b.SetLabel(e.Block, e.Text);
 
             this.Events.Raise(new BlockPlaceEvent(b));
@@ -255,7 +253,7 @@ namespace CupCake.World
 
         private void OnPortalPlace(object sender, PortalPlaceReceiveEvent e)
         {
-            var b = this._blocks[(int)e.Layer, e.PosX, e.PosY];
+            WorldBlock b = this._blocks[(int)e.Layer, e.PosX, e.PosY];
             b.SetPortal(e.Block, e.PortalId, e.PortalTarget, e.PortalRotation);
 
             this.Events.Raise(new BlockPlaceEvent(b));
@@ -263,7 +261,7 @@ namespace CupCake.World
 
         private void OnWorldPortalPlace(object sender, WorldPortalPlaceReceiveEvent e)
         {
-            var b = this._blocks[(int)e.Layer, e.PosX, e.PosY];
+            WorldBlock b = this._blocks[(int)e.Layer, e.PosX, e.PosY];
             b.SetWorldPortal(e.Block, e.WorldPortalTarget);
 
             this.Events.Raise(new BlockPlaceEvent(b));
@@ -271,7 +269,7 @@ namespace CupCake.World
 
         private void OnSoundPlace(object sender, SoundPlaceReceiveEvent e)
         {
-            var b = this._blocks[(int)e.Layer, e.PosX, e.PosY];
+            WorldBlock b = this._blocks[(int)e.Layer, e.PosX, e.PosY];
             b.SetSound(e.Block, e.SoundId);
 
             this.Events.Raise(new BlockPlaceEvent(b));
@@ -279,7 +277,7 @@ namespace CupCake.World
 
         private void OnRotatablePlace(object sender, RotatablePlaceReceiveEvent e)
         {
-            var b = this._blocks[(int)e.Layer, e.PosX, e.PosY];
+            WorldBlock b = this._blocks[(int)e.Layer, e.PosX, e.PosY];
             b.SetRotatable(e.Block, e.Rotation);
 
             this.Events.Raise(new BlockPlaceEvent(b));

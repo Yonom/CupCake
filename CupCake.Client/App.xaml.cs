@@ -1,6 +1,4 @@
-﻿using System.Windows;
-
-namespace CupCake.Client
+﻿namespace CupCake.Client
 {
     /// <summary>
     ///     Interaction logic for App.xaml
