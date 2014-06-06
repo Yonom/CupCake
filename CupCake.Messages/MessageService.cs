@@ -9,6 +9,7 @@ namespace CupCake.Messages
 {
     public class MessageService : CupCakeService
     {
+        private bool _inited;
         public MessageManager MessageManager { get; private set; }
 
         protected override void Enable()
@@ -71,6 +72,8 @@ namespace CupCake.Messages
 
         private void OnInit(object sender, InitReceiveEvent e)
         {
+            this._inited = true;
+
             // Register remaining messages
             this.MessageManager.RegisterMessage<UpdateMetaReceiveEvent>("updatemeta");
             this.MessageManager.RegisterMessage<ShowKeyReceiveEvent>("show");
@@ -128,7 +131,7 @@ namespace CupCake.Messages
             {
                 message.Invoke(e);
             }
-            else
+            else if (_inited)
             {
                 this.Logger.Log(LogPriority.Debug, "Received unregistered message with type: " + e.Type);
             }
