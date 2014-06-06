@@ -95,12 +95,13 @@ namespace CupCake
             }
             catch (AccessDeniedException)
             {
-                if (source.Group >= CommandService.ResponseMinGroup)
+                if (source.Group >= this.CommandService.ResponseMinGroup)
                     source.Reply("You are not allowed to run this command!");
             }
             catch (SyntaxException ex)
             {
-                source.Reply(ex.Message + " Correct usage: " + CommandService.CommandPrefix + "command " + this.Usage);
+                source.Reply(ex.Message + " Correct usage: " + this.CommandService.CommandPrefix + "command " +
+                             this.Usage);
             }
             catch (CommandException ex)
             {

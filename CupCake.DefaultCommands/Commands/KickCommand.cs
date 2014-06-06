@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using CupCake.Command;
+﻿using CupCake.Command;
 using CupCake.Command.Source;
 using CupCake.Permissions;
+using CupCake.Players;
 
 namespace CupCake.DefaultCommands.Commands
 {
@@ -16,12 +13,12 @@ namespace CupCake.DefaultCommands.Commands
         [CorrectUsage("player [reason]")]
         protected override void Run(IInvokeSource source, ParsedCommand message)
         {
-            var player = this.PlayerService.MatchPlayer(message.Args[0]);
+            Player player = this.PlayerService.MatchPlayer(message.Args[0]);
 
             if (player.GetGroup() > source.Group)
                 throw new CommandException("You may not kick a player with a higher rank.");
 
-            Chatter.Kick(player.Username, message.GetTrail(1));
+            this.Chatter.Kick(player.Username, message.GetTrail(1));
         }
     }
 }

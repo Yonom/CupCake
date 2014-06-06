@@ -22,7 +22,7 @@ namespace CupCake.Command
                 IList<Player> list = new List<Player>();
 
                 // Match based on the positioning of the wild card
-                foreach (var player in playerService.Players)
+                foreach (Player player in playerService.Players)
                 {
                     if (exactMatch)
                     {
