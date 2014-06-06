@@ -46,10 +46,11 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BlockHelper.cs" />
     <Compile Include="Receive\IBlockPlaceReceiveEvent.cs" />
+    <Compile Include="Send\IBlockPlaceSendEvent.cs" />
     <Compile Include="User\AccessRight.cs" />
     <Compile Include="Blocks\Block.cs" />
-    <Compile Include="Blocks\BlockType.cs" />
     <Compile Include="Blocks\CoinDoorBlock.cs" />
     <Compile Include="Blocks\Key.cs" />
     <Compile Include="Blocks\LabelBlock.cs" />

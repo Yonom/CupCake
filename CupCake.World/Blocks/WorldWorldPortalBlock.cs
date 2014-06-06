@@ -23,7 +23,7 @@ namespace CupCake.World.Blocks
             get { return this._portalTarget; }
         }
 
-        protected override bool Equals(BlockPlaceSendEvent other)
+        protected override bool Equals(IBlockPlaceSendEvent other)
         {
             var worldPortalEvent = other as WorldPortalPlaceSendEvent;
             if (worldPortalEvent != null)

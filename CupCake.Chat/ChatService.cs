@@ -180,7 +180,7 @@ namespace CupCake.Chat
             var p = new int[potions.Length];
             for (int i = potions.Length - 1; i >= 0; i += -1)
             {
-                p[i] = Convert.ToInt32(potions[i]);
+                p[i] = (int)potions[i];
             }
 
             this.SendChat("/potionson  " + string.Join(" ", p));
@@ -201,7 +201,7 @@ namespace CupCake.Chat
             var p = new int[potions.Length];
             for (int i = potions.Length - 1; i >= 0; i += -1)
             {
-                p[i] = Convert.ToInt32(potions[i]);
+                p[i] = (int)potions[i];
             }
 
             this.SendChat("/potionsoff  " + string.Join(" ", p));

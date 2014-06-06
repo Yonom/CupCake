@@ -9,12 +9,12 @@ namespace CupCake.Upload
         private int _sendTries;
         private bool _verified;
 
-        public UploadRequestEvent(BlockPlaceSendEvent sendEvent)
+        public UploadRequestEvent(IBlockPlaceSendEvent sendEvent)
         {
             this.SendEvent = sendEvent;
         }
 
-        public BlockPlaceSendEvent SendEvent { get; set; }
+        public IBlockPlaceSendEvent SendEvent { get; set; }
 
         /// <summary>
         ///     Determines whether the message should be put in the front or back of the queue.

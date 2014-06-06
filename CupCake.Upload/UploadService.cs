@@ -102,7 +102,7 @@ namespace CupCake.Upload
         /// <param name="request"></param>
         private bool Send(UploadRequestEvent request)
         {
-            BlockPlaceSendEvent e = request.SendEvent;
+            IBlockPlaceSendEvent e = request.SendEvent;
             e.Encryption = this._room.Encryption;
 
             request.SendTries++;
@@ -124,7 +124,7 @@ namespace CupCake.Upload
         /// <param name="request"></param>
         private void EnqueueCheck(UploadRequestEvent request)
         {
-            BlockPlaceSendEvent e = request.SendEvent;
+            IBlockPlaceSendEvent e = request.SendEvent;
 
             lock (this._checkQueue)
             {
@@ -141,11 +141,12 @@ namespace CupCake.Upload
         ///     Calls the correct event for the given BlockPlaceSendEvent
         /// </summary>
         /// <param name="e"></param>
-        private void RaiseEvent(BlockPlaceSendEvent e)
+        private void RaiseEvent(IBlockPlaceSendEvent e)
         {
-            if (e.GetType() == typeof(BlockPlaceSendEvent))
+            var blockEvent = e as BlockPlaceSendEvent;
+            if (blockEvent != null)
             {
-                this.Events.Raise(e);
+                this.Events.Raise(blockEvent);
                 return;
             }
 
@@ -201,7 +202,7 @@ namespace CupCake.Upload
                 while (this._checkQueue.Count > 0)
                 {
                     UploadRequestEvent request = this._checkQueue.Dequeue();
-                    BlockPlaceSendEvent er = request.SendEvent;
+                    IBlockPlaceSendEvent er = request.SendEvent;
 
                     this._uploaded[(int)er.Layer, er.X, er.Y] = false;
                     if (this.IsUploaded(er))
@@ -220,7 +221,7 @@ namespace CupCake.Upload
             }
         }
 
-        private bool IsUploaded(BlockPlaceSendEvent e)
+        private bool IsUploaded(IBlockPlaceSendEvent e)
         {
             return (this._world[e.Layer, e.X, e.Y] == e);
         }

@@ -23,7 +23,7 @@ namespace CupCake.World.Blocks
             get { return this._coinsToCollect; }
         }
 
-        protected override bool Equals(BlockPlaceSendEvent other)
+        protected override bool Equals(IBlockPlaceSendEvent other)
         {
             var coinEvent = other as CoinDoorPlaceSendEvent;
             if (coinEvent != null)

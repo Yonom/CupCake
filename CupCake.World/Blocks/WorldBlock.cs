@@ -23,7 +23,7 @@ namespace CupCake.World.Blocks
         }
 
 
-        public static bool operator ==(WorldBlock a, BlockPlaceSendEvent b)
+        public static bool operator ==(WorldBlock a, IBlockPlaceSendEvent b)
         {
             if (((object)a == null) || (b == null))
             {
@@ -33,7 +33,7 @@ namespace CupCake.World.Blocks
             return a.Equals(b);
         }
 
-        public static bool operator !=(WorldBlock a, BlockPlaceSendEvent b)
+        public static bool operator !=(WorldBlock a, IBlockPlaceSendEvent b)
         {
             return !(a == b);
         }
@@ -48,7 +48,7 @@ namespace CupCake.World.Blocks
             return this.Block == other.Block;
         }
 
-        protected virtual bool Equals(BlockPlaceSendEvent other)
+        protected virtual bool Equals(IBlockPlaceSendEvent other)
         {
             if (other == null)
             {

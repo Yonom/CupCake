@@ -13,5 +13,10 @@ namespace CupCake.Messages.Receive
 
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         public Message PlayerIOMessage { get; private set; }
+
+        public override string ToString()
+        {
+            return PlayerIOMessage.ToString();
+        }
     }
 }

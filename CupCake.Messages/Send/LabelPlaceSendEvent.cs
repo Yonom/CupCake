@@ -3,25 +3,35 @@ using PlayerIOClient;
 
 namespace CupCake.Messages.Send
 {
-    public class LabelPlaceSendEvent : BlockPlaceSendEvent
+    public class LabelPlaceSendEvent : SendEvent, IBlockPlaceSendEvent
     {
         public LabelPlaceSendEvent(Layer layer, int x, int y, LabelBlock block, string text)
-            : base(layer, x, y, (Block)block)
         {
+            this.Block = block;
+            this.X = x;
+            this.Y = y;
+            this.Layer = BlockHelper.CorrectLayer((Block)block, layer);
+
             this.Text = text;
         }
+
+        Block IBlockPlaceSendEvent.Block
+        {
+            get { return (Block)this.Block; }
+            set { this.Block = (LabelBlock)value; }
+        }
+        public LabelBlock Block { get; set; }
+        public Layer Layer { get; set; }
+        public int X { get; set; }
+        public int Y { get; set; }
+
+        public string Encryption { get; set; }
 
         public string Text { get; set; }
 
         public override Message GetMessage()
         {
-            if (IsLabel(this.Block))
-            {
-                Message message = base.GetMessage();
-                message.Add(this.Text);
-                return message;
-            }
-            return base.GetMessage();
+            return Message.Create(this.Encryption, (int)this.Layer, this.X, this.Y, (int)this.Block, this.Text);
         }
     }
 }

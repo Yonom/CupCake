@@ -23,7 +23,7 @@ namespace CupCake.World.Blocks
             get { return this._soundId; }
         }
 
-        protected override bool Equals(BlockPlaceSendEvent other)
+        protected override bool Equals(IBlockPlaceSendEvent other)
         {
             var soundEvent = other as SoundPlaceSendEvent;
             if (soundEvent != null)

@@ -23,7 +23,7 @@ namespace CupCake.World.Blocks
             get { return this._text; }
         }
 
-        protected override bool Equals(BlockPlaceSendEvent other)
+        protected override bool Equals(IBlockPlaceSendEvent other)
         {
             var labelEvent = other as LabelPlaceSendEvent;
             if (labelEvent != null)

@@ -3,7 +3,7 @@ using PlayerIOClient;
 
 namespace CupCake.Messages.Receive
 {
-    public sealed class BlockPlaceReceiveEvent : ReceiveEvent, IBlockPlaceReceiveEvent
+    public class BlockPlaceReceiveEvent : ReceiveEvent, IBlockPlaceReceiveEvent
     {
         public BlockPlaceReceiveEvent(Message message)
             : base(message)

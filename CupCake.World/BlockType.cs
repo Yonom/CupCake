@@ -1,4 +1,4 @@
-namespace CupCake.Messages.Blocks
+namespace CupCake.World
 {
     public enum BlockType
     {
