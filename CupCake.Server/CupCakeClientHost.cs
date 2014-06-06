@@ -66,8 +66,6 @@ namespace CupCake.Server
         private void ServiceLoader_EnableComplete(object sender, EventArgs e)
         {
             this._client.ServiceLoader.Get<ChatService>().ChatSyntaxProvider = new CupCakeChatSyntaxProvider();
-            
-            this.LogMessage("Enabling plugins...");
         }
 
         private void OnCupCakeOutput(object sender, CupCakeOutputEvent e)
@@ -129,9 +127,8 @@ namespace CupCake.Server
             this._client.PlatformLoader.EnableComplete += this.PlatformLoader_EnableComplete;
             this._client.ServiceLoader.EnableComplete += this.ServiceLoader_EnableComplete;
             
-            this.LogMessage("Setting up the plugin enviornment...");
+            this.LogMessage("Getting stuff ready...");
             this._client.Start();
-            this.LogMessage("All setup.");
             this.LogMessage(String.Format("Welcome to CupCake! (API version: {0})", this.GetVersion()));
         }
 
