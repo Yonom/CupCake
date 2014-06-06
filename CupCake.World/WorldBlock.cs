@@ -14,6 +14,12 @@ namespace CupCake.World
         public virtual BlockType BlockType { get; private set; }
         public Block Block { get; private set; }
 
+        private Lazy<MetadataManager> _metadata;
+        public MetadataManager Metadata
+        {
+            get { return this._metadata.Value; }
+        }
+
         public string Text {
             get
             {
@@ -96,9 +102,11 @@ namespace CupCake.World
         public WorldBlock()
         {
             this._data = new BlockData();
+            this._metadata = new Lazy<MetadataManager>(() => new MetadataManager());
         }
 
-        internal WorldBlock(Layer layer, int x, int y, Block block)
+        internal WorldBlock(Layer layer, int x, int y, Block block) 
+            : this()
         {
             this.Layer = layer;
             this.X = x;

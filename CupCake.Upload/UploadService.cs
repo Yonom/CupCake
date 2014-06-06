@@ -266,8 +266,7 @@ namespace CupCake.Upload
             this.Events.Raise(this.GetLabel(x, y, block, text));
         }
 
-        public void UploadPortal(int x, int y, PortalBlock block, int id, int target,
-            PortalRotation rotation)
+        public void UploadPortal(int x, int y, PortalBlock block, int id, int target, PortalRotation rotation)
         {
             this.Events.Raise(this.GetPortal(x, y, block, id, target, rotation));
         }
