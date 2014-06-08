@@ -11,6 +11,7 @@ using CupCake.HostAPI.IO;
 using CupCake.HostAPI.Status;
 using CupCake.Keys;
 using CupCake.Messages;
+using CupCake.Permissions;
 using CupCake.Players;
 using CupCake.Potions;
 using CupCake.Room;
@@ -40,14 +41,16 @@ namespace CupCake
         private readonly Lazy<WorldService> _worldService;
         private readonly Lazy<IOService> _ioService;
         private readonly Lazy<StatusService> _statusService;
+        private readonly Lazy<PermissionService> _permissionService;
+        private readonly Lazy<StoragePlatform> _storagePlatform;
 
         protected CupCakeMuffinPart()
         {
             this._name = new Lazy<string>(this.FindName);
 
             this._connectionPlatform = new Lazy<ConnectionPlatform>(() => this.PlatformLoader.Get<ConnectionPlatform>());
-            this._synchronizePlatform =
-                new Lazy<SynchronizePlatform>(() => this.PlatformLoader.Get<SynchronizePlatform>());
+            this._synchronizePlatform = new Lazy<SynchronizePlatform>(() => this.PlatformLoader.Get<SynchronizePlatform>());
+            this._storagePlatform = new Lazy<StoragePlatform>(() => this.PlatformLoader.Get<StoragePlatform>());
 
             this._events = new Lazy<EventManager>(() =>
             {
@@ -79,6 +82,7 @@ namespace CupCake
             this._commandService = new Lazy<CommandService>(() => this.ServiceLoader.Get<CommandService>());
             this._ioService = new Lazy<IOService>(() => this.ServiceLoader.Get<IOService>());
             this._statusService = new Lazy<StatusService>(() => this.ServiceLoader.Get<StatusService>());
+            this._permissionService = new Lazy<PermissionService>(() => this.ServiceLoader.Get<PermissionService>());
         }
 
         protected EventManager Events
@@ -159,6 +163,16 @@ namespace CupCake
         protected StatusService StatusService
         {
             get { return this._statusService.Value; }
+        }
+
+        protected PermissionService PermissionService
+        {
+            get { return this._permissionService.Value; }
+        }
+
+        protected StoragePlatform StoragePlatform
+        {
+            get { return this._storagePlatform.Value; }
         }
 
         protected Timer GetTimer(int interval)

@@ -2,21 +2,27 @@
 using CupCake.Command.Source;
 using CupCake.Permissions;
 
-namespace CupCake.DefaultCommands.Commands.User
+namespace CupCake.DefaultCommands.Commands.Ban
 {
-    public class KickCommand : CommandBase<UserCommandsMuffin>
+    class BanCommand : CommandBase<BanMuffin>
     {
         [MinArgs(1)]
-        [MinGroup(Group.Trusted)]
-        [Label("kick", "kickplayer")]
+        [MinGroup(Group.Operator)]
+        [Label("ban", "banplayer")]
         [CorrectUsage("player [reason]")]
         protected override void Run(IInvokeSource source, ParsedCommand message)
         {
-            this.RequireOwner();
             var player = this.PlayerService.MatchPlayer(message.Args[0]);
             this.RequirePermissions(source, player);
 
-            this.Chatter.Kick(player.Username, message.GetTrail(1));
+            if (message.Count >= 2)
+            {
+                this.Host.Ban(player, message.GetTrail(1));
+            }
+            else
+            {
+                this.Host.Ban(player);
+            }
         }
     }
 }

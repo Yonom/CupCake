@@ -14,8 +14,6 @@ namespace CupCake.Core
 
         public string Get(string id, string key)
         {
-
-            
             return this.StorageProvider.Get(id, key);
         }
 

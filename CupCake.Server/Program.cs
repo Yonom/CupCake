@@ -5,7 +5,7 @@ using System.Net;
 using System.Net.Sockets;
 using System.Threading;
 using CupCake.Core.Storage;
-using CupCake.DefaultCommands;
+using CupCake.DefaultCommands.Commands;
 using CupCake.Protocol;
 using CupCake.Server.StorageProviders;
 using NDesk.Options;
@@ -14,10 +14,10 @@ namespace CupCake.Server
 {
     internal class Program
     {
-        // This line is here to force DefaultCommands to be included in CupCake.Client's output directory
-#pragma warning disable 169
-        private DefaultCommandsMuffin _uselessVariable;
-#pragma warning restore 169
+//        // This UserCommandsMuffin DefaultCommands to be included in CupCake.Client's output directory
+//#pragma warning disable 169
+//        private CommandBase<object> _uselessVariable;
+//#pragma warning restore 169
 
         private static int _port;
         private static string _pin;

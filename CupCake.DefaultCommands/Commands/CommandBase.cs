@@ -7,7 +7,7 @@ using CupCake.Players;
 
 namespace CupCake.DefaultCommands.Commands
 {
-    public abstract class CommandBase : Command<DefaultCommandsMuffin>
+    public abstract class CommandBase<T> : Command<T>
     {
         protected virtual void RequireOwner()
         {

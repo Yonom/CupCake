@@ -3,11 +3,10 @@ using CupCake.DefaultCommands.Commands.User;
 
 namespace CupCake.DefaultCommands
 {
-    public class DefaultCommandsMuffin : CupCakeMuffin<DefaultCommandsMuffin>
+    public class UserCommandsMuffin : CupCakeMuffin<UserCommandsMuffin>
     {
         protected override void Enable()
         {
-            this.EnablePart<HelpCommand>();
             this.EnablePart<KickCommand>();
             this.EnablePart<KillCommand>();
             this.EnablePart<TeleportCommand>();

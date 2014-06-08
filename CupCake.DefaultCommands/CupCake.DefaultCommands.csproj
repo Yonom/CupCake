@@ -43,12 +43,18 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Commands\HelpCommand.cs" />
+    <Compile Include="BanMuffin.cs" />
+    <Compile Include="Commands\Ban\TempBanCommand.cs" />
+    <Compile Include="UtilityCommandsMuffin.cs" />
+    <Compile Include="Commands\Utility\HelpCommand.cs" />
+    <Compile Include="Commands\Ban\BanCommand.cs" />
     <Compile Include="Commands\User\KillCommand.cs" />
     <Compile Include="Commands\User\KickCommand.cs" />
     <Compile Include="Commands\CommandBase.cs" />
     <Compile Include="Commands\User\TeleportCommand.cs" />
-    <Compile Include="DefaultCommandsMuffin.cs" />
+    <Compile Include="UserCommandsMuffin.cs" />
+    <Compile Include="PermissionMuffin.cs" />
+    <Compile Include="PlayerExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -81,6 +81,16 @@ namespace CupCake.Players
             }
         }
 
+        public string StorageName
+        {
+            get
+            {
+                if (this.IsGuest)
+                    return "guest";
+                return this.Username.ToLower();
+            }
+        }
+
         public int BlockX
         {
             get { return this.PosX + 8 >> 4; }

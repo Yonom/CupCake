@@ -10,18 +10,19 @@ namespace CupCake.Core
     public abstract class CupCakeServicePart<TProtocol> : ServicePart<TProtocol>
     {
         private readonly Lazy<ConnectionPlatform> _connectionPlatform;
+        private readonly Lazy<SynchronizePlatform> _synchronizePlatofrm;
+        private readonly Lazy<StoragePlatform> _storagePlatform;
 
         private readonly Lazy<EventManager> _events;
         private readonly Lazy<Logger> _logger;
-        private readonly Lazy<SynchronizePlatform> _synchronizePlatofrm;
 
         protected CupCakeServicePart()
         {
             this._name = new Lazy<string>(this.FindName);
 
             this._connectionPlatform = new Lazy<ConnectionPlatform>(() => this.PlatformLoader.Get<ConnectionPlatform>());
-            this._synchronizePlatofrm =
-                new Lazy<SynchronizePlatform>(() => this.PlatformLoader.Get<SynchronizePlatform>());
+            this._synchronizePlatofrm = new Lazy<SynchronizePlatform>(() => this.PlatformLoader.Get<SynchronizePlatform>());
+            this._storagePlatform = new Lazy<StoragePlatform>(() => this.PlatformLoader.Get<StoragePlatform>());
 
             this._logger = new Lazy<Logger>(() =>
             {
@@ -55,6 +56,11 @@ namespace CupCake.Core
         protected SynchronizePlatform SynchronizePlatform
         {
             get { return this._synchronizePlatofrm.Value; }
+        }
+
+        protected StoragePlatform StoragePlatform
+        {
+            get { return this._storagePlatform.Value; }
         }
 
         private readonly Lazy<string> _name;

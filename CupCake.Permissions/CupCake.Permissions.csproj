@@ -43,6 +43,8 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ChangedPermissionEvent.cs" />
+    <Compile Include="PermissionService.cs" />
     <Compile Include="PlayerExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Group.cs" />
@@ -51,6 +53,10 @@
     <ProjectReference Include="..\CupCake.Core\CupCake.Core.csproj">
       <Project>{598d616c-4886-482b-af57-7bc7daa56cce}</Project>
       <Name>CupCake.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CupCake.Messages\CupCake.Messages.csproj">
+      <Project>{4746f723-ee77-4434-983c-02d1dd1bd982}</Project>
+      <Name>CupCake.Messages</Name>
     </ProjectReference>
     <ProjectReference Include="..\CupCake.Players\CupCake.Players.csproj">
       <Project>{d9df7c76-4de4-4270-bca6-cba724e639ae}</Project>
