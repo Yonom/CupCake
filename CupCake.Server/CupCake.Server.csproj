@@ -83,15 +83,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="IO\InputEvent.cs" />
-    <Compile Include="IO\IOMuffin.cs" />
-    <Compile Include="IO\IIOSyntaxProvider.cs" />
-    <Compile Include="IO\OutputEvent.cs" />
     <Compile Include="CupCakeClientHost.cs" />
+    <Compile Include="IOMuffin.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RoomHelper.cs" />
-    <Compile Include="IO\OutputService.cs" />
     <Compile Include="StorageProviders\MySqlStorageProvider.cs" />
     <Compile Include="StorageProviders\SQLiteStorageProvider.cs" />
     <Compile Include="SyntaxProviders\CupCakeChatSyntaxProvider.cs" />
@@ -113,6 +109,10 @@
     <ProjectReference Include="..\CupCake.DefaultCommands\CupCake.DefaultCommands.csproj">
       <Project>{e5fc97af-27cb-44b8-a16a-8a691dd78ccd}</Project>
       <Name>CupCake.DefaultCommands</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CupCake.HostAPI\CupCake.HostAPI.csproj">
+      <Project>{cb00b556-e597-4c9b-af9b-d9c98a378a48}</Project>
+      <Name>CupCake.HostAPI</Name>
     </ProjectReference>
     <ProjectReference Include="..\CupCake.Messages\CupCake.Messages.csproj">
       <Project>{4746f723-ee77-4434-983c-02d1dd1bd982}</Project>

@@ -7,9 +7,9 @@ using CupCake.Command;
 using CupCake.Command.Source;
 using CupCake.Core;
 using CupCake.Host;
+using CupCake.HostAPI.IO;
 using CupCake.Messages.Receive;
 using CupCake.Protocol;
-using CupCake.Server.IO;
 using CupCake.Server.StorageProviders;
 using CupCake.Server.SyntaxProviders;
 using PlayerIOClient;
@@ -61,7 +61,9 @@ namespace CupCake.Server
 
         private void ServiceLoader_EnableComplete(object sender, EventArgs e)
         {
-            this._client.ServiceLoader.Get<ChatService>().ChatSyntaxProvider = new CupCakeChatSyntaxProvider();
+            // Change the default chat and output formats
+            this._client.ServiceLoader.Get<ChatService>().SyntaxProvider = new CupCakeChatSyntaxProvider();
+            this._client.ServiceLoader.Get<IOService>().SyntaxProvider = new CupCakeIOSyntaxProvider();
         }
 
         private void OnCupCakeOutput(object sender, CupCakeOutputEvent e)

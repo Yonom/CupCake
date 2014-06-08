@@ -1,10 +1,10 @@
 ﻿using System;
 using CupCake.Core.Log;
-using CupCake.Server.IO;
+using CupCake.HostAPI.IO;
 
 namespace CupCake.Server.SyntaxProviders
 {
-    public class CupCakeIOSyntaxProvider : IOutputSyntaxProvider
+    public class CupCakeIOSyntaxProvider : IIOSyntaxProvider
     {
         public string ParseOutput(LogEventArgs e)
         {

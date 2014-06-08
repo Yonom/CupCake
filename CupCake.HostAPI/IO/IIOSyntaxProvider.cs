@@ -1,8 +1,8 @@
 ﻿using CupCake.Core.Log;
 
-namespace CupCake.Server.IO
+namespace CupCake.HostAPI.IO
 {
-    public interface IOutputSyntaxProvider
+    public interface IIOSyntaxProvider
     {
         string ParseOutput(LogEventArgs e);
         string ParseInput(InputEvent e);

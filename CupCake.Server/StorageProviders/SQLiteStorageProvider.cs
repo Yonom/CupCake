@@ -41,17 +41,9 @@ namespace CupCake.Server.StorageProviders
                 {
                     cmd.Parameters.AddWithValue("@id", id);
                     cmd.Parameters.AddWithValue("@key", key);
-
-                    try
-                    {
-                        conn.Open();
-                        return (string)cmd.ExecuteScalar();
-                    }
-                    catch (Exception)
-                    {
-                        Console.WriteLine("Failed to connect to MySQL");
-                        return null;
-                    }
+                    
+                    conn.Open();
+                    return (string)cmd.ExecuteScalar();
                 }
             }
         }

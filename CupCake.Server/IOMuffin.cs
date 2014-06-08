@@ -1,9 +1,10 @@
 ﻿using CupCake.Command;
 using CupCake.Core.Log;
+using CupCake.HostAPI.IO;
 using CupCake.Messages.Receive;
 using CupCake.Players;
 
-namespace CupCake.Server.IO
+namespace CupCake.Server
 {
     public class IOMuffin : CupCakeMuffin
     {

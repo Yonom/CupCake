@@ -76,6 +76,10 @@
       <Project>{598d616c-4886-482b-af57-7bc7daa56cce}</Project>
       <Name>CupCake.Core</Name>
     </ProjectReference>
+    <ProjectReference Include="..\CupCake.HostAPI\CupCake.HostAPI.csproj">
+      <Project>{cb00b556-e597-4c9b-af9b-d9c98a378a48}</Project>
+      <Name>CupCake.HostAPI</Name>
+    </ProjectReference>
     <ProjectReference Include="..\CupCake.Keys\CupCake.Keys.csproj">
       <Project>{445870a4-3eca-4411-9a28-85bee51f27c6}</Project>
       <Name>CupCake.Keys</Name>

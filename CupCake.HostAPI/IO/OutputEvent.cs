@@ -1,6 +1,6 @@
 ﻿using CupCake.Core.Events;
 
-namespace CupCake.Server.IO
+namespace CupCake.HostAPI.IO
 {
     public class CupCakeOutputEvent : Event
     {

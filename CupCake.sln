@@ -51,6 +51,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{95A56A
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CupCake.DefaultCommands", "CupCake.DefaultCommands\CupCake.DefaultCommands.csproj", "{E5FC97AF-27CB-44B8-A16A-8A691DD78CCD}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CupCake.HostAPI", "CupCake.HostAPI\CupCake.HostAPI.csproj", "{CB00B556-E597-4C9B-AF9B-D9C98A378A48}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -129,6 +131,10 @@ Global
 		{E5FC97AF-27CB-44B8-A16A-8A691DD78CCD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E5FC97AF-27CB-44B8-A16A-8A691DD78CCD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E5FC97AF-27CB-44B8-A16A-8A691DD78CCD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CB00B556-E597-4C9B-AF9B-D9C98A378A48}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CB00B556-E597-4C9B-AF9B-D9C98A378A48}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CB00B556-E597-4C9B-AF9B-D9C98A378A48}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CB00B556-E597-4C9B-AF9B-D9C98A378A48}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -145,5 +151,6 @@ Global
 		{5B264955-5D1C-4B16-9950-8F1667F8FEF6} = {FFE107C6-9B1F-4F61-870E-FBBA826D0161}
 		{3F7AFE9C-D511-43B2-B3CA-4B60A5D6B79D} = {FFE107C6-9B1F-4F61-870E-FBBA826D0161}
 		{4746F723-EE77-4434-983C-02D1DD1BD982} = {FFE107C6-9B1F-4F61-870E-FBBA826D0161}
+		{CB00B556-E597-4C9B-AF9B-D9C98A378A48} = {FFE107C6-9B1F-4F61-870E-FBBA826D0161}
 	EndGlobalSection
 EndGlobal

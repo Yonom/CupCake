@@ -15,11 +15,11 @@ namespace CupCake.Chat
         private readonly List<string> _myHistoryList = new List<string>();
         private Timer _mySendTimer;
 
-        public IChatSyntaxProvider ChatSyntaxProvider { get; set; }
+        public IChatSyntaxProvider SyntaxProvider { get; set; }
 
         protected override void Enable()
         {
-            this.ChatSyntaxProvider = new BasicChatSyntaxProvider();
+            this.SyntaxProvider = new BasicChatSyntaxProvider();
 
             this._mySendTimer = new Timer(700);
             this._mySendTimer.Elapsed += this.SendTimer_Elapsed;
@@ -95,7 +95,7 @@ namespace CupCake.Chat
 
         public void Chat(string msg, string chatName)
         {
-            this.SendChat(this.ChatSyntaxProvider.ApplyChatSyntax(msg, chatName));
+            this.SendChat(this.SyntaxProvider.ApplyChatSyntax(msg, chatName));
         }
 
         public void Send(string msg)
@@ -105,7 +105,7 @@ namespace CupCake.Chat
 
         public void Reply(string username, string chatName, string msg)
         {
-            this.SendChat(this.ChatSyntaxProvider.ApplyReplySyntax(msg, chatName, username));
+            this.SendChat(this.SyntaxProvider.ApplyReplySyntax(msg, chatName, username));
         }
 
         public void GiveEdit(string username)
@@ -135,7 +135,7 @@ namespace CupCake.Chat
 
         public void Kick(string chatName, string username, string reason)
         {
-            this.SendChat(this.ChatSyntaxProvider.ApplyKickSyntax(chatName, username, reason));
+            this.SendChat(this.SyntaxProvider.ApplyKickSyntax(chatName, username, reason));
         }
 
         public void KickGuests()

@@ -2,18 +2,17 @@
 using CupCake.Core;
 using CupCake.Core.Events;
 using CupCake.Core.Log;
-using CupCake.Server.SyntaxProviders;
 
-namespace CupCake.Server.IO
+namespace CupCake.HostAPI.IO
 {
-    public class OutputService : CupCakeService
+    public class IOService : CupCakeService
     {
-        public IOutputSyntaxProvider SyntaxProvider { get; set; }
+        public IIOSyntaxProvider SyntaxProvider { get; set; }
         public LogPriority MinPriority { get; set; }
 
         protected override void Enable()
         {
-            this.SyntaxProvider = new CupCakeIOSyntaxProvider();
+            this.SyntaxProvider = new BasicIOSyntaxProvider();
 
             if (Debugger.IsAttached)
                 this.MinPriority = LogPriority.Debug;
