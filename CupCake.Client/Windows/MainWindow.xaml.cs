@@ -11,6 +11,7 @@ using System.Reflection;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 using System.Windows.Documents;
 using CupCake.Client.Settings;
@@ -310,13 +311,13 @@ namespace CupCake.Client.Windows
                     }
                 };
 
-                ConnectionsTabControl.SelectionChanged += (sender, args) =>
+                Selector.AddSelectedHandler(tabItem, (sender, args) =>
                 {
                     if (tabItem.IsSelected)
                     {
                         this.StatusTextBlock.Text = userControl.StatusString;
                     }
-                };
+                });
 
                 this.ConnectionsTabControl.Items.Add(tabItem);
                 tabItem.IsSelected = true;

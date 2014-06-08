@@ -4,8 +4,10 @@ using System.Linq;
 using System.Net;
 using System.Net.Sockets;
 using System.Threading;
+using CupCake.Core.Storage;
 using CupCake.DefaultCommands;
 using CupCake.Protocol;
+using CupCake.Server.StorageProviders;
 using NDesk.Options;
 
 namespace CupCake.Server
@@ -263,7 +265,20 @@ namespace CupCake.Server
             if (_started) return;
             _started = true;
 
-            _clientEx.Start(_accountType, _email, _password, _world, _dirs.ToArray(), _databaseType, _connectionString);
+            IStorageProvider storage = null;
+            try
+            {
+                if (_databaseType == DatabaseType.MySql)
+                    storage = new MySqlStorageProvider(_connectionString);
+                else
+                    storage = new SQLiteStorageProvider(_connectionString);
+            }
+            catch (StorageException ex)
+            {
+                OnOutput("Unable to connect to database: " + ex);
+            }
+
+            _clientEx.Start(_accountType, _email, _password, _world, _dirs.ToArray(), storage);
         }
     }
 }

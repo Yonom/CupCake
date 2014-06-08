@@ -19,11 +19,6 @@ namespace CupCake.Server.Muffins
 
         protected override void Enable()
         {
-            this.StatusService.Add(_onlinePlayers);
-            this.StatusService.Add(_plays);
-            this.StatusService.Add(_woots);
-            this.StatusService.Add(_totalWoots);
-
             this.Events.Bind<InitReceiveEvent>(this.OnInit);
             this.Events.Bind<InitCompleteEvent>(this.OnInitComplete);
             this.Events.Bind<UpdateMetaReceiveEvent>(this.OnUpdateMeta);
@@ -43,6 +38,11 @@ namespace CupCake.Server.Muffins
 
         private void OnInitComplete(object sender, InitCompleteEvent e)
         {
+            this.StatusService.Add(_onlinePlayers);
+            this.StatusService.Add(_plays);
+            this.StatusService.Add(_woots);
+            this.StatusService.Add(_totalWoots);
+
             this.UpdateOnline();
         }
 

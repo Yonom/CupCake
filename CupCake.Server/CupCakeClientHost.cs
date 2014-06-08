@@ -7,6 +7,7 @@ using CupCake.Command;
 using CupCake.Command.Source;
 using CupCake.Core;
 using CupCake.Core.Events;
+using CupCake.Core.Storage;
 using CupCake.Host;
 using CupCake.HostAPI.IO;
 using CupCake.HostAPI.Status;
@@ -22,9 +23,8 @@ namespace CupCake.Server
     public class CupCakeClientHost
     {
         public const string GameId = "everybody-edits-su9rn58o40itdbnw69plyw";
+        private IStorageProvider _storage;
         private CupCakeClient _client;
-        private string _cs;
-        private DatabaseType _dbType;
         private EventsPlatform _eventsPlatform;
 
         public event Action<string> Output;
@@ -58,12 +58,12 @@ namespace CupCake.Server
 
         private void PlatformLoader_EnableComplete(object sender, EventArgs e)
         {
-            // Change the default storage source
-            var storagePlatform = this._client.PlatformLoader.Get<StoragePlatform>();
-            if (this._dbType == DatabaseType.MySql)
-                storagePlatform.StorageProvider = new MySqlStorageProvider(this._cs);
-            else
-                storagePlatform.StorageProvider = new SQLiteStorageProvider(this._cs);
+            if (this._storage != null)
+            {
+                // Change the default storage source
+                var storagePlatform = this._client.PlatformLoader.Get<StoragePlatform>();
+                storagePlatform.StorageProvider = this._storage;
+            }
 
             // Listen to HostAPI events
             _eventsPlatform = this._client.PlatformLoader.Get<EventsPlatform>();
@@ -107,11 +107,9 @@ namespace CupCake.Server
             this.OnOutput(String.Format("*** {0}", str));
         }
 
-        public void Start(AccountType accType, string email, string password, string roomId, string[] directories,
-            DatabaseType dbType, string cs)
+        public void Start(AccountType accType, string email, string password, string roomId, string[] directories, IStorageProvider storage)
         {
-            this._dbType = dbType;
-            this._cs = cs;
+            this._storage = storage;
 
             this.LogMessage("Logging in...");
             // Connect to playerIO
