@@ -4,12 +4,13 @@ using CupCake.Players;
 
 namespace CupCake.Command
 {
-    public static class PlayerParser
+    public static class PlayerServiceExtensions
     {
         public static Player MatchPlayer(this PlayerService playerService, string filter)
         {
             if (filter.Length >= 2)
             {
+                bool firstResult = filter.StartsWith("~");
                 bool exactMatch = filter.StartsWith("@");
 
                 // Wild card matching requested
@@ -41,8 +42,8 @@ namespace CupCake.Command
                 }
 
                 if (list.Count == 0)
-                    throw new CommandException("No player found!");
-                if (list.Count >= 2)
+                    throw new UnknownPlayerException("No player found!");
+                if (!firstResult && list.Count >= 2)
                     throw new CommandException("More than one player was found.");
 
                 return list[0];

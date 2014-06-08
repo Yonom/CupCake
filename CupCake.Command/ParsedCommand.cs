@@ -1,12 +1,17 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Linq;
 
 namespace CupCake.Command
 {
+    [DebuggerDisplay("Source = {Source}")]
     public class ParsedCommand
     {
+        public string Source { get; private set; }
+
         public ParsedCommand(string source)
         {
+            this.Source = source;
             string[] parts = source.Split(' ');
             this.Type = parts[0];
             this.Args = parts.Skip(1).ToArray();
@@ -18,6 +23,22 @@ namespace CupCake.Command
         public int Count
         {
             get { return this.Args.Length; }
+        }
+
+        public int GetInt(int index)
+        {
+            try
+            {
+                return Convert.ToInt32(this.Args[index]);
+            }
+            catch (FormatException)
+            {
+                throw new CommandException("Could not convert parameter " + index + " to integer.");
+            }
+            catch (OverflowException)
+            {
+                throw new CommandException("Integer at parameter " + index + " was too big.");
+            }
         }
 
         public string GetTrail(int index)

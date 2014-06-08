@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Linq;
+using System.Reflection;
 using CupCake.Core.Events;
 using CupCake.Core.Log;
 using MuffinFramework.Services;
@@ -15,6 +17,8 @@ namespace CupCake.Core
 
         protected CupCakeServicePart()
         {
+            this._name = new Lazy<string>(this.FindName);
+
             this._connectionPlatform = new Lazy<ConnectionPlatform>(() => this.PlatformLoader.Get<ConnectionPlatform>());
             this._synchronizePlatofrm =
                 new Lazy<SynchronizePlatform>(() => this.PlatformLoader.Get<SynchronizePlatform>());
@@ -53,9 +57,25 @@ namespace CupCake.Core
             get { return this._synchronizePlatofrm.Value; }
         }
 
+        private readonly Lazy<string> _name;
+
+        private string FindName()
+        {
+            var pluginName =
+                (PluginNameAttribute)
+                    Assembly.GetAssembly(this.GetType())
+                        .GetCustomAttributes(typeof(PluginNameAttribute), false)
+                        .FirstOrDefault();
+
+            if (pluginName != null)
+                return pluginName.Name;
+
+            return this.GetType().Namespace;
+        }
+
         protected virtual string GetName()
         {
-            return this.GetType().Namespace;
+            return this._name.Value;
         }
 
         protected override void Dispose(bool disposing)

@@ -2,6 +2,7 @@
 using CupCake.Chat;
 using CupCake.Command.Source;
 using CupCake.Core;
+using CupCake.Core.Log;
 using CupCake.Permissions;
 using CupCake.Players;
 
@@ -39,16 +40,29 @@ namespace CupCake.Command
 
         public void InvokeFromPlayer(Player player, ParsedCommand message)
         {
-            this.InvokeFromPlayer(player, message, player.GetGroup());
+            this.InvokeFromPlayer(player, player.GetGroup(), message);
         }
 
-        public void InvokeFromPlayer(Player player, ParsedCommand message, Group group)
+        public void InvokeFromPlayer(Player player, Group group, ParsedCommand message)
         {
-            var e = new PlayerInvokeEvent(player, message, group);
-            this.Events.Raise(e);
+            var source = new PlayerInvokeSource(this, group, player, 
+                (name, msg) => 
+                    this._chatService.Chat(msg, name));
+            this.Invoke(source, message);
+        }
 
-            if (!e.Handled && group >= this.ResponseMinGroup)
-                this._chatService.Reply(player.Username, "Bot", UnknownCommandStr);
+        public void InvokeFromConsole(ParsedCommand message)
+        {
+            InvokeFromConsole(Group.Host, message);
+        }
+
+        public void InvokeFromConsole(Group group, ParsedCommand message)
+        {
+            var source = new ExternalInvokeSource(this, group, "Console",
+                (name, msg) => 
+                    this.Logger.LogPlatform.Log(name, LogPriority.Message, msg));
+
+            this.Invoke(source, message);
         }
 
         public void Invoke(IInvokeSource source, ParsedCommand message)

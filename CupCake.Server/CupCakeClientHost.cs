@@ -10,7 +10,7 @@ using CupCake.Host;
 using CupCake.Messages.Receive;
 using CupCake.Permissions;
 using CupCake.Protocol;
-using CupCake.Server.Output;
+using CupCake.Server.IO;
 using CupCake.Server.StorageProviders;
 using CupCake.Server.SyntaxProviders;
 using PlayerIOClient;
@@ -23,6 +23,7 @@ namespace CupCake.Server
         private CupCakeClient _client;
         private string _cs;
         private DatabaseType _dbType;
+        private EventsPlatform _eventsPlatform;
 
         public event Action<string> Output;
 
@@ -42,11 +43,7 @@ namespace CupCake.Server
 
         public void Input(string input)
         {
-            this.OnOutput("> " + input);
-
-            this._client.ServiceLoader.Get<CommandService>().Invoke(
-                new ExternalInvokeSource(this, Group.Host, "CupCakeHost", this.OnOutput),
-                new ParsedCommand(input));
+            this._eventsPlatform.Event<InputEvent>().Raise(this, new InputEvent(input));
         }
 
         private void PlatformLoader_EnableComplete(object sender, EventArgs e)
@@ -57,10 +54,10 @@ namespace CupCake.Server
             else
                 storagePlatform.StorageProvider = new SQLiteStorageProvider(this._cs);
 
-            var eventsPlatform = this._client.PlatformLoader.Get<EventsPlatform>();
-            eventsPlatform.Event<CupCakeOutputEvent>().Bind(this.OnCupCakeOutput);
-            eventsPlatform.Event<InitReceiveEvent>().Bind(this.OnInit);
-            eventsPlatform.Event<UpdateMetaReceiveEvent>().Bind(this.OnUpdateMeta);
+            _eventsPlatform = this._client.PlatformLoader.Get<EventsPlatform>();
+            _eventsPlatform.Event<CupCakeOutputEvent>().Bind(this.OnCupCakeOutput);
+            _eventsPlatform.Event<InitReceiveEvent>().Bind(this.OnInit);
+            _eventsPlatform.Event<UpdateMetaReceiveEvent>().Bind(this.OnUpdateMeta);
         }
 
         private void ServiceLoader_EnableComplete(object sender, EventArgs e)

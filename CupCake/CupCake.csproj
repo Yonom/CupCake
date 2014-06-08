@@ -57,7 +57,6 @@
     <Compile Include="CupCakeMuffin.cs" />
     <Compile Include="CupCakeMuffinPart.cs" />
     <Compile Include="EEMuffin.cs" />
-    <Compile Include="PlayerInvokeSource.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

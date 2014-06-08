@@ -11,17 +11,18 @@ namespace CupCake
 {
     public abstract class Command<TProtocol> : CupCakeMuffinPart<TProtocol>
     {
-        public List<string> LabelsList { get; set; }
+        public List<string> Labels { get; private set; }
+
+        public List<string> Usages { get; private set; }
 
         public int MinArgs { get; set; }
 
         public Group MinGroup { get; set; }
 
-        public string Usage { get; set; }
-
         protected override void Enable()
         {
-            this.LabelsList = new List<string>();
+            this.Labels = new List<string>();
+            this.Usages = new List<string>();
 
             MethodBase method = this.GetType().GetMethod("Run", BindingFlags.Instance | BindingFlags.NonPublic);
 
@@ -29,7 +30,7 @@ namespace CupCake
             var labels = (LabelAttribute)method.GetCustomAttributes(typeof(LabelAttribute), false).FirstOrDefault();
             if (labels != null)
             {
-                this.LabelsList.AddRange(labels.Labels);
+                this.Labels.AddRange(labels.Labels);
             }
 
             // MinGroup attribute
@@ -48,14 +49,9 @@ namespace CupCake
             }
 
             // CorrectUsage attribute
-            var correctUsage =
-                (CorrectUsageAttribute)method.GetCustomAttributes(typeof(CorrectUsageAttribute), false).FirstOrDefault();
-            if (correctUsage != null)
-            {
-                this.Usage = correctUsage.Usage;
-            }
+            var correctUsage = (CorrectUsageAttribute[])method.GetCustomAttributes(typeof(CorrectUsageAttribute), false);
+            this.Usages.AddRange(correctUsage.Select(usage => usage.Usage));
 
-            this.Events.Bind<PlayerInvokeEvent>(this.OnPlayerInvoke, EventPriority.Lowest);
             this.Events.Bind<InvokeEvent>(this.OnInvoke, EventPriority.Lowest);
         }
 
@@ -63,29 +59,27 @@ namespace CupCake
         {
             if (this.CanHandle(e.Message))
             {
+                e.Source.PluginName = this.GetName();
                 this.ExcecuteCommand(e.Source, e.Message);
-                e.Handled = true;
-            }
-        }
-
-        private void OnPlayerInvoke(object sender, PlayerInvokeEvent e)
-        {
-            if (this.CanHandle(e.Message))
-            {
-                this.ExcecuteCommand(new PlayerInvokeSource(sender, e.Group, e.Player, this.Chatter), e.Message);
                 e.Handled = true;
             }
         }
 
         protected virtual bool CanHandle(ParsedCommand message)
         {
-            return this.LabelsList.Any(l => l.Equals(message.Type, StringComparison.OrdinalIgnoreCase));
+            return this.Labels.Any(l => l.Equals(message.Type, StringComparison.OrdinalIgnoreCase));
         }
 
         protected void ExcecuteCommand(IInvokeSource source, ParsedCommand message)
         {
             try
             {
+                if (message is HelpRequest)
+                {
+                    source.Reply("Command usage: " + this.GetUsageStr());
+                    return;
+                }
+
                 if (source.Group < this.MinGroup)
                     throw new AccessDeniedException();
                 if (message.Count < this.MinArgs)
@@ -100,8 +94,7 @@ namespace CupCake
             }
             catch (SyntaxException ex)
             {
-                source.Reply(ex.Message + " Correct usage: " + this.CommandService.CommandPrefix + "command " +
-                             this.Usage);
+                source.Reply(ex.Message + " Correct usage: " + this.GetUsageStr());
             }
             catch (CommandException ex)
             {
@@ -109,6 +102,13 @@ namespace CupCake
             }
         }
 
+        private string GetUsageStr()
+        {
+            var correctUsages =
+                this.Usages.Select(usage => this.CommandService.CommandPrefix + this.Labels[0] + " " + usage);
+            return String.Join(" / ", correctUsages);
+        }
+        
         protected abstract void Run(IInvokeSource source, ParsedCommand message);
     }
 }

@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Linq;
+using System.Reflection;
 using CupCake.Actions;
 using CupCake.Chat;
 using CupCake.Command;
@@ -37,6 +39,8 @@ namespace CupCake
 
         protected CupCakeMuffinPart()
         {
+            this._name = new Lazy<string>(this.FindName);
+
             this._connectionPlatform = new Lazy<ConnectionPlatform>(() => this.PlatformLoader.Get<ConnectionPlatform>());
             this._synchronizePlatform =
                 new Lazy<SynchronizePlatform>(() => this.PlatformLoader.Get<SynchronizePlatform>());
@@ -146,9 +150,25 @@ namespace CupCake
             return new Timer(interval) {SynchronizingObject = new GenericSynchronizingObject()};
         }
 
+        private readonly Lazy<string> _name;
+
+        private string FindName()
+        {
+            var pluginName =
+                (PluginNameAttribute)
+                    Assembly.GetAssembly(this.GetType())
+                        .GetCustomAttributes(typeof(PluginNameAttribute), false)
+                        .FirstOrDefault();
+
+            if (pluginName != null)
+                return pluginName.Name;
+
+            return this.GetType().Namespace;
+        }
+
         protected virtual string GetName()
         {
-            return this.GetType().Namespace;
+            return this._name.Value;
         }
 
         protected override void Dispose(bool disposing)

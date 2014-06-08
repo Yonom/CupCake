@@ -70,6 +70,10 @@ namespace CupCake.Protocol
                     }
                 }
             }
+            catch (ProtoException ex)
+            {
+                Debug.WriteLine(ex.ToString());
+            }
             catch (SocketException ex)
             {
                 Debug.WriteLine(ex.ToString());

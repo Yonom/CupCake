@@ -43,21 +43,25 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ConsoleInputEvent.cs" />
     <Compile Include="CorrectUsageAttribute.cs" />
     <Compile Include="LabelAttribute.cs" />
     <Compile Include="MinArgsAttribute.cs" />
     <Compile Include="MinGroupAttribute.cs" />
     <Compile Include="InvokeEvent.cs" />
-    <Compile Include="PlayerInvokeEvent.cs" />
     <Compile Include="AccessDeniedException.cs" />
     <Compile Include="CommandException.cs" />
-    <Compile Include="PlayerParser.cs" />
+    <Compile Include="PlayerServiceExtensions.cs" />
+    <Compile Include="HelpRequest.cs" />
+    <Compile Include="Source\InvokeSourceBase.cs" />
+    <Compile Include="Source\PlayerInvokeSource.cs" />
     <Compile Include="SyntaxException.cs" />
     <Compile Include="CommandService.cs" />
     <Compile Include="ParsedCommand.cs" />
     <Compile Include="Source\ExternalInvokeSource.cs" />
     <Compile Include="Source\IInvokeSource.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UnknownPlayerException.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\CupCake.Chat\CupCake.Chat.csproj">

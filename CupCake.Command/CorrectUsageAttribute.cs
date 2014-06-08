@@ -2,7 +2,7 @@
 
 namespace CupCake.Command
 {
-    [AttributeUsage(AttributeTargets.Method)]
+    [AttributeUsage(AttributeTargets.Method, AllowMultiple = true)]
     public class CorrectUsageAttribute : Attribute
     {
         public CorrectUsageAttribute(string usage)

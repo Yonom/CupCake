@@ -37,7 +37,11 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Commands\KickCommand.cs" />
+    <Compile Include="Commands\HelpCommand.cs" />
+    <Compile Include="Commands\User\KillCommand.cs" />
+    <Compile Include="Commands\User\KickCommand.cs" />
+    <Compile Include="Commands\CommandBase.cs" />
+    <Compile Include="Commands\User\TeleportCommand.cs" />
     <Compile Include="DefaultCommandsMuffin.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -70,6 +74,10 @@
       <Project>{7c7bf5b3-db13-4672-ae6f-2ead4c2270b6}</Project>
       <Name>CupCake</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Commands\Owner\" />
+    <Folder Include="Commands\Permissions\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -1,4 +1,5 @@
 ﻿using CupCake.DefaultCommands.Commands;
+using CupCake.DefaultCommands.Commands.User;
 
 namespace CupCake.DefaultCommands
 {
@@ -6,7 +7,10 @@ namespace CupCake.DefaultCommands
     {
         protected override void Enable()
         {
+            this.EnablePart<HelpCommand>();
             this.EnablePart<KickCommand>();
+            this.EnablePart<KillCommand>();
+            this.EnablePart<TeleportCommand>();
         }
     }
 }
