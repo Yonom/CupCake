@@ -53,6 +53,7 @@
     <Compile Include="CommandException.cs" />
     <Compile Include="PlayerServiceExtensions.cs" />
     <Compile Include="HelpRequest.cs" />
+    <Compile Include="Source\ConsoleInvokeSource.cs" />
     <Compile Include="Source\InvokeSourceBase.cs" />
     <Compile Include="Source\PlayerInvokeSource.cs" />
     <Compile Include="SyntaxException.cs" />

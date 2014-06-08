@@ -58,7 +58,7 @@ namespace CupCake.Command
 
         public void InvokeFromConsole(Group group, ParsedCommand message)
         {
-            var source = new ExternalInvokeSource(this, group, "Console",
+            var source = new ConsoleInvokeSource(this, group,
                 (name, msg) => 
                     this.Logger.LogPlatform.Log(name, LogPriority.Message, msg));
 
