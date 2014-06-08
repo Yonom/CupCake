@@ -2,9 +2,9 @@
 
 namespace CupCake.World
 {
-    public class BlockPlaceEvent : Event
+    public class PlaceWorldEvent : Event
     {
-        public BlockPlaceEvent(WorldBlock block)
+        public PlaceWorldEvent(WorldBlock block)
         {
             this.Block = block;
         }

@@ -27,7 +27,7 @@ namespace CupCake.Upload
             this._workThread = new DequeWorker();
 
             this.Events.Bind<UploadRequestEvent>(this.OnUploadRequest, EventPriority.Lowest);
-            this.Events.Bind<BlockPlaceEvent>(this.OnBlockPlace);
+            this.Events.Bind<PlaceWorldEvent>(this.OnBlockPlace);
             this.Events.Bind<InitCompleteEvent>(this.OnInitComplete);
             this.Events.Bind<AccessRightChangeEvent>(this.OnAccessRightChange);
             this.Events.Bind<ClearReceiveEvent>(this.OnClear);
@@ -187,7 +187,7 @@ namespace CupCake.Upload
             }
         }
 
-        private void OnBlockPlace(object sender, BlockPlaceEvent e)
+        private void OnBlockPlace(object sender, PlaceWorldEvent e)
         {
             if (this._uploaded[(int)e.Block.Layer, e.Block.X, e.Block.Y])
             {
