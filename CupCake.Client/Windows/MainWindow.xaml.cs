@@ -56,6 +56,9 @@ namespace CupCake.Client.Windows
                 this.ConnectionsTabControl.Visibility = value
                     ? Visibility.Visible
                     : Visibility.Collapsed;
+
+                if (!value)
+                    this.StatusTextBlock.Text = "Ready";
             }
         }
 
@@ -307,6 +310,14 @@ namespace CupCake.Client.Windows
                     }
                 };
 
+                ConnectionsTabControl.SelectionChanged += (sender, args) =>
+                {
+                    if (tabItem.IsSelected)
+                    {
+                        this.StatusTextBlock.Text = userControl.StatusString;
+                    }
+                };
+
                 this.ConnectionsTabControl.Items.Add(tabItem);
                 tabItem.IsSelected = true;
 
@@ -414,6 +425,8 @@ namespace CupCake.Client.Windows
 
         private void NewConnection(bool showConsole, bool isDebug = false)
         {
+            this.StatusTextBlock.Text = "Waiting for connection...";
+
             var p = new Process
             {
                 StartInfo =

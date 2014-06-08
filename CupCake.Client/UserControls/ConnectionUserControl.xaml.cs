@@ -18,27 +18,40 @@ namespace CupCake.Client.UserControls
         private bool _cancelClose;
         private string _titleText = SettingsManager.UnnamedString;
         private string _statusText;
+        private bool _isDisonnected;
 
         public bool IsDebug { get; set; }
-        public bool IsConnected { get; private set; }
+
+        public string StatusString {
+            get { return (this.IsDisonnected ? "Disconnected" : "Connected") + (this._statusText != null ? " | " +  this._statusText : String.Empty); }
+        }
+
+        private bool IsDisonnected
+        {
+            get { return this._isDisonnected; }
+            set
+            {
+                this._isDisonnected = value;
+                this.OnStatus(this.StatusString);
+            }
+        }
+
+        private string StatusText
+        {
+            set
+            {
+                this._statusText = value;
+                this.OnStatus(this.StatusString);
+            }
+        }
 
         public string TitleText
         {
             get { return this._titleText; }
-            private set
+            set
             {
                 this._titleText = value;
                 this.OnTitle(this._titleText);
-            }
-        }
-
-        public string StatusText
-        {
-            get { return this._statusText; }
-            private set
-            {
-                this._statusText = value;
-                this.OnStatus(this._statusText);
             }
         }
 
@@ -113,12 +126,11 @@ namespace CupCake.Client.UserControls
 
         private void _handle_ConnectionClose()
         {
-            this.IsConnected = false;
-            this.AppendText("--- Connection terminated ---");
-
             Dispatch.Invoke(() =>
             {
+                this.IsDisonnected = true;
                 this.TitleText += " (Disconnected)";
+                this.AppendText("--- Connection terminated ---");
 
                 if (this.IsDebug)
                 {
