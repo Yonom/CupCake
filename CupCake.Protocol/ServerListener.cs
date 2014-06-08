@@ -48,6 +48,7 @@ namespace CupCake.Protocol
             Action<Title> onTitle = m => this.Send(stream, Message.Title, m);
             Action<SetData> onSetData = m => this.Send(stream, Message.SetData, m);
             Action<RequestData> onRequestData = m => this.Send(stream, Message.RequestData, m);
+            Action<Status> onStatus = m => this.Send(stream, Message.Status, m);
             Action onWrongAuth = () => this.Send(stream, Message.WrongAuth);
             Action onClose = client.Close;
 
@@ -56,9 +57,10 @@ namespace CupCake.Protocol
             handle.SendOutput += onOutput;
             handle.SendTitle += onTitle;
             handle.SendSetData += onSetData;
-            handle.SendClose += onClose;
-            handle.SendWrongAuth += onWrongAuth;
             handle.SendRequestData += onRequestData;
+            handle.SendStatus += onStatus;
+            handle.SendWrongAuth += onWrongAuth;
+            handle.SendClose += onClose;
 
             callback();
 
@@ -68,6 +70,7 @@ namespace CupCake.Protocol
             handle.SendTitle -= onTitle;
             handle.SendSetData -= onSetData;
             handle.SendRequestData -= onRequestData;
+            handle.SendStatus -= onStatus;
             handle.SendWrongAuth -= onWrongAuth;
             handle.SendClose -= onClose;
         }
@@ -110,6 +113,11 @@ namespace CupCake.Protocol
                         case Message.RequestData:
                             var reqData = this._listener.Get<RequestData>(stream);
                             handle.DoReceiveRequestData(reqData);
+                            break;
+
+                        case Message.Status:
+                            var status = this._listener.Get<Status>(stream);
+                            handle.DoReceiveStatus(status);
                             break;
 
                         case Message.WrongAuth:

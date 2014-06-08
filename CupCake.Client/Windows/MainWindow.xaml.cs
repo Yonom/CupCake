@@ -293,6 +293,20 @@ namespace CupCake.Client.Windows
                     Content = userControl
                 };
 
+
+                userControl.Title += s =>
+                {
+                    tabItem.Header = s;
+                };
+                
+                userControl.Status += s =>
+                {
+                    if (tabItem.IsSelected)
+                    {
+                        this.StatusTextBlock.Text = s;
+                    }
+                };
+
                 this.ConnectionsTabControl.Items.Add(tabItem);
                 tabItem.IsSelected = true;
 

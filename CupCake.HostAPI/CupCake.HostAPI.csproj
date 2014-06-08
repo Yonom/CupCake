@@ -54,6 +54,11 @@
     <Compile Include="IO\OutputEvent.cs" />
     <Compile Include="IO\IOService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Status\BasicStatusSyntaxProvider.cs" />
+    <Compile Include="Status\ChangeStatusEvent.cs" />
+    <Compile Include="Status\IStatusSyntaxProvider.cs" />
+    <Compile Include="Status\StatusItem.cs" />
+    <Compile Include="Status\StatusService.cs" />
     <Compile Include="Title\ChangeTitleEvent.cs" />
   </ItemGroup>
   <ItemGroup>

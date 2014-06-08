@@ -48,6 +48,7 @@
   <ItemGroup>
     <Compile Include="BlockHelper.cs" />
     <Compile Include="Receive\IBlockPlaceReceiveEvent.cs" />
+    <Compile Include="Receive\IMetadataReceiveMessage.cs" />
     <Compile Include="Send\IBlockPlaceSendEvent.cs" />
     <Compile Include="User\AccessRight.cs" />
     <Compile Include="Blocks\Block.cs" />

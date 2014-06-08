@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using CupCake.HostAPI.Title;
+﻿using CupCake.HostAPI.Title;
 using CupCake.Messages.Receive;
 
-namespace CupCake.Server
+namespace CupCake.Server.Muffins
 {
     public class TitleMuffin : CupCakeMuffin
     {

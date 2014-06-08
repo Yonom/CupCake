@@ -20,6 +20,10 @@ namespace CupCake.Players
             get { return this._players.Values.ToArray(); }
         }
 
+        public int Count {
+            get { return this._players.Count; }
+        }
+
         public bool TryGetPlayer(int userId, out Player player)
         {
             return this._players.TryGetValue(userId, out player);
@@ -27,10 +31,10 @@ namespace CupCake.Players
 
         protected override void Enable()
         {
-            this.Events.Bind<InitReceiveEvent>(this.OnInit);
             this.Events.Bind<AddReceiveEvent>(this.OnAdd, EventPriority.Lowest);
-            this.Events.Bind<CrownReceiveEvent>(this.OnCrown, EventPriority.Lowest);
-            this.Events.Bind<LeftReceiveEvent>(this.OnLeft, EventPriority.Lowest);
+            this.Events.Bind<InitReceiveEvent>(this.OnInit, EventPriority.Low);
+            this.Events.Bind<CrownReceiveEvent>(this.OnCrown, EventPriority.Low);
+            this.Events.Bind<LeftReceiveEvent>(this.OnLeft, EventPriority.Low);
         }
 
         private void OnInit(object sender, InitReceiveEvent e)
@@ -85,7 +89,7 @@ namespace CupCake.Players
             }
             else
             {
-                this.Logger.Log(LogPriority.Warning, "Received Left with unknown UserId. Name: " + e.UserId);
+                this.Logger.Log(LogPriority.Warning, "Received Left with unknown UserId. UserId: " + e.UserId);
             }
         }
 

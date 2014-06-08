@@ -33,22 +33,31 @@ namespace CupCake.Server
         private static readonly CupCakeClientHost _clientEx = new CupCakeClientHost();
 
         private static string _title;
+        private static string _status;
         private static readonly List<string> _outputs = new List<string>();
 
         private static event Action<string> Output;
 
-        private static void OnOutput(string obj)
+        private static void OnOutput(string output)
         {
             Action<string> handler = Output;
-            if (handler != null) handler(obj);
+            if (handler != null) handler(output);
         }
 
         private static event Action<string> Title;
 
-        private static void OnTitle(string obj)
+        private static void OnTitle(string title)
         {
             Action<string> handler = Title;
-            if (handler != null) handler(obj);
+            if (handler != null) handler(title);
+        }        
+        
+        private static event Action<string> Status;
+
+        private static void OnStatus(string status)
+        {
+            Action<string> handler = Status;
+            if (handler != null) handler(status);
         }
 
         private static void Main(string[] args)
@@ -56,10 +65,12 @@ namespace CupCake.Server
             AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
 
             Title += Program_Title;
+            Status += Program_Status;
             Output += Program_Output;
 
             _clientEx.Output += OnOutput;
             _clientEx.Title += OnTitle;
+            _clientEx.Status += OnStatus;
 
             var p = new OptionSet
             {
@@ -128,14 +139,19 @@ namespace CupCake.Server
             Thread.Sleep(Timeout.Infinite);
         }
 
-        private static void Program_Output(string obj)
+        private static void Program_Output(string output)
         {
-            _outputs.Add(obj);
+            _outputs.Add(output);
         }
 
-        private static void Program_Title(string obj)
+        private static void Program_Title(string title)
         {
-            _title = obj;
+            _title = title;
+        }
+
+        private static void Program_Status(string status)
+        {
+            _status = status;
         }
 
         private static void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
@@ -191,12 +207,20 @@ namespace CupCake.Server
                 h.DoSendTitle(s);
             };
 
+            Status += s =>
+            {
+                if (!authenticated) return;
+
+                h.DoSendStatus(s);
+            };
+
             h.ReceiveAuthentication += authentication =>
             {
                 if (_pin == authentication.Pin || authenticated)
                 {
                     authenticated = true;
                     h.DoSendTitle(_title);
+                    h.DoSendStatus(_status);
 
                     foreach (string output in _outputs.Skip(_outputs.Count - 200))
                     {

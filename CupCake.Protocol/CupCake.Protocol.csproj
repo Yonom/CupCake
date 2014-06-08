@@ -62,6 +62,7 @@
     <Compile Include="RequestData.cs" />
     <Compile Include="ServerListener.cs" />
     <Compile Include="SetData.cs" />
+    <Compile Include="Status.cs" />
     <Compile Include="Title.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -7,6 +7,8 @@ using CupCake.Command;
 using CupCake.Core;
 using CupCake.Core.Events;
 using CupCake.Core.Log;
+using CupCake.HostAPI.IO;
+using CupCake.HostAPI.Status;
 using CupCake.Keys;
 using CupCake.Messages;
 using CupCake.Players;
@@ -36,6 +38,8 @@ namespace CupCake
         private readonly Lazy<SynchronizePlatform> _synchronizePlatform;
         private readonly Lazy<UploadService> _uploadService;
         private readonly Lazy<WorldService> _worldService;
+        private readonly Lazy<IOService> _ioService;
+        private readonly Lazy<StatusService> _statusService;
 
         protected CupCakeMuffinPart()
         {
@@ -73,6 +77,8 @@ namespace CupCake
             this._actionService = new Lazy<ActionService>(() => this.ServiceLoader.Get<ActionService>());
             this._messageService = new Lazy<MessageService>(() => this.ServiceLoader.Get<MessageService>());
             this._commandService = new Lazy<CommandService>(() => this.ServiceLoader.Get<CommandService>());
+            this._ioService = new Lazy<IOService>(() => this.ServiceLoader.Get<IOService>());
+            this._statusService = new Lazy<StatusService>(() => this.ServiceLoader.Get<StatusService>());
         }
 
         protected EventManager Events
@@ -143,6 +149,16 @@ namespace CupCake
         protected CommandService CommandService
         {
             get { return this._commandService.Value; }
+        }
+
+        protected IOService IOService
+        {
+            get { return this._ioService.Value; }
+        }
+
+        protected StatusService StatusService
+        {
+            get { return this._statusService.Value; }
         }
 
         protected Timer GetTimer(int interval)

@@ -1,25 +1,17 @@
-﻿using CupCake.Command;
-using CupCake.Core.Log;
-using CupCake.HostAPI.IO;
+﻿using CupCake.Core.Log;
 using CupCake.Messages.Receive;
 using CupCake.Players;
 
-namespace CupCake.Server
+namespace CupCake.Server.Muffins
 {
-    public class IOMuffin : CupCakeMuffin
+    public class LogMuffin : CupCakeMuffin
     {
         protected override void Enable()
         {
-            this.Events.Bind<InputEvent>(this.OnInput);
             this.Events.Bind<SayPlayerEvent>(this.OnSay);
             this.Events.Bind<WriteReceiveEvent>(this.OnWrite);
             this.Events.Bind<InfoReceiveEvent>(this.OnInfo);
             this.Events.Bind<UpgradeReceiveEvent>(this.OnUpgrade);
-        }
-
-        private void OnInput(object sender, InputEvent e)
-        {
-            this.CommandService.InvokeFromConsole(new ParsedCommand(e.Input));
         }
 
         private void OnUpgrade(object sender, UpgradeReceiveEvent e)

@@ -9,6 +9,7 @@ using CupCake.Core;
 using CupCake.Core.Events;
 using CupCake.Host;
 using CupCake.HostAPI.IO;
+using CupCake.HostAPI.Status;
 using CupCake.HostAPI.Title;
 using CupCake.Messages.Receive;
 using CupCake.Protocol;
@@ -36,10 +37,18 @@ namespace CupCake.Server
 
         public event Action<string> Title;
 
-        protected virtual void OnTitle(string obj)
+        protected virtual void OnTitle(string title)
         {
             Action<string> handler = this.Title;
-            if (handler != null) handler(obj);
+            if (handler != null) handler(title);
+        }        
+        
+        public event Action<string> Status;
+
+        protected virtual void OnStatus(string status)
+        {
+            Action<string> handler = this.Status;
+            if (handler != null) handler(status);
         }
 
         public void Input(string input)
@@ -60,12 +69,15 @@ namespace CupCake.Server
             _eventsPlatform = this._client.PlatformLoader.Get<EventsPlatform>();
             _eventsPlatform.Event<OutputEvent>().Bind(this.OnOutput, EventPriority.Lowest);
             _eventsPlatform.Event<ChangeTitleEvent>().Bind(this.OnChangeTitle, EventPriority.Lowest);
+            _eventsPlatform.Event<ChangeStatusEvent>().Bind(this.OnChangeStatus, EventPriority.Lowest);
         }
+
         private void ServiceLoader_EnableComplete(object sender, EventArgs e)
         {
-            // Change the default chat and output formats
+            // Change the default chat, io and status formats
             this._client.ServiceLoader.Get<ChatService>().SyntaxProvider = new CupCakeChatSyntaxProvider();
             this._client.ServiceLoader.Get<IOService>().SyntaxProvider = new CupCakeIOSyntaxProvider();
+            this._client.ServiceLoader.Get<StatusService>().SyntaxProvider = new CupCakeStatusSyntaxProvider();
         }
 
         private void OnOutput(object sender, OutputEvent e)
@@ -76,6 +88,11 @@ namespace CupCake.Server
         private void OnChangeTitle(object sender, ChangeTitleEvent e)
         {
             this.OnTitle(e.NewTitle);
+        }
+
+        private void OnChangeStatus(object sender, ChangeStatusEvent e)
+        {
+            this.OnStatus(e.NewStatus);
         }
 
         private void connection_OnDisconnect(object sender, string message)

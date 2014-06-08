@@ -3,6 +3,8 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Threading;
+using CupCake.Client.Settings;
+using CupCake.Client.Windows;
 using CupCake.Protocol;
 
 namespace CupCake.Client.UserControls
@@ -14,6 +16,47 @@ namespace CupCake.Client.UserControls
     {
         private readonly ClientHandle _handle;
         private bool _cancelClose;
+        private string _titleText = SettingsManager.UnnamedString;
+        private string _statusText;
+
+        public bool IsDebug { get; set; }
+        public bool IsConnected { get; private set; }
+
+        public string TitleText
+        {
+            get { return this._titleText; }
+            private set
+            {
+                this._titleText = value;
+                this.OnTitle(this._titleText);
+            }
+        }
+
+        public string StatusText
+        {
+            get { return this._statusText; }
+            private set
+            {
+                this._statusText = value;
+                this.OnStatus(this._statusText);
+            }
+        }
+
+        public event Action<string> Title;
+
+        protected virtual void OnTitle(string title)
+        {
+            Action<string> handler = this.Title;
+            if (handler != null) handler(title);
+        }
+
+        public event Action<string> Status;
+
+        protected virtual void OnStatus(string status)
+        {
+            Action<string> handler = this.Status;
+            if (handler != null) handler(status);
+        }
 
         public ConnectionUserControl(ClientHandle handle)
         {
@@ -25,10 +68,9 @@ namespace CupCake.Client.UserControls
             this._handle.ReceiveOutput += this.ClientOutput;
             this._handle.ReceiveClose += this._handle_ConnectionClose;
             this._handle.ReceiveTitle += this._handle_ReceiveTitle;
+            this._handle.ReceiveStatus += this._handle_ReceiveStatus;
             this._handle.ReceiveWrongAuth += this._handle_ReceiveWrongAuth;
         }
-
-        public bool IsDebug { get; set; }
 
         private void KeepOpenButton_OnClick(object sender, RoutedEventArgs e)
         {
@@ -61,15 +103,22 @@ namespace CupCake.Client.UserControls
 
         private void _handle_ReceiveTitle(Title title)
         {
-            Dispatch.Invoke(() => ((TabItem)this.Parent).Header = title.Text);
+            Dispatch.Invoke(() => this.TitleText = title.Text);
+        }
+
+        private void _handle_ReceiveStatus(Status status)
+        {
+            Dispatch.Invoke(() => this.StatusText = status.Text);
         }
 
         private void _handle_ConnectionClose()
         {
+            this.IsConnected = false;
             this.AppendText("--- Connection terminated ---");
+
             Dispatch.Invoke(() =>
             {
-                ((TabItem)this.Parent).Header += " (Disconnected)";
+                this.TitleText += " (Disconnected)";
 
                 if (this.IsDebug)
                 {

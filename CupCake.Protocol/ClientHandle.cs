@@ -132,6 +132,22 @@ namespace CupCake.Protocol
             if (handler != null) handler(reqData);
         }
 
+        public event Action<Status> ReceiveStatus;
+
+        protected virtual void OnReceiveStatus(Status reqData)
+        {
+            Action<Status> handler = this.ReceiveStatus;
+            if (handler != null) handler(reqData);
+        }
+
+        internal event Action<Status> SendStatus;
+
+        private void OnSendStatus(Status reqData)
+        {
+            Action<Status> handler = this.SendStatus;
+            if (handler != null) handler(reqData);
+        }
+
 
         internal void DoReceiveSetData(SetData data)
         {
@@ -221,6 +237,16 @@ namespace CupCake.Protocol
         public void DoSendRequestData(bool debug)
         {
             this.OnSendRequestData(new RequestData {IsDebug = debug});
+        }
+        
+        internal void DoReceiveStatus(Status reqData)
+        {
+            this.OnReceiveStatus(reqData);
+        }
+
+        public void DoSendStatus(string text)
+        {
+            this.OnSendStatus(new Status { Text = text });
         }
     }
 }

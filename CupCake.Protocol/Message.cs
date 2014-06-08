@@ -8,6 +8,7 @@
         Input = 0x20,
         Output = 0x21,
         Title = 0x22,
+        Status = 0x23,
         Hello = 0xE0,
         RequestPath = 0xE1,
         WrongAuth = 0xF0,
