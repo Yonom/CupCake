@@ -1,3 +1,4 @@
+using System.Diagnostics;
 using CupCake.Core;
 using CupCake.Core.Events;
 using CupCake.Messages.Blocks;
@@ -6,6 +7,7 @@ using PlayerIOClient;
 
 namespace CupCake.World
 {
+    [DebuggerDisplay("SizeX = {SizeX}, SizeY = {SizeY}")]
     public class WorldService : CupCakeService
     {
         private const uint InitOffset = 17;

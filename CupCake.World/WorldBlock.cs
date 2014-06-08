@@ -1,10 +1,13 @@
 using System;
+using System.Diagnostics;
 using CupCake.Core.Metadata;
 using CupCake.Messages.Blocks;
+using CupCake.Messages.Receive;
 using CupCake.Messages.Send;
 
 namespace CupCake.World
 {
+    [DebuggerDisplay("Block = {Block}, Data = {DebuggerData()}")]
     public class WorldBlock
     {
         private readonly Lazy<MetadataManager> _metadata;
@@ -259,6 +262,30 @@ namespace CupCake.World
             }
 
             throw new NotSupportedException("The given send message is not supported.");
+        }
+
+// ReSharper disable once UnusedMember.Local
+        private string DebuggerData()
+        {
+            switch (BlockType)
+            {
+                case BlockType.Normal:
+                    return String.Format("Layer = {0}", this.Layer);
+                case BlockType.CoinDoor:
+                    return String.Format("CoinsToCollect = {0}", this.CoinsToCollect);
+                case BlockType.Rotatable:
+                    return String.Format("Rotation = {0}", this.Rotation);
+                case BlockType.Sound:
+                    return String.Format("SoundId = {0}", this.SoundId);
+                case BlockType.Label:
+                    return String.Format("Text = {0}", this.Text);
+                case BlockType.Portal:
+                    return String.Format("Id = {0}, Target = {1}, Rotation = {2}", this.PortalId, this.PortalTarget, this.PortalRotation);
+                case BlockType.WorldPortal:
+                    return String.Format("Target = {0}", this.WorldPortalTarget);
+                default:
+                    return String.Empty;
+            }
         }
 
         private struct BlockData

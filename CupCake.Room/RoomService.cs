@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using CupCake.Core;
 using CupCake.Core.Events;
 using CupCake.Messages.Receive;
@@ -7,6 +8,7 @@ using CupCake.Messages.User;
 
 namespace CupCake.Room
 {
+    [DebuggerDisplay("WorldName = {WorldName}, Owner = {Owner}, Plays = {Plays}")]
     public class RoomService : CupCakeService
     {
         private AccessRight _accessRight;
