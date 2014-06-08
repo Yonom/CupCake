@@ -5,18 +5,18 @@ using System.Text;
 
 namespace CupCake.Command
 {
-    public class UnknownPlayerException : CommandException
+    public class UnknownPlayerCommandException : CommandException
     {
-        public UnknownPlayerException()
+        public UnknownPlayerCommandException()
         {
         }
 
-        public UnknownPlayerException(string message)
+        public UnknownPlayerCommandException(string message)
             : base(message)
         {
         }
 
-        public UnknownPlayerException(string message, Exception innerException)
+        public UnknownPlayerCommandException(string message, Exception innerException)
             : base(message, innerException)
         {
         }

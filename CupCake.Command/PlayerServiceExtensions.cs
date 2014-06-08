@@ -42,7 +42,7 @@ namespace CupCake.Command
                 }
 
                 if (list.Count == 0)
-                    throw new UnknownPlayerException("No player found!");
+                    throw new UnknownPlayerCommandException("No player found!");
                 if (!firstResult && list.Count >= 2)
                     throw new CommandException("More than one player was found.");
 
