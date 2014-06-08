@@ -211,7 +211,7 @@ namespace CupCake.World
 
         protected override void Enable()
         {
-            this.Events.Bind<InitReceiveEvent>(this.OnInit, EventPriority.High);
+            this.Events.Bind<InitReceiveEvent>(this.OnInit);
             this.Events.Bind<BlockPlaceReceiveEvent>(this.OnBlockPlace, EventPriority.Lowest);
             this.Events.Bind<CoinDoorPlaceReceiveEvent>(this.OnCoinDoorPlace, EventPriority.Lowest);
             this.Events.Bind<LabelPlaceReceiveEvent>(this.OnLabelPlace, EventPriority.Lowest);
@@ -219,8 +219,8 @@ namespace CupCake.World
             this.Events.Bind<WorldPortalPlaceReceiveEvent>(this.OnWorldPortalPlace, EventPriority.Lowest);
             this.Events.Bind<SoundPlaceReceiveEvent>(this.OnSoundPlace, EventPriority.Lowest);
             this.Events.Bind<RotatablePlaceReceiveEvent>(this.OnRotatablePlace, EventPriority.Lowest);
-            this.Events.Bind<ResetReceiveEvent>(this.OnReset, EventPriority.High);
-            this.Events.Bind<ClearReceiveEvent>(this.OnClear, EventPriority.High);
+            this.Events.Bind<ResetReceiveEvent>(this.OnReset, EventPriority.Lowest);
+            this.Events.Bind<ClearReceiveEvent>(this.OnClear, EventPriority.Lowest);
         }
 
         private void OnInit(object sender, InitReceiveEvent e)
@@ -288,6 +288,8 @@ namespace CupCake.World
         private void OnReset(object sender, ResetReceiveEvent e)
         {
             this._blocks = ParseWorld(e.PlayerIOMessage, this._sizeX, this._sizeY, 0);
+
+            this.Events.Raise(new ResetWorldEvent());
         }
 
         private void OnClear(object sender, ClearReceiveEvent e)
@@ -295,6 +297,8 @@ namespace CupCake.World
             this._sizeX = e.RoomWidth;
             this._sizeY = e.RoomHeight;
             this._blocks = GetEmptyWorld(this.SizeX, this.SizeY, e.FillBlock, e.BorderBlock);
+
+            this.Events.Raise(new ClearWorldEvent());
         }
     }
 }
