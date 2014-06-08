@@ -6,8 +6,10 @@ using CupCake.Chat;
 using CupCake.Command;
 using CupCake.Command.Source;
 using CupCake.Core;
+using CupCake.Core.Events;
 using CupCake.Host;
 using CupCake.HostAPI.IO;
+using CupCake.HostAPI.Title;
 using CupCake.Messages.Receive;
 using CupCake.Protocol;
 using CupCake.Server.StorageProviders;
@@ -47,18 +49,18 @@ namespace CupCake.Server
 
         private void PlatformLoader_EnableComplete(object sender, EventArgs e)
         {
+            // Change the default storage source
             var storagePlatform = this._client.PlatformLoader.Get<StoragePlatform>();
             if (this._dbType == DatabaseType.MySql)
                 storagePlatform.StorageProvider = new MySqlStorageProvider(this._cs);
             else
                 storagePlatform.StorageProvider = new SQLiteStorageProvider(this._cs);
 
+            // Listen to HostAPI events
             _eventsPlatform = this._client.PlatformLoader.Get<EventsPlatform>();
-            _eventsPlatform.Event<CupCakeOutputEvent>().Bind(this.OnCupCakeOutput);
-            _eventsPlatform.Event<InitReceiveEvent>().Bind(this.OnInit);
-            _eventsPlatform.Event<UpdateMetaReceiveEvent>().Bind(this.OnUpdateMeta);
+            _eventsPlatform.Event<OutputEvent>().Bind(this.OnOutput, EventPriority.Lowest);
+            _eventsPlatform.Event<ChangeTitleEvent>().Bind(this.OnChangeTitle, EventPriority.Lowest);
         }
-
         private void ServiceLoader_EnableComplete(object sender, EventArgs e)
         {
             // Change the default chat and output formats
@@ -66,19 +68,14 @@ namespace CupCake.Server
             this._client.ServiceLoader.Get<IOService>().SyntaxProvider = new CupCakeIOSyntaxProvider();
         }
 
-        private void OnCupCakeOutput(object sender, CupCakeOutputEvent e)
+        private void OnOutput(object sender, OutputEvent e)
         {
             this.OnOutput(e.Message);
         }
 
-        private void OnUpdateMeta(object sender, UpdateMetaReceiveEvent e)
+        private void OnChangeTitle(object sender, ChangeTitleEvent e)
         {
-            this.OnTitle(e.WorldName);
-        }
-
-        private void OnInit(object sender, InitReceiveEvent e)
-        {
-            this.OnTitle(e.WorldName);
+            this.OnTitle(e.NewTitle);
         }
 
         private void connection_OnDisconnect(object sender, string message)

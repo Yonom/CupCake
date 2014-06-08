@@ -24,7 +24,7 @@ namespace CupCake.HostAPI.IO
         private void OnInput(object sender, InputEvent e)
         {
             string input = this.SyntaxProvider.ParseInput(e);
-            var outputEvent = new CupCakeOutputEvent(input);
+            var outputEvent = new OutputEvent(input);
             this.Events.Raise(outputEvent);
         }
 
@@ -33,7 +33,7 @@ namespace CupCake.HostAPI.IO
             if (e.Priority >= this.MinPriority)
             {
                 string output = this.SyntaxProvider.ParseOutput(e);
-                var outputEvent = new CupCakeOutputEvent(output);
+                var outputEvent = new OutputEvent(output);
                 this.Events.Raise(outputEvent);
             }
         }

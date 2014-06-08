@@ -92,6 +92,7 @@
     <Compile Include="StorageProviders\SQLiteStorageProvider.cs" />
     <Compile Include="SyntaxProviders\CupCakeChatSyntaxProvider.cs" />
     <Compile Include="SyntaxProviders\CupCakeIOSyntaxProvider.cs" />
+    <Compile Include="TitleMuffin.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\CupCake.Chat\CupCake.Chat.csproj">

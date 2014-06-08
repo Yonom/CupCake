@@ -2,9 +2,9 @@
 
 namespace CupCake.HostAPI.IO
 {
-    public class CupCakeOutputEvent : Event
+    public class OutputEvent : Event
     {
-        public CupCakeOutputEvent(string message)
+        public OutputEvent(string message)
         {
             this.Message = message;
         }
