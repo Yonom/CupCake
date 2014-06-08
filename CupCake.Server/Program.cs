@@ -265,17 +265,20 @@ namespace CupCake.Server
             if (_started) return;
             _started = true;
 
-            IStorageProvider storage = null;
+            IStorageProvider storage;
             try
             {
                 if (_databaseType == DatabaseType.MySql)
                     storage = new MySqlStorageProvider(_connectionString);
-                else
+                else if (_databaseType == DatabaseType.SQLite)
                     storage = new SQLiteStorageProvider(_connectionString);
+                else
+                    storage = null;
             }
-            catch (StorageException ex)
+            catch (StorageException)
             {
-                OnOutput("Unable to connect to database: " + ex);
+                OnOutput("Error: Unable to connect to database.");
+                throw;
             }
 
             _clientEx.Start(_accountType, _email, _password, _world, _dirs.ToArray(), storage);

@@ -44,6 +44,7 @@
         <ComboBox Name="EngineComboBox" VerticalAlignment="Center" FontSize="16" Grid.Column="1" SelectedIndex="0"
                   Grid.Row="1" Grid.ColumnSpan="3">
             <ComboBox.Items>
+                <TextBlock>None</TextBlock>
                 <TextBlock>MySQL</TextBlock>
                 <TextBlock>SQLite</TextBlock>
             </ComboBox.Items>
