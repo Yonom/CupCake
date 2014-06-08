@@ -64,6 +64,7 @@
     <Compile Include="PluginNameAttribute.cs" />
     <Compile Include="StoragePlatform.cs" />
     <Compile Include="Storage\BasicStorageProvider.cs" />
+    <Compile Include="Storage\StorageException.cs" />
     <Compile Include="SynchronizePlatform.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="CupCakeService.cs" />
