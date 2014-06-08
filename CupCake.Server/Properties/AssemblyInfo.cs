@@ -1,9 +1,12 @@
 ﻿using System.Reflection;
 using System.Runtime.InteropServices;
+using CupCake.Core;
 
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
+
+[assembly: PluginName("Server")]
 
 [assembly: AssemblyTitle("CupCake.Server")]
 [assembly: AssemblyDescription("")]

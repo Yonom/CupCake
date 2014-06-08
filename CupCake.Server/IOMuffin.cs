@@ -24,7 +24,7 @@ namespace CupCake.Server
 
         private void OnUpgrade(object sender, UpgradeReceiveEvent e)
         {
-            this.Logger.LogPlatform.Log("Game", LogPriority.Message, "The game has been updated.");
+            this.Logger.Log(LogPriority.Message, "The game has been updated.");
         }
 
         private void OnInfo(object sender, InfoReceiveEvent e)
