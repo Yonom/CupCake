@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
-VisualStudioVersion = 12.0.30110.0
+VisualStudioVersion = 12.0.30501.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CupCake.Core", "CupCake.Core\CupCake.Core.csproj", "{598D616C-4886-482B-AF57-7BC7DAA56CCE}"
 EndProject
@@ -36,6 +36,9 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CupCake.Server", "CupCake.Server\CupCake.Server.csproj", "{C79ED200-C3C6-4721-B372-AE6F73DA34D8}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CupCake.Client", "CupCake.Client\CupCake.Client.csproj", "{ABA4D993-7BFD-4ACE-9077-4D9815F8EF39}"
+	ProjectSection(ProjectDependencies) = postProject
+		{E5FC97AF-27CB-44B8-A16A-8A691DD78CCD} = {E5FC97AF-27CB-44B8-A16A-8A691DD78CCD}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CupCake.Debug", "CupCake.Debug\CupCake.Debug.csproj", "{CB9B8FD7-3B68-4D9F-BCFC-8075B6B7C9F6}"
 EndProject
@@ -142,5 +145,6 @@ Global
 		{5B264955-5D1C-4B16-9950-8F1667F8FEF6} = {FFE107C6-9B1F-4F61-870E-FBBA826D0161}
 		{3F7AFE9C-D511-43B2-B3CA-4B60A5D6B79D} = {FFE107C6-9B1F-4F61-870E-FBBA826D0161}
 		{4746F723-EE77-4434-983C-02D1DD1BD982} = {FFE107C6-9B1F-4F61-870E-FBBA826D0161}
+		{E5FC97AF-27CB-44B8-A16A-8A691DD78CCD} = {FFE107C6-9B1F-4F61-870E-FBBA826D0161}
 	EndGlobalSection
 EndGlobal
