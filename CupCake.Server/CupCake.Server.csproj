@@ -110,6 +110,10 @@
       <Project>{598d616c-4886-482b-af57-7bc7daa56cce}</Project>
       <Name>CupCake.Core</Name>
     </ProjectReference>
+    <ProjectReference Include="..\CupCake.DefaultCommands\CupCake.DefaultCommands.csproj">
+      <Project>{e5fc97af-27cb-44b8-a16a-8a691dd78ccd}</Project>
+      <Name>CupCake.DefaultCommands</Name>
+    </ProjectReference>
     <ProjectReference Include="..\CupCake.HostAPI\CupCake.HostAPI.csproj">
       <Project>{cb00b556-e597-4c9b-af9b-d9c98a378a48}</Project>
       <Name>CupCake.HostAPI</Name>
