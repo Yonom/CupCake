@@ -5,7 +5,6 @@ using System.Net;
 using System.Net.Sockets;
 using System.Threading;
 using CupCake.Core.Storage;
-using CupCake.DefaultCommands.Commands;
 using CupCake.Protocol;
 using CupCake.Server.StorageProviders;
 using NDesk.Options;
