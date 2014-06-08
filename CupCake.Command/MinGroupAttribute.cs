@@ -4,7 +4,7 @@ using CupCake.Permissions;
 namespace CupCake.Command
 {
     [AttributeUsage(AttributeTargets.Method)]
-    public class MinGroupAttribute : Attribute
+    public sealed class MinGroupAttribute : Attribute
     {
         public MinGroupAttribute(Group @group)
         {

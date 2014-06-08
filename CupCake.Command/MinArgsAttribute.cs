@@ -3,7 +3,7 @@
 namespace CupCake.Command
 {
     [AttributeUsage(AttributeTargets.Method)]
-    public class MinArgsAttribute : Attribute
+    public sealed class MinArgsAttribute : Attribute
     {
         public MinArgsAttribute(int minArgs)
         {

@@ -3,7 +3,7 @@
 namespace CupCake.Command
 {
     [AttributeUsage(AttributeTargets.Method, AllowMultiple = true)]
-    public class CorrectUsageAttribute : Attribute
+    public sealed class CorrectUsageAttribute : Attribute
     {
         public CorrectUsageAttribute(string usage)
         {
