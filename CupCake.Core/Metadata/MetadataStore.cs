@@ -29,8 +29,13 @@ namespace CupCake.Core.Metadata
 
         public void SetMetadata<TMetaData>(string metadataId, TMetaData value)
         {
-            this._metadatas.AddOrUpdate(metadataId, value, (k, v) => value);
-            this.OnMetadataChanged(new MetadataChangedEventArgs(metadataId, value));
+            object old = null;
+            this._metadatas.AddOrUpdate(metadataId, value, (k, v) =>
+            {
+                old = v;
+                return value;
+            });
+            this.OnMetadataChanged(new MetadataChangedEventArgs(metadataId, old, value));
         }
     }
 }

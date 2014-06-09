@@ -10,6 +10,7 @@ namespace CupCake.DefaultCommands
     public class PermissionMuffin : CupCakeMuffin
     {
         private const string PermissionsId = "CCPerm";
+        private const Group MinGodGroup = Group.Moderator;
 
         protected override void Enable()
         {
@@ -19,6 +20,13 @@ namespace CupCake.DefaultCommands
 
         private void OnChangedPermission(object sender, ChangedPermissionEvent e)
         {
+            // Give or remove edit if permissions change
+            if (e.OldPermission < MinGodGroup && e.NewPermission >= MinGodGroup)
+                this.Chatter.GiveEdit(e.Player.Username);
+            else if (e.OldPermission >= MinGodGroup && e.NewPermission < MinGodGroup)
+                this.Chatter.RemoveEdit(e.Player.Username);
+
+            // Save permissions
             if (e.Player.GetRankLoaded())
             {
                 if (e.NewPermission != Group.Moderator && e.NewPermission != Group.Host)
