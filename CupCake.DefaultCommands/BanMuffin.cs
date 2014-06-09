@@ -11,8 +11,8 @@ namespace CupCake.DefaultCommands
 {
     public class BanMuffin : CupCakeMuffin<BanMuffin>
     {
-        private const string BanReasonsId = "CCBanReason";
-        private const string BanTimeoutsId = "CCBanTimeout";
+        private const string BanReasonsId = "CCBamR";
+        private const string BanTimeoutsId = "CCBanT";
 
         protected override void Enable()
         {
