@@ -61,7 +61,7 @@
     <Compile Include="EventsPlatform.cs" />
     <Compile Include="LogPlatform.cs" />
     <Compile Include="Metadata\MetadataChangedEventArgs.cs" />
-    <Compile Include="Metadata\MetadataManager.cs" />
+    <Compile Include="Metadata\MetadataStore.cs" />
     <Compile Include="PluginNameAttribute.cs" />
     <Compile Include="StoragePlatform.cs" />
     <Compile Include="Storage\BasicStorageProvider.cs" />

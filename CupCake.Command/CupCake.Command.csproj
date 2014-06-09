@@ -51,6 +51,7 @@
     <Compile Include="InvokeEvent.cs" />
     <Compile Include="AccessDeniedException.cs" />
     <Compile Include="CommandException.cs" />
+    <Compile Include="PlayerExtensions.cs" />
     <Compile Include="PlayerServiceExtensions.cs" />
     <Compile Include="HelpRequest.cs" />
     <Compile Include="Source\ConsoleInvokeSource.cs" />

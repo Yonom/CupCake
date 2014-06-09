@@ -14,10 +14,10 @@ namespace CupCake.Server
 {
     internal class Program
     {
-//        // This UserCommandsMuffin DefaultCommands to be included in CupCake.Client's output directory
-//#pragma warning disable 169
-//        private CommandBase<object> _uselessVariable;
-//#pragma warning restore 169
+        // This UserCommandsMuffin DefaultCommands to be included in CupCake.Client's output directory
+#pragma warning disable 169
+        private CommandBase<object> _uselessVariable;
+#pragma warning restore 169
 
         private static int _port;
         private static string _pin;

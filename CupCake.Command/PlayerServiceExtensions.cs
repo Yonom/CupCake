@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using CupCake.Chat;
 using CupCake.Players;
 
 namespace CupCake.Command
@@ -34,7 +35,8 @@ namespace CupCake.Command
                     }
                     else
                     {
-                        if (player.Username.StartsWith(filter, StringComparison.OrdinalIgnoreCase))
+                        if (player.Username.StartsWith(filter, StringComparison.OrdinalIgnoreCase) || 
+                            player.GetTrimmedName().StartsWith(filter, StringComparison.OrdinalIgnoreCase))
                         {
                             list.Add(player);
                         }

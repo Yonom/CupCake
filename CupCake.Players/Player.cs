@@ -14,7 +14,7 @@ namespace CupCake.Players
     [DebuggerDisplay("Username = {Username}, Smiley = {Smiley}")]
     public class Player : CupCakeServicePart<JoinArgs>
     {
-        public MetadataManager Metadata { get; private set; }
+        public MetadataStore Metadata { get; private set; }
 
         public string Username { get; private set; }
         public int UserId { get; private set; }
@@ -103,7 +103,7 @@ namespace CupCake.Players
 
         protected override void Enable()
         {
-            this.Metadata = new MetadataManager();
+            this.Metadata = new MetadataStore();
 
             this.ExtractHostData();
 

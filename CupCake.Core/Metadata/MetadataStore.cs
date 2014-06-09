@@ -3,7 +3,7 @@ using System.Collections.Concurrent;
 
 namespace CupCake.Core.Metadata
 {
-    public class MetadataManager
+    public class MetadataStore
     {
         private readonly ConcurrentDictionary<string, object> _metadatas = new ConcurrentDictionary<string, object>();
 
