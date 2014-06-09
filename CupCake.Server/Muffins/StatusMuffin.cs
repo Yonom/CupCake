@@ -22,11 +22,11 @@ namespace CupCake.Server.Muffins
             this.Events.Bind<InitReceiveEvent>(this.OnInit);
             this.Events.Bind<InitCompleteEvent>(this.OnInitComplete);
             this.Events.Bind<UpdateMetaReceiveEvent>(this.OnUpdateMeta);
-            this.Events.Bind<AddPlayerEvent>(this.OnAdd);
+            this.Events.Bind<JoinPlayerEvent>(this.OnJoin);
             this.Events.Bind<LeftPlayerEvent>(this.OnLeft);
         }
 
-        private void OnAdd(object sender, AddPlayerEvent e)
+        private void OnJoin(object sender, JoinPlayerEvent e)
         {
             this.UpdateOnline();
         }
@@ -42,8 +42,6 @@ namespace CupCake.Server.Muffins
             this.StatusService.Add(_plays);
             this.StatusService.Add(_woots);
             this.StatusService.Add(_totalWoots);
-
-            this.UpdateOnline();
         }
 
         private void OnInit(object sender, InitReceiveEvent e)

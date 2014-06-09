@@ -39,13 +39,13 @@ namespace CupCake.Players
 
         private void OnInit(object sender, InitReceiveEvent e)
         {
-            this.AddPlayer(new InitJoinArgs(this, e), player =>
+            this.AddPlayer(new InitJoinArgs(this, e), e, player =>
                 this.OwnPlayer = player);
         }
 
         private void OnAdd(object sender, AddReceiveEvent e)
         {
-            this.AddPlayer(new AddJoinArgs(this, e),
+            this.AddPlayer(new AddJoinArgs(this, e), e,
                 player =>
                     // Raise the add event for this player
                     this.Events.Raise(new AddPlayerEvent(player, e)),
@@ -53,13 +53,15 @@ namespace CupCake.Players
                     this.Logger.Log(LogPriority.Warning, "Received Add with existing UserId. Name: " + e.Username));
         }
 
-        private void AddPlayer(JoinArgs joinArgs, Action<Player> successCallback = null, Action errorcallback = null)
+        private void AddPlayer(JoinArgs joinArgs, IUserPosReceiveEvent e, Action<Player> successCallback = null, Action errorcallback = null)
         {
             var player = this.EnablePart<Player>(joinArgs);
             if (this._players.TryAdd(player.UserId, player))
             {
                 if (successCallback != null)
                     successCallback(player);
+
+                this.Events.Raise(new JoinPlayerEvent(player, e));
             }
             else
             {

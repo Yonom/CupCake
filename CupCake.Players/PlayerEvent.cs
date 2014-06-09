@@ -3,7 +3,7 @@ using CupCake.Messages.Receive;
 
 namespace CupCake.Players
 {
-    public abstract class PlayerEvent<TBase> : Event where TBase : Event, IUserReceiveEvent
+    public abstract class PlayerEvent<TBase> : Event where TBase : IUserReceiveEvent
     {
         protected PlayerEvent(Player player, TBase innerEvent)
         {

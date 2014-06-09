@@ -14,7 +14,7 @@ namespace CupCake.DefaultCommands
 
         protected override void Enable()
         {
-            this.Events.Bind<AddPlayerEvent>(this.OnAdd, EventPriority.High);
+            this.Events.Bind<JoinPlayerEvent>(this.OnJoin, EventPriority.High);
             this.Events.Bind<ChangedPermissionEvent>(this.OnChangedPermission);
         }
 
@@ -43,7 +43,7 @@ namespace CupCake.DefaultCommands
             }
         }
 
-        private void OnAdd(object sender, AddPlayerEvent e)
+        private void OnJoin(object sender, JoinPlayerEvent e)
         {
             try
             {

@@ -8,10 +8,10 @@ namespace CupCake.Permissions
     {
         protected override void Enable()
         {
-            this.Events.Bind<AddPlayerEvent>(this.OnAdd, EventPriority.Highest);
+            this.Events.Bind<JoinPlayerEvent>(this.OnJoin, EventPriority.Highest);
         }
 
-        private void OnAdd(object sender, AddPlayerEvent e)
+        private void OnJoin(object sender, JoinPlayerEvent e)
         {
             e.Player.Metadata.MetadataChanged +=
                 (o, args) =>

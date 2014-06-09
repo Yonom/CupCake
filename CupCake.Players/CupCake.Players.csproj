@@ -50,6 +50,7 @@
     <Compile Include="CrownPlayerEvent.cs" />
     <Compile Include="FacePlayerEvent.cs" />
     <Compile Include="GodModePlayerEvent.cs" />
+    <Compile Include="JoinPlayerEvent.cs" />
     <Compile Include="KillPlayerEvent.cs" />
     <Compile Include="LeftPlayerEvent.cs" />
     <Compile Include="LevelUpPlayerEvent.cs" />
