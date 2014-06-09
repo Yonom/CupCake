@@ -29,7 +29,7 @@ namespace CupCake.Core.Metadata
 
         public void SetMetadata<TMetaData>(string metadataId, TMetaData value)
         {
-            object old = null;
+            object old = default(TMetaData);
             this._metadatas.AddOrUpdate(metadataId, value, (k, v) =>
             {
                 old = v;

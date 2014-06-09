@@ -57,6 +57,7 @@
     <Compile Include="MagicPlayerEvent.cs" />
     <Compile Include="ModModePlayerEvent.cs" />
     <Compile Include="MovePlayerEvent.cs" />
+    <Compile Include="PlayerUtils.cs" />
     <Compile Include="PotionPlayerEvent.cs" />
     <Compile Include="SayPlayerEvent.cs" />
     <Compile Include="SilverCrownPlayerEvent.cs" />

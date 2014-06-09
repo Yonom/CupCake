@@ -11,7 +11,7 @@ namespace CupCake.Permissions
             return g;
         }
 
-        internal static void SetGroup(this Player p, Group group)
+        public static void SetGroup(this Player p, Group group)
         {
             p.Metadata.SetMetadata("Group", group);
         }

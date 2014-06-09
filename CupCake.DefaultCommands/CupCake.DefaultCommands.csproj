@@ -43,8 +43,18 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BanMuffin.cs" />
+    <Compile Include="BanMuffinPart.cs" />
+    <Compile Include="Commands\BanCommandBase.cs" />
     <Compile Include="Commands\Ban\TempBanCommand.cs" />
+    <Compile Include="Commands\PermissionCommandBase.cs" />
+    <Compile Include="Commands\Permissions\GetRank.cs" />
+    <Compile Include="Commands\Permissions\LimitCommand.cs" />
+    <Compile Include="Commands\Permissions\TrustCommand.cs" />
+    <Compile Include="Commands\Permissions\ModCommand.cs" />
+    <Compile Include="Commands\Permissions\OpCommand.cs" />
+    <Compile Include="Commands\Permissions\AdminCommand.cs" />
+    <Compile Include="Commands\Permissions\UserCommand.cs" />
+    <Compile Include="PlayerExtensions.cs" />
     <Compile Include="UtilityCommandsMuffin.cs" />
     <Compile Include="Commands\Utility\HelpCommand.cs" />
     <Compile Include="Commands\Ban\BanCommand.cs" />
@@ -54,7 +64,6 @@
     <Compile Include="Commands\User\TeleportCommand.cs" />
     <Compile Include="UserCommandsMuffin.cs" />
     <Compile Include="PermissionMuffin.cs" />
-    <Compile Include="PlayerExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -89,7 +98,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Commands\Owner\" />
-    <Folder Include="Commands\Permissions\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Key.snk" />

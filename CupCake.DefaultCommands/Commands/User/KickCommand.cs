@@ -14,9 +14,11 @@ namespace CupCake.DefaultCommands.Commands.User
         {
             this.RequireOwner();
             var player = this.PlayerService.MatchPlayer(message.Args[0]);
-            this.RequirePermissions(source, player);
+            this.RequireSameRank(source, player);
 
             this.Chatter.Kick(player.Username, message.GetTrail(1));
+
+            source.Reply("Kicked {0}.", player.ChatName);
         }
     }
 }

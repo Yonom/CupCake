@@ -1,5 +1,7 @@
-﻿using CupCake.Chat;
+﻿using System;
+using CupCake.Chat;
 using CupCake.Messages.Blocks;
+using JetBrains.Annotations;
 
 namespace CupCake
 {
@@ -19,14 +21,32 @@ namespace CupCake
             this.ChatService.Chat(msg, this.Name);
         }
 
+        [StringFormatMethod("msg")]
+        public void Chat(string msg, params object[] args)
+        {
+            this.ChatService.Chat(String.Format(msg, args), this.Name);
+        }
+
         public void Send(string msg)
         {
             this.ChatService.Send(msg);
         }
 
+        [StringFormatMethod("msg")]
+        public void Send(string msg, params object[] args)
+        {
+            this.ChatService.Send(String.Format(msg, args));
+        }
+
         public void Reply(string username, string msg)
         {
             this.ChatService.Reply(username, this.Name, msg);
+        }
+
+        [StringFormatMethod("msg")]
+        public void Reply(string username, string msg, params object[] args)
+        {
+            this.ChatService.Reply(username, this.Name, String.Format(msg, args));
         }
 
         public void GiveEdit(string username)
@@ -57,6 +77,12 @@ namespace CupCake
         public void Kick(string username, string reason)
         {
             this.ChatService.Kick(this.Name, username, reason);
+        }
+
+        [StringFormatMethod("reason")]
+        public void Kick(string username, string reason, params object[] args)
+        {
+            this.ChatService.Kick(this.Name, username, String.Format(reason, args));
         }
 
         public void KickGuests()

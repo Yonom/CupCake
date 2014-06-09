@@ -76,7 +76,7 @@ namespace CupCake
             {
                 if (message is HelpRequest)
                 {
-                    source.Reply("Command usage: " + this.GetUsageStr());
+                    source.Reply("Command usage: " + this.GetUsageStr(message.Type));
                     return;
                 }
 
@@ -94,7 +94,7 @@ namespace CupCake
             }
             catch (SyntaxException ex)
             {
-                source.Reply(ex.Message + " Correct usage: " + this.GetUsageStr());
+                source.Reply(ex.Message + " Correct usage: " + this.GetUsageStr(message.Type));
             }
             catch (CommandException ex)
             {
@@ -102,10 +102,10 @@ namespace CupCake
             }
         }
 
-        private string GetUsageStr()
+        private string GetUsageStr(string label)
         {
             var correctUsages =
-                this.Usages.Select(usage => this.CommandService.CommandPrefix + this.Labels[0] + " " + usage);
+                this.Usages.Select(usage => this.CommandService.CommandPrefix + label + " " + usage);
             return String.Join(" / ", correctUsages);
         }
         

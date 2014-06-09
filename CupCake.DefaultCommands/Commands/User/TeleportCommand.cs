@@ -18,9 +18,9 @@ namespace CupCake.DefaultCommands.Commands.User
         [CorrectUsage("player x y")]
         protected override void Run(IInvokeSource source, ParsedCommand message)
         {
-            //this.RequireOwner();
+            this.RequireOwner();
             var player = this.PlayerService.MatchPlayer(message.Args[0]);
-            this.RequirePermissions(source, player);
+            this.RequireSameRank(source, player);
 
             if (message.Count >= 3)
             {
@@ -57,7 +57,7 @@ namespace CupCake.DefaultCommands.Commands.User
                 }
             }
 
-            source.Reply("Teleported.");
+            source.Reply("Teleported {0}.", player.ChatName);
         }
     }
 }

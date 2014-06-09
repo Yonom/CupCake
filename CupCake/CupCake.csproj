@@ -52,11 +52,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Chatter.cs" />
+    <Compile Include="CodeAnnotations.cs" />
     <Compile Include="Host\CupCakeClient.cs" />
     <Compile Include="Command.cs" />
     <Compile Include="CupCakeMuffin.cs" />
     <Compile Include="CupCakeMuffinPart.cs" />
     <Compile Include="EEMuffin.cs" />
+    <Compile Include="InvokeSourceExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

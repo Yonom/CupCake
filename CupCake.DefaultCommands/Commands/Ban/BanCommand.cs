@@ -1,10 +1,11 @@
-﻿using CupCake.Command;
+﻿using System;
+using CupCake.Command;
 using CupCake.Command.Source;
 using CupCake.Permissions;
 
 namespace CupCake.DefaultCommands.Commands.Ban
 {
-    class BanCommand : CommandBase<BanMuffin>
+    class BanCommand : BanCommandBase
     {
         [MinArgs(1)]
         [MinGroup(Group.Operator)]
@@ -12,16 +13,13 @@ namespace CupCake.DefaultCommands.Commands.Ban
         [CorrectUsage("player [reason]")]
         protected override void Run(IInvokeSource source, ParsedCommand message)
         {
-            var player = this.PlayerService.MatchPlayer(message.Args[0]);
-            this.RequirePermissions(source, player);
-
             if (message.Count >= 2)
             {
-                this.Host.Ban(player, message.GetTrail(1));
+                this.Ban(source, message.Args[0], message.GetTrail(1));
             }
             else
             {
-                this.Host.Ban(player);
+                this.Ban(source, message.Args[0]);
             }
         }
     }

@@ -1,14 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using CupCake.Command;
 using CupCake.Command.Source;
 using CupCake.Permissions;
 
 namespace CupCake.DefaultCommands.Commands.Ban
 {
-    public class TempBanCommand : CommandBase<BanMuffin>
+    public class TempBanCommand : BanCommandBase
     {
         [MinArgs(2)]
         [MinGroup(Group.Operator)]
@@ -16,9 +13,6 @@ namespace CupCake.DefaultCommands.Commands.Ban
         [CorrectUsage("player duration [reason]")]
         protected override void Run(IInvokeSource source, ParsedCommand message)
         {
-            var player = this.PlayerService.MatchPlayer(message.Args[0]);
-            this.RequirePermissions(source, player);
-
             DateTime timeout;
             try
             {
@@ -30,14 +24,13 @@ namespace CupCake.DefaultCommands.Commands.Ban
                 throw new CommandException("Unable to parse duration!", ex);
             }
 
-
-            if (message.Count >= 2)
+            if (message.Count >= 3)
             {
-                Host.Ban(player, timeout, message.GetTrail(1));
+                this.Ban(source, message.Args[0], timeout, message.GetTrail(2));
             }
             else
             {
-                Host.Ban(player, timeout);
+                this.Ban(source, message.Args[0], timeout);
             }
         }
     }

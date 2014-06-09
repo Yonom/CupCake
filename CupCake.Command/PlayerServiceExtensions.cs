@@ -16,10 +16,7 @@ namespace CupCake.Command
 
                 // Wild card matching requested
                 // Remove the wild cards from the string
-                if (exactMatch)
-                {
-                    filter = filter.Substring(1);
-                }
+                filter = CommandUtils.TrimChatPrefix(filter);
 
                 IList<Player> list = new List<Player>();
 

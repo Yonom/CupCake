@@ -17,7 +17,14 @@ namespace CupCake.DefaultCommands.Commands
                 throw new CommandException(String.Format("Bot must be world owner to be able to {0}.", commandName));
         }
 
-        protected void RequirePermissions(IInvokeSource source, Player player)
+        protected void RequireSameRank(IInvokeSource source, Player player)
+        {
+            var commandName = this.Labels[0];
+            if (player.GetGroup() > source.Group)
+                throw new CommandException(String.Format("You may not {0} a player with a higher rank.", commandName));
+        }
+
+        protected void RequireHigherRank(IInvokeSource source, Player player)
         {
             var commandName = this.Labels[0];
             if (player.GetGroup() > source.Group)

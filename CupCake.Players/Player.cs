@@ -74,21 +74,17 @@ namespace CupCake.Players
 
         public bool IsGuest
         {
-            get
-            {
-                // Offcial implmentation in SWF, don't blame me
-                return this.Username.Contains("-");
-            }
+            get { return PlayerUtils.IsGuest(this.Username); }
         }
 
         public string StorageName
         {
-            get
-            {
-                if (this.IsGuest)
-                    return "guest";
-                return this.Username.ToLower();
-            }
+            get { return PlayerUtils.GetStorageName(this.Username); }
+        }
+
+        public string ChatName
+        {
+            get { return PlayerUtils.GetChatName(this.Username); }
         }
 
         public int BlockX
