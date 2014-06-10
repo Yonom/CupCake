@@ -54,6 +54,16 @@
     <Compile Include="Commands\Permissions\OpCommand.cs" />
     <Compile Include="Commands\Permissions\AdminCommand.cs" />
     <Compile Include="Commands\Permissions\UserCommand.cs" />
+    <Compile Include="Commands\UserCommandBase.cs" />
+    <Compile Include="Commands\User\GiveEditCommand.cs" />
+    <Compile Include="Commands\User\UnmuteCommand.cs" />
+    <Compile Include="Commands\User\ReportAbuseCommand.cs" />
+    <Compile Include="Commands\User\MuteCommand.cs" />
+    <Compile Include="Commands\User\RemoveEditCommand.cs" />
+    <Compile Include="Commands\Utility\HiCommand.cs" />
+    <Compile Include="Commands\Utility\SayRawCommand.cs" />
+    <Compile Include="Commands\Utility\SayCommand.cs" />
+    <Compile Include="Commands\Utility\PingCommand.cs" />
     <Compile Include="PlayerExtensions.cs" />
     <Compile Include="UtilityCommandsMuffin.cs" />
     <Compile Include="Commands\Utility\HelpCommand.cs" />
@@ -67,6 +77,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\CupCake.Chat\CupCake.Chat.csproj">
+      <Project>{7F69972F-C813-4850-887E-BC5029BAF542}</Project>
+      <Name>CupCake.Chat</Name>
+    </ProjectReference>
     <ProjectReference Include="..\CupCake.Command\CupCake.Command.csproj">
       <Project>{3f7afe9c-d511-43b2-b3ca-4b60a5d6b79d}</Project>
       <Name>CupCake.Command</Name>

@@ -95,6 +95,21 @@ namespace CupCake
             this.ChatService.Kill(username);
         }
 
+        public void Mute(string username)
+        {
+            this.ChatService.Mute(username);
+        }
+
+        public void Unmute(string username)
+        {
+            this.ChatService.Unmute(username);
+        }
+
+        public void ReportAbuse(string username, string reason)
+        {
+            this.ChatService.ReportAbuse(username, reason);
+        }
+
         public void KillAll()
         {
             this.ChatService.KillAll();

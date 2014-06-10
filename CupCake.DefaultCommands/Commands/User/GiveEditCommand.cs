@@ -1,14 +1,17 @@
-﻿using CupCake.Command;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using CupCake.Command;
 using CupCake.Command.Source;
 using CupCake.Permissions;
-using CupCake.Players;
 
 namespace CupCake.DefaultCommands.Commands.User
 {
-    public class KillCommand : UserCommandBase
+    public class GiveEditCommand : UserCommandBase
     {
         [MinGroup(Group.Moderator)]
-        [Label("kill", "killplayer")]
+        [Label("giveedit", "giveeditplayer")]
         [CorrectUsage("[player]")]
         protected override void Run(IInvokeSource source, ParsedCommand message)
         {
@@ -16,9 +19,9 @@ namespace CupCake.DefaultCommands.Commands.User
             var player = this.GetPlayerOrSelf(source, message);
             this.RequireSameRank(source, player);
 
-            this.Chatter.Kill(player.Username);
+            this.Chatter.GiveEdit(player.Username);
 
-            source.Reply("Killed {0}.", player.ChatName);
+            source.Reply("Gave edit to {0}.", player.ChatName);
         }
     }
 }

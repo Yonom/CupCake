@@ -9,7 +9,7 @@ using CupCake.Permissions;
 
 namespace CupCake.DefaultCommands.Commands.User
 {
-    public class TeleportCommand : CommandBase<UserCommandsMuffin>
+    public class TeleportCommand : UserCommandBase
     {
         [MinArgs(1)]
         [MinGroup(Group.Moderator)]

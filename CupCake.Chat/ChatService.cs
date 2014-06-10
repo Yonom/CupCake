@@ -153,6 +153,21 @@ namespace CupCake.Chat
             this.SendChat("/killemall");
         }
 
+        public void Mute(string username)
+        {
+            this.SendChat("/mute " + username);
+        }
+
+        public void Unmute(string username)
+        {
+            this.SendChat("/unmute " + username);
+        }
+
+        public void ReportAbuse(string username, string reason)
+        {
+            this.SendChat("/reportabuse " + username + " " + reason);
+        }
+
         public void Reset()
         {
             this.SendChat("/reset");

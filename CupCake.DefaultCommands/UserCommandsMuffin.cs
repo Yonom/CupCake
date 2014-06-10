@@ -10,6 +10,11 @@ namespace CupCake.DefaultCommands
             this.EnablePart<KickCommand>();
             this.EnablePart<KillCommand>();
             this.EnablePart<TeleportCommand>();
+            this.EnablePart<GiveEditCommand>();
+            this.EnablePart<RemoveEditCommand>();
+            this.EnablePart<MuteCommand>();
+            this.EnablePart<UnmuteCommand>();
+            this.EnablePart<ReportAbuseCommand>();
         }
     }
 }

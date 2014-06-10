@@ -10,5 +10,6 @@ namespace CupCake.Command.Source
         object Sender { get; }
         Group Group { get; }
         void Reply(string message);
+        string Name { get; }
     }
 }

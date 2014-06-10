@@ -4,16 +4,15 @@ using CupCake.Permissions;
 
 namespace CupCake.DefaultCommands.Commands.User
 {
-    public class KickCommand : CommandBase<UserCommandsMuffin>
+    public class KickCommand : UserCommandBase
     {
-        [MinArgs(1)]
         [MinGroup(Group.Trusted)]
         [Label("kick", "kickplayer")]
-        [CorrectUsage("player [reason]")]
+        [CorrectUsage("[player] [reason]")]
         protected override void Run(IInvokeSource source, ParsedCommand message)
         {
             this.RequireOwner();
-            var player = this.PlayerService.MatchPlayer(message.Args[0]);
+            var player = this.GetPlayerOrSelf(source, message);
             this.RequireSameRank(source, player);
 
             this.Chatter.Kick(player.Username, message.GetTrail(1));
