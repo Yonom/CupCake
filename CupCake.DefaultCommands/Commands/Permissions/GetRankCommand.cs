@@ -8,7 +8,7 @@ using CupCake.Permissions;
 
 namespace CupCake.DefaultCommands.Commands.Permissions
 {
-    public class GetRank : CommandBase<PermissionMuffin>
+    public class GetRankCommand : CommandBase<PermissionMuffin>
     {
         [MinArgs(1)]
         [MinGroup(Group.Moderator)]

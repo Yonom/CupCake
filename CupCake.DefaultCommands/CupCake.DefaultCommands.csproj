@@ -46,8 +46,23 @@
     <Compile Include="BanMuffinPart.cs" />
     <Compile Include="Commands\BanCommandBase.cs" />
     <Compile Include="Commands\Ban\TempBanCommand.cs" />
+    <Compile Include="Commands\Edit\GodModeCommand.cs" />
+    <Compile Include="Commands\Owner\ClearCommand.cs" />
+    <Compile Include="Commands\Edit\AccessCommand.cs" />
+    <Compile Include="Commands\Owner\EnablePotsCommand.cs" />
+    <Compile Include="Commands\Owner\SetKeyCommand.cs" />
+    <Compile Include="Commands\Owner\KillAllCommand.cs" />
+    <Compile Include="Commands\Owner\ListPortalsCommand.cs" />
+    <Compile Include="Commands\Owner\LoadlevelCommand.cs" />
+    <Compile Include="Commands\Owner\NameCommand.cs" />
+    <Compile Include="Commands\Owner\PotionsOffCommand.cs" />
+    <Compile Include="Commands\Owner\PotionsOnCommand.cs" />
+    <Compile Include="Commands\Owner\ResetCommand.cs" />
+    <Compile Include="Commands\Owner\RespawnAllCommand.cs" />
+    <Compile Include="Commands\Owner\SaveCommand.cs" />
+    <Compile Include="Commands\Owner\VisibleCommand.cs" />
     <Compile Include="Commands\PermissionCommandBase.cs" />
-    <Compile Include="Commands\Permissions\GetRank.cs" />
+    <Compile Include="Commands\Permissions\GetRankCommand.cs" />
     <Compile Include="Commands\Permissions\LimitCommand.cs" />
     <Compile Include="Commands\Permissions\TrustCommand.cs" />
     <Compile Include="Commands\Permissions\ModCommand.cs" />
@@ -60,10 +75,24 @@
     <Compile Include="Commands\User\ReportAbuseCommand.cs" />
     <Compile Include="Commands\User\MuteCommand.cs" />
     <Compile Include="Commands\User\RemoveEditCommand.cs" />
+    <Compile Include="Commands\Utility\AutoSayCommand.cs" />
+    <Compile Include="Commands\Utility\BlueCommand.cs" />
+    <Compile Include="Commands\Utility\CompleteLevelCommand.cs" />
+    <Compile Include="Commands\Utility\DieCommand.cs" />
+    <Compile Include="Commands\Utility\GetCrownCommand.cs" />
+    <Compile Include="Commands\Utility\GiveWootCommand.cs" />
+    <Compile Include="Commands\Utility\GreenCommand.cs" />
     <Compile Include="Commands\Utility\HiCommand.cs" />
+    <Compile Include="Commands\Utility\KillRoomCommand.cs" />
+    <Compile Include="Commands\Utility\KillWorldCommand.cs" />
+    <Compile Include="Commands\Utility\ModModeCommand.cs" />
+    <Compile Include="Commands\Utility\RedCommand.cs" />
+    <Compile Include="Commands\Utility\RunAsCommand.cs" />
     <Compile Include="Commands\Utility\SayRawCommand.cs" />
     <Compile Include="Commands\Utility\SayCommand.cs" />
     <Compile Include="Commands\Utility\PingCommand.cs" />
+    <Compile Include="Commands\Utility\SetSmileyCommand.cs" />
+    <Compile Include="Commands\Utility\UsePotionCommand.cs" />
     <Compile Include="PlayerExtensions.cs" />
     <Compile Include="UtilityCommandsMuffin.cs" />
     <Compile Include="Commands\Utility\HelpCommand.cs" />
@@ -110,9 +139,7 @@
       <Name>CupCake</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Commands\Owner\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <None Include="Key.snk" />
   </ItemGroup>

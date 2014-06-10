@@ -23,7 +23,7 @@ namespace CupCake.DefaultCommands
 
             this.EnablePart<BanMuffinPart>();
 
-            this.EnablePart<GetRank>();
+            this.EnablePart<GetRankCommand>();
             this.EnablePart<AdminCommand>();
             this.EnablePart<OpCommand>();
             this.EnablePart<ModCommand>();
