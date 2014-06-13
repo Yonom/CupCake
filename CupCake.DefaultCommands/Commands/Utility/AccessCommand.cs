@@ -5,7 +5,7 @@ using CupCake.Permissions;
 
 namespace CupCake.DefaultCommands.Commands.Utility
 {
-    public class AccessCommand : EditCommandBase
+    public class AccessCommand : UtilityCommandBase
     {
         [MinGroup(Group.Moderator)]
         [Label("access")]
