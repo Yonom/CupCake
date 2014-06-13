@@ -12,10 +12,9 @@ using CupCake.World;
 
 namespace CupCake.Upload
 {
-    public class UploadService : CupCakeService
+    public sealed class UploadService : CupCakeService
     {
         private readonly Queue<UploadRequestEvent> _checkQueue = new Queue<UploadRequestEvent>();
-        private RoomService _room;
         private bool[,,] _uploaded;
         private DequeWorker _workThread;
         private WorldService _world;
@@ -27,11 +26,12 @@ namespace CupCake.Upload
             this._workThread = new DequeWorker();
 
             this.Events.Bind<UploadRequestEvent>(this.OnUploadRequest, EventPriority.Lowest);
-            this.Events.Bind<PlaceWorldEvent>(this.OnBlockPlace);
-            this.Events.Bind<InitReceiveEvent>(this.OnInitComplete);
-            this.Events.Bind<AccessRoomEvent>(this.OnAccessRightChange);
-            this.Events.Bind<ClearReceiveEvent>(this.OnClear);
-            this.Events.Bind<ResetReceiveEvent>(this.OnReset);
+
+            this.Events.Bind<PlaceWorldEvent>(this.OnBlockPlace, EventPriority.High);
+            this.Events.Bind<InitReceiveEvent>(this.OnInitComplete, EventPriority.High);
+            this.Events.Bind<AccessRoomEvent>(this.OnAccessRightChange, EventPriority.High);
+            this.Events.Bind<ClearReceiveEvent>(this.OnClear, EventPriority.High);
+            this.Events.Bind<ResetReceiveEvent>(this.OnReset, EventPriority.High);
         }
 
         private void OnReset(object sender, ResetReceiveEvent e)
@@ -46,7 +46,7 @@ namespace CupCake.Upload
 
         private void OnAccessRightChange(object sender, AccessRoomEvent e)
         {
-            if (this._room.AccessRight >= AccessRight.Edit)
+            if (e.NewRights >= AccessRight.Edit)
             {
                 this._workThread.Start();
             }
@@ -59,7 +59,7 @@ namespace CupCake.Upload
         private void ServiceLoader_EnableComplete(object sender, EventArgs e)
         {
             this._world = this.ServiceLoader.Get<WorldService>();
-            this._room = this.ServiceLoader.Get<RoomService>();
+            this.ServiceLoader.Get<RoomService>();
         }
 
         private void OnInitComplete(object sender, InitReceiveEvent e)
@@ -103,7 +103,6 @@ namespace CupCake.Upload
         private bool Send(UploadRequestEvent request)
         {
             IBlockPlaceSendEvent e = request.SendEvent;
-            e.Encryption = this._room.Encryption;
 
             request.SendTries++;
             // If not block already exists

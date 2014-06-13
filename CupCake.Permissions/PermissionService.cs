@@ -4,11 +4,11 @@ using CupCake.Players;
 
 namespace CupCake.Permissions
 {
-    public class PermissionService : CupCakeService
+    public sealed class PermissionService : CupCakeService
     {
         protected override void Enable()
         {
-            this.Events.Bind<JoinPlayerEvent>(this.OnJoin, EventPriority.Highest);
+            this.Events.Bind<JoinPlayerEvent>(this.OnJoin, EventPriority.High);
         }
 
         private void OnJoin(object sender, JoinPlayerEvent e)

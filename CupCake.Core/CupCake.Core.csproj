@@ -63,6 +63,7 @@
     <Compile Include="Metadata\MetadataChangedEventArgs.cs" />
     <Compile Include="Metadata\MetadataStore.cs" />
     <Compile Include="PluginNameAttribute.cs" />
+    <Compile Include="ReadOnlyDictionary.cs" />
     <Compile Include="StoragePlatform.cs" />
     <Compile Include="Storage\BasicStorageProvider.cs" />
     <Compile Include="Storage\StorageException.cs" />

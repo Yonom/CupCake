@@ -8,8 +8,8 @@ namespace CupCake.World
 {
     public class ResizeWorldEvent : Event
     {
-        public int NewHeight { get; set; }
-        public int NewWidth { get; set; }
+        public int NewHeight { get; private set; }
+        public int NewWidth { get; private set; }
 
         public ResizeWorldEvent(int newWidth,int newHeight)
         {

@@ -1,33 +1,40 @@
 ﻿using System;
+using System.Collections.Generic;
 using CupCake.Core;
+using CupCake.Core.Events;
+using CupCake.Messages;
 using CupCake.Messages.Blocks;
 using CupCake.Messages.Receive;
 using CupCake.Messages.Send;
 
 namespace CupCake.Potions
 {
-    public class PotionService : CupCakeService
+    public sealed class PotionService : CupCakeService
     {
-        public int RedAuraPotionCount { get; private set; }
-        public int BlueAuraPotionCount { get; private set; }
-        public int YellowAuraPotionCount { get; private set; }
-        public int GreenAuraPotionCount { get; private set; }
-        public int JumpPotionCount { get; private set; }
-        public int FirePotionCount { get; private set; }
-        public int CursePotionCount { get; private set; }
-        public int ProtectionPotionCount { get; private set; }
-        public int ZombiePotionCount { get; private set; }
-        public int RespawnPotionCount { get; private set; }
-        public int LevitationPotionCount { get; private set; }
-        public int FlauntPotionCount { get; private set; }
-        public int SolitudePotionCount { get; private set; }
+        private readonly Dictionary<Potion, int> _potionCounts = new Dictionary<Potion, int>(); 
+
+        public ReadOnlyDictionary<Potion, int> PotionCounts {
+            get
+            {
+                return new ReadOnlyDictionary<Potion, int>(this._potionCounts);
+            }
+        }
+
+        private void SetPotion(Potion potion, int value)
+        {
+            this._potionCounts[potion] = value;
+
+            this.SynchronizePlatform.Do(() =>
+                this.Events.Raise(new PotionCountEvent(potion, value)));
+        }
 
         protected override void Enable()
         {
-            this.Events.Bind<InitReceiveEvent>(this.OnInit);
+            this.Events.Bind<InitReceiveEvent>(this.OnPotionCount, EventPriority.High);
+            this.Events.Bind<PotionCountReceiveEvent>(this.OnPotionCount, EventPriority.High);
         }
 
-        private void OnInit(object sender, InitReceiveEvent e)
+        private void OnPotionCount(object sender, ReceiveEvent e)
         {
             uint startNum = 0;
             for (int i = Convert.ToInt32(e.PlayerIOMessage.Count - 1u); i >= 0; i += -1)
@@ -42,49 +49,10 @@ namespace CupCake.Potions
             uint pointer = startNum;
             while (e.PlayerIOMessage[pointer] as string == null || e.PlayerIOMessage.GetString(pointer) != "ps")
             {
-                switch ((Potion)e.PlayerIOMessage.GetInteger(pointer - 1u))
-                {
-                    case Potion.RedAura:
-                        this.RedAuraPotionCount = e.PlayerIOMessage.GetInteger(pointer);
-                        break;
-                    case Potion.BlueAura:
-                        this.BlueAuraPotionCount = e.PlayerIOMessage.GetInteger(pointer);
-                        break;
-                    case Potion.YellowAura:
-                        this.YellowAuraPotionCount = e.PlayerIOMessage.GetInteger(pointer);
-                        break;
-                    case Potion.GreenAura:
-                        this.GreenAuraPotionCount = e.PlayerIOMessage.GetInteger(pointer);
-                        break;
-                    case Potion.Jump:
-                        this.JumpPotionCount = e.PlayerIOMessage.GetInteger(pointer);
-                        break;
-                    case Potion.Fire:
-                        this.FirePotionCount = e.PlayerIOMessage.GetInteger(pointer);
-                        break;
-                    case Potion.Curse:
-                        this.CursePotionCount = e.PlayerIOMessage.GetInteger(pointer);
-                        break;
-                    case Potion.Protection:
-                        this.ProtectionPotionCount = e.PlayerIOMessage.GetInteger(pointer);
-                        break;
-                    case Potion.Zombie:
-                        this.ZombiePotionCount = e.PlayerIOMessage.GetInteger(pointer);
-                        break;
-                    case Potion.Respawn:
-                        this.RespawnPotionCount = e.PlayerIOMessage.GetInteger(pointer);
-                        break;
-                    case Potion.Levitation:
-                        this.LevitationPotionCount = e.PlayerIOMessage.GetInteger(pointer);
-                        break;
-                    case Potion.Flaunt:
-                        this.FlauntPotionCount = e.PlayerIOMessage.GetInteger(pointer);
-                        break;
-                    case Potion.Solitude:
-                        this.SolitudePotionCount = e.PlayerIOMessage.GetInteger(pointer);
-                        break;
-                }
-                pointer -= 2u;
+                this.SetPotion(
+                    ((Potion)e.PlayerIOMessage.GetInteger(pointer - 1)),
+                    e.PlayerIOMessage.GetInteger(pointer));
+                pointer -= 2;
             }
         }
 

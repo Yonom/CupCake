@@ -7,7 +7,7 @@ using CupCake.Core;
 
 namespace CupCake.HostAPI.Status
 {
-    public class StatusService : CupCakeService
+    public sealed class StatusService : CupCakeService
     {
         private readonly List<StatusItem> _statuses = new List<StatusItem>(); 
 

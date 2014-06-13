@@ -8,7 +8,7 @@ using PlayerIOClient;
 namespace CupCake.World
 {
     [DebuggerDisplay("SizeX = {SizeX}, SizeY = {SizeY}")]
-    public class WorldService : CupCakeService
+    public sealed class WorldService : CupCakeService
     {
         private const uint InitOffset = 17;
         private WorldBlock[,,] _blocks;

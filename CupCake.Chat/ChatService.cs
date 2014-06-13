@@ -9,7 +9,7 @@ using CupCake.Messages.Send;
 
 namespace CupCake.Chat
 {
-    public class ChatService : CupCakeService
+    public sealed class ChatService : CupCakeService
     {
         private readonly ConcurrentQueue<SaySendEvent> _myChatQueue = new ConcurrentQueue<SaySendEvent>();
         private readonly List<string> _myHistoryList = new List<string>();

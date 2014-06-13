@@ -9,7 +9,7 @@ using CupCake.Players.Join;
 
 namespace CupCake.Players
 {
-    public class PlayerService : CupCakeService<JoinArgs>
+    public sealed class PlayerService : CupCakeService<JoinArgs>
     {
         private readonly ConcurrentDictionary<int, Player> _players = new ConcurrentDictionary<int, Player>();
         public Player OwnPlayer { get; private set; }
@@ -31,10 +31,10 @@ namespace CupCake.Players
 
         protected override void Enable()
         {
-            this.Events.Bind<AddReceiveEvent>(this.OnAdd, EventPriority.Lowest);
-            this.Events.Bind<InitReceiveEvent>(this.OnInit, EventPriority.Low);
-            this.Events.Bind<CrownReceiveEvent>(this.OnCrown, EventPriority.Low);
-            this.Events.Bind<LeftReceiveEvent>(this.OnLeft, EventPriority.Low);
+            this.Events.Bind<CrownReceiveEvent>(this.OnCrown, EventPriority.High);
+            this.Events.Bind<LeftReceiveEvent>(this.OnLeft, EventPriority.High);
+            this.Events.Bind<AddReceiveEvent>(this.OnAdd, EventPriority.High);
+            this.Events.Bind<InitReceiveEvent>(this.OnInit, EventPriority.High);
         }
 
         private void OnInit(object sender, InitReceiveEvent e)

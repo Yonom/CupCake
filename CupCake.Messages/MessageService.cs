@@ -7,7 +7,7 @@ using PlayerIOClient;
 
 namespace CupCake.Messages
 {
-    public class MessageService : CupCakeService
+    public sealed class MessageService : CupCakeService
     {
         private bool _inited;
         public MessageManager MessageManager { get; private set; }

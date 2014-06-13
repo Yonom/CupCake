@@ -43,7 +43,6 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ConsoleInputEvent.cs" />
     <Compile Include="CorrectUsageAttribute.cs" />
     <Compile Include="LabelAttribute.cs" />
     <Compile Include="MinArgsAttribute.cs" />

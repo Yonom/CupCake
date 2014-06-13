@@ -9,7 +9,7 @@ using CupCake.Messages.User;
 namespace CupCake.Room
 {
     [DebuggerDisplay("WorldName = {WorldName}, Owner = {Owner}, Plays = {Plays}")]
-    public class RoomService : CupCakeService
+    public sealed class RoomService : CupCakeService
     {
         private AccessRight _accessRight;
         public string WorldName { get; private set; }

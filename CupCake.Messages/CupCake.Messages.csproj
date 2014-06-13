@@ -49,6 +49,7 @@
     <Compile Include="BlockHelper.cs" />
     <Compile Include="Receive\IBlockPlaceReceiveEvent.cs" />
     <Compile Include="Receive\IMetadataReceiveMessage.cs" />
+    <Compile Include="Receive\PotionCountReceiveEvent.cs" />
     <Compile Include="Send\IBlockPlaceSendEvent.cs" />
     <Compile Include="User\AccessRight.cs" />
     <Compile Include="Blocks\Block.cs" />
@@ -155,7 +156,6 @@
     <Compile Include="RegisteredMessage.cs" />
     <Compile Include="Point.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ReadOnlyDictionary.cs" />
     <Compile Include="MessageService.cs" />
     <Compile Include="User\AutoText.cs" />
     <Compile Include="User\MagicClass.cs" />

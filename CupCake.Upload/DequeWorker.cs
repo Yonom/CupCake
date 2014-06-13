@@ -25,14 +25,14 @@ namespace CupCake.Upload
 
         public bool IsAlive
         {
-            get { return this._thread.IsAlive; }
+            get { return (this._thread != null && this._thread.IsAlive); }
         }
 
         public void Start()
         {
             lock (this._lockObj)
             {
-                if (!this._thread.IsAlive)
+                if (!this.IsAlive)
                 {
                     this._stopping = false;
 

@@ -12,7 +12,7 @@ using CupCake.Players.Join;
 namespace CupCake.Players
 {
     [DebuggerDisplay("Username = {Username}, Smiley = {Smiley}")]
-    public class Player : CupCakeServicePart<JoinArgs>
+    public sealed class Player : CupCakeServicePart<JoinArgs>
     {
         public MetadataStore Metadata { get; private set; }
 
@@ -135,9 +135,11 @@ namespace CupCake.Players
                         callback(sender, e);
 
                         var instance = (TPlayer)Activator.CreateInstance(typeof(TPlayer), this, e);
-                        this.Events.Raise(instance);
+
+                        this.SynchronizePlatform.Do(() =>
+                            this.Events.Raise(instance));
                     }
-                }, EventPriority.Lowest);
+                }, EventPriority.High);
         }
 
         private void ExtractHostData()

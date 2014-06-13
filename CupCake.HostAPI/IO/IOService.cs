@@ -5,7 +5,7 @@ using CupCake.Core.Log;
 
 namespace CupCake.HostAPI.IO
 {
-    public class IOService : CupCakeService
+    public sealed class IOService : CupCakeService
     {
         public IIOSyntaxProvider SyntaxProvider { get; set; }
         public LogPriority MinPriority { get; set; }

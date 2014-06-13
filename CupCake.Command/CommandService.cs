@@ -2,13 +2,14 @@
 using CupCake.Chat;
 using CupCake.Command.Source;
 using CupCake.Core;
+using CupCake.Core.Events;
 using CupCake.Core.Log;
 using CupCake.Permissions;
 using CupCake.Players;
 
 namespace CupCake.Command
 {
-    public class CommandService : CupCakeService
+    public sealed class CommandService : CupCakeService
     {
         public const string DefaultPrefix = "!";
         private const string UnknownCommandStr = "Unknown command.";
@@ -22,7 +23,7 @@ namespace CupCake.Command
             this.ResponseMinGroup = Group.Moderator;
 
             this.ServiceLoader.EnableComplete += this.ServiceLoader_EnableComplete;
-            this.Events.Bind<SayPlayerEvent>(this.OnSay);
+            this.Events.Bind<SayPlayerEvent>(this.OnSay, EventPriority.High);
         }
 
         private void ServiceLoader_EnableComplete(object sender, EventArgs e)
@@ -32,10 +33,13 @@ namespace CupCake.Command
 
         private void OnSay(object sender, SayPlayerEvent e)
         {
-            if (e.Player.Say.StartsWith(this.CommandPrefix))
+            this.SynchronizePlatform.Do(() =>
             {
-                this.InvokeFromPlayer(e.Player, new ParsedCommand(e.Player.Say.Substring(this.CommandPrefix.Length)));
-            }
+                if (e.Player.Say.StartsWith(this.CommandPrefix))
+                {
+                    this.InvokeFromPlayer(e.Player, new ParsedCommand(e.Player.Say.Substring(this.CommandPrefix.Length)));
+                }
+            });
         }
 
         public void InvokeFromPlayer(Player player, ParsedCommand message)

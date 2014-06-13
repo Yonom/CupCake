@@ -9,6 +9,6 @@ namespace CupCake.World
             this.Block = block;
         }
 
-        public WorldBlock Block { get; set; }
+        public WorldBlock Block { get; private set; }
     }
 }

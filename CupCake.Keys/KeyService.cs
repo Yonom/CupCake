@@ -8,7 +8,7 @@ using CupCake.Messages.Send;
 
 namespace CupCake.Keys
 {
-    public class KeyService : CupCakeService
+    public sealed class KeyService : CupCakeService
     {
         public bool RedKey { get; private set; }
         public bool GreenKey { get; private set; }

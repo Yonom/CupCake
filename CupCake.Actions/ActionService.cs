@@ -7,7 +7,7 @@ using CupCake.Room;
 
 namespace CupCake.Actions
 {
-    public class ActionService : CupCakeService
+    public sealed class ActionService : CupCakeService
     {
         private RoomService _room;
 
