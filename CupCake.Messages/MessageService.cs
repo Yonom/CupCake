@@ -24,7 +24,7 @@ namespace CupCake.Messages
             this.MessageManager.RegisterMessage<AllowPotionsReceiveEvent>("allowpotions");
 
             // Bind Init receive message
-            this.Events.Bind<InitReceiveEvent>(this.OnInit);
+            this.Events.Bind<InitReceiveEvent>(this.OnInit, EventPriority.High);
 
             // Bind OnMessage
             this.ConnectionPlatform.Connection.OnMessage += this.Connection_OnMessage;

@@ -14,5 +14,10 @@ namespace CupCake.Command
         public IInvokeSource Source { get; set; }
         public ParsedCommand Message { get; set; }
         public bool Handled { get; set; }
+
+        /// <summary>
+        /// Gets or sets if commands should display a warning message, if the has already been handled.
+        /// </summary>
+        public bool IgnoresDuplicateWarning { get; set; }
     }
 }

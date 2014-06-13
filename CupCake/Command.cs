@@ -5,6 +5,7 @@ using System.Reflection;
 using CupCake.Command;
 using CupCake.Command.Source;
 using CupCake.Core.Events;
+using CupCake.Core.Log;
 using CupCake.Permissions;
 
 namespace CupCake
@@ -19,12 +20,21 @@ namespace CupCake
 
         public Group MinGroup { get; set; }
 
+        public bool HighPriority { get; set; }
+
         protected override void Enable()
         {
             this.Labels = new List<string>();
             this.Usages = new List<string>();
 
             MethodBase method = this.GetType().GetMethod("Run", BindingFlags.Instance | BindingFlags.NonPublic);
+
+            // Alias attribute
+            var highPriority = (HighPriorityAttribute)method.GetCustomAttributes(typeof(HighPriorityAttribute), false).FirstOrDefault();
+            if (highPriority != null)
+            {
+                this.HighPriority = true;
+            }
 
             // Alias attribute
             var labels = (LabelAttribute)method.GetCustomAttributes(typeof(LabelAttribute), false).FirstOrDefault();
@@ -52,16 +62,30 @@ namespace CupCake
             var correctUsage = (CorrectUsageAttribute[])method.GetCustomAttributes(typeof(CorrectUsageAttribute), false);
             this.Usages.AddRange(correctUsage.Select(usage => usage.Usage));
 
-            this.Events.Bind<InvokeEvent>(this.OnInvoke, EventPriority.Lowest);
+            this.Events.Bind<InvokeEvent>(
+                this.OnInvoke,
+                this.HighPriority
+                    ? EventPriority.Low
+                    : EventPriority.Lowest);
         }
 
         private void OnInvoke(object sender, InvokeEvent e)
         {
             if (this.CanHandle(e.Message))
             {
-                e.Source.PluginName = this.GetName();
-                this.ExcecuteCommand(e.Source, e.Message);
-                e.Handled = true;
+                if (e.Handled)
+                {
+                    if (!e.IgnoresDuplicateWarning)
+                    {
+                        this.Logger.Log(LogPriority.Warning, "Detected possible duplicate command: " + e.Message.Type);
+                    }
+                }
+                else
+                {
+                    e.Source.PluginName = this.GetName();
+                    this.ExcecuteCommand(e.Source, e.Message);
+                    e.Handled = true;
+                }
             }
         }
 

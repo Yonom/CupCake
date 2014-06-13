@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Runtime.InteropServices;
 using CupCake.Core;
 using CupCake.Core.Events;
 using CupCake.Messages;
@@ -13,17 +14,26 @@ namespace CupCake.Potions
     {
         private readonly Dictionary<Potion, int> _potionCounts = new Dictionary<Potion, int>();
 
-        public ReadOnlyDictionary<Potion, int> PotionCounts
+        public int GetCount(Potion potion)
         {
-            get { return new ReadOnlyDictionary<Potion, int>(this._potionCounts); }
+            lock (this._potionCounts)
+            {
+                if (!_potionCounts.ContainsKey(potion))
+                    return new int();
+
+                return _potionCounts[potion];
+            }
         }
 
         private void SetPotion(Potion potion, int value)
         {
-            this._potionCounts[potion] = value;
+            lock (this._potionCounts)
+            {
+                this._potionCounts[potion] = value;
 
-            this.SynchronizePlatform.Do(() =>
-                this.Events.Raise(new PotionCountEvent(potion, value)));
+                this.SynchronizePlatform.Do(() =>
+                    this.Events.Raise(new PotionCountEvent(potion, value)));
+            }
         }
 
         protected override void Enable()
@@ -56,6 +66,9 @@ namespace CupCake.Potions
 
         public void UsePotion(Potion pot)
         {
+            if (this.GetCount(pot) == 0)
+                throw new InvalidOperationException("Bot does not own any potions of that type!");
+
             this.Events.Raise(new PotionSendEvent(pot));
         }
     }

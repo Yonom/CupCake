@@ -44,6 +44,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CorrectUsageAttribute.cs" />
+    <Compile Include="HighPriorityAttribute.cs" />
     <Compile Include="LabelAttribute.cs" />
     <Compile Include="MinArgsAttribute.cs" />
     <Compile Include="MinGroupAttribute.cs" />

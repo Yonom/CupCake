@@ -24,7 +24,14 @@ namespace CupCake.DefaultCommands.Commands.Utility
                 throw new CommandException("Unable to parse parameter: potion", ex);
             }
 
-            this.PotionService.UsePotion(pot);
+            try
+            {
+                this.PotionService.UsePotion(pot);
+            }
+            catch (InvalidOperationException ex)
+            {
+                throw new CommandException("Unable to use potion: " + ex.Message, ex);
+            }
 
             source.Reply("Potion {0} used.", pot);
         }

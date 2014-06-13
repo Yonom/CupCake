@@ -14,10 +14,23 @@ namespace CupCake.DefaultCommands.Commands.Edit
         {
             this.RequireEdit();
 
-            bool enabled = this.PlayerService.OwnPlayer.IsGod;
+            bool enabled;
 
             if (message.Count >= 1)
-                Boolean.TryParse(message.Args[0], out enabled);
+            {
+                try
+                {
+                    enabled = Boolean.Parse(message.Args[0]);
+                }
+                catch (Exception ex)
+                {
+                    throw new CommandException("Unable to parse parameter: enabled", ex);
+                }
+            }
+            else
+            {
+                enabled = this.PlayerService.OwnPlayer.IsGod;
+            }
 
             this.ActionService.GodMode(enabled);
 

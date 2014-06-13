@@ -2,10 +2,24 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using CupCake.Command;
+using CupCake.Command.Source;
+using CupCake.Messages.Blocks;
+using CupCake.Permissions;
 
 namespace CupCake.DefaultCommands.Commands.Owner
 {
-    class PotionsOffCommand : OwnerCommandBase
+    public class PotionsOffCommand : OwnerCommandBase
     {
+        [MinArgs(1)]
+        [MinGroup(Group.Moderator)]
+        [Label("potionsoff")]
+        [CorrectUsage("potion1 [potion2 [...]]")]
+        protected override void Run(IInvokeSource source, ParsedCommand message)
+        {
+            this.RequireOwner();
+            this.Chatter.PotionsOff(message.Args);
+            source.Reply("Disabled potions.");
+        }
     }
 }

@@ -8,7 +8,7 @@ namespace CupCake.DefaultCommands.Commands.Utility
     {
         [MinGroup(Group.Moderator)]
         [Label("hi", "hello")]
-        [CorrectUsage("[player]")]
+        [CorrectUsage("")]
         protected override void Run(IInvokeSource source, ParsedCommand message)
         {
             source.Reply("Hello!");
