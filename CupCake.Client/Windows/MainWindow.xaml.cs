@@ -322,7 +322,7 @@ namespace CupCake.Client.Windows
 
                 handle.ReceiveClose += () => Dispatch.Invoke(() => { this.ConnectionCount--; });
 
-                handle.ReceiveRequestData += data => Dispatch.Invoke(() =>
+                handle.ReceiveRequestData += data => Dispatch.BeginInvoke(() =>
                 {
                     userControl.IsDebug = data.IsDebug;
 

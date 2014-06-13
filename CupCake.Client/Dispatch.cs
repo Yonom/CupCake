@@ -9,5 +9,10 @@ namespace CupCake.Client
         {
             Application.Current.Dispatcher.Invoke(callback);
         }
+
+        public static void BeginInvoke(Action callback)
+        {
+            Application.Current.Dispatcher.BeginInvoke(callback);
+        }
     }
 }
