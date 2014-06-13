@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using CupCake.Core.Log;
+﻿using CupCake.Core.Log;
 
 namespace CupCake.HostAPI.IO
 {
-    class BasicIOSyntaxProvider : IIOSyntaxProvider
+    internal class BasicIOSyntaxProvider : IIOSyntaxProvider
     {
         public string ParseOutput(LogEventArgs e)
         {

@@ -13,9 +13,8 @@ namespace CupCake.World
         private const uint InitOffset = 17;
         private WorldBlock[,,] _blocks;
 
-        private int _roomWidth;
-
         private int _roomHeight;
+        private int _roomWidth;
 
         public int RoomWidth
         {
@@ -173,8 +172,8 @@ namespace CupCake.World
         {
             var blockArray = new WorldBlock[2, sizeX, sizeY];
 
-            var maxX = sizeX - 1;
-            var maxY = sizeY - 1;
+            int maxX = sizeX - 1;
+            int maxY = sizeY - 1;
 
             // Fill the middle with GravityNothing blocks
             for (var l = Layer.Background; l >= Layer.Foreground; l += -1)
@@ -236,7 +235,7 @@ namespace CupCake.World
             WorldBlock b = this._blocks[(int)e.Layer, e.PosX, e.PosY];
             b.SetBlock(e.Block);
 
-            RaisePlaceWorld(b);
+            this.RaisePlaceWorld(b);
         }
 
         private void OnCoinDoorPlace(object sender, CoinDoorPlaceReceiveEvent e)
@@ -244,7 +243,7 @@ namespace CupCake.World
             WorldBlock b = this._blocks[(int)e.Layer, e.PosX, e.PosY];
             b.SetCoinDoor(e.Block, e.CoinsToOpen);
 
-            RaisePlaceWorld(b);
+            this.RaisePlaceWorld(b);
         }
 
         private void OnLabelPlace(object sender, LabelPlaceReceiveEvent e)
@@ -252,7 +251,7 @@ namespace CupCake.World
             WorldBlock b = this._blocks[(int)e.Layer, e.PosX, e.PosY];
             b.SetLabel(e.Block, e.Text);
 
-            RaisePlaceWorld(b);
+            this.RaisePlaceWorld(b);
         }
 
         private void OnPortalPlace(object sender, PortalPlaceReceiveEvent e)
@@ -260,7 +259,7 @@ namespace CupCake.World
             WorldBlock b = this._blocks[(int)e.Layer, e.PosX, e.PosY];
             b.SetPortal(e.Block, e.PortalId, e.PortalTarget, e.PortalRotation);
 
-            RaisePlaceWorld(b);
+            this.RaisePlaceWorld(b);
         }
 
         private void OnWorldPortalPlace(object sender, WorldPortalPlaceReceiveEvent e)
@@ -268,7 +267,7 @@ namespace CupCake.World
             WorldBlock b = this._blocks[(int)e.Layer, e.PosX, e.PosY];
             b.SetWorldPortal(e.Block, e.WorldPortalTarget);
 
-            RaisePlaceWorld(b);
+            this.RaisePlaceWorld(b);
         }
 
         private void OnSoundPlace(object sender, SoundPlaceReceiveEvent e)
@@ -276,7 +275,7 @@ namespace CupCake.World
             WorldBlock b = this._blocks[(int)e.Layer, e.PosX, e.PosY];
             b.SetSound(e.Block, e.SoundId);
 
-            RaisePlaceWorld(b);
+            this.RaisePlaceWorld(b);
         }
 
         private void OnRotatablePlace(object sender, RotatablePlaceReceiveEvent e)
@@ -284,14 +283,13 @@ namespace CupCake.World
             WorldBlock b = this._blocks[(int)e.Layer, e.PosX, e.PosY];
             b.SetRotatable(e.Block, e.Rotation);
 
-            RaisePlaceWorld(b);
+            this.RaisePlaceWorld(b);
         }
 
         private void RaisePlaceWorld(WorldBlock b)
         {
             this.SynchronizePlatform.Do(() =>
                 this.Events.Raise(new PlaceWorldEvent(b)));
-
         }
 
         private void OnReset(object sender, ResetReceiveEvent e)

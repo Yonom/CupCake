@@ -30,26 +30,28 @@ namespace CupCake
         private readonly Lazy<CommandService> _commandService;
         private readonly Lazy<ConnectionPlatform> _connectionPlatform;
         private readonly Lazy<EventManager> _events;
+        private readonly Lazy<IOService> _ioService;
         private readonly Lazy<KeyService> _keyService;
         private readonly Lazy<Logger> _logger;
         private readonly Lazy<MessageService> _messageService;
+        private readonly Lazy<string> _name;
+        private readonly Lazy<PermissionService> _permissionService;
         private readonly Lazy<PlayerService> _playerService;
         private readonly Lazy<PotionService> _potionService;
         private readonly Lazy<RoomService> _roomService;
+        private readonly Lazy<StatusService> _statusService;
+        private readonly Lazy<StoragePlatform> _storagePlatform;
         private readonly Lazy<SynchronizePlatform> _synchronizePlatform;
         private readonly Lazy<UploadService> _uploadService;
         private readonly Lazy<WorldService> _worldService;
-        private readonly Lazy<IOService> _ioService;
-        private readonly Lazy<StatusService> _statusService;
-        private readonly Lazy<PermissionService> _permissionService;
-        private readonly Lazy<StoragePlatform> _storagePlatform;
 
         protected CupCakeMuffinPart()
         {
             this._name = new Lazy<string>(this.FindName);
 
             this._connectionPlatform = new Lazy<ConnectionPlatform>(() => this.PlatformLoader.Get<ConnectionPlatform>());
-            this._synchronizePlatform = new Lazy<SynchronizePlatform>(() => this.PlatformLoader.Get<SynchronizePlatform>());
+            this._synchronizePlatform =
+                new Lazy<SynchronizePlatform>(() => this.PlatformLoader.Get<SynchronizePlatform>());
             this._storagePlatform = new Lazy<StoragePlatform>(() => this.PlatformLoader.Get<StoragePlatform>());
 
             this._events = new Lazy<EventManager>(() =>
@@ -179,8 +181,6 @@ namespace CupCake
         {
             return new Timer(interval) {SynchronizingObject = new GenericSynchronizingObject()};
         }
-
-        private readonly Lazy<string> _name;
 
         private string FindName()
         {

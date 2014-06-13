@@ -49,21 +49,21 @@ namespace CupCake.Command
 
         public void InvokeFromPlayer(Player player, Group group, ParsedCommand message)
         {
-            var source = new PlayerInvokeSource(this, group, player, 
-                (name, msg) => 
+            var source = new PlayerInvokeSource(this, group, player,
+                (name, msg) =>
                     this._chatService.Chat(msg, name));
             this.Invoke(source, message);
         }
 
         public void InvokeFromConsole(ParsedCommand message)
         {
-            InvokeFromConsole(Group.Host, message);
+            this.InvokeFromConsole(Group.Host, message);
         }
 
         public void InvokeFromConsole(Group group, ParsedCommand message)
         {
             var source = new ConsoleInvokeSource(this, group,
-                (name, msg) => 
+                (name, msg) =>
                     this.Logger.LogPlatform.Log(name, LogPriority.Message, msg));
 
             this.Invoke(source, message);

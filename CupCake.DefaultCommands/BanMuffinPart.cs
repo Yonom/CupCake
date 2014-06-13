@@ -1,12 +1,10 @@
 ﻿using System;
 using System.Globalization;
-using CupCake.Command;
 using CupCake.Core.Log;
 using CupCake.Core.Storage;
 using CupCake.DefaultCommands.Commands.Ban;
 using CupCake.Messages.User;
 using CupCake.Permissions;
-using CupCake.Players;
 
 namespace CupCake.DefaultCommands
 {
@@ -25,18 +23,18 @@ namespace CupCake.DefaultCommands
 
         public void SetPermission(string username, Group group)
         {
-            Host.SetPermission(username, group);
+            this.Host.SetPermission(username, group);
         }
 
         private void OnChangedPermission(object sender, ChangedPermissionEvent e)
         {
             if (e.NewPermission == Group.Banned)
             {
-                if (RoomService.AccessRight == AccessRight.Owner)
+                if (this.RoomService.AccessRight == AccessRight.Owner)
                 {
-                    var kicktext = "Banned!";
-                    var timeout = this.GetBanTimeout(e.Player.StorageName);
-                    var reason = this.GetBanReason(e.Player.StorageName);
+                    string kicktext = "Banned!";
+                    DateTime timeout = this.GetBanTimeout(e.Player.StorageName);
+                    string reason = this.GetBanReason(e.Player.StorageName);
 
                     if (timeout != default(DateTime))
                     {
@@ -45,7 +43,7 @@ namespace CupCake.DefaultCommands
                         // Check if ban has not expired already
                         if (timeout <= DateTime.UtcNow)
                         {
-                            PermissionService.User(e.Player);
+                            this.PermissionService.User(e.Player);
                             return;
                         }
                     }
@@ -53,7 +51,7 @@ namespace CupCake.DefaultCommands
                     {
                         kicktext += " Reason: " + reason;
                     }
-                    Chatter.Kick(e.Player.Username, kicktext);
+                    this.Chatter.Kick(e.Player.Username, kicktext);
                 }
 
                 // Save ban parameters
@@ -102,10 +100,10 @@ namespace CupCake.DefaultCommands
         {
             try
             {
-                var timeoutStr = this.StoragePlatform.Get(BanTimeoutsId, name);
+                string timeoutStr = this.StoragePlatform.Get(BanTimeoutsId, name);
                 if (timeoutStr != null)
                 {
-                    var timeout = DateTime.Parse(timeoutStr);
+                    DateTime timeout = DateTime.Parse(timeoutStr);
                     return timeout;
                 }
             }

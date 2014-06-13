@@ -4,7 +4,6 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Threading;
 using CupCake.Client.Settings;
-using CupCake.Client.Windows;
 using CupCake.Protocol;
 
 namespace CupCake.Client.UserControls
@@ -16,14 +15,33 @@ namespace CupCake.Client.UserControls
     {
         private readonly ClientHandle _handle;
         private bool _cancelClose;
-        private string _titleText = SettingsManager.UnnamedString;
-        private string _statusText;
         private bool _isDisonnected;
+        private string _statusText;
+        private string _titleText = SettingsManager.UnnamedString;
+
+        public ConnectionUserControl(ClientHandle handle)
+        {
+            this.InitializeComponent();
+
+            this.Loaded += this.ConnectionUserControl_Loaded;
+
+            this._handle = handle;
+            this._handle.ReceiveOutput += this.ClientOutput;
+            this._handle.ReceiveClose += this._handle_ConnectionClose;
+            this._handle.ReceiveTitle += this._handle_ReceiveTitle;
+            this._handle.ReceiveStatus += this._handle_ReceiveStatus;
+            this._handle.ReceiveWrongAuth += this._handle_ReceiveWrongAuth;
+        }
 
         public bool IsDebug { get; set; }
 
-        public string StatusString {
-            get { return (this.IsDisonnected ? "Disconnected" : "Connected") + (this._statusText != null ? " | " +  this._statusText : String.Empty); }
+        public string StatusString
+        {
+            get
+            {
+                return (this.IsDisonnected ? "Disconnected" : "Connected") +
+                       (this._statusText != null ? " | " + this._statusText : String.Empty);
+            }
         }
 
         private bool IsDisonnected
@@ -69,20 +87,6 @@ namespace CupCake.Client.UserControls
         {
             Action<string> handler = this.Status;
             if (handler != null) handler(status);
-        }
-
-        public ConnectionUserControl(ClientHandle handle)
-        {
-            this.InitializeComponent();
-
-            this.Loaded += this.ConnectionUserControl_Loaded;
-
-            this._handle = handle;
-            this._handle.ReceiveOutput += this.ClientOutput;
-            this._handle.ReceiveClose += this._handle_ConnectionClose;
-            this._handle.ReceiveTitle += this._handle_ReceiveTitle;
-            this._handle.ReceiveStatus += this._handle_ReceiveStatus;
-            this._handle.ReceiveWrongAuth += this._handle_ReceiveWrongAuth;
         }
 
         private void KeepOpenButton_OnClick(object sender, RoutedEventArgs e)

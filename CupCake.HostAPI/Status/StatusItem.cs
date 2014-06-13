@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace CupCake.HostAPI.Status
 {
@@ -9,12 +6,11 @@ namespace CupCake.HostAPI.Status
     {
         private string _name;
         private string _value;
-        public event EventHandler Changed;
 
-        protected virtual void OnChanged()
+        public StatusItem(string name, string value)
         {
-            EventHandler handler = this.Changed;
-            if (handler != null) handler(this, EventArgs.Empty);
+            this.Name = name;
+            this.Value = value;
         }
 
         public string Name
@@ -43,10 +39,12 @@ namespace CupCake.HostAPI.Status
             }
         }
 
-        public StatusItem(string name, string value)
+        public event EventHandler Changed;
+
+        protected virtual void OnChanged()
         {
-            this.Name = name;
-            this.Value = value;
+            EventHandler handler = this.Changed;
+            if (handler != null) handler(this, EventArgs.Empty);
         }
     }
 }

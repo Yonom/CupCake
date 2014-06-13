@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
 
 namespace CupCake.Chat
@@ -12,14 +10,15 @@ namespace CupCake.Chat
         {
             input = input.Trim();
 
-            var isCommand = input.StartsWith("/");
+            bool isCommand = input.StartsWith("/");
 
             if (!isCommand)
             {
-                input = Regex.Replace(input, @"([\?\!]{2})[\?\!]+", "$1", RegexOptions.IgnoreCase | RegexOptions.CultureInvariant);
+                input = Regex.Replace(input, @"([\?\!]{2})[\?\!]+", "$1",
+                    RegexOptions.IgnoreCase | RegexOptions.CultureInvariant);
                 input = Regex.Replace(input, @"\.{4,}", "...", RegexOptions.IgnoreCase | RegexOptions.CultureInvariant);
 
-                var replaced = true;
+                bool replaced = true;
                 while (replaced)
                 {
                     replaced = false;

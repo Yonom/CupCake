@@ -1,11 +1,10 @@
-﻿using System;
-using CupCake.Command;
+﻿using CupCake.Command;
 using CupCake.Command.Source;
 using CupCake.Permissions;
 
 namespace CupCake.DefaultCommands.Commands.Ban
 {
-    class BanCommand : BanCommandBase
+    internal class BanCommand : BanCommandBase
     {
         [MinArgs(1)]
         [MinGroup(Group.Operator)]

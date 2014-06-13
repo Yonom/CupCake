@@ -7,8 +7,6 @@ namespace CupCake.Command
     [DebuggerDisplay("Source = {Source}")]
     public class ParsedCommand
     {
-        public string Source { get; private set; }
-
         public ParsedCommand(string source)
         {
             this.Source = source;
@@ -16,6 +14,8 @@ namespace CupCake.Command
             this.Type = parts[0];
             this.Args = parts.Skip(1).ToArray();
         }
+
+        public string Source { get; private set; }
 
         public string Type { get; private set; }
         public string[] Args { get; private set; }

@@ -2,7 +2,6 @@ using System;
 using System.Diagnostics;
 using CupCake.Core.Metadata;
 using CupCake.Messages.Blocks;
-using CupCake.Messages.Receive;
 using CupCake.Messages.Send;
 
 namespace CupCake.World
@@ -267,7 +266,7 @@ namespace CupCake.World
 // ReSharper disable once UnusedMember.Local
         private string DebuggerData()
         {
-            switch (BlockType)
+            switch (this.BlockType)
             {
                 case BlockType.Normal:
                     return String.Format("Layer = {0}", this.Layer);
@@ -280,7 +279,8 @@ namespace CupCake.World
                 case BlockType.Label:
                     return String.Format("Text = {0}", this.Text);
                 case BlockType.Portal:
-                    return String.Format("Id = {0}, Target = {1}, Rotation = {2}", this.PortalId, this.PortalTarget, this.PortalRotation);
+                    return String.Format("Id = {0}, Target = {1}, Rotation = {2}", this.PortalId, this.PortalTarget,
+                        this.PortalRotation);
                 case BlockType.WorldPortal:
                     return String.Format("Target = {0}", this.WorldPortalTarget);
                 default:

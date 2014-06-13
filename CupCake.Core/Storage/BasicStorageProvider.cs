@@ -1,14 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 
 namespace CupCake.Core.Storage
 {
     public class BasicStorageProvider : IStorageProvider
     {
         private readonly Dictionary<KeyValuePair<string, string>, string> _kvStore =
-            new Dictionary<KeyValuePair<string, string>, string>(); 
+            new Dictionary<KeyValuePair<string, string>, string>();
 
         public void Set(string id, string key, string value)
         {

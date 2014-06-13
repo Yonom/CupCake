@@ -28,19 +28,19 @@ namespace CupCake.Messages.Receive
 
         public bool AllowPotions { get; set; }
         public bool CanEdit { get; set; }
-        public int CurrentWoots { get; set; }
         public string Encryption { get; set; }
         public double Gravity { get; set; }
         public bool IsOwner { get; set; }
         public bool IsTutorialRoom { get; set; }
-        public string OwnerUsername { get; set; }
-        public int Plays { get; set; }
         public int RoomWidth { get; set; }
         public int RoomHeight { get; set; }
         public int SpawnX { get; set; }
         public int SpawnY { get; set; }
-        public int TotalWoots { get; set; }
         public string Username { get; set; }
+        public int CurrentWoots { get; set; }
+        public string OwnerUsername { get; set; }
+        public int Plays { get; set; }
+        public int TotalWoots { get; set; }
         public string WorldName { get; set; }
         public int UserId { get; set; }
 

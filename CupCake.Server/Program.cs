@@ -52,8 +52,8 @@ namespace CupCake.Server
         {
             Action<string> handler = Title;
             if (handler != null) handler(title);
-        }        
-        
+        }
+
         private static event Action<string> Status;
 
         private static void OnStatus(string status)

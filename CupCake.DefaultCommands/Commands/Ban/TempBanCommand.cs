@@ -16,7 +16,7 @@ namespace CupCake.DefaultCommands.Commands.Ban
             DateTime timeout;
             try
             {
-                var duration = TimeSpan.Parse(message.Args[1]);
+                TimeSpan duration = TimeSpan.Parse(message.Args[1]);
                 timeout = DateTime.UtcNow.Add(duration);
             }
             catch (Exception ex)

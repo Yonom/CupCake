@@ -20,7 +20,8 @@ namespace CupCake.Server.StorageProviders
             {
                 using (var conn = new MySqlConnection(this._connectionString))
                 {
-                    const string query = "INSERT INTO cupcake VALUES (@id, @key, @value) ON DUPLICATE KEY UPDATE id = @id";
+                    const string query =
+                        "INSERT INTO cupcake VALUES (@id, @key, @value) ON DUPLICATE KEY UPDATE id = @id";
                     using (var cmd = new MySqlCommand(query, conn))
                     {
                         cmd.Parameters.AddWithValue("@id", id);
@@ -80,7 +81,6 @@ namespace CupCake.Server.StorageProviders
             {
                 throw new StorageException(ex.Message, ex);
             }
-
         }
     }
 }

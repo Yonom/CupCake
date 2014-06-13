@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.InteropServices;
-using System.Text;
-using CupCake.Command;
+﻿using CupCake.Command;
 using CupCake.Command.Source;
 using CupCake.Permissions;
+using CupCake.Players;
 
 namespace CupCake.DefaultCommands.Commands.User
 {
@@ -19,13 +15,13 @@ namespace CupCake.DefaultCommands.Commands.User
         protected override void Run(IInvokeSource source, ParsedCommand message)
         {
             this.RequireOwner();
-            var player = this.PlayerService.MatchPlayer(message.Args[0]);
+            Player player = this.PlayerService.MatchPlayer(message.Args[0]);
             this.RequireSameRank(source, player);
 
             if (message.Count >= 3)
             {
-                var x = message.GetInt(1);
-                var y = message.GetInt(2);
+                int x = message.GetInt(1);
+                int y = message.GetInt(2);
 
                 this.Chatter.Teleport(player.Username, x, y);
             }
@@ -33,7 +29,7 @@ namespace CupCake.DefaultCommands.Commands.User
             {
                 try
                 {
-                    var target = this.PlayerService.MatchPlayer(message.Args[1]);
+                    Player target = this.PlayerService.MatchPlayer(message.Args[1]);
                     this.Chatter.Teleport(player.Username, target.BlockX, target.BlockY);
                 }
                 catch (CommandException ex)
@@ -46,8 +42,8 @@ namespace CupCake.DefaultCommands.Commands.User
                 var playerSource = source as PlayerInvokeSource;
                 if (playerSource != null)
                 {
-                    var x = playerSource.Player.BlockX;
-                    var y = playerSource.Player.BlockX;
+                    int x = playerSource.Player.BlockX;
+                    int y = playerSource.Player.BlockX;
 
                     this.Chatter.Teleport(player.Username, x, y);
                 }

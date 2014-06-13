@@ -11,13 +11,11 @@ namespace CupCake.Potions
 {
     public sealed class PotionService : CupCakeService
     {
-        private readonly Dictionary<Potion, int> _potionCounts = new Dictionary<Potion, int>(); 
+        private readonly Dictionary<Potion, int> _potionCounts = new Dictionary<Potion, int>();
 
-        public ReadOnlyDictionary<Potion, int> PotionCounts {
-            get
-            {
-                return new ReadOnlyDictionary<Potion, int>(this._potionCounts);
-            }
+        public ReadOnlyDictionary<Potion, int> PotionCounts
+        {
+            get { return new ReadOnlyDictionary<Potion, int>(this._potionCounts); }
         }
 
         private void SetPotion(Potion potion, int value)

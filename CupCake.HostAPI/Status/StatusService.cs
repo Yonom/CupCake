@@ -1,34 +1,29 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
 using CupCake.Core;
 
 namespace CupCake.HostAPI.Status
 {
     public sealed class StatusService : CupCakeService
     {
-        private readonly List<StatusItem> _statuses = new List<StatusItem>(); 
+        private readonly List<StatusItem> _statuses = new List<StatusItem>();
 
         public IStatusSyntaxProvider SyntaxProvider { get; set; }
+
+        public ReadOnlyCollection<StatusItem> Statuses
+        {
+            get { return new ReadOnlyCollection<StatusItem>(this._statuses); }
+        }
 
         protected override void Enable()
         {
             this.SyntaxProvider = new BasicStatusSyntaxProvider();
         }
 
-        public ReadOnlyCollection<StatusItem> Statuses
-        {
-            get
-            {
-                return new ReadOnlyCollection<StatusItem>(_statuses);
-            }
-        }
-
         public void Add(StatusItem item)
         {
-            item.Changed += item_Changed;
+            item.Changed += this.item_Changed;
 
             lock (this._statuses)
             {
@@ -37,16 +32,17 @@ namespace CupCake.HostAPI.Status
 
             this.UpdateStatus();
         }
+
         public bool Remove(StatusItem item)
         {
-            item.Changed -= item_Changed;
+            item.Changed -= this.item_Changed;
 
             bool result;
             lock (this._statuses)
             {
                 result = this._statuses.Remove(item);
             }
-            
+
             this.UpdateStatus();
             return result;
         }
@@ -56,10 +52,10 @@ namespace CupCake.HostAPI.Status
             StatusItem[] statusItems;
             lock (this._statuses)
             {
-                statusItems = _statuses.ToArray();
+                statusItems = this._statuses.ToArray();
             }
 
-            this.Events.Raise(new ChangeStatusEvent(SyntaxProvider.Parse(statusItems)));
+            this.Events.Raise(new ChangeStatusEvent(this.SyntaxProvider.Parse(statusItems)));
         }
 
         private void item_Changed(object sender, EventArgs e)

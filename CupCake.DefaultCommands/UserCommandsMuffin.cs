@@ -1,5 +1,4 @@
-﻿using CupCake.DefaultCommands.Commands;
-using CupCake.DefaultCommands.Commands.User;
+﻿using CupCake.DefaultCommands.Commands.User;
 
 namespace CupCake.DefaultCommands
 {

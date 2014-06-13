@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using CupCake.Command;
 using CupCake.Command.Source;
 using CupCake.Permissions;
@@ -24,9 +21,9 @@ namespace CupCake.DefaultCommands.Commands
                 source.Reply("{0} is now banned.", player.ChatName);
             }, username =>
             {
-                Host.SetBanReason(username, reason);
-                Host.SetBanTimeout(username, timeout);
-                Host.SetPermission(username, Group.Banned);
+                this.Host.SetBanReason(username, reason);
+                this.Host.SetBanTimeout(username, timeout);
+                this.Host.SetPermission(username, Group.Banned);
 
                 source.Reply("{0} is now banned.", PlayerUtils.GetChatName(username));
             });

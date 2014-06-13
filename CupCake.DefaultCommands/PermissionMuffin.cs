@@ -1,6 +1,4 @@
 ﻿using System;
-using CupCake.Command;
-using CupCake.Command.Source;
 using CupCake.Core.Events;
 using CupCake.Core.Log;
 using CupCake.Core.Storage;
@@ -73,7 +71,7 @@ namespace CupCake.DefaultCommands
 
         public Group GetPermission(string storageName)
         {
-            var groupStr = this.StoragePlatform.Get(PermissionsId, storageName);
+            string groupStr = this.StoragePlatform.Get(PermissionsId, storageName);
             Group group;
             Enum.TryParse(groupStr, true, out group);
             return group;
@@ -87,7 +85,8 @@ namespace CupCake.DefaultCommands
             }
             catch (StorageException ex)
             {
-                this.Logger.Log(LogPriority.Error, "Unable to load permissions for user " + e.Player.Username + ". " + ex.Message);
+                this.Logger.Log(LogPriority.Error,
+                    "Unable to load permissions for user " + e.Player.Username + ". " + ex.Message);
             }
 
             e.Player.SetRankLoaded(true);

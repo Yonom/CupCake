@@ -54,7 +54,7 @@ namespace CupCake.Chat
             // There is no speed limit on commands
             if (msg.StartsWith("/", StringComparison.Ordinal))
             {
-                var e = msg.Length >= 80
+                SaySendEvent e = msg.Length >= 80
                     ? new SaySendEvent(msg.Substring(0, 80))
                     : new SaySendEvent(msg.Substring(0, msg.Length));
                 this.Events.Raise(e);

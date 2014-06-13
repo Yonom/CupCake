@@ -15,10 +15,10 @@ namespace CupCake.Messages.Receive
             this.UserId = message.GetInteger(4);
         }
 
-        public int UserId { get; set; }
         public Block Block { get; set; }
         public Layer Layer { get; set; }
         public int PosX { get; set; }
         public int PosY { get; set; }
+        public int UserId { get; set; }
     }
 }

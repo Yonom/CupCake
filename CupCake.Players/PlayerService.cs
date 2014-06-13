@@ -20,7 +20,8 @@ namespace CupCake.Players
             get { return this._players.Values.ToArray(); }
         }
 
-        public int Count {
+        public int Count
+        {
             get { return this._players.Count; }
         }
 
@@ -53,7 +54,8 @@ namespace CupCake.Players
                     this.Logger.Log(LogPriority.Warning, "Received Add with existing UserId. Name: " + e.Username));
         }
 
-        private void AddPlayer(JoinArgs joinArgs, IUserPosReceiveEvent e, Action<Player> successCallback = null, Action errorcallback = null)
+        private void AddPlayer(JoinArgs joinArgs, IUserPosReceiveEvent e, Action<Player> successCallback = null,
+            Action errorcallback = null)
         {
             var player = this.EnablePart<Player>(joinArgs);
             if (this._players.TryAdd(player.UserId, player))

@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Runtime.CompilerServices;
-using CupCake.Chat;
 using CupCake.Players;
 
 namespace CupCake.Command
@@ -33,7 +31,7 @@ namespace CupCake.Command
                     }
                     else
                     {
-                        if (player.Username.StartsWith(filter, StringComparison.OrdinalIgnoreCase) || 
+                        if (player.Username.StartsWith(filter, StringComparison.OrdinalIgnoreCase) ||
                             player.GetTrimmedName().StartsWith(filter, StringComparison.OrdinalIgnoreCase))
                         {
                             list.Add(player);
@@ -53,8 +51,8 @@ namespace CupCake.Command
         }
 
 
-
-        public static void MatchPlayer(this PlayerService playerService, string filter, Action<Player> onlineCallback, Action<string> offlineCallback)
+        public static void MatchPlayer(this PlayerService playerService, string filter, Action<Player> onlineCallback,
+            Action<string> offlineCallback)
         {
             Player player;
             try
@@ -63,7 +61,7 @@ namespace CupCake.Command
             }
             catch (UnknownPlayerCommandException)
             {
-                var username = CommandUtils.TrimFilterPrefix(filter);
+                string username = CommandUtils.TrimFilterPrefix(filter);
                 offlineCallback(username);
                 return;
             }

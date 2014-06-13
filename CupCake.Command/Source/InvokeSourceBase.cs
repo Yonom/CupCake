@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using CupCake.Permissions;
+﻿using CupCake.Permissions;
 
 namespace CupCake.Command.Source
 {

@@ -238,7 +238,7 @@ namespace CupCake.Protocol
         {
             this.OnSendRequestData(new RequestData {IsDebug = debug});
         }
-        
+
         internal void DoReceiveStatus(Status reqData)
         {
             this.OnReceiveStatus(reqData);
@@ -246,7 +246,7 @@ namespace CupCake.Protocol
 
         public void DoSendStatus(string text)
         {
-            this.OnSendStatus(new Status { Text = text });
+            this.OnSendStatus(new Status {Text = text});
         }
     }
 }

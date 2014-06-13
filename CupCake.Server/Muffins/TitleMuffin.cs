@@ -10,7 +10,7 @@ namespace CupCake.Server.Muffins
             this.Events.Bind<InitReceiveEvent>(this.OnInit);
             this.Events.Bind<UpdateMetaReceiveEvent>(this.OnUpdateMeta);
         }
-        
+
         private void OnUpdateMeta(object sender, UpdateMetaReceiveEvent e)
         {
             this.Events.Raise(new ChangeTitleEvent(e.WorldName));

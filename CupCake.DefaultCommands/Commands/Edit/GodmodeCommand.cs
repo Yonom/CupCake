@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using CupCake.Command;
 using CupCake.Command.Source;
 using CupCake.Permissions;
@@ -17,7 +14,7 @@ namespace CupCake.DefaultCommands.Commands.Edit
         {
             this.RequireEdit();
 
-            var enabled = this.PlayerService.OwnPlayer.IsGod;
+            bool enabled = this.PlayerService.OwnPlayer.IsGod;
 
             if (message.Count >= 1)
                 Boolean.TryParse(message.Args[0], out enabled);

@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using CupCake.Command;
+﻿using CupCake.Command;
 using CupCake.Command.Source;
 using CupCake.Permissions;
+using CupCake.Players;
 
 namespace CupCake.DefaultCommands.Commands.User
 {
@@ -16,7 +13,7 @@ namespace CupCake.DefaultCommands.Commands.User
         [CorrectUsage("player")]
         protected override void Run(IInvokeSource source, ParsedCommand message)
         {
-            var player = this.PlayerService.MatchPlayer(message.Args[0]);
+            Player player = this.PlayerService.MatchPlayer(message.Args[0]);
 
             this.Chatter.Mute(player.Username);
 

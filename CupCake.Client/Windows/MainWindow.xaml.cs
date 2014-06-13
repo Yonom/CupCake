@@ -298,11 +298,8 @@ namespace CupCake.Client.Windows
                 };
 
 
-                userControl.Title += s =>
-                {
-                    tabItem.Header = s;
-                };
-                
+                userControl.Title += s => { tabItem.Header = s; };
+
                 userControl.Status += s =>
                 {
                     if (tabItem.IsSelected)

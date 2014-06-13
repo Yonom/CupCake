@@ -9,7 +9,7 @@ namespace CupCake.Command.Source
         string PluginName { get; set; }
         object Sender { get; }
         Group Group { get; }
-        void Reply(string message);
         string Name { get; }
+        void Reply(string message);
     }
 }

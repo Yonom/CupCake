@@ -23,6 +23,7 @@ namespace CupCake.Messages.Receive
             this.IsDead = message.GetBoolean(11);
 #pragma warning restore 618
         }
+
         public int Coins { get; set; }
         public double Horizontal { get; set; }
         public bool IsPurple { get; set; }

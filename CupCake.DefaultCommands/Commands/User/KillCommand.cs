@@ -13,7 +13,7 @@ namespace CupCake.DefaultCommands.Commands.User
         protected override void Run(IInvokeSource source, ParsedCommand message)
         {
             this.RequireOwner();
-            var player = this.GetPlayerOrSelf(source, message);
+            Player player = this.GetPlayerOrSelf(source, message);
             this.RequireSameRank(source, player);
 
             this.Chatter.Kill(player.Username);

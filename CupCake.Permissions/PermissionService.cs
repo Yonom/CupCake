@@ -17,7 +17,8 @@ namespace CupCake.Permissions
                 (o, args) =>
                 {
                     if (args.Key == "Group")
-                        this.Events.Raise(new ChangedPermissionEvent(e.Player, (Group)args.OldValue, (Group)args.NewValue));
+                        this.Events.Raise(new ChangedPermissionEvent(e.Player, (Group)args.OldValue,
+                            (Group)args.NewValue));
                 };
         }
 

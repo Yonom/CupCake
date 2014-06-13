@@ -1,12 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Sockets;
-using System.Text;
 using CupCake.HostAPI.Status;
 using CupCake.Messages.Receive;
 using CupCake.Players;
-using CupCake.Room;
 
 namespace CupCake.Server.Muffins
 {
@@ -14,8 +9,8 @@ namespace CupCake.Server.Muffins
     {
         private readonly StatusItem _onlinePlayers = new StatusItem("Online Players", "0");
         private readonly StatusItem _plays = new StatusItem("Plays", "0");
-        private readonly StatusItem _woots = new StatusItem("Woots", "0");
         private readonly StatusItem _totalWoots = new StatusItem("Total Woots", "0");
+        private readonly StatusItem _woots = new StatusItem("Woots", "0");
 
         protected override void Enable()
         {
@@ -38,17 +33,17 @@ namespace CupCake.Server.Muffins
 
         private void OnInitComplete(object sender, InitReceiveEvent e)
         {
-            this.StatusService.Add(_onlinePlayers);
-            this.StatusService.Add(_plays);
-            this.StatusService.Add(_woots);
-            this.StatusService.Add(_totalWoots);
+            this.StatusService.Add(this._onlinePlayers);
+            this.StatusService.Add(this._plays);
+            this.StatusService.Add(this._woots);
+            this.StatusService.Add(this._totalWoots);
         }
 
         private void OnInit(object sender, InitReceiveEvent e)
         {
             this.UpdateMeta(e);
         }
-        
+
         private void OnUpdateMeta(object sender, UpdateMetaReceiveEvent e)
         {
             this.UpdateMeta(e);

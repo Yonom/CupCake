@@ -104,13 +104,13 @@ namespace CupCake
 
         private string GetUsageStr(string label)
         {
-            var correctUsages =
+            string[] correctUsages =
                 this.Usages.Select(usage => this.CommandService.CommandPrefix + label + " " + usage).ToArray();
-            return correctUsages.Any() 
-                ? String.Join(" / ", correctUsages) 
+            return correctUsages.Any()
+                ? String.Join(" / ", correctUsages)
                 : "<unavailable>";
         }
-        
+
         protected abstract void Run(IInvokeSource source, ParsedCommand message);
     }
 }

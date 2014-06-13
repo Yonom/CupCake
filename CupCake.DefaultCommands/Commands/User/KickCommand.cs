@@ -1,6 +1,7 @@
 ﻿using CupCake.Command;
 using CupCake.Command.Source;
 using CupCake.Permissions;
+using CupCake.Players;
 
 namespace CupCake.DefaultCommands.Commands.User
 {
@@ -12,7 +13,7 @@ namespace CupCake.DefaultCommands.Commands.User
         protected override void Run(IInvokeSource source, ParsedCommand message)
         {
             this.RequireOwner();
-            var player = this.GetPlayerOrSelf(source, message);
+            Player player = this.GetPlayerOrSelf(source, message);
             this.RequireSameRank(source, player);
 
             this.Chatter.Kick(player.Username, message.GetTrail(1));

@@ -1,5 +1,4 @@
-﻿using System;
-using CupCake.Players;
+﻿using CupCake.Players;
 
 namespace CupCake.DefaultCommands
 {

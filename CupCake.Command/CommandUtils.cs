@@ -1,7 +1,4 @@
-﻿using System;
-using CupCake.Players;
-
-namespace CupCake.Command
+﻿namespace CupCake.Command
 {
     public static class CommandUtils
     {

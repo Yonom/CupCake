@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace CupCake.DefaultCommands.Commands
+﻿namespace CupCake.DefaultCommands.Commands
 {
     public abstract class OwnerCommandBase : CommandBase<OwnerCommandsMuffin>
     {

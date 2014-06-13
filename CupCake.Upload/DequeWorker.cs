@@ -8,9 +8,9 @@ namespace CupCake.Upload
         private readonly Deque<Action> _deque = new Deque<Action>();
         private readonly object _lockObj = new object();
         private readonly ManualResetEvent _resetEvent = new ManualResetEvent(false);
-        private Thread _thread;
 
         private bool _stopping;
+        private Thread _thread;
 
         public int Count
         {

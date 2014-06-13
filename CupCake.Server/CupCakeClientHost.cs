@@ -3,8 +3,6 @@ using System.ComponentModel.Composition.Hosting;
 using System.Linq;
 using System.Reflection;
 using CupCake.Chat;
-using CupCake.Command;
-using CupCake.Command.Source;
 using CupCake.Core;
 using CupCake.Core.Events;
 using CupCake.Core.Storage;
@@ -12,9 +10,7 @@ using CupCake.Host;
 using CupCake.HostAPI.IO;
 using CupCake.HostAPI.Status;
 using CupCake.HostAPI.Title;
-using CupCake.Messages.Receive;
 using CupCake.Protocol;
-using CupCake.Server.StorageProviders;
 using CupCake.Server.SyntaxProviders;
 using PlayerIOClient;
 
@@ -23,9 +19,9 @@ namespace CupCake.Server
     public class CupCakeClientHost
     {
         public const string GameId = "everybody-edits-su9rn58o40itdbnw69plyw";
-        private IStorageProvider _storage;
         private CupCakeClient _client;
         private EventsPlatform _eventsPlatform;
+        private IStorageProvider _storage;
 
         public event Action<string> Output;
 
@@ -41,8 +37,8 @@ namespace CupCake.Server
         {
             Action<string> handler = this.Title;
             if (handler != null) handler(title);
-        }        
-        
+        }
+
         public event Action<string> Status;
 
         protected virtual void OnStatus(string status)
@@ -66,10 +62,10 @@ namespace CupCake.Server
             }
 
             // Listen to HostAPI events
-            _eventsPlatform = this._client.PlatformLoader.Get<EventsPlatform>();
-            _eventsPlatform.Event<OutputEvent>().Bind(this.OnOutput, EventPriority.Lowest);
-            _eventsPlatform.Event<ChangeTitleEvent>().Bind(this.OnChangeTitle, EventPriority.Lowest);
-            _eventsPlatform.Event<ChangeStatusEvent>().Bind(this.OnChangeStatus, EventPriority.Lowest);
+            this._eventsPlatform = this._client.PlatformLoader.Get<EventsPlatform>();
+            this._eventsPlatform.Event<OutputEvent>().Bind(this.OnOutput, EventPriority.Lowest);
+            this._eventsPlatform.Event<ChangeTitleEvent>().Bind(this.OnChangeTitle, EventPriority.Lowest);
+            this._eventsPlatform.Event<ChangeStatusEvent>().Bind(this.OnChangeStatus, EventPriority.Lowest);
         }
 
         private void ServiceLoader_EnableComplete(object sender, EventArgs e)
@@ -107,7 +103,8 @@ namespace CupCake.Server
             this.OnOutput(String.Format("*** {0}", str));
         }
 
-        public void Start(AccountType accType, string email, string password, string roomId, string[] directories, IStorageProvider storage)
+        public void Start(AccountType accType, string email, string password, string roomId, string[] directories,
+            IStorageProvider storage)
         {
             this._storage = storage;
 

@@ -7,7 +7,6 @@ using CupCake.Core;
 // associated with an assembly.
 
 [assembly: PluginName("Server")]
-
 [assembly: AssemblyTitle("CupCake.Server")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
