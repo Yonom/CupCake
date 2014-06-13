@@ -36,7 +36,6 @@ namespace CupCake.Room
         public string Encryption { get; private set; }
 
         public double GravityMultiplier { get; private set; }
-        public bool AllowPotions { get; private set; }
         public bool IsTutorialRoom { get; private set; }
 
         public bool InitComplete { get; private set; }
@@ -49,7 +48,6 @@ namespace CupCake.Room
             this.Events.Bind<AccessReceiveEvent>(this.OnAccess, EventPriority.High);
             this.Events.Bind<LostAccessReceiveEvent>(this.OnLostAccess, EventPriority.High);
             this.Events.Bind<UpdateMetaReceiveEvent>(this.OnUpdateMeta, EventPriority.High);
-            this.Events.Bind<AllowPotionsReceiveEvent>(this.OnAllowPotions, EventPriority.High);
 
             this.Events.Bind<SendEvent>(this.OnSend, EventPriority.Highest);
         }
@@ -124,7 +122,6 @@ namespace CupCake.Room
             this.Encryption = Rot13(e.Encryption);
             this.IsTutorialRoom = e.IsTutorialRoom;
             this.GravityMultiplier = e.Gravity;
-            this.AllowPotions = e.AllowPotions;
             this.CurrentWoots = e.CurrentWoots;
             this.TotalWoots = e.TotalWoots;
 
@@ -175,11 +172,6 @@ namespace CupCake.Room
             this.TotalWoots = e.TotalWoots;
 
             this.RaiseMeta(e);
-        }
-
-        private void OnAllowPotions(object sender, AllowPotionsReceiveEvent e)
-        {
-            this.AllowPotions = e.Allowed;
         }
 
         private void RaiseMeta(IMetadataReceiveMessage e)
