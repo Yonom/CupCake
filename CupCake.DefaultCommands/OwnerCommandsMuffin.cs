@@ -7,18 +7,31 @@ namespace CupCake.DefaultCommands
     {
         protected override void Enable()
         {
-            this.EnablePart<ClearCommand>();
-            this.EnablePart<EnablePotsCommand>();
-            this.EnablePart<KillAllCommand>();
-            this.EnablePart<LoadlevelCommand>();
-            this.EnablePart<NameCommand>();
-            this.EnablePart<PotionsOffCommand>();
-            this.EnablePart<PotionsOnCommand>();
-            this.EnablePart<ResetCommand>(); 
-            this.EnablePart<RespawnAllCommand>();
-            this.EnablePart<SaveCommand>();
-            this.EnablePart<SetKeyCommand>();
-            this.EnablePart<VisibleCommand>();
+            this.ClearCommand = this.EnablePart<ClearCommand>();
+            this.EnablePotsCommand = this.EnablePart<EnablePotsCommand>();
+            this.KillAllCommand = this.EnablePart<KillAllCommand>();
+            this.LoadlevelCommand = this.EnablePart<LoadlevelCommand>();
+            this.NameCommand = this.EnablePart<NameCommand>();
+            this.PotionsOffCommand = this.EnablePart<PotionsOffCommand>();
+            this.PotionsOnCommand = this.EnablePart<PotionsOnCommand>();
+            this.ResetCommand = this.EnablePart<ResetCommand>();
+            this.RespawnAllCommand = this.EnablePart<RespawnAllCommand>();
+            this.SaveCommand = this.EnablePart<SaveCommand>();
+            this.SetKeyCommand = this.EnablePart<SetKeyCommand>();
+            this.VisibleCommand = this.EnablePart<VisibleCommand>();
         }
+
+        public ClearCommand ClearCommand { get; private set; }
+        public EnablePotsCommand EnablePotsCommand { get; private set; }
+        public KillAllCommand KillAllCommand { get; private set; }
+        public LoadlevelCommand LoadlevelCommand { get; private set; }
+        public NameCommand NameCommand { get; private set; }
+        public PotionsOffCommand PotionsOffCommand { get; private set; }
+        public PotionsOnCommand PotionsOnCommand { get; private set; }
+        public ResetCommand ResetCommand { get; private set; }
+        public RespawnAllCommand RespawnAllCommand { get; private set; }
+        public SaveCommand SaveCommand { get; private set; }
+        public SetKeyCommand SetKeyCommand { get; private set; }
+        public VisibleCommand VisibleCommand { get; private set; }
     }
 }

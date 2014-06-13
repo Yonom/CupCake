@@ -5,7 +5,7 @@ using CupCake.Permissions;
 
 namespace CupCake.DefaultCommands.Commands.Edit
 {
-    public class GodModeCommand : EditCommandBase
+    public sealed class GodModeCommand : EditCommandBase
     {
         [MinGroup(Group.Moderator)]
         [Label("godmode")]

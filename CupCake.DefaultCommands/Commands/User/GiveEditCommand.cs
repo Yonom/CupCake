@@ -5,7 +5,7 @@ using CupCake.Players;
 
 namespace CupCake.DefaultCommands.Commands.User
 {
-    public class GiveEditCommand : UserCommandBase
+    public sealed class GiveEditCommand : UserCommandBase
     {
         [MinGroup(Group.Moderator)]
         [Label("giveedit", "giveeditplayer")]

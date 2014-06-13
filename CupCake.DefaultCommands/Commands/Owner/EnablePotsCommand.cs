@@ -8,7 +8,7 @@ using CupCake.Permissions;
 
 namespace CupCake.DefaultCommands.Commands.Owner
 {
-    public class EnablePotsCommand : OwnerCommandBase
+    public sealed class EnablePotsCommand : OwnerCommandBase
     {
         [MinArgs(1)]
         [MinGroup(Group.Moderator)]

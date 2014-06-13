@@ -5,7 +5,7 @@ using CupCake.Players;
 
 namespace CupCake.DefaultCommands.Commands.Permissions
 {
-    public class GetRankCommand : PermissionCommandBase
+    public sealed class GetRankCommand : PermissionCommandBase
     {
         [MinArgs(1)]
         [MinGroup(Group.Moderator)]

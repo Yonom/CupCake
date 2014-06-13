@@ -5,7 +5,7 @@ using CupCake.Players;
 
 namespace CupCake.DefaultCommands.Commands.User
 {
-    public class TeleportCommand : UserCommandBase
+    public sealed class TeleportCommand : UserCommandBase
     {
         [MinArgs(1)]
         [MinGroup(Group.Moderator)]

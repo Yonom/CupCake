@@ -8,7 +8,7 @@ using CupCake.Permissions;
 
 namespace CupCake.DefaultCommands.Commands.Owner
 {
-    public class KillAllCommand : OwnerCommandBase
+    public sealed class KillAllCommand : OwnerCommandBase
     {
         [MinGroup(Group.Moderator)]
         [Label("killall", "killemall")]

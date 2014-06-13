@@ -5,7 +5,7 @@ using CupCake.Players;
 
 namespace CupCake.DefaultCommands.Commands.User
 {
-    public class ReportAbuseCommand : UserCommandBase
+    public sealed class ReportAbuseCommand : UserCommandBase
     {
         [MinArgs(2)]
         [MinGroup(Group.Host)]

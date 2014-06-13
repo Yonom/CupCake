@@ -8,7 +8,7 @@ using CupCake.Permissions;
 
 namespace CupCake.DefaultCommands.Commands.Owner
 {
-    public class SetKeyCommand : OwnerCommandBase
+    public sealed class SetKeyCommand : OwnerCommandBase
     {
         [MinArgs(1)]
         [MinGroup(Group.Host)]

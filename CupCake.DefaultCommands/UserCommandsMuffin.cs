@@ -1,19 +1,29 @@
 ﻿using CupCake.DefaultCommands.Commands.User;
+using CupCake.DefaultCommands.Commands.Utility;
 
 namespace CupCake.DefaultCommands
 {
-    public class UserCommandsMuffin : CupCakeMuffin<UserCommandsMuffin>
+    public sealed class UserCommandsMuffin : CupCakeMuffin<UserCommandsMuffin>
     {
         protected override void Enable()
         {
-            this.EnablePart<KickCommand>();
-            this.EnablePart<KillCommand>();
-            this.EnablePart<TeleportCommand>();
-            this.EnablePart<GiveEditCommand>();
-            this.EnablePart<RemoveEditCommand>();
-            this.EnablePart<MuteCommand>();
-            this.EnablePart<UnmuteCommand>();
-            this.EnablePart<ReportAbuseCommand>();
+            this.KickCommand = this.EnablePart<KickCommand>();
+            this.KillCommand = this.EnablePart<KillCommand>();
+            this.TeleportCommand = this.EnablePart<TeleportCommand>();
+            this.GiveEditCommand = this.EnablePart<GiveEditCommand>();
+            this.RemoveEditCommand = this.EnablePart<RemoveEditCommand>();
+            this.MuteCommand = this.EnablePart<MuteCommand>();
+            this.UnmuteCommand = this.EnablePart<UnmuteCommand>();
+            this.ReportAbuseCommand = this.EnablePart<ReportAbuseCommand>();
         }
+
+        public KickCommand KickCommand { get; private set; }
+        public KillCommand KillCommand { get; private set; }
+        public TeleportCommand TeleportCommand { get; private set; }
+        public GiveEditCommand GiveEditCommand { get; private set; }
+        public RemoveEditCommand RemoveEditCommand { get; private set; }
+        public MuteCommand MuteCommand { get; private set; }
+        public UnmuteCommand UnmuteCommand { get; private set; }
+        public ReportAbuseCommand ReportAbuseCommand { get; private set; }
     }
 }

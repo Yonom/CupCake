@@ -5,7 +5,7 @@ using CupCake.Players;
 
 namespace CupCake.DefaultCommands.Commands.User
 {
-    public class UnmuteCommand : UserCommandBase
+    public sealed class UnmuteCommand : UserCommandBase
     {
         [MinArgs(1)]
         [MinGroup(Group.Host)]

@@ -8,7 +8,7 @@ using CupCake.Permissions;
 
 namespace CupCake.DefaultCommands.Commands.Owner
 {
-    public class LoadlevelCommand : OwnerCommandBase
+    public sealed class LoadlevelCommand : OwnerCommandBase
     {
         [MinGroup(Group.Moderator)]
         [Label("loadlevel")]

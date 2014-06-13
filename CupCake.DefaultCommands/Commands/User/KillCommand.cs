@@ -5,7 +5,7 @@ using CupCake.Players;
 
 namespace CupCake.DefaultCommands.Commands.User
 {
-    public class KillCommand : UserCommandBase
+    public sealed class KillCommand : UserCommandBase
     {
         [MinGroup(Group.Moderator)]
         [Label("kill", "killplayer")]

@@ -5,7 +5,7 @@ using CupCake.Players;
 
 namespace CupCake.DefaultCommands.Commands.User
 {
-    internal class RemoveEditCommand : UserCommandBase
+    public sealed class RemoveEditCommand : UserCommandBase
     {
         [MinGroup(Group.Moderator)]
         [Label("removeedit", "removeeditplayer")]

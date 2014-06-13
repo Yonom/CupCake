@@ -4,7 +4,7 @@ using CupCake.Permissions;
 
 namespace CupCake.DefaultCommands.Commands.Utility
 {
-    internal class HiCommand : UtilityCommandBase
+    public class HiCommand : UtilityCommandBase
     {
         [MinGroup(Group.Moderator)]
         [Label("hi", "hello")]

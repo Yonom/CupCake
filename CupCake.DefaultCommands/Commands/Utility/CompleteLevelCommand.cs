@@ -4,7 +4,7 @@ using CupCake.Permissions;
 
 namespace CupCake.DefaultCommands.Commands.Utility
 {
-    internal class CompleteLevelCommand : UtilityCommandBase
+    public class CompleteLevelCommand : UtilityCommandBase
     {
         [MinGroup(Group.Moderator)]
         [Label("completelevel")]

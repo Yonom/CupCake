@@ -4,7 +4,7 @@ using CupCake.Permissions;
 
 namespace CupCake.DefaultCommands.Commands.Ban
 {
-    internal class BanCommand : BanCommandBase
+    public sealed class BanCommand : BanCommandBase
     {
         [MinArgs(1)]
         [MinGroup(Group.Operator)]

@@ -9,7 +9,7 @@ using CupCake.Permissions;
 
 namespace CupCake.DefaultCommands.Commands.Owner
 {
-    public class PotionsOffCommand : OwnerCommandBase
+    public sealed class PotionsOffCommand : OwnerCommandBase
     {
         [MinArgs(1)]
         [MinGroup(Group.Moderator)]

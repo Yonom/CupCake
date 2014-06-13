@@ -5,7 +5,7 @@ using CupCake.Permissions;
 
 namespace CupCake.DefaultCommands.Commands.Utility
 {
-    internal class RedCommand : UtilityCommandBase
+    public class RedCommand : UtilityCommandBase
     {
         [MinGroup(Group.Moderator)]
         [Label("red")]

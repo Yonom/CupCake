@@ -4,7 +4,7 @@ using CupCake.Permissions;
 
 namespace CupCake.DefaultCommands.Commands.Utility
 {
-    internal class DieCommand : UtilityCommandBase
+    public class DieCommand : UtilityCommandBase
     {
         [MinGroup(Group.Moderator)]
         [Label("die")]

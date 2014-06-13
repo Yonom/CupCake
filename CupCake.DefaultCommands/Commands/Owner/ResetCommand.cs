@@ -8,7 +8,7 @@ using CupCake.Permissions;
 
 namespace CupCake.DefaultCommands.Commands.Owner
 {
-    public class ResetCommand : OwnerCommandBase
+    public sealed class ResetCommand : OwnerCommandBase
     {
         [MinGroup(Group.Moderator)]
         [Label("reset")]

@@ -8,7 +8,7 @@ using CupCake.Permissions;
 
 namespace CupCake.DefaultCommands.Commands.Owner
 {
-    class RespawnAllCommand : OwnerCommandBase
+    public sealed class RespawnAllCommand : OwnerCommandBase
     {
         [MinGroup(Group.Moderator)]
         [Label("respawnall")]

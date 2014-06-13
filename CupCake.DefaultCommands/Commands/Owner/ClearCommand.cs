@@ -8,7 +8,7 @@ using CupCake.Permissions;
 
 namespace CupCake.DefaultCommands.Commands.Owner
 {
-    public class ClearCommand : OwnerCommandBase
+    public sealed class ClearCommand : OwnerCommandBase
     {
         [MinGroup(Group.Moderator)]
         [Label("clear")]

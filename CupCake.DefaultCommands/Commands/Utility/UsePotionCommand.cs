@@ -6,7 +6,7 @@ using CupCake.Permissions;
 
 namespace CupCake.DefaultCommands.Commands.Utility
 {
-    internal class UsePotionCommand : UtilityCommandBase
+    public class UsePotionCommand : UtilityCommandBase
     {
         [MinArgs(1)]
         [MinGroup(Group.Operator)]

@@ -5,7 +5,7 @@ using CupCake.Players;
 
 namespace CupCake.DefaultCommands.Commands.User
 {
-    public class KickCommand : UserCommandBase
+    public sealed class KickCommand : UserCommandBase
     {
         [MinGroup(Group.Trusted)]
         [Label("kick", "kickplayer")]

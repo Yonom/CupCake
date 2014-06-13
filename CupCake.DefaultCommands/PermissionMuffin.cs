@@ -3,31 +3,42 @@ using CupCake.Core.Events;
 using CupCake.Core.Log;
 using CupCake.Core.Storage;
 using CupCake.DefaultCommands.Commands.Permissions;
+using CupCake.DefaultCommands.Commands.Utility;
 using CupCake.Messages.User;
 using CupCake.Permissions;
 using CupCake.Players;
 
 namespace CupCake.DefaultCommands
 {
-    public class PermissionMuffin : CupCakeMuffin<PermissionMuffin>
+    public sealed class PermissionMuffin : CupCakeMuffin<PermissionMuffin>
     {
         private const string PermissionsId = "CCPerm";
         private const Group MinGodGroup = Group.Moderator;
+
+        public BanMuffinPart BanMuffinPart { get; private set; }
+
+        public GetRankCommand GetRankCommand { get; private set; }
+        public AdminCommand AdminCommand { get; private set; }
+        public OpCommand OpCommand { get; private set; }
+        public ModCommand ModCommand { get; private set; }
+        public TrustCommand TrustCommand { get; private set; }
+        public UserCommand UserCommand { get; private set; }
+        public LimitCommand LimitCommand { get; private set; }
 
         protected override void Enable()
         {
             this.Events.Bind<JoinPlayerEvent>(this.OnJoin, EventPriority.High);
             this.Events.Bind<ChangedPermissionEvent>(this.OnChangedPermission);
 
-            this.EnablePart<BanMuffinPart>();
+            this.BanMuffinPart = this.EnablePart<BanMuffinPart>();
 
-            this.EnablePart<GetRankCommand>();
-            this.EnablePart<AdminCommand>();
-            this.EnablePart<OpCommand>();
-            this.EnablePart<ModCommand>();
-            this.EnablePart<TrustCommand>();
-            this.EnablePart<UserCommand>();
-            this.EnablePart<LimitCommand>();
+            this.GetRankCommand = this.EnablePart<GetRankCommand>();
+            this.AdminCommand = this.EnablePart<AdminCommand>();
+            this.OpCommand = this.EnablePart<OpCommand>();
+            this.ModCommand = this.EnablePart<ModCommand>();
+            this.TrustCommand = this.EnablePart<TrustCommand>();
+            this.UserCommand = this.EnablePart<UserCommand>();
+            this.LimitCommand = this.EnablePart<LimitCommand>();
         }
 
         private void OnChangedPermission(object sender, ChangedPermissionEvent e)

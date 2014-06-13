@@ -8,8 +8,7 @@ using CupCake.Permissions;
 
 namespace CupCake.DefaultCommands.Commands.Owner
 {
-    
-    public class SaveCommand : OwnerCommandBase
+    public sealed class SaveCommand : OwnerCommandBase
     {
         [MinGroup(Group.Operator)]
         [Label("save")]

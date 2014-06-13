@@ -8,17 +8,20 @@ using CupCake.Permissions;
 
 namespace CupCake.DefaultCommands
 {
-    public class BanMuffinPart : CupCakeMuffinPart<PermissionMuffin>
+    public sealed class BanMuffinPart : CupCakeMuffinPart<PermissionMuffin>
     {
         private const string BanReasonsId = "CCBanR";
         private const string BanTimeoutsId = "CCBanT";
+
+        public BanCommand BanCommand { get; private set; }
+        public TempBanCommand TempBanCommand { get; private set; }
 
         protected override void Enable()
         {
             this.Events.Bind<ChangedPermissionEvent>(this.OnChangedPermission);
 
-            this.EnablePart<BanCommand, BanMuffinPart>();
-            this.EnablePart<TempBanCommand, BanMuffinPart>();
+            this.BanCommand = this.EnablePart<BanCommand, BanMuffinPart>();
+            this.TempBanCommand = this.EnablePart<TempBanCommand, BanMuffinPart>();
         }
 
         public void SetPermission(string username, Group group)

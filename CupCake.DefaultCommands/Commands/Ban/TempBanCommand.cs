@@ -5,7 +5,7 @@ using CupCake.Permissions;
 
 namespace CupCake.DefaultCommands.Commands.Ban
 {
-    public class TempBanCommand : BanCommandBase
+    public sealed class TempBanCommand : BanCommandBase
     {
         [MinArgs(2)]
         [MinGroup(Group.Operator)]
