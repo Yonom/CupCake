@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using CupCake.Core;
 using PlayerIOClient;
 
 namespace CupCake.Messages.Receive

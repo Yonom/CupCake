@@ -1,4 +1,4 @@
-using CupCake.Messages.Blocks;
+using CupCake.Messages.User;
 using PlayerIOClient;
 
 namespace CupCake.Messages.Send

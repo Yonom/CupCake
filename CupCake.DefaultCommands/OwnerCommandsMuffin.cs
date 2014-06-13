@@ -1,10 +1,22 @@
-﻿using System.Runtime.CompilerServices;
-using CupCake.DefaultCommands.Commands.Owner;
+﻿using CupCake.DefaultCommands.Commands.Owner;
 
 namespace CupCake.DefaultCommands
 {
     public class OwnerCommandsMuffin : CupCakeMuffin<OwnerCommandsMuffin>
     {
+        public ClearCommand ClearCommand { get; private set; }
+        public EnablePotsCommand EnablePotsCommand { get; private set; }
+        public KillAllCommand KillAllCommand { get; private set; }
+        public LoadlevelCommand LoadlevelCommand { get; private set; }
+        public NameCommand NameCommand { get; private set; }
+        public PotionsOffCommand PotionsOffCommand { get; private set; }
+        public PotionsOnCommand PotionsOnCommand { get; private set; }
+        public ResetCommand ResetCommand { get; private set; }
+        public RespawnAllCommand RespawnAllCommand { get; private set; }
+        public SaveCommand SaveCommand { get; private set; }
+        public SetKeyCommand SetKeyCommand { get; private set; }
+        public VisibleCommand VisibleCommand { get; private set; }
+
         protected override void Enable()
         {
             this.ClearCommand = this.EnablePart<ClearCommand>();
@@ -20,18 +32,5 @@ namespace CupCake.DefaultCommands
             this.SetKeyCommand = this.EnablePart<SetKeyCommand>();
             this.VisibleCommand = this.EnablePart<VisibleCommand>();
         }
-
-        public ClearCommand ClearCommand { get; private set; }
-        public EnablePotsCommand EnablePotsCommand { get; private set; }
-        public KillAllCommand KillAllCommand { get; private set; }
-        public LoadlevelCommand LoadlevelCommand { get; private set; }
-        public NameCommand NameCommand { get; private set; }
-        public PotionsOffCommand PotionsOffCommand { get; private set; }
-        public PotionsOnCommand PotionsOnCommand { get; private set; }
-        public ResetCommand ResetCommand { get; private set; }
-        public RespawnAllCommand RespawnAllCommand { get; private set; }
-        public SaveCommand SaveCommand { get; private set; }
-        public SetKeyCommand SetKeyCommand { get; private set; }
-        public VisibleCommand VisibleCommand { get; private set; }
     }
 }

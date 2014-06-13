@@ -1,7 +1,7 @@
 ﻿using System;
 using CupCake.Command;
 using CupCake.Command.Source;
-using CupCake.Messages.Blocks;
+using CupCake.Messages.User;
 using CupCake.Permissions;
 
 namespace CupCake.DefaultCommands.Commands.Utility

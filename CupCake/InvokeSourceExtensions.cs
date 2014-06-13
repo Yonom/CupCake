@@ -1,6 +1,5 @@
 ﻿using System;
 using CupCake.Command.Source;
-using JetBrains.Annotations;
 
 namespace CupCake
 {

@@ -16,7 +16,7 @@ namespace CupCake.Command
         public bool Handled { get; set; }
 
         /// <summary>
-        /// Gets or sets if commands should display a warning message, if the has already been handled.
+        ///     Gets or sets if commands should display a warning message, if the has already been handled.
         /// </summary>
         public bool IgnoresDuplicateWarning { get; set; }
     }

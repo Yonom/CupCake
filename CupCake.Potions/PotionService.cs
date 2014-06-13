@@ -1,20 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.InteropServices;
 using CupCake.Core;
 using CupCake.Core.Events;
-using CupCake.Messages;
-using CupCake.Messages.Blocks;
 using CupCake.Messages.Receive;
 using CupCake.Messages.Send;
+using CupCake.Messages.User;
 
 namespace CupCake.Potions
 {
     public sealed class PotionService : CupCakeService
     {
         private readonly Dictionary<Potion, int> _potionCounts = new Dictionary<Potion, int>();
-        
+
         public bool AllowPotions { get; private set; }
 
         public Potion[] DisabledPotions { get; private set; }
@@ -23,10 +21,10 @@ namespace CupCake.Potions
         {
             lock (this._potionCounts)
             {
-                if (!_potionCounts.ContainsKey(potion))
+                if (!this._potionCounts.ContainsKey(potion))
                     return new int();
 
-                return _potionCounts[potion];
+                return this._potionCounts[potion];
             }
         }
 

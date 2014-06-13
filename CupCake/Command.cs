@@ -30,7 +30,8 @@ namespace CupCake
             MethodBase method = this.GetType().GetMethod("Run", BindingFlags.Instance | BindingFlags.NonPublic);
 
             // Alias attribute
-            var highPriority = (HighPriorityAttribute)method.GetCustomAttributes(typeof(HighPriorityAttribute), false).FirstOrDefault();
+            var highPriority =
+                (HighPriorityAttribute)method.GetCustomAttributes(typeof(HighPriorityAttribute), false).FirstOrDefault();
             if (highPriority != null)
             {
                 this.HighPriority = true;

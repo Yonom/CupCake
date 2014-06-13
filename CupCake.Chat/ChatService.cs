@@ -4,8 +4,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Timers;
 using CupCake.Core;
-using CupCake.Messages.Blocks;
 using CupCake.Messages.Send;
+using CupCake.Messages.User;
 
 namespace CupCake.Chat
 {

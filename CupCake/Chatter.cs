@@ -1,7 +1,6 @@
 ﻿using System;
 using CupCake.Chat;
-using CupCake.Messages.Blocks;
-using JetBrains.Annotations;
+using CupCake.Messages.User;
 
 namespace CupCake
 {

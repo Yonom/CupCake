@@ -11,7 +11,7 @@
 
 // ReSharper disable CheckNamespace
 
-namespace JetBrains.Annotations
+namespace CupCake
 {
     /// <summary>
     ///     Indicates that the value of the marked element could be <c>null</c> sometimes,

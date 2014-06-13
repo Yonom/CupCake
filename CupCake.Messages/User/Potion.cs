@@ -1,4 +1,4 @@
-namespace CupCake.Messages.Blocks
+namespace CupCake.Messages.User
 {
     public enum Potion
     {

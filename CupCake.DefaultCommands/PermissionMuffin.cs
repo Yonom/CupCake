@@ -3,7 +3,6 @@ using CupCake.Core.Events;
 using CupCake.Core.Log;
 using CupCake.Core.Storage;
 using CupCake.DefaultCommands.Commands.Permissions;
-using CupCake.DefaultCommands.Commands.Utility;
 using CupCake.Messages.User;
 using CupCake.Permissions;
 using CupCake.Players;

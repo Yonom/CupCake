@@ -1,5 +1,5 @@
 ﻿using CupCake.Core.Events;
-using CupCake.Messages.Blocks;
+using CupCake.Messages.User;
 
 namespace CupCake.Potions
 {
