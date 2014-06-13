@@ -75,5 +75,23 @@ namespace CupCake.Actions
         {
             this.Events.Raise(new AutoSaySendEvent(text));
         }
+
+        public void WootUp()
+        {
+            this.Events.Raise(new WootUpSendEvent());
+        }
+
+        public void GodMode(bool enabled)
+        {
+            if (this._room.AccessRight < AccessRight.Edit)
+                throw new InvalidOperationException("You need edit rights to enter god mode.");
+
+            this.Events.Raise(new GodModeSendEvent(enabled));
+        }
+
+        public void ModMode()
+        {
+            this.Events.Raise(new ModModeSendEvent());
+        }
     }
 }

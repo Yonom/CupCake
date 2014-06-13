@@ -11,43 +11,45 @@ namespace CupCake.DefaultCommands.Commands
 {
     public abstract class BanCommandBase : CommandBase<BanMuffinPart>
     {
-        public void Ban(IInvokeSource source, string name)
+        private void BanInternal(IInvokeSource source, string name, string reason, DateTime timeout)
         {
-            try
+            this.PlayerService.MatchPlayer(name, player =>
             {
-                var player = this.PlayerService.MatchPlayer(name);
                 this.RequireHigherRank(source, player);
 
+                player.SetBanReason(reason);
+                player.SetBanTimeout(timeout);
                 player.SetGroup(Group.Banned);
 
                 source.Reply("{0} is now banned.", player.ChatName);
-            }
-            catch (UnknownPlayerCommandException)
+            }, username =>
             {
-                name = CommandUtils.TrimChatPrefix(name);
-                Host.SetPermission(name, Group.Banned);
+                Host.SetBanReason(username, reason);
+                Host.SetBanTimeout(username, timeout);
+                Host.SetPermission(username, Group.Banned);
 
-                source.Reply("{0} is now banned.", PlayerUtils.GetChatName(name));
-            }
+                source.Reply("{0} is now banned.", PlayerUtils.GetChatName(username));
+            });
+        }
+
+        public void Ban(IInvokeSource source, string name)
+        {
+            this.BanInternal(source, name, null, default(DateTime));
         }
 
         public void Ban(IInvokeSource source, string name, string reason)
         {
-            Host.SetBanReason(name, reason);
-            this.Ban(source, name);
+            this.BanInternal(source, name, reason, default(DateTime));
         }
 
         public void Ban(IInvokeSource source, string name, DateTime timeout)
         {
-            Host.SetBanTimeout(name, timeout);
-            this.Ban(source, name);
+            this.BanInternal(source, name, null, timeout);
         }
 
         public void Ban(IInvokeSource source, string name, DateTime timeout, string reason)
         {
-            Host.SetBanTimeout(name, timeout);
-            Host.SetBanReason(name, reason);
-            this.Ban(source, name);
+            this.BanInternal(source, name, reason, timeout);
         }
     }
 }

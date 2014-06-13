@@ -5,7 +5,7 @@ using System.Text;
 
 namespace CupCake.DefaultCommands.Commands.Owner
 {
-    class LoadlevelCommand
+    class LoadlevelCommand : OwnerCommandBase
     {
     }
 }

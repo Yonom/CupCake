@@ -8,7 +8,7 @@ using CupCake.Permissions;
 
 namespace CupCake.DefaultCommands.Commands.Utility
 {
-    public class SayRawCommand : CommandBase<UtilityCommandsMuffin>
+    public class SayRawCommand : UtilityCommandBase
     {
         [MinArgs(1)]
         // Leave this to Admin, otherwise people can use !sayraw to gain access to higher ranks

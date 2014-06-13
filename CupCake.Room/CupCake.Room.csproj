@@ -44,9 +44,9 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AccessRightChangeEvent.cs" />
-    <Compile Include="InitCompleteEvent.cs" />
-    <Compile Include="JoinCompleteEvent.cs" />
+    <Compile Include="AccessRoomEvent.cs" />
+    <Compile Include="JoinCompleteRoomEvent.cs" />
+    <Compile Include="MetaRoomEvent.cs" />
     <Compile Include="RoomService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

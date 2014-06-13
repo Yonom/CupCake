@@ -2,7 +2,7 @@
 
 namespace CupCake.Room
 {
-    public class InitCompleteEvent : Event
+    public class JoinCompleteRoomEvent : Event
     {
     }
 }

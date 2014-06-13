@@ -5,7 +5,7 @@ using System.Text;
 
 namespace CupCake.DefaultCommands.Commands.Owner
 {
-    class ListPortalsCommand
+    class ListPortalsCommand : OwnerCommandBase
     {
     }
 }

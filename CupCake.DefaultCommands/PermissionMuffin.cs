@@ -35,7 +35,7 @@ namespace CupCake.DefaultCommands
         private void OnChangedPermission(object sender, ChangedPermissionEvent e)
         {
             // Give or remove edit if permissions change
-            if (this.RoomService.AccessRight >= AccessRight.Owner)
+            if (this.RoomService.AccessRight >= AccessRight.Owner && e.Player.Username != this.RoomService.Owner)
             {
                 if (e.OldPermission < MinGodGroup && e.NewPermission >= MinGodGroup)
                     this.Chatter.GiveEdit(e.Player.Username);
@@ -58,49 +58,32 @@ namespace CupCake.DefaultCommands
             }
         }
 
-        public void SetPermission(string username, Group group)
+        public void SetPermission(string storageName, Group group)
         {
             try
             {
-                this.StoragePlatform.Set(PermissionsId, username, group.ToString());
+                this.StoragePlatform.Set(PermissionsId, storageName, group.ToString());
             }
             catch (StorageException ex)
             {
                 this.Logger.Log(LogPriority.Error,
-                    "Unable to save permissions for user " + username + ". " + ex.Message);
+                    "Unable to save permissions for user " + storageName + ". " + ex.Message);
             }
+        }
+
+        public Group GetPermission(string storageName)
+        {
+            var groupStr = this.StoragePlatform.Get(PermissionsId, storageName);
+            Group group;
+            Enum.TryParse(groupStr, true, out group);
+            return group;
         }
 
         private void OnJoin(object sender, JoinPlayerEvent e)
         {
             try
             {
-                var groupStr = this.StoragePlatform.Get(PermissionsId, e.Player.StorageName);
-                Group group;
-                Enum.TryParse(groupStr, true, out group);
-
-                switch (group)
-                {
-                    case Group.Banned:
-                        this.PermissionService.Ban(e.Player);
-                        break;
-
-                    case Group.Limited:
-                        this.PermissionService.Limit(e.Player);
-                        break;
-
-                    case Group.Trusted:
-                        this.PermissionService.Trust(e.Player);
-                        break;
-
-                    case Group.Operator:
-                        this.PermissionService.Op(e.Player);
-                        break;
-
-                    case Group.Admin:
-                        this.PermissionService.Admin(e.Player);
-                        break;
-                }
+                e.Player.SetGroup(this.GetPermission(e.Player.StorageName));
             }
             catch (StorageException ex)
             {

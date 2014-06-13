@@ -1,3 +1,4 @@
+using System;
 using PlayerIOClient;
 
 namespace CupCake.Messages.Receive
@@ -18,8 +19,10 @@ namespace CupCake.Messages.Receive
             this.Vertical = message.GetDouble(8);
             this.Coins = message.GetInteger(9);
             this.IsPurple = message.GetBoolean(10);
+#pragma warning disable 618
+            this.IsDead = message.GetBoolean(11);
+#pragma warning restore 618
         }
-
         public int Coins { get; set; }
         public double Horizontal { get; set; }
         public bool IsPurple { get; set; }
@@ -28,6 +31,9 @@ namespace CupCake.Messages.Receive
         public double SpeedX { get; set; }
         public double SpeedY { get; set; }
         public double Vertical { get; set; }
+
+        [Obsolete("IsDead is no longer supported in the game code.")]
+        public bool IsDead { get; set; }
 
         public int BlockX
         {

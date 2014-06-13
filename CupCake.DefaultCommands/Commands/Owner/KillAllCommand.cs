@@ -5,7 +5,7 @@ using System.Text;
 
 namespace CupCake.DefaultCommands.Commands.Owner
 {
-    class KillAllCommand
+    class KillAllCommand : OwnerCommandBase
     {
     }
 }

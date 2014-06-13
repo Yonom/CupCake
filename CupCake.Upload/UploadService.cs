@@ -28,8 +28,8 @@ namespace CupCake.Upload
 
             this.Events.Bind<UploadRequestEvent>(this.OnUploadRequest, EventPriority.Lowest);
             this.Events.Bind<PlaceWorldEvent>(this.OnBlockPlace);
-            this.Events.Bind<InitCompleteEvent>(this.OnInitComplete);
-            this.Events.Bind<AccessRightChangeEvent>(this.OnAccessRightChange);
+            this.Events.Bind<InitCompleteRoomEvent>(this.OnInitComplete);
+            this.Events.Bind<AccessRoomEvent>(this.OnAccessRightChange);
             this.Events.Bind<ClearReceiveEvent>(this.OnClear);
             this.Events.Bind<ResetReceiveEvent>(this.OnReset);
         }
@@ -44,7 +44,7 @@ namespace CupCake.Upload
             this.Reset();
         }
 
-        private void OnAccessRightChange(object sender, AccessRightChangeEvent e)
+        private void OnAccessRightChange(object sender, AccessRoomEvent e)
         {
             if (this._room.AccessRight >= AccessRight.Edit)
             {
@@ -62,7 +62,7 @@ namespace CupCake.Upload
             this._room = this.ServiceLoader.Get<RoomService>();
         }
 
-        private void OnInitComplete(object sender, InitCompleteEvent e)
+        private void OnInitComplete(object sender, InitCompleteRoomEvent e)
         {
             this.ResetUploaded();
         }
@@ -218,6 +218,11 @@ namespace CupCake.Upload
                     request.IsUrgent = true;
                     this.Events.Raise(request);
                 }
+
+                if (this._workThread.Count == 0)
+                {
+                    this.Events.Raise(new FinishUploadEvent());
+                }
             }
         }
 
@@ -243,7 +248,7 @@ namespace CupCake.Upload
 
         private void ResetUploaded()
         {
-            this._uploaded = new bool[2, this._world.SizeX, this._world.SizeY];
+            this._uploaded = new bool[2, this._world.RoomWidth, this._world.RoomHeight];
         }
 
         public void UploadBlock(int x, int y, Block block)

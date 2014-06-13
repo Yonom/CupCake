@@ -2,10 +2,20 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using CupCake.Command;
+using CupCake.Command.Source;
+using CupCake.Permissions;
 
 namespace CupCake.DefaultCommands.Commands.Utility
 {
-    class GiveWootCommand
+    public class GiveWootCommand : UtilityCommandBase
     {
+        [MinGroup(Group.Moderator)]
+        [Label("givewoot", "wootup")]
+        [CorrectUsage("")]
+        protected override void Run(IInvokeSource source, ParsedCommand message)
+        {
+            this.ActionService.WootUp();
+        }
     }
 }

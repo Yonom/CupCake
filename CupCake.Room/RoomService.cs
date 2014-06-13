@@ -26,7 +26,9 @@ namespace CupCake.Room
                 if (this.AccessRight != value)
                 {
                     this._accessRight = value;
-                    this.Events.Raise(new AccessRightChangeEvent(this._accessRight));
+
+                    this.SynchronizePlatform.Do(() =>
+                        this.Events.Raise(new AccessRoomEvent(this._accessRight)));
                 }
             }
         }
@@ -42,8 +44,8 @@ namespace CupCake.Room
 
         protected override void Enable()
         {
-            this.Events.Bind<InitReceiveEvent>(this.OnInit, EventPriority.Lowest);
-            this.Events.Bind<CrownReceiveEvent>(this.OnCrown, EventPriority.Lowest);
+            this.Events.Bind<InitReceiveEvent>(this.OnInit, EventPriority.High);
+            this.Events.Bind<CrownReceiveEvent>(this.OnCrown, EventPriority.High);
             this.Events.Bind<AccessReceiveEvent>(this.OnAccess, EventPriority.High);
             this.Events.Bind<LostAccessReceiveEvent>(this.OnLostAccess, EventPriority.High);
             this.Events.Bind<UpdateMetaReceiveEvent>(this.OnUpdateMeta, EventPriority.High);
@@ -100,17 +102,9 @@ namespace CupCake.Room
             this.Events.Raise(new ChangeWorldNameSendEvent(newName));
         }
 
-        public void GodMode(bool enabled)
+        public void KillRoom()
         {
-            if (this.AccessRight < AccessRight.Edit)
-                throw new InvalidOperationException("You need edit rights to enter god mode.");
-
-            this.Events.Raise(new GodModeSendEvent(enabled));
-        }
-
-        public void ModMode()
-        {
-            this.Events.Raise(new ModModeSendEvent());
+            this.Events.Raise(new KillWorldSendEvent());
         }
 
         private void OnSend(object sender, SendEvent e)
@@ -143,10 +137,11 @@ namespace CupCake.Room
                 this.AccessRight = AccessRight.Edit;
             }
 
+            this.RaiseMeta(e);
+
             if (!this.InitComplete)
             {
                 this.InitComplete = true;
-                this.Events.Raise(new InitCompleteEvent());
             }
         }
 
@@ -165,7 +160,9 @@ namespace CupCake.Room
             if (!this.JoinComplete)
             {
                 this.JoinComplete = true;
-                this.Events.Raise(new JoinCompleteEvent());
+
+                this.SynchronizePlatform.Do(() =>
+                    this.Events.Raise(new JoinCompleteRoomEvent()));
             }
         }
 
@@ -176,6 +173,8 @@ namespace CupCake.Room
             this.Owner = e.OwnerUsername;
             this.CurrentWoots = e.CurrentWoots;
             this.TotalWoots = e.TotalWoots;
+
+            this.RaiseMeta(e);
         }
 
         private void OnAllowPotions(object sender, AllowPotionsReceiveEvent e)
@@ -183,6 +182,11 @@ namespace CupCake.Room
             this.AllowPotions = e.Allowed;
         }
 
+        private void RaiseMeta(IMetadataReceiveMessage e)
+        {
+            this.SynchronizePlatform.Do(() =>
+                this.Events.Raise(new MetaRoomEvent(e.OwnerUsername, e.Plays, e.CurrentWoots, e.TotalWoots, e.WorldName)));
+        }
 
         private static string Rot13(string input)
         {

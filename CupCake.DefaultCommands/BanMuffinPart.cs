@@ -12,7 +12,7 @@ namespace CupCake.DefaultCommands
 {
     public class BanMuffinPart : CupCakeMuffinPart<PermissionMuffin>
     {
-        private const string BanReasonsId = "CCBamR";
+        private const string BanReasonsId = "CCBanR";
         private const string BanTimeoutsId = "CCBanT";
 
         protected override void Enable()
@@ -30,30 +30,45 @@ namespace CupCake.DefaultCommands
 
         private void OnChangedPermission(object sender, ChangedPermissionEvent e)
         {
-            if (e.NewPermission == Group.Banned && RoomService.AccessRight == AccessRight.Owner)
+            if (e.NewPermission == Group.Banned)
             {
-                var kicktext = "Banned!";
-                var timeout = this.GetBanTimeout(e.Player.StorageName);
-                var reason = this.GetBanReason(e.Player.StorageName);
-
-                if (timeout != default(DateTime))
+                if (RoomService.AccessRight == AccessRight.Owner)
                 {
-                    kicktext += String.Format(" Until: {0:g} UTC", timeout);
+                    var kicktext = "Banned!";
+                    var timeout = this.GetBanTimeout(e.Player.StorageName);
+                    var reason = this.GetBanReason(e.Player.StorageName);
 
-                    // Check if ban has not expired already
-                    if (timeout <= DateTime.UtcNow)
+                    if (timeout != default(DateTime))
                     {
-                        this.SetBanReason(e.Player.StorageName, null);
-                        this.SetBanTimeout(e.Player.StorageName, default(DateTime));
-                        PermissionService.User(e.Player);
-                        return;
+                        kicktext += String.Format(" Until: {0:g} UTC", timeout);
+
+                        // Check if ban has not expired already
+                        if (timeout <= DateTime.UtcNow)
+                        {
+                            PermissionService.User(e.Player);
+                            return;
+                        }
                     }
+                    if (reason != null)
+                    {
+                        kicktext += " Reason: " + reason;
+                    }
+                    Chatter.Kick(e.Player.Username, kicktext);
                 }
-                if (reason != null)
+
+                // Save ban parameters
+                if (e.Player.GetRankLoaded())
                 {
-                    kicktext += " Reason: " + reason;
+                    this.SetBanReason(e.Player.StorageName, e.Player.GetBanReason());
+                    this.SetBanTimeout(e.Player.StorageName, e.Player.GetBanTimeout());
                 }
-                Chatter.Kick(e.Player.Username, kicktext);
+
+                // Get ban parameters
+                if (!e.Player.GetRankLoaded())
+                {
+                    e.Player.SetBanReason(this.GetBanReason(e.Player.StorageName));
+                    e.Player.SetBanTimeout(this.GetBanTimeout(e.Player.StorageName));
+                }
             }
         }
 

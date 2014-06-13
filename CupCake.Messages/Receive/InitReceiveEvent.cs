@@ -19,8 +19,8 @@ namespace CupCake.Messages.Receive
             this.Username = message.GetString(9);
             this.CanEdit = message.GetBoolean(10);
             this.IsOwner = message.GetBoolean(11);
-            this.SizeX = message.GetInteger(12);
-            this.SizeY = message.GetInteger(13);
+            this.RoomWidth = message.GetInteger(12);
+            this.RoomHeight = message.GetInteger(13);
             this.IsTutorialRoom = message.GetBoolean(14);
             this.Gravity = message.GetDouble(15);
             this.AllowPotions = message.GetBoolean(16);
@@ -35,8 +35,8 @@ namespace CupCake.Messages.Receive
         public bool IsTutorialRoom { get; set; }
         public string OwnerUsername { get; set; }
         public int Plays { get; set; }
-        public int SizeX { get; set; }
-        public int SizeY { get; set; }
+        public int RoomWidth { get; set; }
+        public int RoomHeight { get; set; }
         public int SpawnX { get; set; }
         public int SpawnY { get; set; }
         public int TotalWoots { get; set; }

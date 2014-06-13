@@ -5,7 +5,7 @@ using System.Text;
 
 namespace CupCake.DefaultCommands.Commands.Owner
 {
-    class PotionsOnCommand
+    class PotionsOnCommand : OwnerCommandBase
     {
     }
 }

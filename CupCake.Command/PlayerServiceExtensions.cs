@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using CupCake.Chat;
 using CupCake.Players;
 
@@ -16,7 +17,7 @@ namespace CupCake.Command
 
                 // Wild card matching requested
                 // Remove the wild cards from the string
-                filter = CommandUtils.TrimChatPrefix(filter);
+                filter = CommandUtils.TrimFilterPrefix(filter);
 
                 IList<Player> list = new List<Player>();
 
@@ -49,6 +50,25 @@ namespace CupCake.Command
             }
 
             throw new CommandException("Player query was too short. Be more specific!");
+        }
+
+
+
+        public static void MatchPlayer(this PlayerService playerService, string filter, Action<Player> onlineCallback, Action<string> offlineCallback)
+        {
+            Player player;
+            try
+            {
+                player = playerService.MatchPlayer(filter);
+            }
+            catch (UnknownPlayerCommandException)
+            {
+                var username = CommandUtils.TrimFilterPrefix(filter);
+                offlineCallback(username);
+                return;
+            }
+
+            onlineCallback(player);
         }
     }
 }

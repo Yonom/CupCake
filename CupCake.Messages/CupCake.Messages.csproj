@@ -58,7 +58,7 @@
     <Compile Include="Blocks\Layer.cs" />
     <Compile Include="Blocks\PortalBlock.cs" />
     <Compile Include="Blocks\PortalRotation.cs" />
-    <Compile Include="Blocks\Potion.cs" />
+    <Compile Include="User\Potion.cs" />
     <Compile Include="Blocks\RotatableBlock.cs" />
     <Compile Include="Blocks\ScifiSlopeRotation.cs" />
     <Compile Include="Blocks\ScifiStraightRotation.cs" />

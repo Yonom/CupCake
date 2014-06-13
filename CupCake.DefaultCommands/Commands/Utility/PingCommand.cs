@@ -8,7 +8,7 @@ using CupCake.Permissions;
 
 namespace CupCake.DefaultCommands.Commands.Utility
 {
-    public class PingCommand : CommandBase<UtilityCommandsMuffin>
+    public class PingCommand : UtilityCommandBase
     {
         [MinGroup(Group.Moderator)]
         [Label("ping")]

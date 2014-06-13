@@ -5,10 +5,11 @@ using System.Text;
 using CupCake.Command;
 using CupCake.Command.Source;
 using CupCake.Permissions;
+using CupCake.Players;
 
 namespace CupCake.DefaultCommands.Commands.Permissions
 {
-    public class GetRankCommand : CommandBase<PermissionMuffin>
+    public class GetRankCommand : PermissionCommandBase
     {
         [MinArgs(1)]
         [MinGroup(Group.Moderator)]
@@ -16,8 +17,12 @@ namespace CupCake.DefaultCommands.Commands.Permissions
         [CorrectUsage("player")]
         protected override void Run(IInvokeSource source, ParsedCommand message)
         {
-            var player = this.PlayerService.MatchPlayer(message.Args[0]);
-            source.Reply("{0}'s rank is {1}", player.ChatName, player.GetGroup());
+            var user = message.Args[0];
+            this.PlayerService.MatchPlayer(user,
+                player => 
+                    source.Reply("{0}'s rank is {1}", player.ChatName, player.GetGroup()),
+                username =>
+                    source.Reply("{0} is now {1}.", PlayerUtils.GetChatName(username), this.Host.GetPermission(username)));
         }
     }
 }

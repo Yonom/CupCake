@@ -13,23 +13,19 @@ namespace CupCake.DefaultCommands.Commands
     {
         protected void RunPermissionCommand(IInvokeSource source, ParsedCommand message, Group permissions)
         {
-            var username = message.Args[0];
-            try
+            var name = message.Args[0];
+            this.PlayerService.MatchPlayer(name, player =>
             {
-                var player = this.PlayerService.MatchPlayer(username);
                 this.RequireHigherRank(source, player);
 
                 player.SetGroup(permissions);
 
                 source.Reply("{0} is now {1}.", player.ChatName, permissions);
-            }
-            catch (UnknownPlayerCommandException)
+            }, username =>
             {
-                username = CommandUtils.TrimChatPrefix(username);
                 Host.SetPermission(username, permissions);
-
                 source.Reply("{0} is now {1}.", PlayerUtils.GetChatName(username), permissions);
-            }
+            });
         }
     }
 }

@@ -13,18 +13,18 @@ namespace CupCake.World
         private const uint InitOffset = 17;
         private WorldBlock[,,] _blocks;
 
-        private int _sizeX;
+        private int _roomWidth;
 
-        private int _sizeY;
+        private int _roomHeight;
 
-        public int SizeX
+        public int RoomWidth
         {
-            get { return this._sizeX; }
+            get { return this._roomWidth; }
         }
 
-        public int SizeY
+        public int RoomHeight
         {
-            get { return this._sizeY; }
+            get { return this._roomHeight; }
         }
 
         public WorldBlock this[Layer layer, int x, int y]
@@ -225,9 +225,10 @@ namespace CupCake.World
 
         private void OnInit(object sender, InitReceiveEvent e)
         {
-            this._sizeX = e.SizeX;
-            this._sizeY = e.SizeY;
-            this._blocks = ParseWorld(e.PlayerIOMessage, e.SizeX, e.SizeY, InitOffset);
+            this._roomWidth = e.RoomWidth;
+            this._roomHeight = e.RoomHeight;
+            this.Events.Raise(new ResizeWorldEvent(e.RoomWidth, e.RoomHeight));
+            this._blocks = ParseWorld(e.PlayerIOMessage, e.RoomWidth, e.RoomHeight, InitOffset);
         }
 
         private void OnBlockPlace(object sender, BlockPlaceReceiveEvent e)
@@ -287,16 +288,18 @@ namespace CupCake.World
 
         private void OnReset(object sender, ResetReceiveEvent e)
         {
-            this._blocks = ParseWorld(e.PlayerIOMessage, this._sizeX, this._sizeY, 0);
+            this._blocks = ParseWorld(e.PlayerIOMessage, this._roomWidth, this._roomHeight, 0);
 
             this.Events.Raise(new ResetWorldEvent());
         }
 
         private void OnClear(object sender, ClearReceiveEvent e)
         {
-            this._sizeX = e.RoomWidth;
-            this._sizeY = e.RoomHeight;
-            this._blocks = GetEmptyWorld(this.SizeX, this.SizeY, e.FillBlock, e.BorderBlock);
+            this._roomWidth = e.RoomWidth;
+            this._roomHeight = e.RoomHeight;
+            this.Events.Raise(new ResizeWorldEvent(e.RoomHeight, e.RoomWidth));
+
+            this._blocks = GetEmptyWorld(this.RoomWidth, this.RoomHeight, e.FillBlock, e.BorderBlock);
 
             this.Events.Raise(new ClearWorldEvent());
         }

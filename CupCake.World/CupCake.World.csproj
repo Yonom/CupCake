@@ -48,11 +48,10 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ClearWorldEvent.cs" />
     <Compile Include="PlaceWorldEvent.cs" />
     <Compile Include="BlockType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ResetWorldEvent.cs" />
+    <Compile Include="ResizeWorldEvent.cs" />
     <Compile Include="WorldBlock.cs" />
     <Compile Include="WorldService.cs" />
   </ItemGroup>

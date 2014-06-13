@@ -4,7 +4,7 @@ using CupCake.Permissions;
 
 namespace CupCake.DefaultCommands.Commands.Utility
 {
-    public class HelpCommand : CommandBase<UtilityCommandsMuffin>
+    public class HelpCommand : UtilityCommandBase
     {
         [MinArgs(1)]
         [MinGroup(Group.Moderator)]

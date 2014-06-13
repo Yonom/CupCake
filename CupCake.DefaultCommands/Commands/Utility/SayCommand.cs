@@ -8,7 +8,7 @@ using CupCake.Permissions;
 
 namespace CupCake.DefaultCommands.Commands.Utility
 {
-    public class SayCommand : CommandBase<UtilityCommandsMuffin>
+    public class SayCommand : UtilityCommandBase
     {
         [MinArgs(1)]
         [MinGroup(Group.Moderator)]

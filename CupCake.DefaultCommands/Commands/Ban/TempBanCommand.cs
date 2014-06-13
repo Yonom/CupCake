@@ -21,7 +21,7 @@ namespace CupCake.DefaultCommands.Commands.Ban
             }
             catch (Exception ex)
             {
-                throw new CommandException("Unable to parse duration!", ex);
+                throw new CommandException("Unable to parse parameter: duration", ex);
             }
 
             if (message.Count >= 3)
