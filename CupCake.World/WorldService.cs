@@ -211,16 +211,16 @@ namespace CupCake.World
 
         protected override void Enable()
         {
-            this.Events.Bind<InitReceiveEvent>(this.OnInit);
-            this.Events.Bind<BlockPlaceReceiveEvent>(this.OnBlockPlace, EventPriority.Lowest);
-            this.Events.Bind<CoinDoorPlaceReceiveEvent>(this.OnCoinDoorPlace, EventPriority.Lowest);
-            this.Events.Bind<LabelPlaceReceiveEvent>(this.OnLabelPlace, EventPriority.Lowest);
-            this.Events.Bind<PortalPlaceReceiveEvent>(this.OnPortalPlace, EventPriority.Lowest);
-            this.Events.Bind<WorldPortalPlaceReceiveEvent>(this.OnWorldPortalPlace, EventPriority.Lowest);
-            this.Events.Bind<SoundPlaceReceiveEvent>(this.OnSoundPlace, EventPriority.Lowest);
-            this.Events.Bind<RotatablePlaceReceiveEvent>(this.OnRotatablePlace, EventPriority.Lowest);
-            this.Events.Bind<ResetReceiveEvent>(this.OnReset, EventPriority.Lowest);
-            this.Events.Bind<ClearReceiveEvent>(this.OnClear, EventPriority.Lowest);
+            this.Events.Bind<InitReceiveEvent>(this.OnInit, EventPriority.High);
+            this.Events.Bind<BlockPlaceReceiveEvent>(this.OnBlockPlace, EventPriority.High);
+            this.Events.Bind<CoinDoorPlaceReceiveEvent>(this.OnCoinDoorPlace, EventPriority.High);
+            this.Events.Bind<LabelPlaceReceiveEvent>(this.OnLabelPlace, EventPriority.High);
+            this.Events.Bind<PortalPlaceReceiveEvent>(this.OnPortalPlace, EventPriority.High);
+            this.Events.Bind<WorldPortalPlaceReceiveEvent>(this.OnWorldPortalPlace, EventPriority.High);
+            this.Events.Bind<SoundPlaceReceiveEvent>(this.OnSoundPlace, EventPriority.High);
+            this.Events.Bind<RotatablePlaceReceiveEvent>(this.OnRotatablePlace, EventPriority.High);
+            this.Events.Bind<ResetReceiveEvent>(this.OnReset, EventPriority.High);
+            this.Events.Bind<ClearReceiveEvent>(this.OnClear, EventPriority.High);
         }
 
         private void OnInit(object sender, InitReceiveEvent e)
@@ -235,7 +235,8 @@ namespace CupCake.World
         {
             WorldBlock b = this._blocks[(int)e.Layer, e.PosX, e.PosY];
             b.SetBlock(e.Block);
-            this.Events.Raise(new PlaceWorldEvent(b));
+
+            RaisePlaceWorld(b);
         }
 
         private void OnCoinDoorPlace(object sender, CoinDoorPlaceReceiveEvent e)
@@ -243,7 +244,7 @@ namespace CupCake.World
             WorldBlock b = this._blocks[(int)e.Layer, e.PosX, e.PosY];
             b.SetCoinDoor(e.Block, e.CoinsToOpen);
 
-            this.Events.Raise(new PlaceWorldEvent(b));
+            RaisePlaceWorld(b);
         }
 
         private void OnLabelPlace(object sender, LabelPlaceReceiveEvent e)
@@ -251,7 +252,7 @@ namespace CupCake.World
             WorldBlock b = this._blocks[(int)e.Layer, e.PosX, e.PosY];
             b.SetLabel(e.Block, e.Text);
 
-            this.Events.Raise(new PlaceWorldEvent(b));
+            RaisePlaceWorld(b);
         }
 
         private void OnPortalPlace(object sender, PortalPlaceReceiveEvent e)
@@ -259,7 +260,7 @@ namespace CupCake.World
             WorldBlock b = this._blocks[(int)e.Layer, e.PosX, e.PosY];
             b.SetPortal(e.Block, e.PortalId, e.PortalTarget, e.PortalRotation);
 
-            this.Events.Raise(new PlaceWorldEvent(b));
+            RaisePlaceWorld(b);
         }
 
         private void OnWorldPortalPlace(object sender, WorldPortalPlaceReceiveEvent e)
@@ -267,7 +268,7 @@ namespace CupCake.World
             WorldBlock b = this._blocks[(int)e.Layer, e.PosX, e.PosY];
             b.SetWorldPortal(e.Block, e.WorldPortalTarget);
 
-            this.Events.Raise(new PlaceWorldEvent(b));
+            RaisePlaceWorld(b);
         }
 
         private void OnSoundPlace(object sender, SoundPlaceReceiveEvent e)
@@ -275,7 +276,7 @@ namespace CupCake.World
             WorldBlock b = this._blocks[(int)e.Layer, e.PosX, e.PosY];
             b.SetSound(e.Block, e.SoundId);
 
-            this.Events.Raise(new PlaceWorldEvent(b));
+            RaisePlaceWorld(b);
         }
 
         private void OnRotatablePlace(object sender, RotatablePlaceReceiveEvent e)
@@ -283,14 +284,19 @@ namespace CupCake.World
             WorldBlock b = this._blocks[(int)e.Layer, e.PosX, e.PosY];
             b.SetRotatable(e.Block, e.Rotation);
 
-            this.Events.Raise(new PlaceWorldEvent(b));
+            RaisePlaceWorld(b);
+        }
+
+        private void RaisePlaceWorld(WorldBlock b)
+        {
+            this.SynchronizePlatform.Do(() =>
+                this.Events.Raise(new PlaceWorldEvent(b)));
+
         }
 
         private void OnReset(object sender, ResetReceiveEvent e)
         {
             this._blocks = ParseWorld(e.PlayerIOMessage, this._roomWidth, this._roomHeight, 0);
-
-            this.Events.Raise(new ResetWorldEvent());
         }
 
         private void OnClear(object sender, ClearReceiveEvent e)
@@ -300,8 +306,6 @@ namespace CupCake.World
             this.Events.Raise(new ResizeWorldEvent(e.RoomHeight, e.RoomWidth));
 
             this._blocks = GetEmptyWorld(this.RoomWidth, this.RoomHeight, e.FillBlock, e.BorderBlock);
-
-            this.Events.Raise(new ClearWorldEvent());
         }
     }
 }

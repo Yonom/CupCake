@@ -8,18 +8,9 @@ namespace CupCake.Upload
         private readonly Deque<Action> _deque = new Deque<Action>();
         private readonly object _lockObj = new object();
         private readonly ManualResetEvent _resetEvent = new ManualResetEvent(false);
-        private readonly Thread _thread;
+        private Thread _thread;
 
         private bool _stopping;
-
-        public DequeWorker()
-        {
-            this._thread = new Thread(this.Work)
-            {
-                IsBackground = true,
-                Name = "CupCake.Upload.DequeWorker"
-            };
-        }
 
         public int Count
         {
@@ -44,6 +35,12 @@ namespace CupCake.Upload
                 if (!this._thread.IsAlive)
                 {
                     this._stopping = false;
+
+                    this._thread = new Thread(this.Work)
+                    {
+                        IsBackground = true,
+                        Name = "CupCake.Upload.DequeWorker"
+                    };
                     this._thread.Start();
                 }
             }

@@ -28,7 +28,7 @@ namespace CupCake.Upload
 
             this.Events.Bind<UploadRequestEvent>(this.OnUploadRequest, EventPriority.Lowest);
             this.Events.Bind<PlaceWorldEvent>(this.OnBlockPlace);
-            this.Events.Bind<InitCompleteRoomEvent>(this.OnInitComplete);
+            this.Events.Bind<InitReceiveEvent>(this.OnInitComplete);
             this.Events.Bind<AccessRoomEvent>(this.OnAccessRightChange);
             this.Events.Bind<ClearReceiveEvent>(this.OnClear);
             this.Events.Bind<ResetReceiveEvent>(this.OnReset);
@@ -62,7 +62,7 @@ namespace CupCake.Upload
             this._room = this.ServiceLoader.Get<RoomService>();
         }
 
-        private void OnInitComplete(object sender, InitCompleteRoomEvent e)
+        private void OnInitComplete(object sender, InitReceiveEvent e)
         {
             this.ResetUploaded();
         }

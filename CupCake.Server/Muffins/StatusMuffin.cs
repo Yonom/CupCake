@@ -20,7 +20,7 @@ namespace CupCake.Server.Muffins
         protected override void Enable()
         {
             this.Events.Bind<InitReceiveEvent>(this.OnInit);
-            this.Events.Bind<InitCompleteRoomEvent>(this.OnInitComplete);
+            this.Events.Bind<InitReceiveEvent>(this.OnInitComplete);
             this.Events.Bind<UpdateMetaReceiveEvent>(this.OnUpdateMeta);
             this.Events.Bind<JoinPlayerEvent>(this.OnJoin);
             this.Events.Bind<LeftPlayerEvent>(this.OnLeft);
@@ -36,7 +36,7 @@ namespace CupCake.Server.Muffins
             this.UpdateOnline();
         }
 
-        private void OnInitComplete(object sender, InitCompleteRoomEvent e)
+        private void OnInitComplete(object sender, InitReceiveEvent e)
         {
             this.StatusService.Add(_onlinePlayers);
             this.StatusService.Add(_plays);
