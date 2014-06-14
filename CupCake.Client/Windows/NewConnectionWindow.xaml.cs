@@ -43,7 +43,7 @@ namespace CupCake.Client.Windows
                 var item = new TextBlock(new Run((account.Name ?? account.Email).GetVisualName())) {Tag = account};
                 this.AccountComboBox.Items.Add(item);
 
-                if (recentWorld.Profile == account.Id)
+                if (recentWorld.Account == account.Id)
                     this.AccountComboBox.SelectedItem = item;
             }
 
