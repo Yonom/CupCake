@@ -36,12 +36,12 @@ namespace CupCake.Upload
 
         private void OnReset(object sender, ResetReceiveEvent e)
         {
-            this.Reset();
+            this.Reset(this._world.RoomWidth, this._world.RoomHeight);
         }
 
         private void OnClear(object sender, ClearReceiveEvent e)
         {
-            this.Reset();
+            this.Reset(e.RoomWidth, e.RoomHeight);
         }
 
         private void OnAccessRightChange(object sender, AccessRoomEvent e)
@@ -64,7 +64,7 @@ namespace CupCake.Upload
 
         private void OnInitComplete(object sender, InitReceiveEvent e)
         {
-            this.ResetUploaded();
+            this.ResetUploaded(e.RoomWidth, e.RoomHeight);
         }
 
         private void OnUploadRequest(object sender, UploadRequestEvent e)
@@ -236,18 +236,18 @@ namespace CupCake.Upload
             this.DoLagCheck(true);
         }
 
-        private void Reset()
+        private void Reset(int width, int height)
         {
             this._workThread.Stop();
             this.ClearQueue();
-            this.ResetUploaded();
+            this.ResetUploaded(width, height);
             this._workThread.Clear();
             this._workThread.Start();
         }
 
-        private void ResetUploaded()
+        private void ResetUploaded(int width, int height)
         {
-            this._uploaded = new bool[2, this._world.RoomWidth, this._world.RoomHeight];
+            this._uploaded = new bool[2, width, height];
         }
 
         public void UploadBlock(int x, int y, Block block)

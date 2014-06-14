@@ -7,7 +7,7 @@ using PlayerIOClient;
 
 namespace CupCake.World
 {
-    [DebuggerDisplay("SizeX = {SizeX}, SizeY = {SizeY}")]
+    [DebuggerDisplay("RoomWidth = {RoomWidth}, RoomHeight = {RoomHeight}")]
     public sealed class WorldService : CupCakeService
     {
         private const uint InitOffset = 17;
