@@ -24,6 +24,7 @@ namespace CupCake.Client.Windows
                 ? "New Account"
                 : "Edit Account";
 
+            this.NameTextBox.Text = account.Name;
             this.TypeComboBox.SelectedIndex = (int)account.Type;
             this.EmailTextBox.Text = account.Email;
             this.PasswordBox.Password = isNew
@@ -33,6 +34,7 @@ namespace CupCake.Client.Windows
 
         private void OkButton_Click(object sender, RoutedEventArgs e)
         {
+            this._account.Name = this.NameTextBox.Text;
             this._account.Type = (AccountType)this.TypeComboBox.SelectedIndex;
             this._account.Email = this.EmailTextBox.Text;
             if (this._passwordChanged)

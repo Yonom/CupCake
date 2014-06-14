@@ -31,7 +31,7 @@
         </Grid.RowDefinitions>
 
         <TextBlock FontSize="16" Foreground="{StaticResource Foreground}" VerticalAlignment="Center" Grid.Row="0"
-                   Grid.Column="0" Margin="0,9">
+                   Grid.Column="0">
             Name
         </TextBlock>
         <TextBox Name="NameTextBox" VerticalAlignment="Center" FontSize="16" Grid.Column="1" Grid.ColumnSpan="3"

@@ -40,7 +40,7 @@ namespace CupCake.Client.Windows
 
             foreach (Account account in SettingsManager.Settings.Accounts.OrderBy(v => v.Id))
             {
-                var item = new TextBlock(new Run(account.Email.GetVisualName())) {Tag = account};
+                var item = new TextBlock(new Run((account.Name ?? account.Email).GetVisualName())) {Tag = account};
                 this.AccountComboBox.Items.Add(item);
 
                 if (recentWorld.Profile == account.Id)
