@@ -51,7 +51,7 @@ namespace CupCake.Command
         {
             var source = new PlayerInvokeSource(this, group, player,
                 (name, msg) =>
-                    this._chatService.Chat(msg, name));
+                    this._chatService.Reply(player.Username, msg, name));
             this.Invoke(source, message);
         }
 
