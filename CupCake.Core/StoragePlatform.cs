@@ -19,6 +19,7 @@ namespace CupCake.Core
 
         protected override void Enable()
         {
+            this.StorageProvider = new BasicStorageProvider();
         }
     }
 }
