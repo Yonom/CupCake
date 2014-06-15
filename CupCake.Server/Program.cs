@@ -189,6 +189,10 @@ namespace CupCake.Server
                     Environment.Exit(1);
                 }
             }
+            else
+            {
+                Start();
+            }
         }
 
         private static void OnConnection(ClientHandle h)
