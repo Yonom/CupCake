@@ -106,7 +106,7 @@ namespace CupCake.DefaultCommands
                 string timeoutStr = this.StoragePlatform.Get(BanTimeoutsId, name);
                 if (timeoutStr != null)
                 {
-                    DateTime timeout = DateTime.Parse(timeoutStr);
+                    DateTime timeout = DateTime.Parse(timeoutStr, CultureInfo.InvariantCulture);
                     return timeout;
                 }
             }
