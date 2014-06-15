@@ -202,7 +202,7 @@ namespace CupCake.Upload
             if (this._uploaded[(int)e.Block.Layer, e.Block.X, e.Block.Y] > 0)
             {
                 // If this is the last block being uploaded to this position
-                if (this._uploaded[(int)e.Block.Layer, e.Block.X, e.Block.Y]-- == 0)
+                if (--this._uploaded[(int)e.Block.Layer, e.Block.X, e.Block.Y] == 0)
                 {
                     this.DoLagCheck(false);
                 }
