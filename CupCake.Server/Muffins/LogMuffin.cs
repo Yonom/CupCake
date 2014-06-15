@@ -21,7 +21,8 @@ namespace CupCake.Server.Muffins
 
         private void OnInfo(object sender, InfoReceiveEvent e)
         {
-            this.Logger.LogPlatform.Log(e.Title, LogPriority.Message, e.Text);
+            this.Logger.Log(LogPriority.Message, e.Title);
+            this.Logger.Log(LogPriority.Message, e.Text);
         }
 
         private void OnWrite(object sender, WriteReceiveEvent e)
