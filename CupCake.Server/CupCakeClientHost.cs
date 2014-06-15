@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel.Composition.Hosting;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 using CupCake.Chat;
@@ -128,7 +129,10 @@ namespace CupCake.Server
             this.LogMessage("Join complete. Loading plugin dlls...");
             foreach (string dir in directories)
             {
-                this._client.AggregateCatalog.Catalogs.Add(new DirectoryCatalog(dir));
+                if (Directory.Exists(dir))
+                    this._client.AggregateCatalog.Catalogs.Add(new DirectoryCatalog(dir));
+                else
+                    this.LogMessage("Invalid folder: " + dir);
             }
 
             this._client.PlatformLoader.EnableComplete += this.PlatformLoader_EnableComplete;
