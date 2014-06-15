@@ -36,8 +36,8 @@ namespace CupCake.DefaultCommands.Commands
 
         protected void RequireHigherRank(IInvokeSource source, Player player)
         {
-            if (player.GetGroup() > source.Group)
-                throw new CommandException(String.Format("You may not {0} a player with a higher rank.",
+            if (player.GetGroup() >= source.Group)
+                throw new CommandException(String.Format("You may not {0} a player with an equal or higher rank.",
                     this.CommandName));
         }
     }
