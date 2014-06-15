@@ -14,15 +14,16 @@ namespace CupCake.Debug
         {
             if (args.Length > 0)
             {
-                string command = args[0].ToLower();
+                var command = args[0].ToLower();
+                var newArgs = args.Skip(1);
 
                 if (command == "deploy")
                 {
-                    Deploy(args.Skip(1));
+                    Deploy(newArgs);
                 }
                 else if (command == "debug")
                 {
-                    Debug();
+                    Debug(newArgs);
                 }
                 else
                 {
@@ -50,7 +51,7 @@ namespace CupCake.Debug
 
             string debugProfilePath = profilesPath + "\\Debug";
             if (Directory.Exists(debugProfilePath))
-                Directory.Delete(debugProfilePath, true);
+                DeleteDirectory(debugProfilePath);
 
             Directory.CreateDirectory(debugProfilePath);
 
@@ -69,7 +70,32 @@ namespace CupCake.Debug
             }
         }
 
-        private static void Debug()
+        /// <summary>
+        /// Depth-first recursive delete, with handling for descendant 
+        /// directories open in Windows Explorer.
+        /// </summary>
+        public static void DeleteDirectory(string path)
+        {
+            foreach (string directory in Directory.GetDirectories(path))
+            {
+                DeleteDirectory(directory);
+            }
+
+            try
+            {
+                Directory.Delete(path, true);
+            }
+            catch (IOException)
+            {
+                Directory.Delete(path, true);
+            }
+            catch (UnauthorizedAccessException)
+            {
+                Directory.Delete(path, true);
+            }
+        }
+
+        private static void Debug(IEnumerable<string> args)
         {
             string path;
             try
@@ -96,7 +122,7 @@ namespace CupCake.Debug
                 throw new ConnectionException("Problem communicating with the client, make sure it is running.", ex);
             }
 
-            AppDomain.CurrentDomain.ExecuteAssembly(path + "\\CupCake.Server.exe", new[] {"--envpath", path, "--debug"});
+            AppDomain.CurrentDomain.ExecuteAssembly(path + "\\CupCake.Server.exe", new[] { "--envpath", path, "--debug"}.Concat(args).ToArray());
         }
     }
 }
