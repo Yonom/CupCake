@@ -9,32 +9,32 @@ namespace CupCake.DefaultCommands.Commands
 {
     public abstract class CommandBase<T> : Command<T>
     {
-        protected virtual string CommandName
+        internal virtual string CommandName
         {
             get { return this.Labels[0]; }
         }
 
-        protected virtual void RequireOwner()
+        internal virtual void RequireOwner()
         {
             if (this.RoomService.AccessRight < AccessRight.Owner)
                 throw new CommandException(String.Format("Bot must be world owner to be able to {0}.", this.CommandName));
         }
 
-        protected virtual void RequireEdit()
+        internal virtual void RequireEdit()
         {
             if (this.RoomService.AccessRight < AccessRight.Edit)
                 throw new CommandException(String.Format("Bot must have edit rights to be able to {0}.",
                     this.CommandName));
         }
 
-        protected void RequireSameRank(IInvokeSource source, Player player)
+        internal void RequireSameRank(IInvokeSource source, Player player)
         {
             if (player.GetGroup() > source.Group)
                 throw new CommandException(String.Format("You may not {0} a player with a higher rank.",
                     this.CommandName));
         }
 
-        protected void RequireHigherRank(IInvokeSource source, Player player)
+        internal void RequireHigherRank(IInvokeSource source, Player player)
         {
             if (player.GetGroup() >= source.Group)
                 throw new CommandException(String.Format("You may not {0} a player with an equal or higher rank.",

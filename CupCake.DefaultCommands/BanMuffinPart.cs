@@ -24,9 +24,14 @@ namespace CupCake.DefaultCommands
             this.TempBanCommand = this.EnablePart<TempBanCommand, BanMuffinPart>();
         }
 
-        public void SetPermission(string username, Group group)
+        internal void SetPermission(string username, Group group)
         {
             this.Host.SetPermission(username, group);
+        }
+
+        internal Group GetPermission(string name)
+        {
+            return this.Host.GetPermission(name);
         }
 
         private void OnChangedPermission(object sender, ChangedPermissionEvent e)

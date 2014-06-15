@@ -6,7 +6,7 @@ namespace CupCake.DefaultCommands.Commands
 {
     public abstract class UserCommandBase : CommandBase<UserCommandsMuffin>
     {
-        protected Player GetPlayerOrSelf(IInvokeSource source, ParsedCommand message)
+        internal Player GetPlayerOrSelf(IInvokeSource source, ParsedCommand message)
         {
             if (message.Count >= 1)
             {

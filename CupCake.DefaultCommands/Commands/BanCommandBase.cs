@@ -21,32 +21,41 @@ namespace CupCake.DefaultCommands.Commands
                 source.Reply("{0} is now banned.", player.ChatName);
             }, username =>
             {
-                this.Host.SetBanReason(username, reason);
-                this.Host.SetBanTimeout(username, timeout);
-                this.Host.SetPermission(username, Group.Banned);
+                var storageName = PlayerUtils.GetStorageName(username);
+                this.RequireHigherRankOffline(source, storageName);
+                this.Host.SetBanReason(storageName, reason);
+                this.Host.SetBanTimeout(storageName, timeout);
+                this.Host.SetPermission(storageName, Group.Banned);
 
                 source.Reply("{0} is now banned.", PlayerUtils.GetChatName(username));
             });
         }
 
-        public void Ban(IInvokeSource source, string name)
+        internal void Ban(IInvokeSource source, string name)
         {
             this.BanInternal(source, name, null, default(DateTime));
         }
 
-        public void Ban(IInvokeSource source, string name, string reason)
+        internal void Ban(IInvokeSource source, string name, string reason)
         {
             this.BanInternal(source, name, reason, default(DateTime));
         }
 
-        public void Ban(IInvokeSource source, string name, DateTime timeout)
+        internal void Ban(IInvokeSource source, string name, DateTime timeout)
         {
             this.BanInternal(source, name, null, timeout);
         }
 
-        public void Ban(IInvokeSource source, string name, DateTime timeout, string reason)
+        internal void Ban(IInvokeSource source, string name, DateTime timeout, string reason)
         {
             this.BanInternal(source, name, reason, timeout);
+        }
+
+        internal void RequireHigherRankOffline(IInvokeSource source, string name)
+        {
+            if (this.Host.GetPermission(name) >= source.Group)
+                throw new CommandException(String.Format("You may not {0} a player with a higher rank.",
+                    this.CommandName));
         }
     }
 }
