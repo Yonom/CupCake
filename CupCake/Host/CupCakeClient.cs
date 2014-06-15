@@ -10,20 +10,30 @@ namespace CupCake.Host
 {
     public class CupCakeClient : MuffinClient
     {
-        private readonly Connection _connection;
+        private Connection _connection;
 
-        public CupCakeClient(Connection connection, params ComposablePartCatalog[] catalog)
+        public CupCakeClient(params ComposablePartCatalog[] catalog)
             : base(catalog)
         {
-            if (connection == null)
-                throw new ArgumentNullException("connection");
-
-            this._connection = connection;
 
             this.AggregateCatalog.Catalogs.Add(new AssemblyCatalog(Assembly.GetExecutingAssembly()));
             this.AggregateCatalog.Catalogs.Add(new DirectoryCatalog(Environment.CurrentDirectory,
                 "CupCake.*.dll"));
             this.PlatformLoader.EnableComplete += this.PlatformLoader_EnableComplete;
+        }
+
+        public void Start(Connection connection)
+        {
+            if (connection == null)
+                throw new ArgumentNullException("connection");
+            this._connection = connection;
+
+            base.Start();
+        }
+
+        public override void Start()
+        {
+            throw new NotSupportedException("Please provide the connection parameter");
         }
 
         private void PlatformLoader_EnableComplete(object sender, EventArgs e)
