@@ -51,7 +51,7 @@ namespace CupCake.Upload
             bool enabledStop = false;
             lock (this._lockObj)
             {
-                if (this._thread.IsAlive)
+                if (this.IsAlive)
                 {
                     enabledStop = true;
                     this._stopping = true;

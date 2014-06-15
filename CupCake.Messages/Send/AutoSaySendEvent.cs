@@ -14,7 +14,7 @@ namespace CupCake.Messages.Send
 
         public override Message GetMessage()
         {
-            return Message.Create("autosay", this.Text);
+            return Message.Create("autosay", (int)this.Text);
         }
     }
 }
