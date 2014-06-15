@@ -84,8 +84,8 @@ namespace CupCake
                 else
                 {
                     e.Source.PluginName = this.GetName();
-                    this.ExcecuteCommand(e.Source, e.Message);
                     e.Handled = true;
+                    this.ExcecuteCommand(e.Source, e.Message);
                 }
             }
         }
