@@ -12,7 +12,15 @@ namespace CupCake.Messages.Receive
             this.PosX = message.GetInteger(1);
             this.PosY = message.GetInteger(2);
             this.Block = (Block)message.GetInteger(3);
-            this.UserId = message.GetInteger(4);
+
+            if (message.Count >= 5)
+            {
+                this.UserId = message.GetInteger(4);
+            }
+            else
+            {
+                this.UserId = -1;
+            }
         }
 
         public Block Block { get; set; }
