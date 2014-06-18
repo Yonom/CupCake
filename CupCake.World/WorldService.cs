@@ -300,10 +300,7 @@ namespace CupCake.World
         private void RaisePlaceWorld(WorldBlock b,  int userId = -1)
         {
             Player p;
-            if (userId == -1)
-                p = this._playerService.OwnPlayer;
-            else
-                this._playerService.TryGetPlayer(userId, out p);
+            this._playerService.TryGetPlayer(userId, out p);
 
             this.SynchronizePlatform.Do(() =>
                 this.Events.Raise(new PlaceWorldEvent(b, p)));
