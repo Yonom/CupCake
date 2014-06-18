@@ -3,6 +3,7 @@ using CupCake.Core;
 using CupCake.Core.Events;
 using CupCake.Messages.Blocks;
 using CupCake.Messages.Receive;
+using CupCake.Players;
 using PlayerIOClient;
 
 namespace CupCake.World
@@ -10,7 +11,10 @@ namespace CupCake.World
     [DebuggerDisplay("RoomWidth = {RoomWidth}, RoomHeight = {RoomHeight}")]
     public sealed class WorldService : CupCakeService
     {
+        private PlayerService _playerService;
+
         private const uint InitOffset = 17;
+
         private WorldBlock[,,] _blocks;
 
         private int _roomHeight;
@@ -220,6 +224,13 @@ namespace CupCake.World
             this.Events.Bind<RotatablePlaceReceiveEvent>(this.OnRotatablePlace, EventPriority.High);
             this.Events.Bind<ResetReceiveEvent>(this.OnReset, EventPriority.High);
             this.Events.Bind<ClearReceiveEvent>(this.OnClear, EventPriority.High);
+
+            this.ServiceLoader.EnableComplete += ServiceLoader_EnableComplete;
+        }
+
+        void ServiceLoader_EnableComplete(object sender, System.EventArgs e)
+        {
+            this._playerService = this.ServiceLoader.Get<PlayerService>();
         }
 
         private void OnInit(object sender, InitReceiveEvent e)
@@ -235,7 +246,7 @@ namespace CupCake.World
             WorldBlock b = this._blocks[(int)e.Layer, e.PosX, e.PosY];
             b.SetBlock(e.Block);
 
-            this.RaisePlaceWorld(b);
+            this.RaisePlaceWorld(b, e.UserId);
         }
 
         private void OnCoinDoorPlace(object sender, CoinDoorPlaceReceiveEvent e)
@@ -283,13 +294,19 @@ namespace CupCake.World
             WorldBlock b = this._blocks[(int)e.Layer, e.PosX, e.PosY];
             b.SetRotatable(e.Block, e.Rotation);
 
-            this.RaisePlaceWorld(b);
+            this.RaisePlaceWorld(b, -1);
         }
 
-        private void RaisePlaceWorld(WorldBlock b)
+        private void RaisePlaceWorld(WorldBlock b,  int userId = -1)
         {
+            Player p;
+            if (userId == -1)
+                p = this._playerService.OwnPlayer;
+            else
+                this._playerService.TryGetPlayer(userId, out p);
+
             this.SynchronizePlatform.Do(() =>
-                this.Events.Raise(new PlaceWorldEvent(b)));
+                this.Events.Raise(new PlaceWorldEvent(b, p)));
         }
 
         private void OnReset(object sender, ResetReceiveEvent e)

@@ -64,6 +64,10 @@
       <Project>{4746f723-ee77-4434-983c-02d1dd1bd982}</Project>
       <Name>CupCake.Messages</Name>
     </ProjectReference>
+    <ProjectReference Include="..\CupCake.Players\CupCake.Players.csproj">
+      <Project>{d9df7c76-4de4-4270-bca6-cba724e639ae}</Project>
+      <Name>CupCake.Players</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="Key.snk" />
