@@ -20,6 +20,7 @@ namespace CupCake.Players
 
         public bool IsGod { get; private set; }
         public bool IsMod { get; private set; }
+        public bool IsDead { get; private set; }
         public bool IsMyFriend { get; private set; }
         public bool IsClubMember { get; private set; }
         public bool IsDisconnected { get; private set; }
@@ -29,6 +30,8 @@ namespace CupCake.Players
         public Smiley Smiley { get; private set; }
 
         public int Coins { get; private set; }
+        public bool SwitchOpened { get; private set; }
+
         public int SpawnX { get; private set; }
         public int SpawnY { get; private set; }
         public int PosX { get; private set; }
@@ -88,12 +91,12 @@ namespace CupCake.Players
 
         public int BlockX
         {
-            get { return this.PosX + 8 >> 4; }
+            get { return BlockUtils.PosToBlock(this.PosX); }
         }
 
         public int BlockY
         {
-            get { return this.PosY + 8 >> 4; }
+            get { return BlockUtils.PosToBlock(this.PosY); }
         }
 
         protected override void Enable()
@@ -205,7 +208,8 @@ namespace CupCake.Players
             this.SpeedY = e.SpeedY;
             this.PosX = e.UserPosX;
             this.PosY = e.UserPosY;
-            this.JumpPotion = e.IsPurple;
+            this.SwitchOpened = e.IsPurple;
+            this.IsDead = e.IsDead;
         }
 
         private void OnGodMode(object sender, GodModeReceiveEvent e)
@@ -306,7 +310,7 @@ namespace CupCake.Players
 
         private void OnKill(object sender, KillReceiveEvent e)
         {
-            // Nothing to do here
+            this.IsDead = true;
         }
 
         private void OnCrown(object sender, CrownReceiveEvent e)

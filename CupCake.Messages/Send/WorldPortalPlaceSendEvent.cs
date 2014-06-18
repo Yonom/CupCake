@@ -10,7 +10,7 @@ namespace CupCake.Messages.Send
             this.Block = block;
             this.X = x;
             this.Y = y;
-            this.Layer = BlockHelper.CorrectLayer((Block)block, layer);
+            this.Layer = BlockUtils.CorrectLayer((Block)block, layer);
 
             this.WorldPortalTarget = worldPortalTarget;
         }

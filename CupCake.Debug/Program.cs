@@ -104,7 +104,7 @@ namespace CupCake.Debug
                 {
                     client.Connect(IPAddress.Loopback, 4570);
 
-                    using (NetworkStream stream = client.GetStream())
+                    NetworkStream stream = client.GetStream();
                     using (var reader = new StreamReader(stream, Encoding.Unicode))
                     {
                         // Request Debug

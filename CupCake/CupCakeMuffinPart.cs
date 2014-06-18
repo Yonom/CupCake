@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using CupCake.Actions;
@@ -12,6 +13,7 @@ using CupCake.HostAPI.Status;
 using CupCake.Keys;
 using CupCake.Messages;
 using CupCake.Permissions;
+using CupCake.Physics;
 using CupCake.Players;
 using CupCake.Potions;
 using CupCake.Room;
@@ -25,6 +27,8 @@ namespace CupCake
 {
     public abstract class CupCakeMuffinPart<TProtocol> : MuffinPart<TProtocol>
     {
+        private readonly List<Timer> _timers = new List<Timer>(); 
+
         private readonly Lazy<ActionService> _actionService;
         private readonly Lazy<Chatter> _chatter;
         private readonly Lazy<CommandService> _commandService;
@@ -44,6 +48,7 @@ namespace CupCake
         private readonly Lazy<SynchronizePlatform> _synchronizePlatform;
         private readonly Lazy<UploadService> _uploadService;
         private readonly Lazy<WorldService> _worldService;
+        private readonly Lazy<PhysicsService> _physicsService;
 
         protected CupCakeMuffinPart()
         {
@@ -85,6 +90,7 @@ namespace CupCake
             this._ioService = new Lazy<IOService>(() => this.ServiceLoader.Get<IOService>());
             this._statusService = new Lazy<StatusService>(() => this.ServiceLoader.Get<StatusService>());
             this._permissionService = new Lazy<PermissionService>(() => this.ServiceLoader.Get<PermissionService>());
+            this._physicsService = new Lazy<PhysicsService>(() => this.ServiceLoader.Get<PhysicsService>());
         }
 
         protected EventManager Events
@@ -177,9 +183,16 @@ namespace CupCake
             get { return this._storagePlatform.Value; }
         }
 
+        protected PhysicsService PhysicsService
+        {
+            get { return this._physicsService.Value; }
+        }
+
         protected Timer GetTimer(int interval)
         {
-            return new Timer(interval) {SynchronizingObject = new GenericSynchronizingObject()};
+            var timer = new Timer(interval) {SynchronizingObject = SynchronizePlatform.SynchronizingObject };
+            this._timers.Add(timer);
+            return timer;
         }
 
         private string FindName()
@@ -208,6 +221,11 @@ namespace CupCake
                 if (this._events.IsValueCreated)
                 {
                     this._events.Value.Dispose();
+                }
+
+                foreach (var timer in this._timers)
+                {
+                    timer.Dispose();
                 }
             }
 

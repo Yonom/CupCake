@@ -1,16 +1,21 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using System.Threading;
 using CupCake.Core.Events;
 using CupCake.Core.Log;
 using MuffinFramework.Services;
+using Nito.Async;
+using Timer = System.Timers.Timer;
 
 namespace CupCake.Core
 {
     public abstract class CupCakeServicePart<TProtocol> : ServicePart<TProtocol>
     {
-        private readonly Lazy<ConnectionPlatform> _connectionPlatform;
+        private readonly List<Timer> _timers = new List<Timer>(); 
 
+        private readonly Lazy<ConnectionPlatform> _connectionPlatform;
         private readonly Lazy<EventManager> _events;
         private readonly Lazy<Logger> _logger;
         private readonly Lazy<string> _name;
@@ -65,6 +70,13 @@ namespace CupCake.Core
             get { return this._storagePlatform.Value; }
         }
 
+        protected Timer GetTimer(int interval)
+        {
+            var timer = new Timer(interval) {SynchronizingObject = SynchronizePlatform.SynchronizingObject};
+            this._timers.Add(timer);
+            return timer;
+        }
+
         private string FindName()
         {
             var pluginName =
@@ -88,7 +100,15 @@ namespace CupCake.Core
         {
             if (disposing)
             {
-                this.Events.Dispose();
+                if (this._events.IsValueCreated)
+                {
+                    this._events.Value.Dispose();
+                }
+
+                foreach (var timer in this._timers)
+                {
+                    timer.Dispose();
+                }
             }
 
             base.Dispose(disposing);

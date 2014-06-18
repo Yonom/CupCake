@@ -30,8 +30,10 @@ namespace CupCake.Host
 
             base.Start();
         }
-
+        [Obsolete("Use the overload with Connection parameter.", true)]
+#pragma warning disable 809
         public override void Start()
+#pragma warning restore 809
         {
             throw new NotSupportedException("Please provide the connection parameter");
         }

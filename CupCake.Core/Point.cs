@@ -1,4 +1,4 @@
-﻿namespace CupCake.Messages
+﻿namespace CupCake.Core
 {
     public class Point
     {
@@ -6,6 +6,11 @@
         {
             this.X = x;
             this.Y = y;
+        }
+
+        public Point()
+        {
+            
         }
 
         public int X { get; set; }

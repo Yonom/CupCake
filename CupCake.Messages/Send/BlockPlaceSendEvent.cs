@@ -7,7 +7,7 @@ namespace CupCake.Messages.Send
     {
         public BlockPlaceSendEvent(Layer layer, int x, int y, Block block)
         {
-            this.Layer = BlockHelper.CorrectLayer(block, layer);
+            this.Layer = BlockUtils.CorrectLayer(block, layer);
             this.X = x;
             this.Y = y;
             this.Block = block;

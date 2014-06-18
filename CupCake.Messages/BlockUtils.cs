@@ -2,9 +2,9 @@
 
 namespace CupCake.Messages
 {
-    internal class BlockHelper
+    public class BlockUtils
     {
-        internal static Layer CorrectLayer(Block id, Layer layer)
+        public static Layer CorrectLayer(Block id, Layer layer)
         {
             if ((id > 0 && (int)id < 500) || id == Block.DecorLabel)
             {
@@ -17,12 +17,12 @@ namespace CupCake.Messages
             return layer;
         }
 
-        internal static bool IsCoinDoor(Block id)
+        public static bool IsCoinDoor(Block id)
         {
-            return id == Block.DoorCoinDoor || id == Block.GateCoinGate;
+            return id == Block.CoinDoor || id == Block.CoinGate;
         }
 
-        internal static bool IsRotatable(Block id)
+        public static bool IsRotatable(Block id)
         {
             return id == Block.HazardSpike || id == Block.DecorSciFi2013BlueSlope ||
                    id == Block.DecorSciFi2013BlueStraight || id == Block.DecorSciFi2013YellowSlope ||
@@ -30,24 +30,29 @@ namespace CupCake.Messages
                    id == Block.DecorSciFi2013GreenStraight;
         }
 
-        internal static bool IsSound(Block id)
+        public static bool IsSound(Block id)
         {
             return id == Block.MusicPiano || id == Block.MusicDrum;
         }
 
-        internal static bool IsPortal(Block id)
+        public static bool IsPortal(Block id)
         {
             return id == Block.Portal || id == Block.InvisiblePortal;
         }
 
-        internal static bool IsWorldPortal(Block id)
+        public static bool IsWorldPortal(Block id)
         {
             return id == Block.WorldPortal;
         }
 
-        internal static bool IsLabel(Block id)
+        public static bool IsLabel(Block id)
         {
             return id == Block.DecorSign || id == Block.DecorLabel;
+        }
+
+        public static int PosToBlock(int pos)
+        {
+            return pos + 8 >> 4;
         }
     }
 }

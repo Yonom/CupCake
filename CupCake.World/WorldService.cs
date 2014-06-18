@@ -63,8 +63,8 @@ namespace CupCake.World
 
                 switch (block)
                 {
-                    case Block.DoorCoinDoor:
-                    case Block.GateCoinGate:
+                    case Block.CoinDoor:
+                    case Block.CoinGate:
                         int coinsToCollect = m.GetInteger(pointer);
                         pointer += 1;
 
