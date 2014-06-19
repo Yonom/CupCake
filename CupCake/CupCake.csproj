@@ -94,6 +94,10 @@
       <Project>{dd7dc89b-6824-4990-8955-d1ade39eb77c}</Project>
       <Name>CupCake.Permissions</Name>
     </ProjectReference>
+    <ProjectReference Include="..\CupCake.Physics\CupCake.Physics.csproj">
+      <Project>{b7365994-631f-46d5-9793-360433b7c1eb}</Project>
+      <Name>CupCake.Physics</Name>
+    </ProjectReference>
     <ProjectReference Include="..\CupCake.Players\CupCake.Players.csproj">
       <Project>{d9df7c76-4de4-4270-bca6-cba724e639ae}</Project>
       <Name>CupCake.Players</Name>
