@@ -13,7 +13,6 @@ using CupCake.HostAPI.Status;
 using CupCake.Keys;
 using CupCake.Messages;
 using CupCake.Permissions;
-using CupCake.Physics;
 using CupCake.Players;
 using CupCake.Potions;
 using CupCake.Room;
@@ -48,7 +47,6 @@ namespace CupCake
         private readonly Lazy<SynchronizePlatform> _synchronizePlatform;
         private readonly Lazy<UploadService> _uploadService;
         private readonly Lazy<WorldService> _worldService;
-        private readonly Lazy<PhysicsService> _physicsService;
 
         protected CupCakeMuffinPart()
         {
@@ -90,7 +88,6 @@ namespace CupCake
             this._ioService = new Lazy<IOService>(() => this.ServiceLoader.Get<IOService>());
             this._statusService = new Lazy<StatusService>(() => this.ServiceLoader.Get<StatusService>());
             this._permissionService = new Lazy<PermissionService>(() => this.ServiceLoader.Get<PermissionService>());
-            this._physicsService = new Lazy<PhysicsService>(() => this.ServiceLoader.Get<PhysicsService>());
         }
 
         protected EventManager Events
@@ -181,11 +178,6 @@ namespace CupCake
         protected StoragePlatform StoragePlatform
         {
             get { return this._storagePlatform.Value; }
-        }
-
-        protected PhysicsService PhysicsService
-        {
-            get { return this._physicsService.Value; }
         }
 
         protected Timer GetTimer(int interval)
