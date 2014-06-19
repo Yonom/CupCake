@@ -21,7 +21,7 @@ namespace CupCake.Physics
         private KeyService _keys;
 
         // Settings
-        internal const int PhysicsMsPerTick = 100;
+        internal const int PhysicsMsPerTick = 10;
         private static readonly double _physicsBaseDrag = Math.Pow(0.9981, PhysicsMsPerTick) * 1.00016;
         private static readonly double _noModifierDrag = Math.Pow(0.99, PhysicsMsPerTick) * 1.00016;
         private static readonly double _waterDrag = Math.Pow(0.995, PhysicsMsPerTick) * 1.00016;
@@ -140,10 +140,12 @@ namespace CupCake.Physics
 
         protected override void Enable()
         {
-            this.BasePlayer = this.Host; 
             this._world = this.ServiceLoader.Get<WorldService>();
             this._room = this.ServiceLoader.Get<RoomService>();
             this._keys = this.ServiceLoader.Get<KeyService>();
+            
+            this.BasePlayer = this.Host;
+            this.UpdateVars();
 
             this.Events.Bind<MovePlayerEvent>(this.OnMove, EventPriority.High);
             this.Events.Bind<TickPhysicsEvent>(this.OnTick, EventPriority.High);
@@ -636,7 +638,6 @@ namespace CupCake.Physics
                         this._oldVerticalAcceleration = 0;
                         break;
 
-                    case Block.GravityNothing:
                     case Block.BoostLeft:
                     case Block.BoostUp:
                     case Block.BoostRight:

@@ -9,7 +9,7 @@ namespace CupCake.DefaultCommands.Commands.User
     {
         [MinArgs(1)]
         [MinGroup(Group.Moderator)]
-        [Label("tele", "teleport", "teleportplayer")]
+        [Label("tele", "teleplayer", "teleport", "teleportplayer")]
         [CorrectUsage("player [target]")]
         [CorrectUsage("player x y")]
         protected override void Run(IInvokeSource source, ParsedCommand message)
