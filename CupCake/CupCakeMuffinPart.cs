@@ -8,6 +8,7 @@ using CupCake.Command;
 using CupCake.Core;
 using CupCake.Core.Events;
 using CupCake.Core.Log;
+using CupCake.Core.Storage;
 using CupCake.HostAPI.IO;
 using CupCake.HostAPI.Status;
 using CupCake.Keys;

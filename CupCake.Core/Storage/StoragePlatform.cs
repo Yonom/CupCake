@@ -1,7 +1,6 @@
-﻿using CupCake.Core.Storage;
-using MuffinFramework.Platforms;
+﻿using MuffinFramework.Platforms;
 
-namespace CupCake.Core
+namespace CupCake.Core.Storage
 {
     public class StoragePlatform : Platform, IStorageProvider
     {

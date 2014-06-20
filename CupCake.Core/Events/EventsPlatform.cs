@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Collections.Concurrent;
-using CupCake.Core.Events;
 using MuffinFramework.Platforms;
 
-namespace CupCake.Core
+namespace CupCake.Core.Events
 {
     public class EventsPlatform : Platform
     {

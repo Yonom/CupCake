@@ -5,6 +5,7 @@ using System.Reflection;
 using System.Threading;
 using CupCake.Core.Events;
 using CupCake.Core.Log;
+using CupCake.Core.Storage;
 using MuffinFramework.Services;
 using Nito.Async;
 using Timer = System.Timers.Timer;

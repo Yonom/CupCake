@@ -237,7 +237,7 @@ namespace CupCake.Client.Windows
         {
             // If there is an unnamed connection with the same world id, remove it to avoid duplicates
             RecentWorld old = SettingsManager.Settings.RecentWorlds.FirstOrDefault(
-                v => (String.IsNullOrWhiteSpace(v.Name) && v.WorldId == recent.WorldId));
+                v => v.WorldId == recent.WorldId);
             if (old != null)
             {
                 SettingsManager.Settings.RecentWorlds.Remove(old);

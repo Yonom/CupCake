@@ -1,8 +1,7 @@
 ﻿using System;
-using CupCake.Core.Log;
 using MuffinFramework.Platforms;
 
-namespace CupCake.Core
+namespace CupCake.Core.Log
 {
     public class LogPlatform : Platform
     {
