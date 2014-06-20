@@ -5,7 +5,7 @@ namespace CupCake.Players
 {
     public abstract class PlayerEvent<TBase> : Event where TBase : IUserReceiveEvent
     {
-        protected PlayerEvent(Player player, TBase innerEvent)
+        internal PlayerEvent(Player player, TBase innerEvent)
         {
             this.Player = player;
             this.InnerEvent = innerEvent;

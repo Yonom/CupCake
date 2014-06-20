@@ -4,7 +4,7 @@ namespace CupCake.Players
 {
     public class WootUpPlayerEvent : PlayerEvent<WootUpReceiveEvent>
     {
-        public WootUpPlayerEvent(Player player, WootUpReceiveEvent innerEvent)
+        internal WootUpPlayerEvent(Player player, WootUpReceiveEvent innerEvent)
             : base(player, innerEvent)
         {
         }

@@ -4,7 +4,7 @@ namespace CupCake.HostAPI.Status
 {
     public class ChangeStatusEvent : Event
     {
-        public ChangeStatusEvent(string newStatus)
+        internal ChangeStatusEvent(string newStatus)
         {
             this.NewStatus = newStatus;
         }

@@ -4,7 +4,7 @@ namespace CupCake.Players
 {
     public class PotionPlayerEvent : PlayerEvent<PotionReceiveEvent>
     {
-        public PotionPlayerEvent(Player player, PotionReceiveEvent innerEvent)
+        internal PotionPlayerEvent(Player player, PotionReceiveEvent innerEvent)
             : base(player, innerEvent)
         {
         }

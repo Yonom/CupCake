@@ -5,7 +5,7 @@ namespace CupCake.World
 {
     public class PlaceWorldEvent : Event
     {
-        public PlaceWorldEvent(WorldBlock block, Player player)
+        internal PlaceWorldEvent(WorldBlock block, Player player)
         {
             this.Block = block;
         }

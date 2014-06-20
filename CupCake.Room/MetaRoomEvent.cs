@@ -4,7 +4,7 @@ namespace CupCake.Room
 {
     public class MetaRoomEvent : Event
     {
-        public MetaRoomEvent(string ownerUsername, int plays, int currentWoots, int totalWoots, string worldName)
+        internal MetaRoomEvent(string ownerUsername, int plays, int currentWoots, int totalWoots, string worldName)
         {
             this.OwnerUsername = ownerUsername;
             this.Plays = plays;

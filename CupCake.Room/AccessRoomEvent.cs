@@ -5,7 +5,7 @@ namespace CupCake.Room
 {
     public class AccessRoomEvent : Event
     {
-        public AccessRoomEvent(AccessRight newRights)
+        internal AccessRoomEvent(AccessRight newRights)
         {
             this.NewRights = newRights;
         }

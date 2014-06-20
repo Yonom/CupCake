@@ -4,7 +4,7 @@ namespace CupCake.World
 {
     public class ResizeWorldEvent : Event
     {
-        public ResizeWorldEvent(int newWidth, int newHeight)
+        internal ResizeWorldEvent(int newWidth, int newHeight)
         {
             this.NewHeight = newHeight;
             this.NewWidth = newWidth;
