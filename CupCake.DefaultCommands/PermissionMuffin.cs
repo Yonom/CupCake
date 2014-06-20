@@ -27,7 +27,7 @@ namespace CupCake.DefaultCommands
         protected override void Enable()
         {
             this.Events.Bind<JoinPlayerEvent>(this.OnJoin, EventPriority.High);
-            this.Events.Bind<ChangedPermissionEvent>(this.OnChangedPermission);
+            this.Events.Bind<ChangedPermissionEvent>(this.OnChangedPermission, EventPriority.Lowest);
 
             this.BanMuffinPart = this.EnablePart<BanMuffinPart>();
 

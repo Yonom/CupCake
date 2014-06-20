@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Globalization;
+using CupCake.Core.Events;
 using CupCake.Core.Log;
 using CupCake.Core.Storage;
 using CupCake.DefaultCommands.Commands.Ban;
@@ -18,7 +19,7 @@ namespace CupCake.DefaultCommands
 
         protected override void Enable()
         {
-            this.Events.Bind<ChangedPermissionEvent>(this.OnChangedPermission);
+            this.Events.Bind<ChangedPermissionEvent>(this.OnChangedPermission, EventPriority.Lowest);
 
             this.BanCommand = this.EnablePart<BanCommand, BanMuffinPart>();
             this.TempBanCommand = this.EnablePart<TempBanCommand, BanMuffinPart>();
