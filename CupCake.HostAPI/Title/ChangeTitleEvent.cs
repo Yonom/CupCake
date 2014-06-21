@@ -4,7 +4,7 @@ namespace CupCake.HostAPI.Title
 {
     public class ChangeTitleEvent : Event
     {
-        internal ChangeTitleEvent(string newTitle)
+        public ChangeTitleEvent(string newTitle)
         {
             this.NewTitle = newTitle;
         }
