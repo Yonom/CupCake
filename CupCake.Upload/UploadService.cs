@@ -199,10 +199,10 @@ namespace CupCake.Upload
         private void OnBlockPlace(object sender, PlaceWorldEvent e)
         {
             // If there has been a block uploaded at this position
-            if (this._uploaded[(int)e.Block.Layer, e.Block.X, e.Block.Y] > 0)
+            if (this._uploaded[(int)e.WorldBlock.Layer, e.WorldBlock.X, e.WorldBlock.Y] > 0)
             {
                 // If this is the last block being uploaded to this position
-                if (--this._uploaded[(int)e.Block.Layer, e.Block.X, e.Block.Y] == 0)
+                if (--this._uploaded[(int)e.WorldBlock.Layer, e.WorldBlock.X, e.WorldBlock.Y] == 0)
                 {
                     this.DoLagCheck(false);
                 }
