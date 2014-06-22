@@ -35,6 +35,16 @@ namespace CupCake.Upload
             this.Events.Bind<ResetReceiveEvent>(this.OnReset, EventPriority.High);
         }
 
+        public int Count
+        {
+            get { return this._workThread.Count; }
+        }
+
+        public int LagCheckCount
+        {
+            get { return this._checkQueue.Count; }
+        }
+        
         private void OnReset(object sender, ResetReceiveEvent e)
         {
             this.Reset(this._world.RoomWidth, this._world.RoomHeight);
