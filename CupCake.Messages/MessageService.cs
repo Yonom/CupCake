@@ -68,6 +68,7 @@ namespace CupCake.Messages
             this.Events.Bind<DeathSendEvent>(this.OnAnySendEvent, EventPriority.Lowest);
             this.Events.Bind<CheckpointSendEvent>(this.OnAnySendEvent, EventPriority.Lowest);
             this.Events.Bind<TouchUserSendEvent>(this.OnAnySendEvent, EventPriority.Lowest);
+            this.Events.Bind<ShowPurpleSendEvent>(this.OnAnySendEvent, EventPriority.Lowest);
         }
 
         private void OnInit(object sender, InitReceiveEvent e)

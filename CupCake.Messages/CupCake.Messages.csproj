@@ -51,6 +51,7 @@
     <Compile Include="Receive\IMetadataReceiveMessage.cs" />
     <Compile Include="Receive\PotionCountReceiveEvent.cs" />
     <Compile Include="Send\IBlockPlaceSendEvent.cs" />
+    <Compile Include="Send\ShowPurpleSendEvent.cs" />
     <Compile Include="User\AccessRight.cs" />
     <Compile Include="Blocks\Block.cs" />
     <Compile Include="Blocks\CoinDoorBlock.cs" />

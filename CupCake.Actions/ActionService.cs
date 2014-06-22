@@ -92,5 +92,10 @@ namespace CupCake.Actions
         {
             this.Events.Raise(new ModModeSendEvent());
         }
+
+        public void Purple(bool show)
+        {
+            this.Events.Raise(new ShowPurpleSendEvent(show));
+        }
     }
 }

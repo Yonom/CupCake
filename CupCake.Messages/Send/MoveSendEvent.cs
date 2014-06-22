@@ -5,7 +5,7 @@ namespace CupCake.Messages.Send
     public class MoveSendEvent : SendEvent
     {
         public MoveSendEvent(int posX, int posY, double speedX, double speedY, double modifierX, double modifierY,
-            double horizontal, double vertical, double gravityMultiplier)
+            double horizontal, double vertical, double gravityMultiplier, bool spaceDown)
         {
             this.PosX = posX;
             this.PosY = posY;
@@ -16,9 +16,11 @@ namespace CupCake.Messages.Send
             this.Horizontal = horizontal;
             this.Vertical = vertical;
             this.GravityMultiplier = gravityMultiplier;
+            this.SpaceDown = spaceDown;
         }
 
         public double GravityMultiplier { get; set; }
+        public bool SpaceDown { get; set; }
         public double Horizontal { get; set; }
         public double ModifierX { get; set; }
         public double ModifierY { get; set; }
@@ -31,7 +33,7 @@ namespace CupCake.Messages.Send
         public override Message GetMessage()
         {
             return Message.Create("m", this.PosX, this.PosY, this.SpeedX, this.SpeedY, this.ModifierX, this.ModifierY,
-                this.Horizontal, this.Vertical, this.GravityMultiplier);
+                this.Horizontal, this.Vertical, this.GravityMultiplier, this.SpaceDown);
         }
     }
 }
