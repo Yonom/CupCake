@@ -2,26 +2,23 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using System.Threading;
+using System.Timers;
 using CupCake.Core.Events;
 using CupCake.Core.Log;
 using CupCake.Core.Storage;
 using MuffinFramework.Services;
-using Nito.Async;
-using Timer = System.Timers.Timer;
 
 namespace CupCake.Core
 {
     public abstract class CupCakeServicePart<TProtocol> : ServicePart<TProtocol>
     {
-        private readonly List<Timer> _timers = new List<Timer>(); 
-
         private readonly Lazy<ConnectionPlatform> _connectionPlatform;
         private readonly Lazy<EventManager> _events;
         private readonly Lazy<Logger> _logger;
         private readonly Lazy<string> _name;
         private readonly Lazy<StoragePlatform> _storagePlatform;
         private readonly Lazy<SynchronizePlatform> _synchronizePlatofrm;
+        private readonly List<Timer> _timers = new List<Timer>();
 
         protected CupCakeServicePart()
         {
@@ -73,7 +70,7 @@ namespace CupCake.Core
 
         protected Timer GetTimer(int interval)
         {
-            var timer = new Timer(interval) {SynchronizingObject = SynchronizePlatform.SynchronizingObject};
+            var timer = new Timer(interval) {SynchronizingObject = this.SynchronizePlatform.SynchronizingObject};
             this._timers.Add(timer);
             return timer;
         }
@@ -106,7 +103,7 @@ namespace CupCake.Core
                     this._events.Value.Dispose();
                 }
 
-                foreach (var timer in this._timers)
+                foreach (Timer timer in this._timers)
                 {
                     timer.Dispose();
                 }

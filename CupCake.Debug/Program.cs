@@ -14,8 +14,8 @@ namespace CupCake.Debug
         {
             if (args.Length > 0)
             {
-                var command = args[0].ToLower();
-                var newArgs = args.Skip(1);
+                string command = args[0].ToLower();
+                IEnumerable<string> newArgs = args.Skip(1);
 
                 if (command == "deploy")
                 {
@@ -71,8 +71,8 @@ namespace CupCake.Debug
         }
 
         /// <summary>
-        /// Depth-first recursive delete, with handling for descendant 
-        /// directories open in Windows Explorer.
+        ///     Depth-first recursive delete, with handling for descendant
+        ///     directories open in Windows Explorer.
         /// </summary>
         public static void DeleteDirectory(string path)
         {
@@ -122,7 +122,8 @@ namespace CupCake.Debug
                 throw new ConnectionException("Problem communicating with the client, make sure it is running.", ex);
             }
 
-            AppDomain.CurrentDomain.ExecuteAssembly(path + "\\CupCake.Server.exe", new[] { "--envpath", path, "--debug"}.Concat(args).ToArray());
+            AppDomain.CurrentDomain.ExecuteAssembly(path + "\\CupCake.Server.exe",
+                new[] {"--envpath", path, "--debug"}.Concat(args).ToArray());
         }
     }
 }

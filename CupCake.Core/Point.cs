@@ -10,7 +10,6 @@
 
         public Point()
         {
-            
         }
 
         public int X { get; set; }

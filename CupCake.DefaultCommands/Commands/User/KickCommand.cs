@@ -1,5 +1,4 @@
-﻿using System.Runtime.InteropServices;
-using CupCake.Command;
+﻿using CupCake.Command;
 using CupCake.Command.Source;
 using CupCake.Permissions;
 using CupCake.Players;
@@ -18,7 +17,8 @@ namespace CupCake.DefaultCommands.Commands.User
             Player player = this.GetPlayerOrSelf(source, message);
             this.RequireSameRank(source, player);
 
-            this.Chatter.ChatService.Kick(source.Name, player.Username, (message.Count > 1 ? message.GetTrail(1) : "Tsk tsk tsk"));
+            this.Chatter.ChatService.Kick(source.Name, player.Username,
+                (message.Count > 1 ? message.GetTrail(1) : "Tsk tsk tsk"));
         }
     }
 }

@@ -20,7 +20,7 @@ namespace CupCake.DefaultCommands.Commands
                 source.Reply("{0} is now {1}.", player.ChatName, permission);
             }, username =>
             {
-                var storageName = PlayerUtils.GetStorageName(username);
+                string storageName = PlayerUtils.GetStorageName(username);
                 this.RequireHigherRankOffline(source, storageName);
                 this.Host.SetPermission(storageName, permission);
                 source.Reply("{0} is now {1}.", PlayerUtils.GetChatName(username), permission);

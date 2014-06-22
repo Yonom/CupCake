@@ -21,7 +21,7 @@ namespace CupCake.DefaultCommands.Commands
                 source.Reply("{0} is now banned.", player.ChatName);
             }, username =>
             {
-                var storageName = PlayerUtils.GetStorageName(username);
+                string storageName = PlayerUtils.GetStorageName(username);
                 this.RequireHigherRankOffline(source, storageName);
                 this.Host.SetBanReason(storageName, reason);
                 this.Host.SetBanTimeout(storageName, timeout);

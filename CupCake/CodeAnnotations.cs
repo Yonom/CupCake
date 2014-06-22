@@ -10,6 +10,7 @@
 // ReSharper disable InconsistentNaming
 
 // ReSharper disable CheckNamespace
+
 namespace JetBrains.Annotations
 {
     /// <summary>
