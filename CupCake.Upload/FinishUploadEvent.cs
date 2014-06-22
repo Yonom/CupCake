@@ -2,7 +2,7 @@
 
 namespace CupCake.Upload
 {
-    internal class FinishUploadEvent : Event
+    public class FinishUploadEvent : Event
     {
     }
 }

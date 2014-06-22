@@ -2,7 +2,7 @@
 
 namespace CupCake.HostAPI.IO
 {
-    internal class BasicIOSyntaxProvider : IIOSyntaxProvider
+    public class BasicIOSyntaxProvider : IIOSyntaxProvider
     {
         public string ParseOutput(LogEventArgs e)
         {
