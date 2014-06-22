@@ -13,7 +13,7 @@ namespace CupCake
             this.Name = name;
         }
 
-        public ChatService ChatService { get; set; }
+        public ChatService ChatService { get; private set; }
         public string Name { get; set; }
 
         public void Chat(string msg)

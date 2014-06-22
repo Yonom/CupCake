@@ -17,18 +17,8 @@ namespace CupCake.World
 
         private WorldBlock[,,] _blocks;
 
-        private int _roomHeight;
-        private int _roomWidth;
-
-        public int RoomWidth
-        {
-            get { return this._roomWidth; }
-        }
-
-        public int RoomHeight
-        {
-            get { return this._roomHeight; }
-        }
+        public int RoomWidth { get; private set; }
+        public int RoomHeight { get; private set; }
 
         public WorldBlock this[Layer layer, int x, int y]
         {
@@ -235,8 +225,8 @@ namespace CupCake.World
 
         private void OnInit(object sender, InitReceiveEvent e)
         {
-            this._roomWidth = e.RoomWidth;
-            this._roomHeight = e.RoomHeight;
+            this.RoomWidth = e.RoomWidth;
+            this.RoomHeight = e.RoomHeight;
             this.Events.Raise(new ResizeWorldEvent(e.RoomWidth, e.RoomHeight));
             this._blocks = ParseWorld(e.PlayerIOMessage, e.RoomWidth, e.RoomHeight, InitOffset);
         }
@@ -308,13 +298,13 @@ namespace CupCake.World
 
         private void OnReset(object sender, ResetReceiveEvent e)
         {
-            this._blocks = ParseWorld(e.PlayerIOMessage, this._roomWidth, this._roomHeight, 0);
+            this._blocks = ParseWorld(e.PlayerIOMessage, this.RoomWidth, this.RoomHeight, 0);
         }
 
         private void OnClear(object sender, ClearReceiveEvent e)
         {
-            this._roomWidth = e.RoomWidth;
-            this._roomHeight = e.RoomHeight;
+            this.RoomWidth = e.RoomWidth;
+            this.RoomHeight = e.RoomHeight;
             this.Events.Raise(new ResizeWorldEvent(e.RoomHeight, e.RoomWidth));
 
             this._blocks = GetEmptyWorld(this.RoomWidth, this.RoomHeight, e.FillBlock, e.BorderBlock);

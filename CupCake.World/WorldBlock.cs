@@ -27,9 +27,9 @@ namespace CupCake.World
             this.SetBlock(block);
         }
 
-        public Layer Layer { get; set; }
-        public int X { get; set; }
-        public int Y { get; set; }
+        public Layer Layer { get; private set; }
+        public int X { get; private set; }
+        public int Y { get; private set; }
         public virtual BlockType BlockType { get; private set; }
         public Block Block { get; private set; }
 

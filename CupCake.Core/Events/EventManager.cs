@@ -15,7 +15,7 @@ namespace CupCake.Core.Events
             this.EventsPlatform = eventsPlatform;
         }
 
-        public EventsPlatform EventsPlatform { get; set; }
+        public EventsPlatform EventsPlatform { get; private set; }
 
         public void Dispose()
         {
