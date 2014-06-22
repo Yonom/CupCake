@@ -27,7 +27,7 @@ namespace CupCake.Actions
 
         public void MoveToLocation(int x, int y)
         {
-            this.Events.Raise(new MoveSendEvent(x, y, 0, 0, 0, 0, 0, 0, this._room.GravityMultiplier));
+            this.Events.Raise(new MoveSendEvent(x, y, 0, 0, 0, 0, 0, 0, this._room.GravityMultiplier, false));
         }
 
         public void GetCrown()
