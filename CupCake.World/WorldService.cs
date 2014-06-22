@@ -1,3 +1,4 @@
+using System;
 using System.Diagnostics;
 using CupCake.Core;
 using CupCake.Core.Events;
@@ -11,11 +12,10 @@ namespace CupCake.World
     [DebuggerDisplay("RoomWidth = {RoomWidth}, RoomHeight = {RoomHeight}")]
     public sealed class WorldService : CupCakeService
     {
-        private PlayerService _playerService;
-
         private const uint InitOffset = 17;
 
         private WorldBlock[,,] _blocks;
+        private PlayerService _playerService;
 
         public int RoomWidth { get; private set; }
         public int RoomHeight { get; private set; }
@@ -215,10 +215,10 @@ namespace CupCake.World
             this.Events.Bind<ResetReceiveEvent>(this.OnReset, EventPriority.High);
             this.Events.Bind<ClearReceiveEvent>(this.OnClear, EventPriority.High);
 
-            this.ServiceLoader.EnableComplete += ServiceLoader_EnableComplete;
+            this.ServiceLoader.EnableComplete += this.ServiceLoader_EnableComplete;
         }
 
-        void ServiceLoader_EnableComplete(object sender, System.EventArgs e)
+        private void ServiceLoader_EnableComplete(object sender, EventArgs e)
         {
             this._playerService = this.ServiceLoader.Get<PlayerService>();
         }
@@ -287,7 +287,7 @@ namespace CupCake.World
             this.RaisePlaceWorld(b, -1);
         }
 
-        private void RaisePlaceWorld(WorldBlock b,  int userId = -1)
+        private void RaisePlaceWorld(WorldBlock b, int userId = -1)
         {
             Player p;
             this._playerService.TryGetPlayer(userId, out p);

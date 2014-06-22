@@ -9,12 +9,12 @@
                     <Border
                         Name="Border"
                         BorderBrush="{StaticResource MenuSeparatorBorderBrush}"
-                        BorderThickness="1" Background="{StaticResource SubmenuItemBackground}" 
+                        BorderThickness="1" Background="{StaticResource SubmenuItemBackground}"
                         SnapsToDevicePixels="True" Padding="2" Margin="0,0,5,5">
                         <StackPanel IsItemsHost="True"
                                     KeyboardNavigation.DirectionalNavigation="Cycle" />
                         <Border.Effect>
-                            <DropShadowEffect ShadowDepth="2" Color="Black"/>
+                            <DropShadowEffect ShadowDepth="2" Color="Black" />
                         </Border.Effect>
                     </Border>
                 </ControlTemplate>

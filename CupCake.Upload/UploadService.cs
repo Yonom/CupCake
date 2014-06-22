@@ -19,6 +19,16 @@ namespace CupCake.Upload
         private DequeWorker _workThread;
         private WorldService _world;
 
+        public int Count
+        {
+            get { return this._workThread.Count; }
+        }
+
+        public int LagCheckCount
+        {
+            get { return this._checkQueue.Count; }
+        }
+
         protected override void Enable()
         {
             this.ServiceLoader.EnableComplete += this.ServiceLoader_EnableComplete;
@@ -34,16 +44,6 @@ namespace CupCake.Upload
             this.Events.Bind<ResetReceiveEvent>(this.OnReset, EventPriority.High);
         }
 
-        public int Count
-        {
-            get { return this._workThread.Count; }
-        }
-
-        public int LagCheckCount
-        {
-            get { return this._checkQueue.Count; }
-        }
-        
         private void OnReset(object sender, ResetReceiveEvent e)
         {
             this.Reset(this._world.RoomWidth, this._world.RoomHeight);
@@ -142,7 +142,10 @@ namespace CupCake.Upload
                     // If there already was a block in the lag checks, remove it, add this one instead
                     if (this._uploaded[(int)e.Layer, e.X, e.Y] > 0)
                     {
-                        var prev = this._checkQueue.FirstOrDefault(req => req.SendEvent.Layer == e.Layer && req.SendEvent.X == e.X && req.SendEvent.Y == e.Y);
+                        UploadRequestEvent prev =
+                            this._checkQueue.FirstOrDefault(
+                                req =>
+                                    req.SendEvent.Layer == e.Layer && req.SendEvent.X == e.X && req.SendEvent.Y == e.Y);
                         if (prev != null)
                         {
                             this._checkQueue.Remove(prev);

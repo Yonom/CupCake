@@ -1,6 +1,5 @@
 ﻿using System;
 using System.ComponentModel;
-using System.Threading;
 using MuffinFramework.Platforms;
 using Nito.Async;
 
@@ -10,15 +9,15 @@ namespace CupCake.Core
     {
         private ActionThread _thread;
 
+        public ISynchronizeInvoke SynchronizingObject { get; private set; }
+
         protected override void Enable()
         {
             this._thread = new ActionThread();
             this._thread.Start();
-            this._thread.DoSynchronously(() => 
+            this._thread.DoSynchronously(() =>
                 this.SynchronizingObject = new GenericSynchronizingObject());
         }
-
-        public ISynchronizeInvoke SynchronizingObject { get; private set; }
 
         public void Do(Action action)
         {
@@ -27,7 +26,7 @@ namespace CupCake.Core
 
         public bool DoSynchronously(Action action, TimeSpan timeout)
         {
-            if (!SynchronizingObject.InvokeRequired)
+            if (!this.SynchronizingObject.InvokeRequired)
                 action();
 
             return this._thread.DoSynchronously(action, timeout);
@@ -35,7 +34,7 @@ namespace CupCake.Core
 
         public void DoSynchronously(Action action)
         {
-            if (!SynchronizingObject.InvokeRequired)
+            if (!this.SynchronizingObject.InvokeRequired)
                 action();
 
             this._thread.DoSynchronously(action);
@@ -43,7 +42,7 @@ namespace CupCake.Core
 
         public T DoGet<T>(Func<T> action)
         {
-            if (!SynchronizingObject.InvokeRequired)
+            if (!this.SynchronizingObject.InvokeRequired)
                 return action();
 
             return this._thread.DoGet(action);
