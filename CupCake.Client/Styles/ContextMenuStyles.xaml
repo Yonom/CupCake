@@ -8,11 +8,14 @@
                 <ControlTemplate TargetType="ContextMenu">
                     <Border
                         Name="Border"
-                        Background="{TemplateBinding Background}"
-                        BorderBrush="{StaticResource BorderBrushNormal}"
-                        BorderThickness="1" Padding="2">
+                        BorderBrush="{StaticResource MenuSeparatorBorderBrush}"
+                        BorderThickness="1" Background="{StaticResource SubmenuItemBackground}" 
+                        SnapsToDevicePixels="True" Padding="2" Margin="0,0,5,5">
                         <StackPanel IsItemsHost="True"
                                     KeyboardNavigation.DirectionalNavigation="Cycle" />
+                        <Border.Effect>
+                            <DropShadowEffect ShadowDepth="2" Color="Black"/>
+                        </Border.Effect>
                     </Border>
                 </ControlTemplate>
             </Setter.Value>
