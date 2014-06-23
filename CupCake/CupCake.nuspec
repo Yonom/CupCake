@@ -14,8 +14,6 @@
   <files>
     <file src="bin\Release\Cupcake.dll" target="lib\net40" />
     <file src="bin\Release\Cupcake.*.dll" target="lib\net40" />
-    <file src="bin\Release\Cupcake.xml" target="lib\net40" />
-    <file src="bin\Release\Cupcake.*.xml" target="lib\net40" />
     <file src="bin\Release\MuffinFramework.dll" target="lib\net40" />
     <file src="bin\Release\PlayerIOClient.dll" target="lib\net40" />
     <file src="..\CupCake.Debug\bin\Release\CupCake.Debug.exe" target="content" />
