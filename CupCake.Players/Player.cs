@@ -112,7 +112,6 @@ namespace CupCake.Players
             this.BindPlayerEvent<GodModeReceiveEvent, GodModePlayerEvent>(this.OnGodMode);
             this.BindPlayerEvent<ModModeReceiveEvent, ModModePlayerEvent>(this.OnModMode);
             this.BindPlayerEvent<SilverCrownReceiveEvent, SilverCrownPlayerEvent>(this.OnSilverCrown);
-            this.BindPlayerEvent<TeleportUserReceiveEvent, TeleportPlayerEvent>(this.OnTeleportUser);
             this.BindPlayerEvent<LeftReceiveEvent, LeftPlayerEvent>(this.OnLeft);
             this.BindPlayerEvent<PotionReceiveEvent, PotionPlayerEvent>(this.OnPotion);
             this.BindPlayerEvent<SayReceiveEvent, SayPlayerEvent>(this.OnSay);
@@ -122,6 +121,7 @@ namespace CupCake.Players
             this.BindPlayerEvent<MagicReceiveEvent, MagicPlayerEvent>(this.OnMagic);
             this.BindPlayerEvent<CrownReceiveEvent, CrownPlayerEvent>(this.OnCrown);
 
+            this.Events.Bind<TeleportUserReceiveEvent>(this.OnTeleportUser, EventPriority.High);
             this.Events.Bind<TeleportEveryoneReceiveEvent>(this.OnTeleportEveryone, EventPriority.High);
         }
 
@@ -227,12 +227,6 @@ namespace CupCake.Players
             this.HasSilverCrown = true;
         }
 
-        private void OnTeleportUser(object sender, TeleportUserReceiveEvent e)
-        {
-            this.PosX = e.UserPosX;
-            this.PosY = e.UserPosY;
-        }
-
         private void OnLeft(object sender, LeftReceiveEvent e)
         {
             this.IsDisconnected = true;
@@ -318,6 +312,20 @@ namespace CupCake.Players
             // Nothing to do here
         }
 
+
+        private void OnTeleportUser(object sender, TeleportUserReceiveEvent e)
+        {
+            if (this.UserId == e.UserId)
+            {
+                this.PosX = e.UserPosX;
+                this.PosY = e.UserPosY;
+
+                var point = new Point(this.PosX, this.PosY);
+                this.SynchronizePlatform.Do(() =>
+                    this.Events.Raise(new TeleportPlayerEvent(this, point)));
+            }
+        }
+
         private void OnTeleportEveryone(object sender, TeleportEveryoneReceiveEvent e)
         {
             if (e.Coordinates.ContainsKey(this.UserId))
@@ -330,6 +338,10 @@ namespace CupCake.Players
                 {
                     this.Coins = default(int);
                 }
+
+                var point = new Point(this.PosX, this.PosY);
+                this.SynchronizePlatform.Do(() =>
+                    this.Events.Raise(new TeleportPlayerEvent(this, point)));
             }
         }
     }

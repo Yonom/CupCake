@@ -1,10 +1,11 @@
-﻿using CupCake.Messages.Receive;
+﻿using CupCake.Core;
+using CupCake.Messages.Receive;
 
 namespace CupCake.Players
 {
-    public class TeleportPlayerEvent : PlayerEvent<TeleportUserReceiveEvent>
+    public class TeleportPlayerEvent : PlayerEvent<Point>
     {
-        internal TeleportPlayerEvent(Player player, TeleportUserReceiveEvent innerEvent)
+        internal TeleportPlayerEvent(Player player, Point innerEvent)
             : base(player, innerEvent)
         {
         }
