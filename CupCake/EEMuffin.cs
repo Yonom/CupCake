@@ -4,7 +4,7 @@ using CupCake.Messages.Send;
 
 namespace CupCake
 {
-    public class EEMuffin : CupCakeMuffin
+    internal class EEMuffin : CupCakeMuffin
     {
         protected override void Enable()
         {

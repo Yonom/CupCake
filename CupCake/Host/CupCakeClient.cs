@@ -8,10 +8,19 @@ using PlayerIOClient;
 
 namespace CupCake.Host
 {
+    /// <summary>
+    /// Class CupCakeClient.
+    /// Use this client to host CupCake in your own application.
+    /// </summary>
     public class CupCakeClient : MuffinClient
     {
         private Connection _connection;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="CupCakeClient"/> class.
+        /// Automatically adds the current assembly and every assembly with the format "CupCake.*.dll".
+        /// </summary>
+        /// <param name="catalog">The ComposablePartCatalog array that contains zero or more items to add to the catalog.</param>
         public CupCakeClient(params ComposablePartCatalog[] catalog)
             : base(catalog)
         {
@@ -21,6 +30,11 @@ namespace CupCake.Host
             this.PlatformLoader.EnableComplete += this.PlatformLoader_EnableComplete;
         }
 
+        /// <summary>
+        /// Starts CupCake and sets the connection to the given one.
+        /// </summary>
+        /// <param name="connection">The connection.</param>
+        /// <exception cref="System.ArgumentNullException">connection</exception>
         public void Start(Connection connection)
         {
             if (connection == null)
@@ -30,6 +44,11 @@ namespace CupCake.Host
             base.Start();
         }
 
+        /// <summary>
+        /// Starts the client.
+        /// Obsolete. Use the overload with Connection parameter.
+        /// </summary>
+        /// <exception cref="System.NotSupportedException">Please provide the connection parameter</exception>
         [Obsolete("Use the overload with Connection parameter.", true)]
 #pragma warning disable 809
         public override void Start()
