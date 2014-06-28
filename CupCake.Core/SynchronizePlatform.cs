@@ -13,7 +13,7 @@ namespace CupCake.Core
 
         protected override void Enable()
         {
-            this._thread = new ActionThread();
+            this._thread = new ActionThread {IsBackground = true};
             this._thread.Start();
             this._thread.DoSynchronously(() =>
                 this.SynchronizingObject = new GenericSynchronizingObject());

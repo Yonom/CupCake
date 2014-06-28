@@ -59,7 +59,10 @@ namespace CupCake.Upload
             }
 
             if (enabledStop)
+            {
+                this._resetEvent.Set();
                 this._thread.Join();
+            }
         }
 
         public void QueueFront(Action task)
@@ -104,18 +107,21 @@ namespace CupCake.Upload
                 // Wait for an action to arrive
                 this._resetEvent.WaitOne();
 
-                Action task;
-                lock (this._deque)
+                if (_deque.Count > 0)
                 {
-                    task = this._deque.RemoveFromFront();
-
-                    // Reset the signal if necessary
-                    if (this._deque.Count == 0)
+                    Action task;
+                    lock (this._deque)
                     {
-                        this._resetEvent.Reset();
+                        task = this._deque.RemoveFromFront();
+
+                        // Reset the signal if necessary
+                        if (this._deque.Count == 0)
+                        {
+                            this._resetEvent.Reset();
+                        }
                     }
+                    task();
                 }
-                task();
             }
         }
     }

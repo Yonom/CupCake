@@ -135,8 +135,10 @@ namespace CupCake.Players
                     if (e.UserId == this.UserId)
                     {
                         callback(sender, e);
-
-                        var instance = (TPlayer)Activator.CreateInstance(typeof(TPlayer), this, e);
+                        var instance = (TPlayer)Activator.CreateInstance(typeof(TPlayer),
+                            System.Reflection.BindingFlags.NonPublic |
+                            System.Reflection.BindingFlags.Instance,
+                            null, new object[] {this, e}, null);
 
                         this.SynchronizePlatform.Do(() =>
                             this.Events.Raise(instance));
