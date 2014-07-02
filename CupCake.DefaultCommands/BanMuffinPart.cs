@@ -38,12 +38,27 @@ namespace CupCake.DefaultCommands
         private void OnChangedPermission(object sender, ChangedPermissionEvent e)
         {
             if (e.NewPermission == Group.Banned)
-            {
+            {                
+                // Save ban parameters
+                if (e.Player.GetRankLoaded())
+                {
+                    this.SetBanReason(e.Player.StorageName, e.Player.GetBanReason());
+                    this.SetBanTimeout(e.Player.StorageName, e.Player.GetBanTimeout());
+                }
+
+                // Get ban parameters
+                if (!e.Player.GetRankLoaded())
+                {
+                    e.Player.SetBanReason(this.GetBanReason(e.Player.StorageName));
+                    e.Player.SetBanTimeout(this.GetBanTimeout(e.Player.StorageName));
+                }
+
+
                 if (this.RoomService.AccessRight == AccessRight.Owner)
                 {
                     string kicktext = "Banned!";
-                    DateTime timeout = this.GetBanTimeout(e.Player.StorageName);
-                    string reason = this.GetBanReason(e.Player.StorageName);
+                    DateTime timeout = e.Player.GetBanTimeout();
+                    string reason = e.Player.GetBanReason();
 
                     if (timeout != default(DateTime))
                     {
@@ -61,20 +76,6 @@ namespace CupCake.DefaultCommands
                         kicktext += " Reason: " + reason;
                     }
                     this.Chatter.Kick(e.Player.Username, kicktext);
-                }
-
-                // Save ban parameters
-                if (e.Player.GetRankLoaded())
-                {
-                    this.SetBanReason(e.Player.StorageName, e.Player.GetBanReason());
-                    this.SetBanTimeout(e.Player.StorageName, e.Player.GetBanTimeout());
-                }
-
-                // Get ban parameters
-                if (!e.Player.GetRankLoaded())
-                {
-                    e.Player.SetBanReason(this.GetBanReason(e.Player.StorageName));
-                    e.Player.SetBanTimeout(this.GetBanTimeout(e.Player.StorageName));
                 }
             }
         }

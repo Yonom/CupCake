@@ -1,4 +1,5 @@
-﻿using System.Data.SQLite;
+﻿using System;
+using System.Data.SQLite;
 using CupCake.Core.Storage;
 
 namespace CupCake.Server.StorageProviders
@@ -50,8 +51,14 @@ namespace CupCake.Server.StorageProviders
                         cmd.Parameters.AddWithValue("@id", id);
                         cmd.Parameters.AddWithValue("@key", key);
 
+                        
                         conn.Open();
-                        return (string)cmd.ExecuteScalar();
+
+                        var result = cmd.ExecuteScalar();
+                        if (result is DBNull)
+                            return null;
+
+                        return (string)result;
                     }
                 }
             }
