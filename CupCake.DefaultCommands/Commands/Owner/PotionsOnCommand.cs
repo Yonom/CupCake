@@ -14,7 +14,7 @@ namespace CupCake.DefaultCommands.Commands.Owner
         {
             this.RequireOwner();
             this.Chatter.PotionsOn(message.Args);
-            source.Reply("Enabled potions.");
+            source.Reply("Enabled potions: {0}", message.GetTrail(0));
         }
     }
 }

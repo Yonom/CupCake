@@ -13,8 +13,10 @@ namespace CupCake.DefaultCommands.Commands.Owner
         protected override void Run(IInvokeSource source, ParsedCommand message)
         {
             this.RequireOwner();
-            this.RoomService.SetName(message.GetTrail(0));
-            source.Reply("Killed everyone.");
+
+            var name = message.GetTrail(0);
+            this.RoomService.SetName(name);
+            source.Reply("Name changed to: {0}", name);
         }
     }
 }
