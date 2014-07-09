@@ -18,7 +18,7 @@ namespace CupCake.DefaultCommands.Commands
                 player.SetBanTimeout(timeout);
                 player.SetGroup(Group.Banned);
 
-                source.Reply("{0} is now banned.", player.ChatName);
+                source.Reply("{0} is now Banned.", player.ChatName);
             }, username =>
             {
                 string storageName = PlayerUtils.GetStorageName(username);
@@ -27,7 +27,7 @@ namespace CupCake.DefaultCommands.Commands
                 this.Host.SetBanTimeout(storageName, timeout);
                 this.Host.SetPermission(storageName, Group.Banned);
 
-                source.Reply("{0} is now banned.", PlayerUtils.GetChatName(username));
+                source.Reply("{0} is now Banned.", PlayerUtils.GetChatName(username));
             });
         }
 

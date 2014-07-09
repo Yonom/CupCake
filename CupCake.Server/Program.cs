@@ -178,7 +178,11 @@ namespace CupCake.Server
                     {
                         OnConnection(h);
 
-                        h.ReceiveClose += () => Environment.Exit(0);
+                        h.ReceiveClose += () =>
+                        {
+                            _clientEx.Dispose();
+                            Environment.Exit(0);
+                        };
 
                         h.DoSendRequestData(_debug);
                     });

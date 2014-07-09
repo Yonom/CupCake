@@ -99,7 +99,7 @@ namespace CupCake.Server
         private void Disconnected()
         {
             this.LogMessage("Disconnected from Everybody Edits");
-            this._client.Dispose();
+            this.Dispose();
             Environment.Exit(1);
         }
 
@@ -166,6 +166,11 @@ namespace CupCake.Server
             if (attribute != null)
                 return attribute.InformationalVersion;
             return "Unknown!";
+        }
+
+        public void Dispose()
+        {
+            this._client.Dispose();
         }
     }
 }
