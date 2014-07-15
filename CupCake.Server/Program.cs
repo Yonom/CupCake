@@ -141,6 +141,8 @@ namespace CupCake.Server
         private static void Program_Output(string output)
         {
             _outputs.Add(output);
+
+            Console.WriteLine(output);
         }
 
         private static void Program_Title(string title)
