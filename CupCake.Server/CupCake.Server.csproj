@@ -81,9 +81,11 @@
     <Reference Include="System.Data.SQLite">
       <HintPath>..\packages\System.Data.SQLite.Core.1.0.92.0\lib\net40\System.Data.SQLite.dll</HintPath>
     </Reference>
+    <Reference Include="System.XML" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CupCakeClientHost.cs" />
+    <Compile Include="CupCakeServerSettings.cs" />
     <Compile Include="Muffins\IOMuffin.cs" />
     <Compile Include="Muffins\LogMuffin.cs" />
     <Compile Include="Muffins\StatusMuffin.cs" />
@@ -96,6 +98,7 @@
     <Compile Include="SyntaxProviders\CupCakeIOSyntaxProvider.cs" />
     <Compile Include="Muffins\TitleMuffin.cs" />
     <Compile Include="SyntaxProviders\CupCakeStatusSyntaxProvider.cs" />
+    <Compile Include="XmlSerialize.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\CupCake.Chat\CupCake.Chat.csproj">

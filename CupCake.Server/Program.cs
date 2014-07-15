@@ -19,17 +19,7 @@ namespace CupCake.Server
         private CommandBase<object> _uselessVariable;
 #pragma warning restore 169
 
-        private static int _port;
-        private static string _pin;
-        private static string _email;
-        private static string _password;
-        private static string _world;
-        private static AccountType _accountType;
-        private static DatabaseType _databaseType;
-        private static string _connectionString;
-        private static bool _debug;
-        private static bool _standalone;
-        private static readonly List<string> _dirs = new List<string>();
+        private static CupCakeServerSettings _settings = new CupCakeServerSettings();
 
         private static bool _started;
         private static readonly CupCakeClientHost _clientEx = new CupCakeClientHost();
@@ -75,54 +65,61 @@ namespace CupCake.Server
             _clientEx.Status += OnStatus;
 
             var p = new OptionSet
-            {
+            {                
+                {
+                    "settings",
+                    v => { _settings = XmlSerialize.Deserialize<CupCakeServerSettings>(v); }
+                },
                 {
                     "debug",
-                    v => { _debug = v != null; }
+                    v => { _settings.Debug = v != null; }
                 },
                 {
                     "standalone",
-                    v => { _standalone = v != null; }
+                    v => { _settings.Standalone = v != null; }
                 },
                 {
                     "envpath=",
-                    v => { Environment.CurrentDirectory = v; }
+                    v =>
+                    {
+                        Environment.CurrentDirectory = v;
+                    }
                 },
                 {
                     "port=",
-                    (int v) => { _port = v; }
+                    (int v) => { _settings.Port = v; }
                 },
                 {
                     "pin=",
-                    v => { _pin = v; }
+                    v => { _settings.Pin = v; }
                 },
                 {
                     "t|accounttype|type=",
-                    v => { _accountType = (AccountType)Enum.Parse(typeof(AccountType), v); }
+                    v => { _settings.AccountType = (AccountType)Enum.Parse(typeof(AccountType), v); }
                 },
                 {
                     "e|email=",
-                    v => { _email = v; }
+                    v => { _settings.Email = v; }
                 },
                 {
                     "p|password=",
-                    v => { _password = v; }
+                    v => { _settings.Password = v; }
                 },
                 {
                     "w|world=",
-                    v => { _world = v; }
+                    v => {_settings. World = v; }
                 },
                 {
                     "d|dir=",
-                    _dirs.Add
+                    _settings.Dirs.Add
                 },
                 {
                     "db|dbtype=",
-                    v => { _databaseType = (DatabaseType)Enum.Parse(typeof(DatabaseType), v); }
+                    v => { _settings.DatabaseType = (DatabaseType)Enum.Parse(typeof(DatabaseType), v); }
                 },
                 {
                     "cs|connectionstring|connectionstr|connstr=",
-                    v => { _connectionString = v; }
+                    v => {_settings. ConnectionString = v; }
                 }
             };
             try
@@ -167,10 +164,10 @@ namespace CupCake.Server
 
         private static void StartServer()
         {
-            var listener = new ServerListener(IPAddress.Any, _port, OnConnection);
+            var listener = new ServerListener(IPAddress.Any, _settings.Port, OnConnection);
 
             // Connect to server if not standalone
-            if (!_standalone)
+            if (!_settings.Standalone)
             {
                 try
                 {
@@ -184,7 +181,7 @@ namespace CupCake.Server
                             Environment.Exit(0);
                         };
 
-                        h.DoSendRequestData(_debug);
+                        h.DoSendRequestData(_settings.Debug);
                     });
                 }
                 catch (SocketException)
@@ -201,7 +198,7 @@ namespace CupCake.Server
 
         private static void OnConnection(ClientHandle h)
         {
-            bool authenticated = String.IsNullOrEmpty(_pin);
+            bool authenticated = String.IsNullOrEmpty(_settings.Pin);
 
             Output += s =>
             {
@@ -226,7 +223,7 @@ namespace CupCake.Server
 
             h.ReceiveAuthentication += authentication =>
             {
-                if (_pin == authentication.Pin || authenticated)
+                if (_settings.Pin == authentication.Pin || authenticated)
                 {
                     authenticated = true;
                     h.DoSendTitle(_title);
@@ -255,14 +252,14 @@ namespace CupCake.Server
             {
                 if (!authenticated) return;
 
-                _accountType = data.AccountType;
-                _email = data.Email;
-                _password = data.Password;
-                _world = data.World;
+                _settings.AccountType = data.AccountType;
+                _settings.Email = data.Email;
+                _settings.Password = data.Password;
+                _settings.World = data.World;
                 if (data.Directories != null)
-                    _dirs.AddRange(data.Directories);
-                _databaseType = data.DatabaseType;
-                _connectionString = data.ConnectionString;
+                    _settings.Dirs.InsertRange(0, data.Directories);
+                _settings.DatabaseType = data.DatabaseType;
+                _settings.ConnectionString = data.ConnectionString;
 
                 Start();
             };
@@ -276,10 +273,10 @@ namespace CupCake.Server
             IStorageProvider storage;
             try
             {
-                if (_databaseType == DatabaseType.MySql)
-                    storage = new MySqlStorageProvider(_connectionString);
-                else if (_databaseType == DatabaseType.SQLite)
-                    storage = new SQLiteStorageProvider(_connectionString);
+                if (_settings.DatabaseType == DatabaseType.MySql)
+                    storage = new MySqlStorageProvider(_settings.ConnectionString);
+                else if (_settings.DatabaseType == DatabaseType.SQLite)
+                    storage = new SQLiteStorageProvider(_settings.ConnectionString);
                 else
                     storage = null;
             }
@@ -289,7 +286,7 @@ namespace CupCake.Server
                 throw;
             }
 
-            _clientEx.Start(_accountType, _email, _password, _world, _dirs.ToArray(), storage);
+            _clientEx.Start(_settings.AccountType, _settings.Email, _settings.Password, _settings.World, _settings.Dirs.ToArray(), storage);
         }
     }
 }
