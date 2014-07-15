@@ -38,8 +38,8 @@
     <AssemblyOriginatorKeyFile>Key.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="MuffinFramework">
-      <HintPath>..\Lib\MuffinFramework.dll</HintPath>
+    <Reference Include="MuffinFramework.NET">
+      <HintPath>..\Lib\MuffinFramework.NET.dll</HintPath>
     </Reference>
     <Reference Include="Nito.Async, Version=1.4.0.0, Culture=neutral, PublicKeyToken=3206e950277c1912, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>

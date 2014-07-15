@@ -61,8 +61,8 @@
     <NoWin32Manifest>true</NoWin32Manifest>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="MuffinFramework">
-      <HintPath>..\Lib\MuffinFramework.dll</HintPath>
+    <Reference Include="MuffinFramework.NET">
+      <HintPath>..\Lib\MuffinFramework.NET.dll</HintPath>
     </Reference>
     <Reference Include="MySql.Data, Version=6.8.3.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
       <Private>True</Private>
