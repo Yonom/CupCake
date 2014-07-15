@@ -67,7 +67,7 @@ namespace CupCake.Server
             var p = new OptionSet
             {                
                 {
-                    "settings",
+                    "settings=",
                     v => { _settings = XmlSerialize.Deserialize<CupCakeServerSettings>(v); }
                 },
                 {
