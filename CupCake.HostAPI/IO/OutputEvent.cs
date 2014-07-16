@@ -6,7 +6,7 @@ namespace CupCake.HostAPI.IO
     {
         public OutputEvent(string message)
         {
-            this.Message = message;
+            Message = message;
         }
 
         public string Message { get; set; }

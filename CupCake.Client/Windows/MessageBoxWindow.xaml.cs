@@ -9,15 +9,15 @@ namespace CupCake.Client.Windows
     {
         public MessageBoxWindow(string title, string body)
         {
-            this.InitializeComponent();
+            InitializeComponent();
 
-            this.Title = title;
-            this.BodyTextBlock.Text = body;
+            Title = title;
+            BodyTextBlock.Text = body;
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            this.DialogResult = true;
+            DialogResult = true;
         }
     }
 }

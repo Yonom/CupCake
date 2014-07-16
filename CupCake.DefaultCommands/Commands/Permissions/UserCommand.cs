@@ -14,7 +14,7 @@ namespace CupCake.DefaultCommands.Commands.Permissions
         [CorrectUsage("player")]
         protected override void Run(IInvokeSource source, ParsedCommand message)
         {
-            this.RunPermissionCommand(source, message, Group.User);
+            RunPermissionCommand(source, message, Group.User);
         }
     }
 }

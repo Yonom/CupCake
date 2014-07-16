@@ -8,10 +8,10 @@ namespace CupCake.Messages.Receive
         public ClearReceiveEvent(Message message)
             : base(message)
         {
-            this.RoomWidth = message.GetInteger(0);
-            this.RoomHeight = message.GetInteger(1);
-            this.BorderBlock = (Block)message.GetInteger(2);
-            this.FillBlock = (Block)message.GetInteger(3);
+            RoomWidth = message.GetInteger(0);
+            RoomHeight = message.GetInteger(1);
+            BorderBlock = (Block) message.GetInteger(2);
+            FillBlock = (Block) message.GetInteger(3);
         }
 
         public Block FillBlock { get; set; }

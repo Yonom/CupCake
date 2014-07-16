@@ -10,9 +10,9 @@ namespace CupCake.DefaultCommands.Commands
     {
         private void BanInternal(IInvokeSource source, string name, string reason, DateTime timeout)
         {
-            this.PlayerService.MatchPlayer(name, player =>
+            PlayerService.MatchPlayer(name, player =>
             {
-                this.RequireHigherRank(source, player);
+                RequireHigherRank(source, player);
 
                 player.SetBanReason(reason);
                 player.SetBanTimeout(timeout);
@@ -22,10 +22,10 @@ namespace CupCake.DefaultCommands.Commands
             }, username =>
             {
                 string storageName = PlayerUtils.GetStorageName(username);
-                this.RequireHigherRankOffline(source, storageName);
-                this.Host.SetBanReason(storageName, reason);
-                this.Host.SetBanTimeout(storageName, timeout);
-                this.Host.SetPermission(storageName, Group.Banned);
+                RequireHigherRankOffline(source, storageName);
+                Host.SetBanReason(storageName, reason);
+                Host.SetBanTimeout(storageName, timeout);
+                Host.SetPermission(storageName, Group.Banned);
 
                 source.Reply("{0} is now Banned.", PlayerUtils.GetChatName(username));
             });
@@ -33,29 +33,29 @@ namespace CupCake.DefaultCommands.Commands
 
         internal void Ban(IInvokeSource source, string name)
         {
-            this.BanInternal(source, name, null, default(DateTime));
+            BanInternal(source, name, null, default(DateTime));
         }
 
         internal void Ban(IInvokeSource source, string name, string reason)
         {
-            this.BanInternal(source, name, reason, default(DateTime));
+            BanInternal(source, name, reason, default(DateTime));
         }
 
         internal void Ban(IInvokeSource source, string name, DateTime timeout)
         {
-            this.BanInternal(source, name, null, timeout);
+            BanInternal(source, name, null, timeout);
         }
 
         internal void Ban(IInvokeSource source, string name, DateTime timeout, string reason)
         {
-            this.BanInternal(source, name, reason, timeout);
+            BanInternal(source, name, reason, timeout);
         }
 
         internal void RequireHigherRankOffline(IInvokeSource source, string name)
         {
-            if (this.Host.GetPermission(name) >= source.Group)
+            if (Host.GetPermission(name) >= source.Group)
                 throw new CommandException(String.Format("You may not {0} a player with a higher rank.",
-                    this.CommandName));
+                    CommandName));
         }
     }
 }

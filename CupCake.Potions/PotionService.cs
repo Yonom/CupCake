@@ -19,49 +19,49 @@ namespace CupCake.Potions
 
         public int GetCount(Potion potion)
         {
-            lock (this._potionCounts)
+            lock (_potionCounts)
             {
-                if (!this._potionCounts.ContainsKey(potion))
+                if (!_potionCounts.ContainsKey(potion))
                     return new int();
 
-                return this._potionCounts[potion];
+                return _potionCounts[potion];
             }
         }
 
         private void SetPotion(Potion potion, int value)
         {
-            lock (this._potionCounts)
+            lock (_potionCounts)
             {
-                this._potionCounts[potion] = value;
+                _potionCounts[potion] = value;
 
-                this.SynchronizePlatform.Do(() =>
-                    this.Events.Raise(new PotionCountEvent(potion, value)));
+                SynchronizePlatform.Do(() =>
+                    Events.Raise(new PotionCountEvent(potion, value)));
             }
         }
 
         public void UsePotion(Potion pot)
         {
-            if (!this.AllowPotions)
+            if (!AllowPotions)
                 throw new InvalidOperationException("Potions have been disabled in this world!");
-            if (this.DisabledPotions.Contains(pot))
+            if (DisabledPotions.Contains(pot))
                 throw new InvalidOperationException("That potion has been disabled in this world!");
-            if (this.GetCount(pot) == 0)
+            if (GetCount(pot) == 0)
                 throw new InvalidOperationException("Bot does not own any potions of that type!");
 
-            this.Events.Raise(new PotionSendEvent(pot));
+            Events.Raise(new PotionSendEvent(pot));
         }
 
         protected override void Enable()
         {
-            this.Events.Bind<InitReceiveEvent>(this.OnInit, EventPriority.High);
-            this.Events.Bind<PotionCountReceiveEvent>(this.OnPotionCount, EventPriority.High);
-            this.Events.Bind<AllowPotionsReceiveEvent>(this.OnAllowPotions, EventPriority.High);
+            Events.Bind<InitReceiveEvent>(OnInit, EventPriority.High);
+            Events.Bind<PotionCountReceiveEvent>(OnPotionCount, EventPriority.High);
+            Events.Bind<AllowPotionsReceiveEvent>(OnAllowPotions, EventPriority.High);
         }
 
         private void OnInit(object sender, InitReceiveEvent e)
         {
-            this.AllowPotions = e.AllowPotions;
-            this.OnPotionCount(sender, e);
+            AllowPotions = e.AllowPotions;
+            OnPotionCount(sender, e);
         }
 
         private void OnPotionCount(object sender, ReceiveEvent e)
@@ -79,8 +79,8 @@ namespace CupCake.Potions
             uint pointer = startNum;
             while (e.PlayerIOMessage[pointer] as string == null || e.PlayerIOMessage.GetString(pointer) != "ps")
             {
-                this.SetPotion(
-                    ((Potion)e.PlayerIOMessage.GetInteger(pointer - 1)),
+                SetPotion(
+                    ((Potion) e.PlayerIOMessage.GetInteger(pointer - 1)),
                     e.PlayerIOMessage.GetInteger(pointer));
                 pointer -= 2;
             }
@@ -88,8 +88,8 @@ namespace CupCake.Potions
 
         private void OnAllowPotions(object sender, AllowPotionsReceiveEvent e)
         {
-            this.AllowPotions = e.Allowed;
-            this.DisabledPotions = e.DisabledPotions;
+            AllowPotions = e.Allowed;
+            DisabledPotions = e.DisabledPotions;
         }
     }
 }

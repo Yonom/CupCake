@@ -10,7 +10,7 @@ namespace CupCake.DefaultCommands.Commands
         {
             if (message.Count >= 1)
             {
-                return this.PlayerService.MatchPlayer(message.Args[0]);
+                return PlayerService.MatchPlayer(message.Args[0]);
             }
             var playerSource = source as PlayerInvokeSource;
             if (playerSource != null)

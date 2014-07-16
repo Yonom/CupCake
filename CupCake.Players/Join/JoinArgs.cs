@@ -4,7 +4,7 @@
     {
         protected JoinArgs(PlayerService playerService)
         {
-            this.PlayerService = playerService;
+            PlayerService = playerService;
         }
 
         public PlayerService PlayerService { get; private set; }

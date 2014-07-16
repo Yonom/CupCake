@@ -13,14 +13,14 @@ namespace CupCake.Client.Settings
 
         public Settings(bool isNew)
         {
-            this.Accounts = new List<Account>();
-            this.Profiles = new List<Profile>();
-            this.RecentWorlds = new List<RecentWorld>();
-            this.Databases = new List<Database>();
+            Accounts = new List<Account>();
+            Profiles = new List<Profile>();
+            RecentWorlds = new List<RecentWorld>();
+            Databases = new List<Database>();
 
             if (isNew)
             {
-                this.Profiles.Add(new Profile
+                Profiles.Add(new Profile
                 {
                     Id = SettingsManager.DefaultId,
                     Name = SettingsManager.DefaultString,
@@ -28,7 +28,7 @@ namespace CupCake.Client.Settings
                     Database = SettingsManager.DefaultId
                 });
 
-                this.Databases.Add(new Database
+                Databases.Add(new Database
                 {
                     Id = SettingsManager.DefaultId,
                     Name = SettingsManager.DefaultString,

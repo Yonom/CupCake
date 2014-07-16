@@ -7,8 +7,8 @@ namespace CupCake.Messages.Receive
         public AutoTextReceiveEvent(Message message)
             : base(message)
         {
-            this.UserId = message.GetInteger(0);
-            this.AutoText = message.GetString(1);
+            UserId = message.GetInteger(0);
+            AutoText = message.GetString(1);
         }
 
         public string AutoText { get; set; }

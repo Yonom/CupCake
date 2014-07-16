@@ -10,16 +10,16 @@ namespace CupCake.Server.StorageProviders
 
         public SQLiteStorageProvider(string connectionString)
         {
-            this._connectionString = connectionString;
+            _connectionString = connectionString;
 
-            this.CreateTable();
+            CreateTable();
         }
 
         public void Set(string id, string key, string value)
         {
             try
             {
-                using (var conn = new SQLiteConnection(this._connectionString))
+                using (var conn = new SQLiteConnection(_connectionString))
                 {
                     const string query = "INSERT OR REPLACE INTO cupcake VALUES (@id, @key, @value)";
                     using (var cmd = new SQLiteCommand(query, conn))
@@ -43,7 +43,7 @@ namespace CupCake.Server.StorageProviders
         {
             try
             {
-                using (var conn = new SQLiteConnection(this._connectionString))
+                using (var conn = new SQLiteConnection(_connectionString))
                 {
                     const string query = "SELECT value FROM cupcake WHERE id = @id AND key = @key";
                     using (var cmd = new SQLiteCommand(query, conn))
@@ -51,14 +51,14 @@ namespace CupCake.Server.StorageProviders
                         cmd.Parameters.AddWithValue("@id", id);
                         cmd.Parameters.AddWithValue("@key", key);
 
-                        
+
                         conn.Open();
 
-                        var result = cmd.ExecuteScalar();
+                        object result = cmd.ExecuteScalar();
                         if (result is DBNull)
                             return null;
 
-                        return (string)result;
+                        return (string) result;
                     }
                 }
             }
@@ -72,7 +72,7 @@ namespace CupCake.Server.StorageProviders
         {
             try
             {
-                using (var conn = new SQLiteConnection(this._connectionString))
+                using (var conn = new SQLiteConnection(_connectionString))
                 {
                     const string query =
                         "CREATE TABLE IF NOT EXISTS cupcake (id VARCHAR(45) NOT NULL,key VARCHAR(45) NOT NULL,value TEXT NULL,PRIMARY KEY (id, key));";

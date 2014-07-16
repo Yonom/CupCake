@@ -6,14 +6,14 @@ namespace CupCake.Messages.Send
     {
         public AllowPotionsSendEvent(bool allowed)
         {
-            this.Allowed = allowed;
+            Allowed = allowed;
         }
 
         public bool Allowed { get; set; }
 
         public override Message GetMessage()
         {
-            return Message.Create("allowpotions", this.Allowed);
+            return Message.Create("allowpotions", Allowed);
         }
     }
 }

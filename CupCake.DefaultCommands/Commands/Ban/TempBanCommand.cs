@@ -26,11 +26,11 @@ namespace CupCake.DefaultCommands.Commands.Ban
 
             if (message.Count >= 3)
             {
-                this.Ban(source, message.Args[0], timeout, message.GetTrail(2));
+                Ban(source, message.Args[0], timeout, message.GetTrail(2));
             }
             else
             {
-                this.Ban(source, message.Args[0], timeout);
+                Ban(source, message.Args[0], timeout);
             }
         }
     }

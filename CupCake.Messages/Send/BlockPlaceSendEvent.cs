@@ -7,10 +7,10 @@ namespace CupCake.Messages.Send
     {
         public BlockPlaceSendEvent(Layer layer, int x, int y, Block block)
         {
-            this.Layer = BlockUtils.CorrectLayer(block, layer);
-            this.X = x;
-            this.Y = y;
-            this.Block = block;
+            Layer = BlockUtils.CorrectLayer(block, layer);
+            X = x;
+            Y = y;
+            Block = block;
         }
 
         public Block Block { get; set; }
@@ -22,7 +22,7 @@ namespace CupCake.Messages.Send
 
         public override Message GetMessage()
         {
-            return Message.Create(this.Encryption, (int)this.Layer, this.X, this.Y, (int)this.Block);
+            return Message.Create(Encryption, (int) Layer, X, Y, (int) Block);
         }
     }
 }

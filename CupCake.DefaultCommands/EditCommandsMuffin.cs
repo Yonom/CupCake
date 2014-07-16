@@ -8,7 +8,7 @@ namespace CupCake.DefaultCommands
 
         protected override void Enable()
         {
-            this.GodModeCommand = this.EnablePart<GodModeCommand>();
+            GodModeCommand = EnablePart<GodModeCommand>();
         }
     }
 }

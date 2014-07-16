@@ -8,7 +8,7 @@ namespace CupCake.Command
     {
         public MinGroupAttribute(Group @group)
         {
-            this.Group = @group;
+            Group = @group;
         }
 
         public Group Group { get; private set; }

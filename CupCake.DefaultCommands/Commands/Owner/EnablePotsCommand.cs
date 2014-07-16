@@ -13,7 +13,7 @@ namespace CupCake.DefaultCommands.Commands.Owner
         [CorrectUsage("isAllowed")]
         protected override void Run(IInvokeSource source, ParsedCommand message)
         {
-            this.RequireOwner();
+            RequireOwner();
 
             bool isAllowed;
             try
@@ -24,7 +24,7 @@ namespace CupCake.DefaultCommands.Commands.Owner
             {
                 throw new CommandException("Unable to parse parameter: isAllowed", ex);
             }
-            this.RoomService.SetAllowPotions(isAllowed);
+            RoomService.SetAllowPotions(isAllowed);
             source.Reply("Potions enabled: {0}.", isAllowed);
         }
     }

@@ -7,7 +7,7 @@ namespace CupCake.Core
     {
     }
 
-    [InheritedExport(typeof(IService))]
+    [InheritedExport(typeof (IService))]
     public abstract class CupCakeService<TProtocol> : CupCakeServicePart<TProtocol>, IService
     {
     }

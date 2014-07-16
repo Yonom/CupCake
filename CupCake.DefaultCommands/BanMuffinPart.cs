@@ -19,42 +19,42 @@ namespace CupCake.DefaultCommands
 
         protected override void Enable()
         {
-            this.Events.Bind<ChangedPermissionEvent>(this.OnChangedPermission, EventPriority.Lowest);
+            Events.Bind<ChangedPermissionEvent>(OnChangedPermission, EventPriority.Lowest);
 
-            this.BanCommand = this.EnablePart<BanCommand, BanMuffinPart>();
-            this.TempBanCommand = this.EnablePart<TempBanCommand, BanMuffinPart>();
+            BanCommand = EnablePart<BanCommand, BanMuffinPart>();
+            TempBanCommand = EnablePart<TempBanCommand, BanMuffinPart>();
         }
 
         internal void SetPermission(string username, Group group)
         {
-            this.Host.SetPermission(username, group);
+            Host.SetPermission(username, group);
         }
 
         internal Group GetPermission(string name)
         {
-            return this.Host.GetPermission(name);
+            return Host.GetPermission(name);
         }
 
         private void OnChangedPermission(object sender, ChangedPermissionEvent e)
         {
             if (e.NewPermission == Group.Banned)
-            {                
+            {
                 // Save ban parameters
                 if (e.Player.GetRankLoaded())
                 {
-                    this.SetBanReason(e.Player.StorageName, e.Player.GetBanReason());
-                    this.SetBanTimeout(e.Player.StorageName, e.Player.GetBanTimeout());
+                    SetBanReason(e.Player.StorageName, e.Player.GetBanReason());
+                    SetBanTimeout(e.Player.StorageName, e.Player.GetBanTimeout());
                 }
 
                 // Get ban parameters
                 if (!e.Player.GetRankLoaded())
                 {
-                    e.Player.SetBanReason(this.GetBanReason(e.Player.StorageName));
-                    e.Player.SetBanTimeout(this.GetBanTimeout(e.Player.StorageName));
+                    e.Player.SetBanReason(GetBanReason(e.Player.StorageName));
+                    e.Player.SetBanTimeout(GetBanTimeout(e.Player.StorageName));
                 }
 
 
-                if (this.RoomService.AccessRight == AccessRight.Owner)
+                if (RoomService.AccessRight == AccessRight.Owner)
                 {
                     string kicktext = "Banned!";
                     DateTime timeout = e.Player.GetBanTimeout();
@@ -67,7 +67,7 @@ namespace CupCake.DefaultCommands
                         // Check if ban has not expired already
                         if (timeout <= DateTime.UtcNow)
                         {
-                            this.PermissionService.User(e.Player);
+                            PermissionService.User(e.Player);
                             return;
                         }
                     }
@@ -75,7 +75,7 @@ namespace CupCake.DefaultCommands
                     {
                         kicktext += " Reason: " + reason;
                     }
-                    this.Chatter.Kick(e.Player.Username, kicktext);
+                    Chatter.Kick(e.Player.Username, kicktext);
                 }
             }
         }
@@ -84,11 +84,11 @@ namespace CupCake.DefaultCommands
         {
             try
             {
-                return this.StoragePlatform.Get(BanReasonsId, name);
+                return StoragePlatform.Get(BanReasonsId, name);
             }
             catch (StorageException ex)
             {
-                this.Logger.Log(LogPriority.Error, "Unable to load ban reason for user " + name + ". " + ex.Message);
+                Logger.Log(LogPriority.Error, "Unable to load ban reason for user " + name + ". " + ex.Message);
             }
 
             return null;
@@ -98,11 +98,11 @@ namespace CupCake.DefaultCommands
         {
             try
             {
-                this.StoragePlatform.Set(BanReasonsId, name, reason);
+                StoragePlatform.Set(BanReasonsId, name, reason);
             }
             catch (StorageException ex)
             {
-                this.Logger.Log(LogPriority.Error, "Unable to save ban reason for user " + name + ". " + ex.Message);
+                Logger.Log(LogPriority.Error, "Unable to save ban reason for user " + name + ". " + ex.Message);
             }
         }
 
@@ -110,7 +110,7 @@ namespace CupCake.DefaultCommands
         {
             try
             {
-                string timeoutStr = this.StoragePlatform.Get(BanTimeoutsId, name);
+                string timeoutStr = StoragePlatform.Get(BanTimeoutsId, name);
                 if (timeoutStr != null)
                 {
                     DateTime timeout = DateTime.Parse(timeoutStr, CultureInfo.InvariantCulture);
@@ -119,7 +119,7 @@ namespace CupCake.DefaultCommands
             }
             catch (StorageException ex)
             {
-                this.Logger.Log(LogPriority.Error, "Unable to load ban timeout for user " + name + ". " + ex.Message);
+                Logger.Log(LogPriority.Error, "Unable to load ban timeout for user " + name + ". " + ex.Message);
             }
 
             return default(DateTime);
@@ -129,11 +129,11 @@ namespace CupCake.DefaultCommands
         {
             try
             {
-                this.StoragePlatform.Set(BanTimeoutsId, name, timeout.ToString(CultureInfo.InvariantCulture));
+                StoragePlatform.Set(BanTimeoutsId, name, timeout.ToString(CultureInfo.InvariantCulture));
             }
             catch (StorageException ex)
             {
-                this.Logger.Log(LogPriority.Error, "Unable to save ban timeout for user " + name + ". " + ex.Message);
+                Logger.Log(LogPriority.Error, "Unable to save ban timeout for user " + name + ". " + ex.Message);
             }
         }
     }

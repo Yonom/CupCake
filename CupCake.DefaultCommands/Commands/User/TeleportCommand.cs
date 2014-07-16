@@ -14,23 +14,23 @@ namespace CupCake.DefaultCommands.Commands.User
         [CorrectUsage("player x y")]
         protected override void Run(IInvokeSource source, ParsedCommand message)
         {
-            this.RequireOwner();
-            Player player = this.PlayerService.MatchPlayer(message.Args[0]);
-            this.RequireSameRank(source, player);
+            RequireOwner();
+            Player player = PlayerService.MatchPlayer(message.Args[0]);
+            RequireSameRank(source, player);
 
             if (message.Count >= 3)
             {
                 int x = message.GetInt(1);
                 int y = message.GetInt(2);
 
-                this.Chatter.Teleport(player.Username, x, y);
+                Chatter.Teleport(player.Username, x, y);
             }
             else if (message.Count == 2)
             {
                 try
                 {
-                    Player target = this.PlayerService.MatchPlayer(message.Args[1]);
-                    this.Chatter.Teleport(player.Username, target.BlockX, target.BlockY);
+                    Player target = PlayerService.MatchPlayer(message.Args[1]);
+                    Chatter.Teleport(player.Username, target.BlockX, target.BlockY);
                 }
                 catch (CommandException ex)
                 {
@@ -45,11 +45,11 @@ namespace CupCake.DefaultCommands.Commands.User
                     int x = playerSource.Player.BlockX;
                     int y = playerSource.Player.BlockX;
 
-                    this.Chatter.Teleport(player.Username, x, y);
+                    Chatter.Teleport(player.Username, x, y);
                 }
                 else
                 {
-                    this.Chatter.Teleport(player.Username);
+                    Chatter.Teleport(player.Username);
                 }
             }
 

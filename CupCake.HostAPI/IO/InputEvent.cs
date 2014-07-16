@@ -6,7 +6,7 @@ namespace CupCake.HostAPI.IO
     {
         public InputEvent(string input)
         {
-            this.Input = input;
+            Input = input;
         }
 
         public string Input { get; set; }

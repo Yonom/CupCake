@@ -16,32 +16,32 @@ namespace CupCake.Upload
         {
             get
             {
-                lock (this._deque)
+                lock (_deque)
                 {
-                    return this._deque.Count;
+                    return _deque.Count;
                 }
             }
         }
 
         public bool IsAlive
         {
-            get { return (this._thread != null && this._thread.IsAlive); }
+            get { return (_thread != null && _thread.IsAlive); }
         }
 
         public void Start()
         {
-            lock (this._lockObj)
+            lock (_lockObj)
             {
-                if (!this.IsAlive)
+                if (!IsAlive)
                 {
-                    this._stopping = false;
+                    _stopping = false;
 
-                    this._thread = new Thread(this.Work)
+                    _thread = new Thread(Work)
                     {
                         IsBackground = true,
                         Name = "CupCake.Upload.DequeWorker"
                     };
-                    this._thread.Start();
+                    _thread.Start();
                 }
             }
         }
@@ -49,75 +49,75 @@ namespace CupCake.Upload
         public void Stop()
         {
             bool enabledStop = false;
-            lock (this._lockObj)
+            lock (_lockObj)
             {
-                if (this.IsAlive)
+                if (IsAlive)
                 {
                     enabledStop = true;
-                    this._stopping = true;
+                    _stopping = true;
                 }
             }
 
             if (enabledStop)
             {
-                this._resetEvent.Set();
-                this._thread.Join();
+                _resetEvent.Set();
+                _thread.Join();
             }
         }
 
         public void QueueFront(Action task)
         {
-            lock (this._deque)
+            lock (_deque)
             {
-                this._deque.AddToFront(task);
+                _deque.AddToFront(task);
 
-                if (this._deque.Count == 1)
+                if (_deque.Count == 1)
                 {
-                    this._resetEvent.Set();
+                    _resetEvent.Set();
                 }
             }
         }
 
         public void QueueBack(Action task)
         {
-            lock (this._deque)
+            lock (_deque)
             {
-                this._deque.AddToBack(task);
+                _deque.AddToBack(task);
 
-                if (this._deque.Count == 1)
+                if (_deque.Count == 1)
                 {
-                    this._resetEvent.Set();
+                    _resetEvent.Set();
                 }
             }
         }
 
         public void Clear()
         {
-            lock (this._deque)
+            lock (_deque)
             {
-                this._deque.Clear();
-                this._resetEvent.Reset();
+                _deque.Clear();
+                _resetEvent.Reset();
             }
         }
 
         private void Work()
         {
-            while (!this._stopping)
+            while (!_stopping)
             {
                 // Wait for an action to arrive
-                this._resetEvent.WaitOne();
+                _resetEvent.WaitOne();
 
                 if (_deque.Count > 0)
                 {
                     Action task;
-                    lock (this._deque)
+                    lock (_deque)
                     {
-                        task = this._deque.RemoveFromFront();
+                        task = _deque.RemoveFromFront();
 
                         // Reset the signal if necessary
-                        if (this._deque.Count == 0)
+                        if (_deque.Count == 0)
                         {
-                            this._resetEvent.Reset();
+                            _resetEvent.Reset();
                         }
                     }
                     task();

@@ -14,7 +14,7 @@ namespace CupCake.Core.Events
 
         public EventHandle<T> Event<T>() where T : Event
         {
-            return (EventHandle<T>)this._eventHandler.GetOrAdd(typeof(T), t => this.EnablePart<EventHandle<T>>());
+            return (EventHandle<T>) _eventHandler.GetOrAdd(typeof (T), t => EnablePart<EventHandle<T>>());
         }
     }
 }

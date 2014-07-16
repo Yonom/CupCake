@@ -17,41 +17,41 @@ namespace CupCake.Client.Windows
 
         public EditLocalDatabaseWindow(Database database)
         {
-            this.InitializeComponent();
+            InitializeComponent();
 
-            this.Title = "New Local Database";
+            Title = "New Local Database";
 
-            this._database = database;
-            this.NameTextBox.Text = database.Name;
-            this.FolderTextBox.Text = SettingsManager.DatabasesPath + "\\";
+            _database = database;
+            NameTextBox.Text = database.Name;
+            FolderTextBox.Text = SettingsManager.DatabasesPath + "\\";
         }
 
         private void OkButton_Click(object sender, RoutedEventArgs e)
         {
-            this._database.Type = DatabaseType.SQLite;
-            this._database.Name = this.NameTextBox.Text;
-            this._database.ConnectionString = String.Format(Database.SQLiteFormat, this.FolderTextBox.Text);
+            _database.Type = DatabaseType.SQLite;
+            _database.Name = NameTextBox.Text;
+            _database.ConnectionString = String.Format(Database.SQLiteFormat, FolderTextBox.Text);
 
-            this.DialogResult = true;
+            DialogResult = true;
         }
 
         private void CancelButton_Click(object sender, RoutedEventArgs e)
         {
-            this.DialogResult = false;
+            DialogResult = false;
         }
 
         private void NameTextBox_OnTextChanged(object sender, TextChangedEventArgs e)
         {
-            string filePath = this.FolderTextBox.Text;
-            string fileName = this.NameTextBox.Text + ".db";
+            string filePath = FolderTextBox.Text;
+            string fileName = NameTextBox.Text + ".db";
 
             if (filePath.EndsWith("\\"))
-                this.FolderTextBox.Text += fileName;
-            else if (!String.IsNullOrEmpty(this._lastName) && filePath.EndsWith(this._lastName))
-                this.FolderTextBox.Text = filePath.Substring(0, filePath.Length - this._lastName.Length) + fileName;
+                FolderTextBox.Text += fileName;
+            else if (!String.IsNullOrEmpty(_lastName) && filePath.EndsWith(_lastName))
+                FolderTextBox.Text = filePath.Substring(0, filePath.Length - _lastName.Length) + fileName;
 
 
-            this._lastName = fileName;
+            _lastName = fileName;
         }
 
         private void BrowseButton_Click(object sender, RoutedEventArgs e)
@@ -74,7 +74,7 @@ namespace CupCake.Client.Windows
             {
                 string folder = dlg.FileName;
 
-                this.FolderTextBox.Text = folder;
+                FolderTextBox.Text = folder;
             }
         }
     }

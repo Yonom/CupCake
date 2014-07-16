@@ -76,7 +76,7 @@ namespace JetBrains.Annotations
         /// </param>
         public StringFormatMethodAttribute(string formatParameterName)
         {
-            this.FormatParameterName = formatParameterName;
+            FormatParameterName = formatParameterName;
         }
 
         public string FormatParameterName { get; private set; }
@@ -164,7 +164,7 @@ namespace JetBrains.Annotations
 
         public NotifyPropertyChangedInvocatorAttribute(string parameterName)
         {
-            this.ParameterName = parameterName;
+            ParameterName = parameterName;
         }
 
         public string ParameterName { get; private set; }
@@ -234,8 +234,8 @@ namespace JetBrains.Annotations
 
         public ContractAnnotationAttribute([NotNull] string contract, bool forceFullStates)
         {
-            this.Contract = contract;
-            this.ForceFullStates = forceFullStates;
+            Contract = contract;
+            ForceFullStates = forceFullStates;
         }
 
         public string Contract { get; private set; }
@@ -263,7 +263,7 @@ namespace JetBrains.Annotations
 
         public LocalizationRequiredAttribute(bool required)
         {
-            this.Required = required;
+            Required = required;
         }
 
         public bool Required { get; private set; }
@@ -310,12 +310,12 @@ namespace JetBrains.Annotations
     /// </code>
     /// </example>
     [AttributeUsage(AttributeTargets.Class, AllowMultiple = true, Inherited = true)]
-    [BaseTypeRequired(typeof(Attribute))]
+    [BaseTypeRequired(typeof (Attribute))]
     public sealed class BaseTypeRequiredAttribute : Attribute
     {
         public BaseTypeRequiredAttribute([NotNull] Type baseType)
         {
-            this.BaseType = baseType;
+            BaseType = baseType;
         }
 
         [NotNull]
@@ -348,8 +348,8 @@ namespace JetBrains.Annotations
         public UsedImplicitlyAttribute(
             ImplicitUseKindFlags useKindFlags, ImplicitUseTargetFlags targetFlags)
         {
-            this.UseKindFlags = useKindFlags;
-            this.TargetFlags = targetFlags;
+            UseKindFlags = useKindFlags;
+            TargetFlags = targetFlags;
         }
 
         public ImplicitUseKindFlags UseKindFlags { get; private set; }
@@ -382,8 +382,8 @@ namespace JetBrains.Annotations
         public MeansImplicitUseAttribute(
             ImplicitUseKindFlags useKindFlags, ImplicitUseTargetFlags targetFlags)
         {
-            this.UseKindFlags = useKindFlags;
-            this.TargetFlags = targetFlags;
+            UseKindFlags = useKindFlags;
+            TargetFlags = targetFlags;
         }
 
         [UsedImplicitly]
@@ -445,7 +445,7 @@ namespace JetBrains.Annotations
 
         public PublicAPIAttribute([NotNull] string comment)
         {
-            this.Comment = comment;
+            Comment = comment;
         }
 
         [NotNull]
@@ -496,7 +496,7 @@ namespace JetBrains.Annotations
 
         public PathReferenceAttribute([PathReference] string basePath)
         {
-            this.BasePath = basePath;
+            BasePath = basePath;
         }
 
         [NotNull]
@@ -568,7 +568,7 @@ namespace JetBrains.Annotations
 
         public AspMvcActionAttribute([NotNull] string anonymousProperty)
         {
-            this.AnonymousProperty = anonymousProperty;
+            AnonymousProperty = anonymousProperty;
         }
 
         [NotNull]
@@ -589,7 +589,7 @@ namespace JetBrains.Annotations
 
         public AspMvcAreaAttribute([NotNull] string anonymousProperty)
         {
-            this.AnonymousProperty = anonymousProperty;
+            AnonymousProperty = anonymousProperty;
         }
 
         [NotNull]
@@ -612,7 +612,7 @@ namespace JetBrains.Annotations
 
         public AspMvcControllerAttribute([NotNull] string anonymousProperty)
         {
-            this.AnonymousProperty = anonymousProperty;
+            AnonymousProperty = anonymousProperty;
         }
 
         [NotNull]
@@ -730,7 +730,7 @@ namespace JetBrains.Annotations
 
         public HtmlElementAttributesAttribute([NotNull] string name)
         {
-            this.Name = name;
+            Name = name;
         }
 
         [NotNull]
@@ -744,7 +744,7 @@ namespace JetBrains.Annotations
     {
         public HtmlAttributeValueAttribute([NotNull] string name)
         {
-            this.Name = name;
+            Name = name;
         }
 
         [NotNull]

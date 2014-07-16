@@ -10,17 +10,17 @@
 
         public void UpdateId()
         {
-            this.Id = ++SettingsManager.Settings.LastRecentWorldId;
+            Id = ++SettingsManager.Settings.LastRecentWorldId;
         }
 
         public RecentWorld Clone()
         {
             return new RecentWorld
             {
-                WorldId = this.WorldId,
-                Profile = this.Profile,
-                Account = this.Account,
-                Id = this.Id
+                WorldId = WorldId,
+                Profile = Profile,
+                Account = Account,
+                Id = Id
             };
         }
     }

@@ -9,7 +9,7 @@ namespace CupCake.Core.Log
 
         protected virtual void OnLogReceived(LogEventArgs e)
         {
-            EventHandler<LogEventArgs> handler = this.LogReceived;
+            EventHandler<LogEventArgs> handler = LogReceived;
             if (handler != null) handler(this, e);
         }
 
@@ -19,7 +19,7 @@ namespace CupCake.Core.Log
 
         public void Log(string source, LogPriority priority, string message)
         {
-            this.OnLogReceived(new LogEventArgs(source, priority, message));
+            OnLogReceived(new LogEventArgs(source, priority, message));
         }
     }
 }

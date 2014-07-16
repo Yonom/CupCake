@@ -8,17 +8,17 @@ namespace CupCake.Core.Storage
 
         public void Set(string id, string key, string value)
         {
-            this.StorageProvider.Set(id, key, value);
+            StorageProvider.Set(id, key, value);
         }
 
         public string Get(string id, string key)
         {
-            return this.StorageProvider.Get(id, key);
+            return StorageProvider.Get(id, key);
         }
 
         protected override void Enable()
         {
-            this.StorageProvider = new BasicStorageProvider();
+            StorageProvider = new BasicStorageProvider();
         }
     }
 }

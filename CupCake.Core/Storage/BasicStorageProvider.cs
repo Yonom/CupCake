@@ -9,14 +9,14 @@ namespace CupCake.Core.Storage
 
         public void Set(string id, string key, string value)
         {
-            this._kvStore[new KeyValuePair<string, string>(id, key)] = value;
+            _kvStore[new KeyValuePair<string, string>(id, key)] = value;
         }
 
         public string Get(string id, string key)
         {
             var query = new KeyValuePair<string, string>(id, key);
-            if (this._kvStore.ContainsKey(query))
-                return this._kvStore[query];
+            if (_kvStore.ContainsKey(query))
+                return _kvStore[query];
 
             return null;
         }

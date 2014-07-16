@@ -6,14 +6,14 @@ namespace CupCake.Messages.Send
     {
         public GodModeSendEvent(bool godModeEnabled)
         {
-            this.GodModeEnabled = godModeEnabled;
+            GodModeEnabled = godModeEnabled;
         }
 
         public bool GodModeEnabled { get; set; }
 
         public override Message GetMessage()
         {
-            return Message.Create("god", this.GodModeEnabled);
+            return Message.Create("god", GodModeEnabled);
         }
     }
 }

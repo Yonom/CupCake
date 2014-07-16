@@ -8,14 +8,14 @@ namespace CupCake.Messages.Send
         public PortalPlaceSendEvent(Layer layer, int x, int y, PortalBlock block, int portalId, int portalTarget,
             PortalRotation portalRotation)
         {
-            this.Block = block;
-            this.X = x;
-            this.Y = y;
-            this.Layer = BlockUtils.CorrectLayer((Block)block, layer);
+            Block = block;
+            X = x;
+            Y = y;
+            Layer = BlockUtils.CorrectLayer((Block) block, layer);
 
-            this.PortalId = portalId;
-            this.PortalTarget = portalTarget;
-            this.PortalRotation = portalRotation;
+            PortalId = portalId;
+            PortalTarget = portalTarget;
+            PortalRotation = portalRotation;
         }
 
         public PortalBlock Block { get; set; }
@@ -25,8 +25,8 @@ namespace CupCake.Messages.Send
 
         Block IBlockPlaceSendEvent.Block
         {
-            get { return (Block)this.Block; }
-            set { this.Block = (PortalBlock)value; }
+            get { return (Block) Block; }
+            set { Block = (PortalBlock) value; }
         }
 
         public Layer Layer { get; set; }
@@ -37,8 +37,8 @@ namespace CupCake.Messages.Send
 
         public override Message GetMessage()
         {
-            return Message.Create(this.Encryption, (int)this.Layer, this.X, this.Y, (int)this.Block,
-                (int)this.PortalRotation, this.PortalId, this.PortalTarget);
+            return Message.Create(Encryption, (int) Layer, X, Y, (int) Block,
+                (int) PortalRotation, PortalId, PortalTarget);
         }
     }
 }

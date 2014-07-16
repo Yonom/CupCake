@@ -21,16 +21,16 @@ namespace CupCake.Client.UserControls
 
         public ConnectionUserControl(ClientHandle handle)
         {
-            this.InitializeComponent();
+            InitializeComponent();
 
-            this.Loaded += this.ConnectionUserControl_Loaded;
+            Loaded += ConnectionUserControl_Loaded;
 
-            this._handle = handle;
-            this._handle.ReceiveOutput += this.ClientOutput;
-            this._handle.ReceiveClose += this._handle_ConnectionClose;
-            this._handle.ReceiveTitle += this._handle_ReceiveTitle;
-            this._handle.ReceiveStatus += this._handle_ReceiveStatus;
-            this._handle.ReceiveWrongAuth += this._handle_ReceiveWrongAuth;
+            _handle = handle;
+            _handle.ReceiveOutput += ClientOutput;
+            _handle.ReceiveClose += _handle_ConnectionClose;
+            _handle.ReceiveTitle += _handle_ReceiveTitle;
+            _handle.ReceiveStatus += _handle_ReceiveStatus;
+            _handle.ReceiveWrongAuth += _handle_ReceiveWrongAuth;
         }
 
         public bool IsDebug { get; set; }
@@ -39,18 +39,18 @@ namespace CupCake.Client.UserControls
         {
             get
             {
-                return (this.IsDisonnected ? "Disconnected" : "Connected") +
-                       (this._statusText != null ? " | " + this._statusText : String.Empty);
+                return (IsDisonnected ? "Disconnected" : "Connected") +
+                       (_statusText != null ? " | " + _statusText : String.Empty);
             }
         }
 
         private bool IsDisonnected
         {
-            get { return this._isDisonnected; }
+            get { return _isDisonnected; }
             set
             {
-                this._isDisonnected = value;
-                this.OnStatus(this.StatusString);
+                _isDisonnected = value;
+                OnStatus(StatusString);
             }
         }
 
@@ -58,18 +58,18 @@ namespace CupCake.Client.UserControls
         {
             set
             {
-                this._statusText = value;
-                this.OnStatus(this.StatusString);
+                _statusText = value;
+                OnStatus(StatusString);
             }
         }
 
         public string TitleText
         {
-            get { return this._titleText; }
+            get { return _titleText; }
             set
             {
-                this._titleText = value;
-                this.OnTitle(this._titleText);
+                _titleText = value;
+                OnTitle(_titleText);
             }
         }
 
@@ -77,7 +77,7 @@ namespace CupCake.Client.UserControls
 
         protected virtual void OnTitle(string title)
         {
-            Action<string> handler = this.Title;
+            Action<string> handler = Title;
             if (handler != null) handler(title);
         }
 
@@ -85,69 +85,69 @@ namespace CupCake.Client.UserControls
 
         protected virtual void OnStatus(string status)
         {
-            Action<string> handler = this.Status;
+            Action<string> handler = Status;
             if (handler != null) handler(status);
         }
 
         private void KeepOpenButton_OnClick(object sender, RoutedEventArgs e)
         {
-            this.ClosingGrid.Visibility = Visibility.Collapsed;
-            this._cancelClose = true;
+            ClosingGrid.Visibility = Visibility.Collapsed;
+            _cancelClose = true;
         }
 
         public void Close()
         {
-            this._handle.DoSendClose();
-            this._cancelClose = true;
+            _handle.DoSendClose();
+            _cancelClose = true;
         }
 
         public void RemoveTab()
         {
-            var parent = (TabItem)this.Parent;
-            var parentParent = (TabControl)parent.Parent;
+            var parent = (TabItem) Parent;
+            var parentParent = (TabControl) parent.Parent;
             parentParent.Items.Remove(parent);
         }
 
         public void Clear()
         {
-            this.OutputTextBox.Text = "--- Log Cleared ---";
+            OutputTextBox.Text = "--- Log Cleared ---";
         }
 
         private void _handle_ReceiveWrongAuth()
         {
-            this.AppendText("ERROR: Wrong authentication data provided.");
+            AppendText("ERROR: Wrong authentication data provided.");
         }
 
         private void _handle_ReceiveTitle(Title title)
         {
-            Dispatch.Invoke(() => this.TitleText = title.Text);
+            Dispatch.Invoke(() => TitleText = title.Text);
         }
 
         private void _handle_ReceiveStatus(Status status)
         {
-            Dispatch.Invoke(() => this.StatusText = status.Text);
+            Dispatch.Invoke(() => StatusText = status.Text);
         }
 
         private void _handle_ConnectionClose()
         {
             Dispatch.Invoke(() =>
             {
-                this.IsDisonnected = true;
-                this.TitleText += " (Disconnected)";
-                this.AppendText("--- Connection terminated ---");
+                IsDisonnected = true;
+                TitleText += " (Disconnected)";
+                AppendText("--- Connection terminated ---");
 
-                if (this.IsDebug)
+                if (IsDebug)
                 {
-                    this.ClosingGrid.Visibility = Visibility.Visible;
+                    ClosingGrid.Visibility = Visibility.Visible;
 
-                    var timer = new DispatcherTimer(DispatcherPriority.Normal, this.Dispatcher)
+                    var timer = new DispatcherTimer(DispatcherPriority.Normal, Dispatcher)
                     {
                         Interval = new TimeSpan(0, 0, 30)
                     };
                     timer.Tick += (sender, args) =>
                     {
-                        if (!this._cancelClose)
-                            this.RemoveTab();
+                        if (!_cancelClose)
+                            RemoveTab();
 
                         timer.Stop();
                     };
@@ -158,34 +158,34 @@ namespace CupCake.Client.UserControls
 
         private void ConnectionUserControl_Loaded(object sender, RoutedEventArgs e)
         {
-            this.MoveFocus(new TraversalRequest(FocusNavigationDirection.Next));
+            MoveFocus(new TraversalRequest(FocusNavigationDirection.Next));
         }
 
         private void ClientOutput(Output output)
         {
-            this.AppendText(output.Text);
+            AppendText(output.Text);
         }
 
         private void AppendText(string text)
         {
-            Dispatch.Invoke(() => this.OutputTextBox.AppendText(Environment.NewLine + text));
+            Dispatch.Invoke(() => OutputTextBox.AppendText(Environment.NewLine + text));
         }
 
         private void TextBox_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Enter)
             {
-                this.OutputTextBox.ScrollToEnd();
-                this._handle.DoSendInput(this.InputTextBox.Text);
-                this.InputTextBox.Clear();
+                OutputTextBox.ScrollToEnd();
+                _handle.DoSendInput(InputTextBox.Text);
+                InputTextBox.Clear();
             }
         }
 
         private void OutputTextBox_OnMouseUp(object sender, MouseButtonEventArgs e)
         {
-            if (this.OutputTextBox.SelectedText.Length == 0)
+            if (OutputTextBox.SelectedText.Length == 0)
             {
-                this.InputTextBox.Focus();
+                InputTextBox.Focus();
             }
         }
     }

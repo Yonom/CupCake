@@ -17,7 +17,7 @@ namespace CupCake.DefaultCommands.Commands.Utility
             Potion pot;
             try
             {
-                pot = (Potion)Enum.Parse(typeof(Potion), message.Args[0], true);
+                pot = (Potion) Enum.Parse(typeof (Potion), message.Args[0], true);
             }
             catch (Exception ex)
             {
@@ -26,7 +26,7 @@ namespace CupCake.DefaultCommands.Commands.Utility
 
             try
             {
-                this.PotionService.UsePotion(pot);
+                PotionService.UsePotion(pot);
             }
             catch (InvalidOperationException ex)
             {

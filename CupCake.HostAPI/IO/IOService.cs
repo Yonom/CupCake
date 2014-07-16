@@ -12,29 +12,29 @@ namespace CupCake.HostAPI.IO
 
         protected override void Enable()
         {
-            this.SyntaxProvider = new BasicIOSyntaxProvider();
+            SyntaxProvider = new BasicIOSyntaxProvider();
 
             if (Debugger.IsAttached)
-                this.MinPriority = LogPriority.Debug;
+                MinPriority = LogPriority.Debug;
 
-            this.Logger.LogPlatform.LogReceived += this.LogPlatform_LogReceived;
-            this.Events.Bind<InputEvent>(this.OnInput, EventPriority.High);
+            Logger.LogPlatform.LogReceived += LogPlatform_LogReceived;
+            Events.Bind<InputEvent>(OnInput, EventPriority.High);
         }
 
         private void OnInput(object sender, InputEvent e)
         {
-            string input = this.SyntaxProvider.ParseInput(e);
+            string input = SyntaxProvider.ParseInput(e);
             var outputEvent = new OutputEvent(input);
-            this.Events.Raise(outputEvent);
+            Events.Raise(outputEvent);
         }
 
         private void LogPlatform_LogReceived(object sender, LogEventArgs e)
         {
-            if (e.Priority >= this.MinPriority)
+            if (e.Priority >= MinPriority)
             {
-                string output = this.SyntaxProvider.ParseOutput(e);
+                string output = SyntaxProvider.ParseOutput(e);
                 var outputEvent = new OutputEvent(output);
-                this.Events.Raise(outputEvent);
+                Events.Raise(outputEvent);
             }
         }
     }

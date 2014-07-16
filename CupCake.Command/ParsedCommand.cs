@@ -9,10 +9,10 @@ namespace CupCake.Command
     {
         public ParsedCommand(string source)
         {
-            this.Source = source;
+            Source = source;
             string[] parts = source.Split(' ');
-            this.Type = parts[0];
-            this.Args = parts.Skip(1).ToArray();
+            Type = parts[0];
+            Args = parts.Skip(1).ToArray();
         }
 
         public string Source { get; private set; }
@@ -22,14 +22,14 @@ namespace CupCake.Command
 
         public int Count
         {
-            get { return this.Args.Length; }
+            get { return Args.Length; }
         }
 
         public int GetInt(int index)
         {
             try
             {
-                return Convert.ToInt32(this.Args[index]);
+                return Convert.ToInt32(Args[index]);
             }
             catch (FormatException)
             {
@@ -43,7 +43,7 @@ namespace CupCake.Command
 
         public string GetTrail(int index)
         {
-            return String.Join(" ", this.Args.Skip(index));
+            return String.Join(" ", Args.Skip(index));
         }
     }
 }

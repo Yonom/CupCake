@@ -12,8 +12,8 @@ namespace CupCake.DefaultCommands.Commands.Owner
         [CorrectUsage("potion1 [potion2 [...]]")]
         protected override void Run(IInvokeSource source, ParsedCommand message)
         {
-            this.RequireOwner();
-            this.Chatter.PotionsOn(message.Args);
+            RequireOwner();
+            Chatter.PotionsOn(message.Args);
             source.Reply("Enabled potions: {0}", message.GetTrail(0));
         }
     }

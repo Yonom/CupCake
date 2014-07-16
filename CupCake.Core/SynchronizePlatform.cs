@@ -13,39 +13,39 @@ namespace CupCake.Core
 
         protected override void Enable()
         {
-            this._thread = new ActionThread {IsBackground = true};
-            this._thread.Start();
-            this._thread.DoSynchronously(() =>
-                this.SynchronizingObject = new GenericSynchronizingObject());
+            _thread = new ActionThread {IsBackground = true};
+            _thread.Start();
+            _thread.DoSynchronously(() =>
+                SynchronizingObject = new GenericSynchronizingObject());
         }
 
         public void Do(Action action)
         {
-            this._thread.Do(action);
+            _thread.Do(action);
         }
 
         public bool DoSynchronously(Action action, TimeSpan timeout)
         {
-            if (!this.SynchronizingObject.InvokeRequired)
+            if (!SynchronizingObject.InvokeRequired)
                 action();
 
-            return this._thread.DoSynchronously(action, timeout);
+            return _thread.DoSynchronously(action, timeout);
         }
 
         public void DoSynchronously(Action action)
         {
-            if (!this.SynchronizingObject.InvokeRequired)
+            if (!SynchronizingObject.InvokeRequired)
                 action();
 
-            this._thread.DoSynchronously(action);
+            _thread.DoSynchronously(action);
         }
 
         public T DoGet<T>(Func<T> action)
         {
-            if (!this.SynchronizingObject.InvokeRequired)
+            if (!SynchronizingObject.InvokeRequired)
                 return action();
 
-            return this._thread.DoGet(action);
+            return _thread.DoGet(action);
         }
     }
 }

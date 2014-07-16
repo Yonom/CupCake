@@ -11,8 +11,8 @@ namespace CupCake.DefaultCommands.Commands.Owner
         [CorrectUsage("")]
         protected override void Run(IInvokeSource source, ParsedCommand message)
         {
-            this.RequireOwner();
-            this.Chatter.KillAll();
+            RequireOwner();
+            Chatter.KillAll();
             source.Reply("Killed everyone.");
         }
     }

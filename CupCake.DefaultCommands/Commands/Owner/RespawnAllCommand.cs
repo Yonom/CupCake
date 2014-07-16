@@ -11,8 +11,8 @@ namespace CupCake.DefaultCommands.Commands.Owner
         [CorrectUsage("")]
         protected override void Run(IInvokeSource source, ParsedCommand message)
         {
-            this.RequireOwner();
-            this.Chatter.RespawnAll();
+            RequireOwner();
+            Chatter.RespawnAll();
             source.Reply("Respawned all.");
         }
     }

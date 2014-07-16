@@ -9,10 +9,10 @@ namespace CupCake.Messages.Receive
         public SoundPlaceReceiveEvent(Message message)
             : base(message)
         {
-            this.PosX = message.GetInteger(0);
-            this.PosY = message.GetInteger(1);
-            this.Block = (SoundBlock)message.GetInteger(2);
-            this.SoundId = message.GetInteger(3);
+            PosX = message.GetInteger(0);
+            PosY = message.GetInteger(1);
+            Block = (SoundBlock) message.GetInteger(2);
+            SoundId = message.GetInteger(3);
         }
 
         public Layer Layer
@@ -28,14 +28,14 @@ namespace CupCake.Messages.Receive
 
         Layer IBlockPlaceReceiveEvent.Layer
         {
-            get { return this.Layer; }
+            get { return Layer; }
             set { throw new NotSupportedException("Can not set Layer on this kind of block"); }
         }
 
         Block IBlockPlaceReceiveEvent.Block
         {
-            get { return (Block)this.Block; }
-            set { this.Block = (SoundBlock)value; }
+            get { return (Block) Block; }
+            set { Block = (SoundBlock) value; }
         }
     }
 }

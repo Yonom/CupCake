@@ -21,88 +21,88 @@ namespace CupCake.Upload
 
         public int Count
         {
-            get { return this._workThread.Count; }
+            get { return _workThread.Count; }
         }
 
         public int LagCheckCount
         {
-            get { return this._checkQueue.Count; }
+            get { return _checkQueue.Count; }
         }
 
         protected override void Enable()
         {
-            this.ServiceLoader.EnableComplete += this.ServiceLoader_EnableComplete;
+            ServiceLoader.EnableComplete += ServiceLoader_EnableComplete;
 
-            this._workThread = new DequeWorker();
+            _workThread = new DequeWorker();
 
-            this.Events.Bind<UploadRequestEvent>(this.OnUploadRequest, EventPriority.Lowest);
+            Events.Bind<UploadRequestEvent>(OnUploadRequest, EventPriority.Lowest);
 
-            this.Events.Bind<PlaceWorldEvent>(this.OnBlockPlace, EventPriority.High);
-            this.Events.Bind<InitReceiveEvent>(this.OnInitComplete, EventPriority.High);
-            this.Events.Bind<AccessRoomEvent>(this.OnAccessRightChange, EventPriority.High);
-            this.Events.Bind<ClearReceiveEvent>(this.OnClear, EventPriority.High);
-            this.Events.Bind<ResetReceiveEvent>(this.OnReset, EventPriority.High);
+            Events.Bind<PlaceWorldEvent>(OnBlockPlace, EventPriority.High);
+            Events.Bind<InitReceiveEvent>(OnInitComplete, EventPriority.High);
+            Events.Bind<AccessRoomEvent>(OnAccessRightChange, EventPriority.High);
+            Events.Bind<ClearReceiveEvent>(OnClear, EventPriority.High);
+            Events.Bind<ResetReceiveEvent>(OnReset, EventPriority.High);
         }
 
         private void OnReset(object sender, ResetReceiveEvent e)
         {
-            this.Reset(this._world.RoomWidth, this._world.RoomHeight);
+            Reset(_world.RoomWidth, _world.RoomHeight);
         }
 
         private void OnClear(object sender, ClearReceiveEvent e)
         {
-            this.Reset(e.RoomWidth, e.RoomHeight);
+            Reset(e.RoomWidth, e.RoomHeight);
         }
 
         private void OnAccessRightChange(object sender, AccessRoomEvent e)
         {
             if (e.NewRights >= AccessRight.Edit)
             {
-                this._workThread.Start();
+                _workThread.Start();
             }
             else
             {
-                this._workThread.Stop();
+                _workThread.Stop();
             }
         }
 
         private void ServiceLoader_EnableComplete(object sender, EventArgs e)
         {
-            this._world = this.ServiceLoader.Get<WorldService>();
-            this.ServiceLoader.Get<RoomService>();
+            _world = ServiceLoader.Get<WorldService>();
+            ServiceLoader.Get<RoomService>();
         }
 
         private void OnInitComplete(object sender, InitReceiveEvent e)
         {
-            this.ResetUploaded(e.RoomWidth, e.RoomHeight);
+            ResetUploaded(e.RoomWidth, e.RoomHeight);
         }
 
         private void OnUploadRequest(object sender, UploadRequestEvent e)
         {
             Action task = () =>
             {
-                if (this.Send(e))
+                if (Send(e))
                 {
                     Thread.Sleep(10);
                 }
 
-                if (this._workThread.Count == 0)
+                if (_workThread.Count == 0)
                 {
                     ThreadPool.QueueUserWorkItem(o =>
                     {
                         Thread.Sleep(1000);
-                        this.DoLagCheck(true);
+                        DoLagCheck(true);
                     });
                 }
             };
 
             if (e.IsUrgent)
             {
-                this._workThread.QueueFront(task);
+                _workThread.QueueFront(task);
             }
             else
             {
-                this._workThread.QueueBack(task);
+                _workThread.QueueBack(task);
             }
         }
 
@@ -116,10 +116,10 @@ namespace CupCake.Upload
 
             request.SendTries++;
             // If not block already exists
-            if (!this.IsUploaded(e))
+            if (!IsUploaded(e))
             {
-                this.RaiseEvent(e);
-                this.EnqueueCheck(request);
+                RaiseEvent(e);
+                EnqueueCheck(request);
                 return true;
             }
 
@@ -135,25 +135,25 @@ namespace CupCake.Upload
         {
             IBlockPlaceSendEvent e = request.SendEvent;
 
-            lock (this._checkQueue)
+            lock (_checkQueue)
             {
                 if (request.SendTries < 5)
                 {
                     // If there already was a block in the lag checks, remove it, add this one instead
-                    if (this._uploaded[(int)e.Layer, e.X, e.Y] > 0)
+                    if (_uploaded[(int) e.Layer, e.X, e.Y] > 0)
                     {
                         UploadRequestEvent prev =
-                            this._checkQueue.FirstOrDefault(
+                            _checkQueue.FirstOrDefault(
                                 req =>
                                     req.SendEvent.Layer == e.Layer && req.SendEvent.X == e.X && req.SendEvent.Y == e.Y);
                         if (prev != null)
                         {
-                            this._checkQueue.Remove(prev);
+                            _checkQueue.Remove(prev);
                         }
                     }
-                    this._uploaded[(int)e.Layer, e.X, e.Y]++;
+                    _uploaded[(int) e.Layer, e.X, e.Y]++;
 
-                    this._checkQueue.AddToBack(request);
+                    _checkQueue.AddToBack(request);
                 }
             }
         }
@@ -167,71 +167,71 @@ namespace CupCake.Upload
             var blockEvent = e as BlockPlaceSendEvent;
             if (blockEvent != null)
             {
-                this.Events.Raise(blockEvent);
+                Events.Raise(blockEvent);
                 return;
             }
 
             var coinEvent = e as CoinDoorPlaceSendEvent;
             if (coinEvent != null)
             {
-                this.Events.Raise(coinEvent);
+                Events.Raise(coinEvent);
                 return;
             }
             var labelEvent = e as LabelPlaceSendEvent;
             if (labelEvent != null)
             {
-                this.Events.Raise(labelEvent);
+                Events.Raise(labelEvent);
                 return;
             }
             var worldPortalEvent = e as WorldPortalPlaceSendEvent;
             if (worldPortalEvent != null)
             {
-                this.Events.Raise(worldPortalEvent);
+                Events.Raise(worldPortalEvent);
                 return;
             }
             var rotatableEvent = e as RotatablePlaceSendEvent;
             if (rotatableEvent != null)
             {
-                this.Events.Raise(rotatableEvent);
+                Events.Raise(rotatableEvent);
                 return;
             }
             var soundEvent = e as SoundPlaceSendEvent;
             if (soundEvent != null)
             {
-                this.Events.Raise(soundEvent);
+                Events.Raise(soundEvent);
                 return;
             }
             var portalEvent = e as PortalPlaceSendEvent;
             if (portalEvent != null)
             {
-                this.Events.Raise(portalEvent);
+                Events.Raise(portalEvent);
             }
         }
 
         private void OnBlockPlace(object sender, PlaceWorldEvent e)
         {
             // If there has been a block uploaded at this position
-            if (this._uploaded[(int)e.WorldBlock.Layer, e.WorldBlock.X, e.WorldBlock.Y] > 0)
+            if (_uploaded[(int) e.WorldBlock.Layer, e.WorldBlock.X, e.WorldBlock.Y] > 0)
             {
                 // If this is the last block being uploaded to this position
-                if (--this._uploaded[(int)e.WorldBlock.Layer, e.WorldBlock.X, e.WorldBlock.Y] == 0)
+                if (--_uploaded[(int) e.WorldBlock.Layer, e.WorldBlock.X, e.WorldBlock.Y] == 0)
                 {
-                    this.DoLagCheck(false);
+                    DoLagCheck(false);
                 }
             }
         }
 
         private void DoLagCheck(bool emptyQueue)
         {
-            lock (this._checkQueue)
+            lock (_checkQueue)
             {
-                while (this._checkQueue.Count > 0)
+                while (_checkQueue.Count > 0)
                 {
-                    UploadRequestEvent request = this._checkQueue.RemoveFromFront();
+                    UploadRequestEvent request = _checkQueue.RemoveFromFront();
                     IBlockPlaceSendEvent er = request.SendEvent;
 
-                    this._uploaded[(int)er.Layer, er.X, er.Y] = 0;
-                    if (this.IsUploaded(er))
+                    _uploaded[(int) er.Layer, er.X, er.Y] = 0;
+                    if (IsUploaded(er))
                     {
                         request.Verified = true;
 
@@ -242,79 +242,79 @@ namespace CupCake.Upload
                     }
 
                     request.IsUrgent = true;
-                    this.Events.Raise(request);
+                    Events.Raise(request);
                 }
 
-                if (this._workThread.Count == 0)
+                if (_workThread.Count == 0)
                 {
-                    this.Events.Raise(new FinishUploadEvent());
+                    Events.Raise(new FinishUploadEvent());
                 }
             }
         }
 
         private bool IsUploaded(IBlockPlaceSendEvent e)
         {
-            return (this._world[e.Layer, e.X, e.Y].IsSame(e));
+            return (_world[e.Layer, e.X, e.Y].IsSame(e));
         }
 
         public void ClearQueue()
         {
-            this._workThread.Clear();
-            this.DoLagCheck(true);
+            _workThread.Clear();
+            DoLagCheck(true);
         }
 
         private void Reset(int width, int height)
         {
-            this._workThread.Stop();
-            this.ClearQueue();
-            this.ResetUploaded(width, height);
-            this._workThread.Clear();
-            this._workThread.Start();
+            _workThread.Stop();
+            ClearQueue();
+            ResetUploaded(width, height);
+            _workThread.Clear();
+            _workThread.Start();
         }
 
         private void ResetUploaded(int width, int height)
         {
-            this._uploaded = new int[2, width, height];
+            _uploaded = new int[2, width, height];
         }
 
         public void UploadBlock(int x, int y, Block block)
         {
-            this.UploadBlock(Layer.Foreground, x, y, block);
+            UploadBlock(Layer.Foreground, x, y, block);
         }
 
         public void UploadBlock(Layer layer, int x, int y, Block block)
         {
-            this.Events.Raise(this.GetBlock(layer, x, y, block));
+            Events.Raise(GetBlock(layer, x, y, block));
         }
 
         public void UploadCoinDoor(int x, int y, CoinDoorBlock block, int coinsToCollect)
         {
-            this.Events.Raise(this.GetCoinDoor(x, y, block, coinsToCollect));
+            Events.Raise(GetCoinDoor(x, y, block, coinsToCollect));
         }
 
         public void UploadLabel(int x, int y, LabelBlock block, string text)
         {
-            this.Events.Raise(this.GetLabel(x, y, block, text));
+            Events.Raise(GetLabel(x, y, block, text));
         }
 
         public void UploadPortal(int x, int y, PortalBlock block, int id, int target, PortalRotation rotation)
         {
-            this.Events.Raise(this.GetPortal(x, y, block, id, target, rotation));
+            Events.Raise(GetPortal(x, y, block, id, target, rotation));
         }
 
         public void UploadWorldPortal(int x, int y, WorldPortalBlock block, string roomId)
         {
-            this.Events.Raise(this.GetWorldPortal(x, y, block, roomId));
+            Events.Raise(GetWorldPortal(x, y, block, roomId));
         }
 
         public void UploadSound(int x, int y, SoundBlock block, int soundId)
         {
-            this.Events.Raise(this.GetSound(x, y, block, soundId));
+            Events.Raise(GetSound(x, y, block, soundId));
         }
 
         public void UploadRotatable(int x, int y, RotatableBlock block, int rotation)
         {
-            this.Events.Raise(this.GetRotatable(x, y, block, rotation));
+            Events.Raise(GetRotatable(x, y, block, rotation));
         }
 
         public UploadRequestEvent GetBlock(Layer layer, int x, int y, Block block)
@@ -364,7 +364,7 @@ namespace CupCake.Upload
         {
             if (disposing)
             {
-                this._workThread.Stop();
+                _workThread.Stop();
             }
 
             base.Dispose(disposing);

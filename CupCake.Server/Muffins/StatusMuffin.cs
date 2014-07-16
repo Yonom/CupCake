@@ -14,51 +14,51 @@ namespace CupCake.Server.Muffins
 
         protected override void Enable()
         {
-            this.Events.Bind<InitReceiveEvent>(this.OnInit);
-            this.Events.Bind<InitReceiveEvent>(this.OnInitComplete);
-            this.Events.Bind<UpdateMetaReceiveEvent>(this.OnUpdateMeta);
-            this.Events.Bind<JoinPlayerEvent>(this.OnJoin);
-            this.Events.Bind<LeftPlayerEvent>(this.OnLeft);
+            Events.Bind<InitReceiveEvent>(OnInit);
+            Events.Bind<InitReceiveEvent>(OnInitComplete);
+            Events.Bind<UpdateMetaReceiveEvent>(OnUpdateMeta);
+            Events.Bind<JoinPlayerEvent>(OnJoin);
+            Events.Bind<LeftPlayerEvent>(OnLeft);
         }
 
         private void OnJoin(object sender, JoinPlayerEvent e)
         {
-            this.UpdateOnline();
+            UpdateOnline();
         }
 
         private void OnLeft(object sender, LeftPlayerEvent e)
         {
-            this.UpdateOnline();
+            UpdateOnline();
         }
 
         private void OnInitComplete(object sender, InitReceiveEvent e)
         {
-            this.StatusService.Add(this._onlinePlayers);
-            this.StatusService.Add(this._plays);
-            this.StatusService.Add(this._woots);
-            this.StatusService.Add(this._totalWoots);
+            StatusService.Add(_onlinePlayers);
+            StatusService.Add(_plays);
+            StatusService.Add(_woots);
+            StatusService.Add(_totalWoots);
         }
 
         private void OnInit(object sender, InitReceiveEvent e)
         {
-            this.UpdateMeta(e);
+            UpdateMeta(e);
         }
 
         private void OnUpdateMeta(object sender, UpdateMetaReceiveEvent e)
         {
-            this.UpdateMeta(e);
+            UpdateMeta(e);
         }
 
         private void UpdateOnline()
         {
-            this._onlinePlayers.Value = Convert.ToString(this.PlayerService.Count);
+            _onlinePlayers.Value = Convert.ToString(PlayerService.Count);
         }
 
         private void UpdateMeta(IMetadataReceiveMessage e)
         {
-            this._plays.Value = Convert.ToString(e.Plays);
-            this._woots.Value = Convert.ToString(e.CurrentWoots);
-            this._totalWoots.Value = Convert.ToString(e.TotalWoots);
+            _plays.Value = Convert.ToString(e.Plays);
+            _woots.Value = Convert.ToString(e.CurrentWoots);
+            _totalWoots.Value = Convert.ToString(e.TotalWoots);
         }
     }
 }

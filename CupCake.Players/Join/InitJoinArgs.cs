@@ -7,7 +7,7 @@ namespace CupCake.Players.Join
         public InitJoinArgs(PlayerService playerService, InitReceiveEvent initReceiveEvent)
             : base(playerService)
         {
-            this.InitReceiveEvent = initReceiveEvent;
+            InitReceiveEvent = initReceiveEvent;
         }
 
         public InitReceiveEvent InitReceiveEvent { get; private set; }

@@ -14,17 +14,17 @@ namespace CupCake.World
 
         public WorldBlock()
         {
-            this._data = new BlockData();
-            this._metadata = new Lazy<MetadataStore>(() => new MetadataStore());
+            _data = new BlockData();
+            _metadata = new Lazy<MetadataStore>(() => new MetadataStore());
         }
 
         internal WorldBlock(Layer layer, int x, int y, Block block)
             : this()
         {
-            this.Layer = layer;
-            this.X = x;
-            this.Y = y;
-            this.SetBlock(block);
+            Layer = layer;
+            X = x;
+            Y = y;
+            SetBlock(block);
         }
 
         public Layer Layer { get; private set; }
@@ -35,17 +35,17 @@ namespace CupCake.World
 
         public MetadataStore Metadata
         {
-            get { return this._metadata.Value; }
+            get { return _metadata.Value; }
         }
 
         public string Text
         {
             get
             {
-                if (this.BlockType != BlockType.Label)
+                if (BlockType != BlockType.Label)
                     throw new InvalidOperationException("This property can only be accessed on Label blocks.");
 
-                return this._data.Text;
+                return _data.Text;
             }
         }
 
@@ -53,10 +53,10 @@ namespace CupCake.World
         {
             get
             {
-                if (this.BlockType != BlockType.WorldPortal)
+                if (BlockType != BlockType.WorldPortal)
                     throw new InvalidOperationException("This property can only be accessed on WorldPortal blocks.");
 
-                return this._data.WorldPortalTarget;
+                return _data.WorldPortalTarget;
             }
         }
 
@@ -64,10 +64,10 @@ namespace CupCake.World
         {
             get
             {
-                if (this.BlockType != BlockType.CoinDoor)
+                if (BlockType != BlockType.CoinDoor)
                     throw new InvalidOperationException("This property can only be accessed on CoinDoor blocks.");
 
-                return this._data.CoinsToCollect;
+                return _data.CoinsToCollect;
             }
         }
 
@@ -75,10 +75,10 @@ namespace CupCake.World
         {
             get
             {
-                if (this.BlockType != BlockType.Portal)
+                if (BlockType != BlockType.Portal)
                     throw new InvalidOperationException("This property can only be accessed on Portal blocks.");
 
-                return this._data.PortalId;
+                return _data.PortalId;
             }
         }
 
@@ -86,10 +86,10 @@ namespace CupCake.World
         {
             get
             {
-                if (this.BlockType != BlockType.Portal)
+                if (BlockType != BlockType.Portal)
                     throw new InvalidOperationException("This property can only be accessed on Portal blocks.");
 
-                return this._data.PortalTarget;
+                return _data.PortalTarget;
             }
         }
 
@@ -97,10 +97,10 @@ namespace CupCake.World
         {
             get
             {
-                if (this.BlockType != BlockType.Portal)
+                if (BlockType != BlockType.Portal)
                     throw new InvalidOperationException("This property can only be accessed on Portal blocks.");
 
-                return this._data.PortalRotation;
+                return _data.PortalRotation;
             }
         }
 
@@ -108,10 +108,10 @@ namespace CupCake.World
         {
             get
             {
-                if (this.BlockType != BlockType.Sound)
+                if (BlockType != BlockType.Sound)
                     throw new InvalidOperationException("This property can only be accessed on Sound blocks.");
 
-                return this._data.SoundId;
+                return _data.SoundId;
             }
         }
 
@@ -119,26 +119,26 @@ namespace CupCake.World
         {
             get
             {
-                if (this.BlockType != BlockType.Rotatable)
+                if (BlockType != BlockType.Rotatable)
                     throw new InvalidOperationException("This property can only be accessed on Rotatable blocks.");
 
-                return this._data.Rotation;
+                return _data.Rotation;
             }
         }
 
         internal void SetBlock(Block block)
         {
-            this.BlockType = BlockType.Normal;
-            this.Block = block;
-            this._data = new BlockData();
+            BlockType = BlockType.Normal;
+            Block = block;
+            _data = new BlockData();
         }
 
         internal void SetCoinDoor(CoinDoorBlock block, int coinsToCollect)
         {
-            this.BlockType = BlockType.CoinDoor;
-            this.Block = (Block)block;
+            BlockType = BlockType.CoinDoor;
+            Block = (Block) block;
 
-            this._data = new BlockData
+            _data = new BlockData
             {
                 CoinsToCollect = coinsToCollect
             };
@@ -146,10 +146,10 @@ namespace CupCake.World
 
         internal void SetPortal(PortalBlock block, int portalId, int portalTarget, PortalRotation portalRotation)
         {
-            this.BlockType = BlockType.Portal;
-            this.Block = (Block)block;
+            BlockType = BlockType.Portal;
+            Block = (Block) block;
 
-            this._data = new BlockData
+            _data = new BlockData
             {
                 PortalId = portalId,
                 PortalTarget = portalTarget,
@@ -159,10 +159,10 @@ namespace CupCake.World
 
         internal void SetSound(SoundBlock block, int soundId)
         {
-            this.BlockType = BlockType.Sound;
-            this.Block = (Block)block;
+            BlockType = BlockType.Sound;
+            Block = (Block) block;
 
-            this._data = new BlockData
+            _data = new BlockData
             {
                 SoundId = soundId
             };
@@ -170,10 +170,10 @@ namespace CupCake.World
 
         internal void SetRotatable(RotatableBlock block, int rotation)
         {
-            this.BlockType = BlockType.Rotatable;
-            this.Block = (Block)block;
+            BlockType = BlockType.Rotatable;
+            Block = (Block) block;
 
-            this._data = new BlockData
+            _data = new BlockData
             {
                 Rotation = rotation
             };
@@ -181,10 +181,10 @@ namespace CupCake.World
 
         internal void SetLabel(LabelBlock block, string text)
         {
-            this.BlockType = BlockType.Label;
-            this.Block = (Block)block;
+            BlockType = BlockType.Label;
+            Block = (Block) block;
 
-            this._data = new BlockData
+            _data = new BlockData
             {
                 Text = text
             };
@@ -192,10 +192,10 @@ namespace CupCake.World
 
         internal void SetWorldPortal(WorldPortalBlock block, string worldId)
         {
-            this.BlockType = BlockType.WorldPortal;
-            this.Block = (Block)block;
+            BlockType = BlockType.WorldPortal;
+            Block = (Block) block;
 
-            this._data = new BlockData
+            _data = new BlockData
             {
                 WorldPortalTarget = worldId
             };
@@ -208,7 +208,7 @@ namespace CupCake.World
                 return false;
             }
 
-            bool result = this.Block == other.Block;
+            bool result = Block == other.Block;
 
             if (other is BlockPlaceSendEvent)
             {
@@ -217,44 +217,44 @@ namespace CupCake.World
             var coinEvent = other as CoinDoorPlaceSendEvent;
             if (coinEvent != null)
             {
-                if (this._data.CoinsToCollect != coinEvent.CoinsToCollect)
+                if (_data.CoinsToCollect != coinEvent.CoinsToCollect)
                     result = false;
                 return result;
             }
             var labelEvent = other as LabelPlaceSendEvent;
             if (labelEvent != null)
             {
-                if (this._data.Text != labelEvent.Text)
+                if (_data.Text != labelEvent.Text)
                     result = false;
                 return result;
             }
             var worldPortalEvent = other as WorldPortalPlaceSendEvent;
             if (worldPortalEvent != null)
             {
-                if (this._data.WorldPortalTarget != worldPortalEvent.WorldPortalTarget)
+                if (_data.WorldPortalTarget != worldPortalEvent.WorldPortalTarget)
                     result = false;
                 return result;
             }
             var rotatableEvent = other as RotatablePlaceSendEvent;
             if (rotatableEvent != null)
             {
-                if (this._data.Rotation != rotatableEvent.Rotation)
+                if (_data.Rotation != rotatableEvent.Rotation)
                     result = false;
                 return result;
             }
             var soundEvent = other as SoundPlaceSendEvent;
             if (soundEvent != null)
             {
-                if (this._data.SoundId != soundEvent.SoundId)
+                if (_data.SoundId != soundEvent.SoundId)
                     result = false;
                 return result;
             }
             var portalEvent = other as PortalPlaceSendEvent;
             if (portalEvent != null)
             {
-                if (this._data.PortalId != portalEvent.PortalId ||
-                    this._data.PortalTarget != portalEvent.PortalTarget ||
-                    this._data.PortalRotation != portalEvent.PortalRotation)
+                if (_data.PortalId != portalEvent.PortalId ||
+                    _data.PortalTarget != portalEvent.PortalTarget ||
+                    _data.PortalRotation != portalEvent.PortalRotation)
                     result = false;
 
                 return result;
@@ -266,23 +266,23 @@ namespace CupCake.World
 // ReSharper disable once UnusedMember.Local
         private string DebuggerData()
         {
-            switch (this.BlockType)
+            switch (BlockType)
             {
                 case BlockType.Normal:
-                    return String.Format("Layer = {0}", this.Layer);
+                    return String.Format("Layer = {0}", Layer);
                 case BlockType.CoinDoor:
-                    return String.Format("CoinsToCollect = {0}", this.CoinsToCollect);
+                    return String.Format("CoinsToCollect = {0}", CoinsToCollect);
                 case BlockType.Rotatable:
-                    return String.Format("Rotation = {0}", this.Rotation);
+                    return String.Format("Rotation = {0}", Rotation);
                 case BlockType.Sound:
-                    return String.Format("SoundId = {0}", this.SoundId);
+                    return String.Format("SoundId = {0}", SoundId);
                 case BlockType.Label:
-                    return String.Format("Text = {0}", this.Text);
+                    return String.Format("Text = {0}", Text);
                 case BlockType.Portal:
-                    return String.Format("Id = {0}, Target = {1}, Rotation = {2}", this.PortalId, this.PortalTarget,
-                        this.PortalRotation);
+                    return String.Format("Id = {0}, Target = {1}, Rotation = {2}", PortalId, PortalTarget,
+                        PortalRotation);
                 case BlockType.WorldPortal:
-                    return String.Format("Target = {0}", this.WorldPortalTarget);
+                    return String.Format("Target = {0}", WorldPortalTarget);
                 default:
                     return String.Empty;
             }

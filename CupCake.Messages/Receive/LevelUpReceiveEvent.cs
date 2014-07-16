@@ -8,8 +8,8 @@ namespace CupCake.Messages.Receive
         public LevelUpReceiveEvent(Message message)
             : base(message)
         {
-            this.UserId = message.GetInteger(0);
-            this.NewClass = (MagicClass)message.GetInteger(1);
+            UserId = message.GetInteger(0);
+            NewClass = (MagicClass) message.GetInteger(1);
         }
 
         public MagicClass NewClass { get; set; }

@@ -6,9 +6,9 @@ namespace CupCake.Core.Log
     {
         public LogEventArgs(string source, LogPriority priority, string message)
         {
-            this.Source = source;
-            this.Priority = priority;
-            this.Message = message;
+            Source = source;
+            Priority = priority;
+            Message = message;
         }
 
         public string Message { get; set; }

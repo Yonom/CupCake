@@ -8,7 +8,7 @@ namespace CupCake.Protocol
 
         private void OnSendClose()
         {
-            Action handler = this.SendClose;
+            Action handler = SendClose;
             if (handler != null) handler();
         }
 
@@ -16,7 +16,7 @@ namespace CupCake.Protocol
 
         protected virtual void OnReceiveClose()
         {
-            Action handler = this.ReceiveClose;
+            Action handler = ReceiveClose;
             if (handler != null) handler();
         }
 
@@ -24,7 +24,7 @@ namespace CupCake.Protocol
 
         protected virtual void OnReceiveInput(Input input)
         {
-            Action<Input> handler = this.ReceiveInput;
+            Action<Input> handler = ReceiveInput;
             if (handler != null) handler(input);
         }
 
@@ -32,7 +32,7 @@ namespace CupCake.Protocol
 
         private void OnSendInput(Input input)
         {
-            Action<Input> handler = this.SendInput;
+            Action<Input> handler = SendInput;
             if (handler != null) handler(input);
         }
 
@@ -40,7 +40,7 @@ namespace CupCake.Protocol
 
         protected virtual void OnReceiveOutput(Output output)
         {
-            Action<Output> handler = this.ReceiveOutput;
+            Action<Output> handler = ReceiveOutput;
             if (handler != null) handler(output);
         }
 
@@ -48,7 +48,7 @@ namespace CupCake.Protocol
 
         private void OnSendOutput(Output output)
         {
-            Action<Output> handler = this.SendOutput;
+            Action<Output> handler = SendOutput;
             if (handler != null) handler(output);
         }
 
@@ -56,7 +56,7 @@ namespace CupCake.Protocol
 
         protected virtual void OnReceiveSetData(SetData setData)
         {
-            Action<SetData> handler = this.ReceiveSetData;
+            Action<SetData> handler = ReceiveSetData;
             if (handler != null) handler(setData);
         }
 
@@ -64,7 +64,7 @@ namespace CupCake.Protocol
 
         private void OnSendSetData(SetData setData)
         {
-            Action<SetData> handler = this.SendSetData;
+            Action<SetData> handler = SendSetData;
             if (handler != null) handler(setData);
         }
 
@@ -72,7 +72,7 @@ namespace CupCake.Protocol
 
         protected virtual void OnReceiveAuthentication(Authentication auth)
         {
-            Action<Authentication> handler = this.ReceiveAuthentication;
+            Action<Authentication> handler = ReceiveAuthentication;
             if (handler != null) handler(auth);
         }
 
@@ -80,7 +80,7 @@ namespace CupCake.Protocol
 
         private void OnSendAuthentication(Authentication auth)
         {
-            Action<Authentication> handler = this.SendAuthentication;
+            Action<Authentication> handler = SendAuthentication;
             if (handler != null) handler(auth);
         }
 
@@ -88,7 +88,7 @@ namespace CupCake.Protocol
 
         protected virtual void OnReceiveTitle(Title title)
         {
-            Action<Title> handler = this.ReceiveTitle;
+            Action<Title> handler = ReceiveTitle;
             if (handler != null) handler(title);
         }
 
@@ -96,7 +96,7 @@ namespace CupCake.Protocol
 
         private void OnSendTitle(Title title)
         {
-            Action<Title> handler = this.SendTitle;
+            Action<Title> handler = SendTitle;
             if (handler != null) handler(title);
         }
 
@@ -104,7 +104,7 @@ namespace CupCake.Protocol
 
         protected virtual void OnReceiveWrongAuth()
         {
-            Action handler = this.ReceiveWrongAuth;
+            Action handler = ReceiveWrongAuth;
             if (handler != null) handler();
         }
 
@@ -112,7 +112,7 @@ namespace CupCake.Protocol
 
         private void OnSendWrongAuth()
         {
-            Action handler = this.SendWrongAuth;
+            Action handler = SendWrongAuth;
             if (handler != null) handler();
         }
 
@@ -120,7 +120,7 @@ namespace CupCake.Protocol
 
         protected virtual void OnReceiveRequestData(RequestData reqData)
         {
-            Action<RequestData> handler = this.ReceiveRequestData;
+            Action<RequestData> handler = ReceiveRequestData;
             if (handler != null) handler(reqData);
         }
 
@@ -128,7 +128,7 @@ namespace CupCake.Protocol
 
         private void OnSendRequestData(RequestData reqData)
         {
-            Action<RequestData> handler = this.SendRequestData;
+            Action<RequestData> handler = SendRequestData;
             if (handler != null) handler(reqData);
         }
 
@@ -136,7 +136,7 @@ namespace CupCake.Protocol
 
         protected virtual void OnReceiveStatus(Status reqData)
         {
-            Action<Status> handler = this.ReceiveStatus;
+            Action<Status> handler = ReceiveStatus;
             if (handler != null) handler(reqData);
         }
 
@@ -144,20 +144,20 @@ namespace CupCake.Protocol
 
         private void OnSendStatus(Status reqData)
         {
-            Action<Status> handler = this.SendStatus;
+            Action<Status> handler = SendStatus;
             if (handler != null) handler(reqData);
         }
 
 
         internal void DoReceiveSetData(SetData data)
         {
-            this.OnReceiveSetData(data);
+            OnReceiveSetData(data);
         }
 
         public void DoSendSetData(AccountType accountType, string email, string password, string worldId,
             string[] directories, DatabaseType dbType, string cs)
         {
-            this.OnSendSetData(new SetData
+            OnSendSetData(new SetData
             {
                 AccountType = accountType,
                 Email = email,
@@ -171,82 +171,82 @@ namespace CupCake.Protocol
 
         internal void DoReceiveInput(Input input)
         {
-            this.OnReceiveInput(input);
+            OnReceiveInput(input);
         }
 
         public void DoSendInput(string text)
         {
-            this.OnSendInput(new Input {Text = text});
+            OnSendInput(new Input {Text = text});
         }
 
         internal void DoReceiveOutput(Output output)
         {
-            this.OnReceiveOutput(output);
+            OnReceiveOutput(output);
         }
 
         public void DoSendOutput(string text)
         {
-            this.OnSendOutput(new Output {Text = text});
+            OnSendOutput(new Output {Text = text});
         }
 
         internal void DoReceiveTitle(Title title)
         {
-            this.OnReceiveTitle(title);
+            OnReceiveTitle(title);
         }
 
         public void DoSendTitle(string text)
         {
-            this.OnSendTitle(new Title {Text = text});
+            OnSendTitle(new Title {Text = text});
         }
 
         internal void DoReceiveAuthentication(Authentication auth)
         {
-            this.OnReceiveAuthentication(auth);
+            OnReceiveAuthentication(auth);
         }
 
         public void DoSendAuthentication(string pin)
         {
-            this.OnSendAuthentication(new Authentication {Pin = pin});
+            OnSendAuthentication(new Authentication {Pin = pin});
         }
 
         internal void DoReceiveClose()
         {
-            this.OnReceiveClose();
+            OnReceiveClose();
         }
 
         public void DoSendClose()
         {
-            this.OnSendClose();
+            OnSendClose();
         }
 
         public void DoSendWrongAuth()
         {
-            this.OnSendWrongAuth();
+            OnSendWrongAuth();
         }
 
         internal void DoReceiveWrongAuth()
         {
-            this.OnReceiveWrongAuth();
+            OnReceiveWrongAuth();
         }
 
         internal void DoReceiveRequestData(RequestData reqData)
         {
-            this.OnReceiveRequestData(reqData);
+            OnReceiveRequestData(reqData);
         }
 
         public void DoSendRequestData(bool debug)
         {
-            this.OnSendRequestData(new RequestData {IsDebug = debug});
+            OnSendRequestData(new RequestData {IsDebug = debug});
         }
 
         internal void DoReceiveStatus(Status reqData)
         {
-            this.OnReceiveStatus(reqData);
+            OnReceiveStatus(reqData);
         }
 
         public void DoSendStatus(string text)
         {
-            this.OnSendStatus(new Status {Text = text});
+            OnSendStatus(new Status {Text = text});
         }
     }
 }

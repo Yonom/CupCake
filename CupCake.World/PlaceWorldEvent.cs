@@ -7,8 +7,8 @@ namespace CupCake.World
     {
         internal PlaceWorldEvent(WorldBlock worldBlock, Player player)
         {
-            this.WorldBlock = worldBlock;
-            this.Player = player;
+            WorldBlock = worldBlock;
+            Player = player;
         }
 
         public WorldBlock WorldBlock { get; private set; }

@@ -8,19 +8,19 @@ namespace CupCake
     {
         protected override void Enable()
         {
-            this.MuffinLoader.EnableComplete += this.MuffinLoader_EnableComplete;
+            MuffinLoader.EnableComplete += MuffinLoader_EnableComplete;
 
-            this.Events.Bind<InitReceiveEvent>(this.OnInit);
+            Events.Bind<InitReceiveEvent>(OnInit);
         }
 
         private void MuffinLoader_EnableComplete(object sender, EventArgs e)
         {
-            this.Events.Raise(new InitSendEvent());
+            Events.Raise(new InitSendEvent());
         }
 
         private void OnInit(object sender, InitReceiveEvent e)
         {
-            this.Events.Raise(new Init2SendEvent());
+            Events.Raise(new Init2SendEvent());
         }
     }
 }

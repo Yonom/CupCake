@@ -7,12 +7,12 @@ namespace CupCake.Messages.Send
     {
         public SoundPlaceSendEvent(Layer layer, int x, int y, SoundBlock block, int soundId)
         {
-            this.Block = block;
-            this.X = x;
-            this.Y = y;
-            this.Layer = BlockUtils.CorrectLayer((Block)block, layer);
+            Block = block;
+            X = x;
+            Y = y;
+            Layer = BlockUtils.CorrectLayer((Block) block, layer);
 
-            this.SoundId = soundId;
+            SoundId = soundId;
         }
 
         public SoundBlock Block { get; set; }
@@ -20,8 +20,8 @@ namespace CupCake.Messages.Send
 
         Block IBlockPlaceSendEvent.Block
         {
-            get { return (Block)this.Block; }
-            set { this.Block = (SoundBlock)value; }
+            get { return (Block) Block; }
+            set { Block = (SoundBlock) value; }
         }
 
         public Layer Layer { get; set; }
@@ -32,7 +32,7 @@ namespace CupCake.Messages.Send
 
         public override Message GetMessage()
         {
-            return Message.Create(this.Encryption, (int)this.Layer, this.X, this.Y, (int)this.Block, this.SoundId);
+            return Message.Create(Encryption, (int) Layer, X, Y, (int) Block, SoundId);
         }
     }
 }

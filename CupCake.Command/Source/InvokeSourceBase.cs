@@ -8,12 +8,12 @@ namespace CupCake.Command.Source
 
         public InvokeSourceBase(object sender, Group @group, string name, ReplyCallback onReply)
         {
-            this.PluginName = "Bot";
+            PluginName = "Bot";
 
-            this._onReply = onReply;
-            this.Sender = sender;
-            this.Group = @group;
-            this.Name = name;
+            _onReply = onReply;
+            Sender = sender;
+            Group = @group;
+            Name = name;
         }
 
         public string PluginName { get; set; }
@@ -23,7 +23,7 @@ namespace CupCake.Command.Source
 
         public void Reply(string message)
         {
-            this._onReply(this.PluginName, message);
+            _onReply(PluginName, message);
         }
     }
 }

@@ -8,18 +8,18 @@ namespace CupCake.Messages.Receive
         public BlockPlaceReceiveEvent(Message message)
             : base(message)
         {
-            this.Layer = (Layer)message.GetInteger(0);
-            this.PosX = message.GetInteger(1);
-            this.PosY = message.GetInteger(2);
-            this.Block = (Block)message.GetInteger(3);
+            Layer = (Layer) message.GetInteger(0);
+            PosX = message.GetInteger(1);
+            PosY = message.GetInteger(2);
+            Block = (Block) message.GetInteger(3);
 
             if (message.Count >= 5)
             {
-                this.UserId = message.GetInteger(4);
+                UserId = message.GetInteger(4);
             }
             else
             {
-                this.UserId = -1;
+                UserId = -1;
             }
         }
 

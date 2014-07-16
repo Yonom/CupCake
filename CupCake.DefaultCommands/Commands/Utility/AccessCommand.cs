@@ -17,7 +17,7 @@ namespace CupCake.DefaultCommands.Commands.Utility
             if (message.Count >= 1)
                 key = message.GetTrail(0);
 
-            this.RoomService.Access(key);
+            RoomService.Access(key);
 
             source.Reply("Access sent.");
         }

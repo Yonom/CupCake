@@ -13,7 +13,7 @@ namespace CupCake.DefaultCommands.Commands.Owner
         [CorrectUsage("isVisible")]
         protected override void Run(IInvokeSource source, ParsedCommand message)
         {
-            this.RequireOwner();
+            RequireOwner();
 
             bool isVisible;
             try
@@ -24,7 +24,7 @@ namespace CupCake.DefaultCommands.Commands.Owner
             {
                 throw new CommandException("Unable to parse parameter: isVisible", ex);
             }
-            this.Chatter.ChangeVisibility(isVisible);
+            Chatter.ChangeVisibility(isVisible);
             source.Reply("Changed visibility to {0}.", isVisible);
         }
     }

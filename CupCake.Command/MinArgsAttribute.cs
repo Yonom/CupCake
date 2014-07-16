@@ -7,7 +7,7 @@ namespace CupCake.Command
     {
         public MinArgsAttribute(int minArgs)
         {
-            this.MinArgs = minArgs;
+            MinArgs = minArgs;
         }
 
         public int MinArgs { get; private set; }

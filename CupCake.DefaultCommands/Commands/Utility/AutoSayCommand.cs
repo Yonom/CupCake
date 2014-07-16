@@ -17,14 +17,14 @@ namespace CupCake.DefaultCommands.Commands.Utility
             AutoText text;
             try
             {
-                text = (AutoText)Enum.Parse(typeof(AutoText), message.Args[0], true);
+                text = (AutoText) Enum.Parse(typeof (AutoText), message.Args[0], true);
             }
             catch (Exception ex)
             {
                 throw new CommandException("Unable to parse parameter: text", ex);
             }
 
-            this.ActionService.AutoSay(text);
+            ActionService.AutoSay(text);
         }
     }
 }

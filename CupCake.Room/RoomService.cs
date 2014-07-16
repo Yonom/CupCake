@@ -20,15 +20,15 @@ namespace CupCake.Room
 
         public AccessRight AccessRight
         {
-            get { return this._accessRight; }
+            get { return _accessRight; }
             private set
             {
-                if (this.AccessRight != value)
+                if (AccessRight != value)
                 {
-                    this._accessRight = value;
+                    _accessRight = value;
 
-                    this.SynchronizePlatform.Do(() =>
-                        this.Events.Raise(new AccessRoomEvent(this._accessRight)));
+                    SynchronizePlatform.Do(() =>
+                        Events.Raise(new AccessRoomEvent(_accessRight)));
                 }
             }
         }
@@ -43,66 +43,66 @@ namespace CupCake.Room
 
         protected override void Enable()
         {
-            this.Events.Bind<InitReceiveEvent>(this.OnInit, EventPriority.High);
-            this.Events.Bind<CrownReceiveEvent>(this.OnCrown, EventPriority.High);
-            this.Events.Bind<AccessReceiveEvent>(this.OnAccess, EventPriority.High);
-            this.Events.Bind<LostAccessReceiveEvent>(this.OnLostAccess, EventPriority.High);
-            this.Events.Bind<UpdateMetaReceiveEvent>(this.OnUpdateMeta, EventPriority.High);
+            Events.Bind<InitReceiveEvent>(OnInit, EventPriority.High);
+            Events.Bind<CrownReceiveEvent>(OnCrown, EventPriority.High);
+            Events.Bind<AccessReceiveEvent>(OnAccess, EventPriority.High);
+            Events.Bind<LostAccessReceiveEvent>(OnLostAccess, EventPriority.High);
+            Events.Bind<UpdateMetaReceiveEvent>(OnUpdateMeta, EventPriority.High);
 
-            this.Events.Bind<SendEvent>(this.OnSend, EventPriority.Highest);
+            Events.Bind<SendEvent>(OnSend, EventPriority.Highest);
         }
 
         public void Access(string roomKey)
         {
-            if (this.AccessRight == AccessRight.None)
+            if (AccessRight == AccessRight.None)
                 throw new InvalidOperationException("You already have access.");
 
-            this.Events.Raise(new AccessSendEvent(roomKey));
+            Events.Raise(new AccessSendEvent(roomKey));
         }
 
         public void ChangeKey(string newKey)
         {
-            if (this.AccessRight < AccessRight.Owner)
+            if (AccessRight < AccessRight.Owner)
                 throw new InvalidOperationException("Only owners are allowed to change key.");
 
-            this.Events.Raise(new ChangeWorldEditKeySendEvent(newKey));
+            Events.Raise(new ChangeWorldEditKeySendEvent(newKey));
         }
 
         public void Clear()
         {
-            if (this.AccessRight < AccessRight.Owner)
+            if (AccessRight < AccessRight.Owner)
                 throw new InvalidOperationException("Only owners are allowed to clear room.");
 
-            this.Events.Raise(new ClearWorldSendEvent());
+            Events.Raise(new ClearWorldSendEvent());
         }
 
         public void Save()
         {
-            if (this.AccessRight < AccessRight.Owner)
+            if (AccessRight < AccessRight.Owner)
                 throw new InvalidOperationException("Only owners are allowed to save.");
 
-            this.Events.Raise(new SaveWorldSendEvent());
+            Events.Raise(new SaveWorldSendEvent());
         }
 
         public void SetAllowPotions(bool allowed)
         {
-            if (this.AccessRight < AccessRight.Owner)
+            if (AccessRight < AccessRight.Owner)
                 throw new InvalidOperationException("Only owners are allowed to enable/disable potions.");
 
-            this.Events.Raise(new AllowPotionsSendEvent(allowed));
+            Events.Raise(new AllowPotionsSendEvent(allowed));
         }
 
         public void SetName(string newName)
         {
-            if (this.AccessRight < AccessRight.Owner)
+            if (AccessRight < AccessRight.Owner)
                 throw new InvalidOperationException("Only owners are allowed to change room name.");
 
-            this.Events.Raise(new ChangeWorldNameSendEvent(newName));
+            Events.Raise(new ChangeWorldNameSendEvent(newName));
         }
 
         public void KillRoom()
         {
-            this.Events.Raise(new KillWorldSendEvent());
+            Events.Raise(new KillWorldSendEvent());
         }
 
         private void OnSend(object sender, SendEvent e)
@@ -110,74 +110,74 @@ namespace CupCake.Room
             var encryptedSend = e as IEncryptedSendEvent;
             if (encryptedSend != null && String.IsNullOrEmpty(encryptedSend.Encryption))
             {
-                encryptedSend.Encryption = this.Encryption;
+                encryptedSend.Encryption = Encryption;
             }
         }
 
         private void OnInit(object sender, InitReceiveEvent e)
         {
-            this.Owner = e.OwnerUsername;
-            this.WorldName = e.WorldName;
-            this.Plays = e.Plays;
-            this.Encryption = Rot13(e.Encryption);
-            this.IsTutorialRoom = e.IsTutorialRoom;
-            this.GravityMultiplier = e.Gravity;
-            this.CurrentWoots = e.CurrentWoots;
-            this.TotalWoots = e.TotalWoots;
+            Owner = e.OwnerUsername;
+            WorldName = e.WorldName;
+            Plays = e.Plays;
+            Encryption = Rot13(e.Encryption);
+            IsTutorialRoom = e.IsTutorialRoom;
+            GravityMultiplier = e.Gravity;
+            CurrentWoots = e.CurrentWoots;
+            TotalWoots = e.TotalWoots;
 
             if (e.IsOwner)
             {
-                this.AccessRight = AccessRight.Owner;
+                AccessRight = AccessRight.Owner;
             }
             else if (e.CanEdit)
             {
-                this.AccessRight = AccessRight.Edit;
+                AccessRight = AccessRight.Edit;
             }
 
-            this.RaiseMeta(e);
+            RaiseMeta(e);
 
-            if (!this.InitComplete)
+            if (!InitComplete)
             {
-                this.InitComplete = true;
+                InitComplete = true;
             }
         }
 
         private void OnAccess(object sender, AccessReceiveEvent e)
         {
-            this.AccessRight = AccessRight.Edit;
+            AccessRight = AccessRight.Edit;
         }
 
         private void OnLostAccess(object sender, LostAccessReceiveEvent e)
         {
-            this.AccessRight = AccessRight.None;
+            AccessRight = AccessRight.None;
         }
 
         private void OnCrown(object sender, CrownReceiveEvent e)
         {
-            if (!this.JoinComplete)
+            if (!JoinComplete)
             {
-                this.JoinComplete = true;
+                JoinComplete = true;
 
-                this.SynchronizePlatform.Do(() =>
-                    this.Events.Raise(new JoinCompleteRoomEvent()));
+                SynchronizePlatform.Do(() =>
+                    Events.Raise(new JoinCompleteRoomEvent()));
             }
         }
 
         private void OnUpdateMeta(object sender, UpdateMetaReceiveEvent e)
         {
-            this.WorldName = e.WorldName;
-            this.Plays = e.Plays;
-            this.Owner = e.OwnerUsername;
-            this.CurrentWoots = e.CurrentWoots;
-            this.TotalWoots = e.TotalWoots;
+            WorldName = e.WorldName;
+            Plays = e.Plays;
+            Owner = e.OwnerUsername;
+            CurrentWoots = e.CurrentWoots;
+            TotalWoots = e.TotalWoots;
 
-            this.RaiseMeta(e);
+            RaiseMeta(e);
         }
 
         private void RaiseMeta(IMetadataReceiveMessage e)
         {
-            this.SynchronizePlatform.Do(() =>
-                this.Events.Raise(new MetaRoomEvent(e.OwnerUsername, e.Plays, e.CurrentWoots, e.TotalWoots, e.WorldName)));
+            SynchronizePlatform.Do(() =>
+                Events.Raise(new MetaRoomEvent(e.OwnerUsername, e.Plays, e.CurrentWoots, e.TotalWoots, e.WorldName)));
         }
 
         private static string Rot13(string input)
@@ -185,7 +185,7 @@ namespace CupCake.Room
             char[] array = input.ToCharArray();
             for (int i = 0; i < array.Length; i++)
             {
-                var number = (int)array[i];
+                var number = (int) array[i];
 
                 if (number >= 'a' && number <= 'z')
                 {
@@ -209,7 +209,7 @@ namespace CupCake.Room
                         number += 13;
                     }
                 }
-                array[i] = (char)number;
+                array[i] = (char) number;
             }
             return new string(array);
         }

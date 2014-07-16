@@ -6,9 +6,9 @@ namespace CupCake.Core.Metadata
     {
         public MetadataChangedEventArgs(string key, object oldValue, object newValue)
         {
-            this.Key = key;
-            this.OldValue = oldValue;
-            this.NewValue = newValue;
+            Key = key;
+            OldValue = oldValue;
+            NewValue = newValue;
         }
 
         public string Key { get; private set; }

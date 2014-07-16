@@ -11,9 +11,9 @@ namespace CupCake.DefaultCommands.Commands.Utility
         [CorrectUsage("")]
         protected override void Run(IInvokeSource source, ParsedCommand message)
         {
-            if (this.PlayerService.OwnPlayer.HasSilverCrown)
+            if (PlayerService.OwnPlayer.HasSilverCrown)
                 throw new CommandException("Bot already has crown!");
-            this.ActionService.CompleteLevel();
+            ActionService.CompleteLevel();
         }
     }
 }

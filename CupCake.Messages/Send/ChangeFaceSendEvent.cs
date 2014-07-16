@@ -7,7 +7,7 @@ namespace CupCake.Messages.Send
     {
         public ChangeFaceSendEvent(Smiley face)
         {
-            this.Face = face;
+            Face = face;
         }
 
         public Smiley Face { get; set; }
@@ -16,7 +16,7 @@ namespace CupCake.Messages.Send
 
         public override Message GetMessage()
         {
-            return Message.Create(this.Encryption + "f", this.Face);
+            return Message.Create(Encryption + "f", Face);
         }
     }
 }

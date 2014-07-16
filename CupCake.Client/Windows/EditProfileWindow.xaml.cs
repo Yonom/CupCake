@@ -19,42 +19,42 @@ namespace CupCake.Client.Windows
 
         public EditProfileWindow(Profile profile, bool isNew)
         {
-            this.InitializeComponent();
+            InitializeComponent();
 
-            this.Title = isNew
+            Title = isNew
                 ? "New Profile"
                 : "Edit Profile";
 
             foreach (Database database in SettingsManager.Settings.Databases.OrderBy(v => v.Id))
             {
                 var item = new TextBlock(new Run(database.Name.GetVisualName())) {Tag = database};
-                this.DatabaseComboBox.Items.Add(item);
+                DatabaseComboBox.Items.Add(item);
 
                 if (profile.Database == database.Id)
-                    this.DatabaseComboBox.SelectedItem = item;
+                    DatabaseComboBox.SelectedItem = item;
             }
 
-            this._profile = profile;
-            this.NameTextBox.Text = profile.Name;
-            this.FolderTextBox.Text = profile.Folder ?? SettingsManager.ProfilesPath + "\\";
+            _profile = profile;
+            NameTextBox.Text = profile.Name;
+            FolderTextBox.Text = profile.Folder ?? SettingsManager.ProfilesPath + "\\";
         }
 
         private void OkButton_Click(object sender, RoutedEventArgs e)
         {
             try
             {
-                string path = this.FolderTextBox.Text;
+                string path = FolderTextBox.Text;
                 if (!Directory.Exists(path))
                     Directory.CreateDirectory(path);
 
 
-                this._profile.Name = this.NameTextBox.Text;
-                this._profile.Folder = this.FolderTextBox.Text;
+                _profile.Name = NameTextBox.Text;
+                _profile.Folder = FolderTextBox.Text;
 
-                if (this.DatabaseComboBox.SelectedItem != null)
+                if (DatabaseComboBox.SelectedItem != null)
                 {
-                    var database = (Database)((TextBlock)this.DatabaseComboBox.SelectedItem).Tag;
-                    this._profile.Database = database.Id;
+                    var database = (Database) ((TextBlock) DatabaseComboBox.SelectedItem).Tag;
+                    _profile.Database = database.Id;
                 }
                 else
                 {
@@ -63,7 +63,7 @@ namespace CupCake.Client.Windows
                     return;
                 }
 
-                this.DialogResult = true;
+                DialogResult = true;
             }
             catch (IOException ex)
             {
@@ -73,21 +73,21 @@ namespace CupCake.Client.Windows
 
         private void CancelButton_Click(object sender, RoutedEventArgs e)
         {
-            this.DialogResult = false;
+            DialogResult = false;
         }
 
         private void NameTextBox_OnTextChanged(object sender, TextChangedEventArgs e)
         {
-            string folderName = this.FolderTextBox.Text;
+            string folderName = FolderTextBox.Text;
 
             if (folderName.EndsWith("\\"))
-                this.FolderTextBox.Text += this.NameTextBox.Text;
-            else if (!String.IsNullOrEmpty(this._lastName) && folderName.EndsWith(this._lastName))
-                this.FolderTextBox.Text = folderName.Substring(0, folderName.Length - this._lastName.Length) +
-                                          this.NameTextBox.Text;
+                FolderTextBox.Text += NameTextBox.Text;
+            else if (!String.IsNullOrEmpty(_lastName) && folderName.EndsWith(_lastName))
+                FolderTextBox.Text = folderName.Substring(0, folderName.Length - _lastName.Length) +
+                                     NameTextBox.Text;
 
 
-            this._lastName = this.NameTextBox.Text;
+            _lastName = NameTextBox.Text;
         }
 
         private void BrowseButton_Click(object sender, RoutedEventArgs e)
@@ -110,7 +110,7 @@ namespace CupCake.Client.Windows
             {
                 string folder = dlg.FileName;
 
-                this.FolderTextBox.Text = folder;
+                FolderTextBox.Text = folder;
             }
         }
     }

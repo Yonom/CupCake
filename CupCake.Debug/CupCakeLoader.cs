@@ -38,7 +38,7 @@ namespace CupCake.Debug
             }
 
             AppDomain.CurrentDomain.ExecuteAssembly(path + "\\CupCake.Server.exe",
-                new[] { "--envpath", path }.Concat(args).ToArray());
+                new[] {"--envpath", path}.Concat(args).ToArray());
         }
     }
 }

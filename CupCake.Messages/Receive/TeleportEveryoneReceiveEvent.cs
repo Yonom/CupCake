@@ -10,9 +10,9 @@ namespace CupCake.Messages.Receive
             : base(message)
         {
             var coords = new Dictionary<int, Point>();
-            this.Coordinates = new ReadOnlyDictionary<int, Point>(coords);
+            Coordinates = new ReadOnlyDictionary<int, Point>(coords);
 
-            this.ResetCoins = message.GetBoolean(0);
+            ResetCoins = message.GetBoolean(0);
 
             for (uint i = 1; i <= message.Count - 1u; i += 3)
             {

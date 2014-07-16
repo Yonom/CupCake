@@ -13,11 +13,11 @@ namespace CupCake.DefaultCommands.Commands.User
         [CorrectUsage("player [reason]")]
         protected override void Run(IInvokeSource source, ParsedCommand message)
         {
-            this.RequireOwner();
-            Player player = this.GetPlayerOrSelf(source, message);
-            this.RequireSameRank(source, player);
+            RequireOwner();
+            Player player = GetPlayerOrSelf(source, message);
+            RequireSameRank(source, player);
 
-            this.Chatter.ChatService.Kick(source.Name, player.Username,
+            Chatter.ChatService.Kick(source.Name, player.Username,
                 (message.Count > 1 ? message.GetTrail(1) : "Tsk tsk tsk"));
         }
     }

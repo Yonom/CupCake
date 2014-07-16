@@ -7,12 +7,12 @@ namespace CupCake.Messages.Send
     {
         public LabelPlaceSendEvent(Layer layer, int x, int y, LabelBlock block, string text)
         {
-            this.Block = block;
-            this.X = x;
-            this.Y = y;
-            this.Layer = BlockUtils.CorrectLayer((Block)block, layer);
+            Block = block;
+            X = x;
+            Y = y;
+            Layer = BlockUtils.CorrectLayer((Block) block, layer);
 
-            this.Text = text;
+            Text = text;
         }
 
         public LabelBlock Block { get; set; }
@@ -20,8 +20,8 @@ namespace CupCake.Messages.Send
 
         Block IBlockPlaceSendEvent.Block
         {
-            get { return (Block)this.Block; }
-            set { this.Block = (LabelBlock)value; }
+            get { return (Block) Block; }
+            set { Block = (LabelBlock) value; }
         }
 
         public Layer Layer { get; set; }
@@ -32,7 +32,7 @@ namespace CupCake.Messages.Send
 
         public override Message GetMessage()
         {
-            return Message.Create(this.Encryption, (int)this.Layer, this.X, this.Y, (int)this.Block, this.Text);
+            return Message.Create(Encryption, (int) Layer, X, Y, (int) Block, Text);
         }
     }
 }

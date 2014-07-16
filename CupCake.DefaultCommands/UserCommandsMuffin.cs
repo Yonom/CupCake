@@ -15,14 +15,14 @@ namespace CupCake.DefaultCommands
 
         protected override void Enable()
         {
-            this.KickCommand = this.EnablePart<KickCommand>();
-            this.KillCommand = this.EnablePart<KillCommand>();
-            this.TeleportCommand = this.EnablePart<TeleportCommand>();
-            this.GiveEditCommand = this.EnablePart<GiveEditCommand>();
-            this.RemoveEditCommand = this.EnablePart<RemoveEditCommand>();
-            this.MuteCommand = this.EnablePart<MuteCommand>();
-            this.UnmuteCommand = this.EnablePart<UnmuteCommand>();
-            this.ReportAbuseCommand = this.EnablePart<ReportAbuseCommand>();
+            KickCommand = EnablePart<KickCommand>();
+            KillCommand = EnablePart<KillCommand>();
+            TeleportCommand = EnablePart<TeleportCommand>();
+            GiveEditCommand = EnablePart<GiveEditCommand>();
+            RemoveEditCommand = EnablePart<RemoveEditCommand>();
+            MuteCommand = EnablePart<MuteCommand>();
+            UnmuteCommand = EnablePart<UnmuteCommand>();
+            ReportAbuseCommand = EnablePart<ReportAbuseCommand>();
         }
     }
 }

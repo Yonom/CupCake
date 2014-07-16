@@ -22,56 +22,56 @@ namespace CupCake.Core
 
         protected CupCakeServicePart()
         {
-            this._name = new Lazy<string>(this.FindName);
+            _name = new Lazy<string>(FindName);
 
-            this._connectionPlatform = new Lazy<ConnectionPlatform>(() => this.PlatformLoader.Get<ConnectionPlatform>());
-            this._synchronizePlatofrm =
-                new Lazy<SynchronizePlatform>(() => this.PlatformLoader.Get<SynchronizePlatform>());
-            this._storagePlatform = new Lazy<StoragePlatform>(() => this.PlatformLoader.Get<StoragePlatform>());
+            _connectionPlatform = new Lazy<ConnectionPlatform>(() => PlatformLoader.Get<ConnectionPlatform>());
+            _synchronizePlatofrm =
+                new Lazy<SynchronizePlatform>(() => PlatformLoader.Get<SynchronizePlatform>());
+            _storagePlatform = new Lazy<StoragePlatform>(() => PlatformLoader.Get<StoragePlatform>());
 
-            this._logger = new Lazy<Logger>(() =>
+            _logger = new Lazy<Logger>(() =>
             {
-                var logService = this.PlatformLoader.Get<LogPlatform>();
-                string name = this.GetName();
+                var logService = PlatformLoader.Get<LogPlatform>();
+                string name = GetName();
                 return new Logger(logService, name);
             });
 
-            this._events = new Lazy<EventManager>(() =>
+            _events = new Lazy<EventManager>(() =>
             {
-                var eventsPlatform = this.PlatformLoader.Get<EventsPlatform>();
+                var eventsPlatform = PlatformLoader.Get<EventsPlatform>();
                 return new EventManager(eventsPlatform, this);
             });
         }
 
         protected Logger Logger
         {
-            get { return this._logger.Value; }
+            get { return _logger.Value; }
         }
 
         protected EventManager Events
         {
-            get { return this._events.Value; }
+            get { return _events.Value; }
         }
 
         protected ConnectionPlatform ConnectionPlatform
         {
-            get { return this._connectionPlatform.Value; }
+            get { return _connectionPlatform.Value; }
         }
 
         protected SynchronizePlatform SynchronizePlatform
         {
-            get { return this._synchronizePlatofrm.Value; }
+            get { return _synchronizePlatofrm.Value; }
         }
 
         protected StoragePlatform StoragePlatform
         {
-            get { return this._storagePlatform.Value; }
+            get { return _storagePlatform.Value; }
         }
 
         protected Timer GetTimer(int interval)
         {
-            var timer = new Timer(interval) {SynchronizingObject = this.SynchronizePlatform.SynchronizingObject};
-            this._timers.Add(timer);
+            var timer = new Timer(interval) {SynchronizingObject = SynchronizePlatform.SynchronizingObject};
+            _timers.Add(timer);
             return timer;
         }
 
@@ -79,31 +79,31 @@ namespace CupCake.Core
         {
             var pluginName =
                 (PluginNameAttribute)
-                    Assembly.GetAssembly(this.GetType())
-                        .GetCustomAttributes(typeof(PluginNameAttribute), false)
+                    Assembly.GetAssembly(GetType())
+                        .GetCustomAttributes(typeof (PluginNameAttribute), false)
                         .FirstOrDefault();
 
             if (pluginName != null)
                 return pluginName.Name;
 
-            return this.GetType().Namespace;
+            return GetType().Namespace;
         }
 
         protected virtual string GetName()
         {
-            return this._name.Value;
+            return _name.Value;
         }
 
         protected override void Dispose(bool disposing)
         {
             if (disposing)
             {
-                if (this._events.IsValueCreated)
+                if (_events.IsValueCreated)
                 {
-                    this._events.Value.Dispose();
+                    _events.Value.Dispose();
                 }
 
-                foreach (Timer timer in this._timers)
+                foreach (Timer timer in _timers)
                 {
                     timer.Dispose();
                 }

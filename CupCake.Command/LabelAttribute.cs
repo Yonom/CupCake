@@ -7,7 +7,7 @@ namespace CupCake.Command
     {
         public LabelAttribute(params string[] labels)
         {
-            this.Labels = labels;
+            Labels = labels;
         }
 
         public string[] Labels { get; private set; }

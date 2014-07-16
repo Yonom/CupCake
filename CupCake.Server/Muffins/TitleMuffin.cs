@@ -7,18 +7,18 @@ namespace CupCake.Server.Muffins
     {
         protected override void Enable()
         {
-            this.Events.Bind<InitReceiveEvent>(this.OnInit);
-            this.Events.Bind<UpdateMetaReceiveEvent>(this.OnUpdateMeta);
+            Events.Bind<InitReceiveEvent>(OnInit);
+            Events.Bind<UpdateMetaReceiveEvent>(OnUpdateMeta);
         }
 
         private void OnUpdateMeta(object sender, UpdateMetaReceiveEvent e)
         {
-            this.Events.Raise(new ChangeTitleEvent(e.WorldName));
+            Events.Raise(new ChangeTitleEvent(e.WorldName));
         }
 
         private void OnInit(object sender, InitReceiveEvent e)
         {
-            this.Events.Raise(new ChangeTitleEvent(e.WorldName));
+            Events.Raise(new ChangeTitleEvent(e.WorldName));
         }
     }
 }

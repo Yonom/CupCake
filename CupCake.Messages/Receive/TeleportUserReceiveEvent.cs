@@ -7,19 +7,19 @@ namespace CupCake.Messages.Receive
         public TeleportUserReceiveEvent(Message message)
             : base(message)
         {
-            this.UserId = message.GetInteger(0);
-            this.UserPosX = message.GetInteger(1);
-            this.UserPosY = message.GetInteger(2);
+            UserId = message.GetInteger(0);
+            UserPosX = message.GetInteger(1);
+            UserPosY = message.GetInteger(2);
         }
 
         public int BlockX
         {
-            get { return this.UserPosX + 8 >> 4; }
+            get { return UserPosX + 8 >> 4; }
         }
 
         public int BlockY
         {
-            get { return this.UserPosY + 8 >> 4; }
+            get { return UserPosY + 8 >> 4; }
         }
 
         public int UserPosX { get; set; }

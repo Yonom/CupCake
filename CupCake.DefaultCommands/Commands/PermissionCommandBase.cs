@@ -11,9 +11,9 @@ namespace CupCake.DefaultCommands.Commands
         internal void RunPermissionCommand(IInvokeSource source, ParsedCommand message, Group permission)
         {
             string name = message.Args[0];
-            this.PlayerService.MatchPlayer(name, player =>
+            PlayerService.MatchPlayer(name, player =>
             {
-                this.RequireHigherRank(source, player);
+                RequireHigherRank(source, player);
 
                 player.SetGroup(permission);
 
@@ -21,17 +21,17 @@ namespace CupCake.DefaultCommands.Commands
             }, username =>
             {
                 string storageName = PlayerUtils.GetStorageName(username);
-                this.RequireHigherRankOffline(source, storageName);
-                this.Host.SetPermission(storageName, permission);
+                RequireHigherRankOffline(source, storageName);
+                Host.SetPermission(storageName, permission);
                 source.Reply("{0} is now {1}.", PlayerUtils.GetChatName(username), permission);
             });
         }
 
         internal void RequireHigherRankOffline(IInvokeSource source, string name)
         {
-            if (this.Host.GetPermission(name) >= source.Group)
+            if (Host.GetPermission(name) >= source.Group)
                 throw new CommandException(String.Format("You may not {0} a player with a higher rank.",
-                    this.CommandName));
+                    CommandName));
         }
     }
 }

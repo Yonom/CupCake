@@ -19,34 +19,34 @@ namespace CupCake.Chat
 
         protected override void Enable()
         {
-            this.SyntaxProvider = new BasicChatSyntaxProvider();
+            SyntaxProvider = new BasicChatSyntaxProvider();
 
-            this._mySendTimer = new Timer(700);
-            this._mySendTimer.Elapsed += this.SendTimer_Elapsed;
-            this._mySendTimer.Start();
+            _mySendTimer = new Timer(700);
+            _mySendTimer.Elapsed += SendTimer_Elapsed;
+            _mySendTimer.Start();
         }
 
         private void SendTimer_Elapsed(object sender, ElapsedEventArgs elapsedEventArgs)
         {
-            this.DoSendTick();
+            DoSendTick();
         }
 
         private void DoSendTick()
         {
             SaySendEvent sayEvent;
-            if (this._myChatQueue.TryDequeue(out sayEvent))
+            if (_myChatQueue.TryDequeue(out sayEvent))
             {
-                this.Events.Raise(sayEvent);
+                Events.Raise(sayEvent);
             }
             else
             {
-                this._mySendTimer.Stop();
+                _mySendTimer.Stop();
             }
         }
 
         private bool CheckHistory(string str)
         {
-            return this._myHistoryList.Count(str.Equals) >= 4;
+            return _myHistoryList.Count(str.Equals) >= 4;
         }
 
         private void SendChat(string msg)
@@ -57,22 +57,22 @@ namespace CupCake.Chat
                 SaySendEvent e = msg.Length >= 80
                     ? new SaySendEvent(msg.Substring(0, 80))
                     : new SaySendEvent(msg.Substring(0, msg.Length));
-                this.Events.Raise(e);
+                Events.Raise(e);
                 return;
             }
 
             // Dont send the same thing more than 3 times
-            if (this.CheckHistory(msg))
+            if (CheckHistory(msg))
             {
-                this.SendChat("." + msg);
+                SendChat("." + msg);
             }
 
-            lock (this._myHistoryList)
+            lock (_myHistoryList)
             {
-                this._myHistoryList.Add(msg);
-                if (this._myHistoryList.Count > 10)
+                _myHistoryList.Add(msg);
+                if (_myHistoryList.Count > 10)
                 {
-                    this._myHistoryList.RemoveAt(0);
+                    _myHistoryList.RemoveAt(0);
                 }
             }
 
@@ -80,117 +80,117 @@ namespace CupCake.Chat
             for (int i = 0; i <= msg.Length; i += 80)
             {
                 int left = msg.Length - i;
-                this._myChatQueue.Enqueue(left >= 80
+                _myChatQueue.Enqueue(left >= 80
                     ? new SaySendEvent(msg.Substring(i, 80))
                     : new SaySendEvent(msg.Substring(i, left)));
             }
 
             // Init Timer
-            if (!this._mySendTimer.Enabled)
+            if (!_mySendTimer.Enabled)
             {
-                this.DoSendTick();
-                this._mySendTimer.Start();
+                DoSendTick();
+                _mySendTimer.Start();
             }
         }
 
         public void Chat(string msg, string chatName)
         {
-            this.SendChat(this.SyntaxProvider.ApplyChatSyntax(msg, chatName));
+            SendChat(SyntaxProvider.ApplyChatSyntax(msg, chatName));
         }
 
         public void Send(string msg)
         {
-            this.SendChat(msg);
+            SendChat(msg);
         }
 
         public void Reply(string username, string chatName, string msg)
         {
-            this.SendChat(this.SyntaxProvider.ApplyReplySyntax(msg, chatName, username));
+            SendChat(SyntaxProvider.ApplyReplySyntax(msg, chatName, username));
         }
 
         public void GiveEdit(string username)
         {
-            this.SendChat("/giveedit " + username);
+            SendChat("/giveedit " + username);
         }
 
         public void RemoveEdit(string username)
         {
-            this.SendChat("/removeedit " + username);
+            SendChat("/removeedit " + username);
         }
 
         public void Teleport(string username)
         {
-            this.SendChat("/teleport " + username);
+            SendChat("/teleport " + username);
         }
 
         public void Teleport(string username, int x, int y)
         {
-            this.SendChat("/teleport " + username + " " + x + " " + y);
+            SendChat("/teleport " + username + " " + x + " " + y);
         }
 
         public void Kick(string chatName, string username)
         {
-            this.Kick(chatName, username, String.Empty);
+            Kick(chatName, username, String.Empty);
         }
 
         public void Kick(string chatName, string username, string reason)
         {
-            this.SendChat(this.SyntaxProvider.ApplyKickSyntax(chatName, username, reason));
+            SendChat(SyntaxProvider.ApplyKickSyntax(chatName, username, reason));
         }
 
         public void KickGuests()
         {
-            this.SendChat("/kickguests");
+            SendChat("/kickguests");
         }
 
         public void Kill(string username)
         {
-            this.SendChat("/kill " + username);
+            SendChat("/kill " + username);
         }
 
         public void KillAll()
         {
-            this.SendChat("/killemall");
+            SendChat("/killemall");
         }
 
         public void Mute(string username)
         {
-            this.SendChat("/mute " + username);
+            SendChat("/mute " + username);
         }
 
         public void Unmute(string username)
         {
-            this.SendChat("/unmute " + username);
+            SendChat("/unmute " + username);
         }
 
         public void ReportAbuse(string username, string reason)
         {
-            this.SendChat("/reportabuse " + username + " " + reason);
+            SendChat("/reportabuse " + username + " " + reason);
         }
 
         public void Reset()
         {
-            this.SendChat("/reset");
+            SendChat("/reset");
         }
 
         public void Respawn()
         {
-            this.SendChat("/respawn");
+            SendChat("/respawn");
         }
 
         public void RespawnAll()
         {
-            this.SendChat("/respawnall");
+            SendChat("/respawnall");
         }
 
         public void PotionsOn(params string[] potions)
         {
-            this.SendChat("/potionson  " + string.Join(" ", potions));
+            SendChat("/potionson  " + string.Join(" ", potions));
         }
 
         public void PotionsOn(params int[] potions)
         {
-            this.SendChat("/potionson  " + string.Join(" ", potions));
+            SendChat("/potionson  " + string.Join(" ", potions));
         }
 
         public void PotionsOn(params Potion[] potions)
@@ -198,20 +198,20 @@ namespace CupCake.Chat
             var p = new int[potions.Length];
             for (int i = potions.Length - 1; i >= 0; i += -1)
             {
-                p[i] = (int)potions[i];
+                p[i] = (int) potions[i];
             }
 
-            this.SendChat("/potionson  " + string.Join(" ", p));
+            SendChat("/potionson  " + string.Join(" ", p));
         }
 
         public void PotionsOff(params string[] potions)
         {
-            this.SendChat("/potionsoff  " + string.Join(" ", potions));
+            SendChat("/potionsoff  " + string.Join(" ", potions));
         }
 
         public void PotionsOff(params int[] potions)
         {
-            this.SendChat("/potionsoff  " + string.Join(" ", potions));
+            SendChat("/potionsoff  " + string.Join(" ", potions));
         }
 
         public void PotionsOff(params Potion[] potions)
@@ -219,27 +219,27 @@ namespace CupCake.Chat
             var p = new int[potions.Length];
             for (int i = potions.Length - 1; i >= 0; i += -1)
             {
-                p[i] = (int)potions[i];
+                p[i] = (int) potions[i];
             }
 
-            this.SendChat("/potionsoff  " + string.Join(" ", p));
+            SendChat("/potionsoff  " + string.Join(" ", p));
         }
 
         public void ChangeVisibility(bool visible)
         {
-            this.SendChat("/visible " + visible);
+            SendChat("/visible " + visible);
         }
 
         public void LoadLevel()
         {
-            this.SendChat("/loadlevel");
+            SendChat("/loadlevel");
         }
 
         protected override void Dispose(bool disposing)
         {
             if (disposing)
             {
-                this._mySendTimer.Dispose();
+                _mySendTimer.Dispose();
             }
         }
     }

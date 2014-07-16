@@ -13,9 +13,9 @@ namespace CupCake.DefaultCommands.Commands.User
         [CorrectUsage("player")]
         protected override void Run(IInvokeSource source, ParsedCommand message)
         {
-            Player player = this.PlayerService.MatchPlayer(message.Args[0]);
+            Player player = PlayerService.MatchPlayer(message.Args[0]);
 
-            this.Chatter.Mute(player.Username);
+            Chatter.Mute(player.Username);
 
             source.Reply("Muted {0}.", player.ChatName);
         }

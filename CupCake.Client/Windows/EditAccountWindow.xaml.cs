@@ -16,42 +16,42 @@ namespace CupCake.Client.Windows
 
         public EditAccountWindow(Account account, bool isNew)
         {
-            this._account = account;
+            _account = account;
 
-            this.InitializeComponent();
+            InitializeComponent();
 
-            this.Title = isNew
+            Title = isNew
                 ? "New Account"
                 : "Edit Account";
 
-            this.NameTextBox.Text = account.Name;
-            this.TypeComboBox.SelectedIndex = (int)account.Type;
-            this.EmailTextBox.Text = account.Email;
-            this.PasswordBox.Password = isNew
+            NameTextBox.Text = account.Name;
+            TypeComboBox.SelectedIndex = (int) account.Type;
+            EmailTextBox.Text = account.Email;
+            PasswordBox.Password = isNew
                 ? String.Empty
                 : new string('*', 12);
         }
 
         private void OkButton_Click(object sender, RoutedEventArgs e)
         {
-            this._account.Name = this.NameTextBox.Text;
-            this._account.Type = (AccountType)this.TypeComboBox.SelectedIndex;
-            this._account.Email = this.EmailTextBox.Text;
-            if (this._passwordChanged)
+            _account.Name = NameTextBox.Text;
+            _account.Type = (AccountType) TypeComboBox.SelectedIndex;
+            _account.Email = EmailTextBox.Text;
+            if (_passwordChanged)
             {
-                this._account.Password = this.PasswordBox.SecurePassword.EncryptString();
+                _account.Password = PasswordBox.SecurePassword.EncryptString();
             }
-            this.DialogResult = true;
+            DialogResult = true;
         }
 
         private void CancelButton_Click(object sender, RoutedEventArgs e)
         {
-            this.DialogResult = false;
+            DialogResult = false;
         }
 
         private void PreviewPasswordBox_OnTextInput(object sender, TextCompositionEventArgs e)
         {
-            this._passwordChanged = true;
+            _passwordChanged = true;
         }
     }
 }

@@ -7,8 +7,8 @@ namespace CupCake.Command
     {
         public InvokeEvent(IInvokeSource source, ParsedCommand message)
         {
-            this.Source = source;
-            this.Message = message;
+            Source = source;
+            Message = message;
         }
 
         public IInvokeSource Source { get; set; }

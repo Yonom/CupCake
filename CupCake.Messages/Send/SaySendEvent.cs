@@ -6,14 +6,14 @@ namespace CupCake.Messages.Send
     {
         public SaySendEvent(string text)
         {
-            this.Text = text;
+            Text = text;
         }
 
         public string Text { get; set; }
 
         public override Message GetMessage()
         {
-            return Message.Create("say", this.Text);
+            return Message.Create("say", Text);
         }
     }
 }

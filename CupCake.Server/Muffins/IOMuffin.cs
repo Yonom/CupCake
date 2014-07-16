@@ -7,12 +7,12 @@ namespace CupCake.Server.Muffins
     {
         protected override void Enable()
         {
-            this.Events.Bind<InputEvent>(this.OnInput);
+            Events.Bind<InputEvent>(OnInput);
         }
 
         private void OnInput(object sender, InputEvent e)
         {
-            this.CommandService.InvokeFromConsole(new ParsedCommand(e.Input));
+            CommandService.InvokeFromConsole(new ParsedCommand(e.Input));
         }
     }
 }

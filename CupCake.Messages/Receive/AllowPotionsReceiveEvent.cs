@@ -10,14 +10,14 @@ namespace CupCake.Messages.Receive
         public AllowPotionsReceiveEvent(Message message)
             : base(message)
         {
-            this.Allowed = message.GetBoolean(0);
+            Allowed = message.GetBoolean(0);
 
             var potsList = new List<Potion>();
             for (uint i = 1; i <= message.Count - 1; i += 1)
             {
-                potsList.Add((Potion)Int32.Parse(message.GetString(i)));
+                potsList.Add((Potion) Int32.Parse(message.GetString(i)));
             }
-            this.DisabledPotions = potsList.ToArray();
+            DisabledPotions = potsList.ToArray();
         }
 
         public bool Allowed { get; set; }

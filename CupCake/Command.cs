@@ -11,134 +11,138 @@ using CupCake.Permissions;
 namespace CupCake
 {
     /// <summary>
-    /// Class Command.
-    /// Represents a CupCake command.
+    ///     Class Command.
+    ///     Represents a CupCake command.
     /// </summary>
     /// <typeparam name="TProtocol">The type of the protocol.</typeparam>
     public abstract class Command<TProtocol> : CupCakeMuffinPart<TProtocol>
     {
         /// <summary>
-        /// Gets the labels list set for this command.
-        /// Usually set through the <see cref="LabelAttribute"/>.
+        ///     Gets the labels list set for this command.
+        ///     Usually set through the <see cref="LabelAttribute" />.
         /// </summary>
         /// <value>The labels.</value>
         public List<string> Labels { get; private set; }
 
         /// <summary>
-        /// Gets the usages strings set for this command.
-        /// Usually set through the <see cref="CorrectUsageAttribute"/>.
+        ///     Gets the usages strings set for this command.
+        ///     Usually set through the <see cref="CorrectUsageAttribute" />.
         /// </summary>
         /// <value>The usages.</value>
         public List<string> Usages { get; private set; }
 
         /// <summary>
-        /// Gets or sets the minimum arguments.
-        /// Usually set through the <see cref="MinArgsAttribute"/>.
+        ///     Gets or sets the minimum arguments.
+        ///     Usually set through the <see cref="MinArgsAttribute" />.
         /// </summary>
         /// <value>The minimum arguments.</value>
         public int MinArgs { get; set; }
 
         /// <summary>
-        /// Gets or sets the minimum permission required to execute this command.
-        /// Usually set through the <see cref="MinGroupAttribute"/>.
+        ///     Gets or sets the minimum permission required to execute this command.
+        ///     Usually set through the <see cref="MinGroupAttribute" />.
         /// </summary>
         /// <value>The minimum group.</value>
         public Group MinGroup { get; set; }
 
         /// <summary>
-        /// Gets or sets a value indicating whether this command is executed with a higher priority.´
-        /// Can only be set through the <see cref="HighPriorityAttribute"/> or the constructor, changing this value later has no effect.
+        ///     Gets or sets a value indicating whether this command is executed with a higher priority.´
+        ///     Can only be set through the <see cref="HighPriorityAttribute" /> or the constructor, changing this value later has
+        ///     no effect.
         /// </summary>
         /// <value><c>true</c> if [high priority]; otherwise, <c>false</c>.</value>
         public bool HighPriority { get; set; }
 
         /// <summary>
-        /// Enables this instance.
-        /// Obsolete. You should not call Enable() on a command.
+        ///     Enables this instance.
+        ///     Obsolete. You should not call Enable() on a command.
         /// </summary>
         [Obsolete("You should not call Enable() on a command.", true)]
 #pragma warning disable 809
         protected override void Enable()
 #pragma warning restore 809
         {
-            this.Labels = new List<string>();
-            this.Usages = new List<string>();
+            Labels = new List<string>();
+            Usages = new List<string>();
 
-            MethodBase method = this.GetType().GetMethod("Run", BindingFlags.Instance | BindingFlags.NonPublic);
+            MethodBase method = GetType().GetMethod("Run", BindingFlags.Instance | BindingFlags.NonPublic);
 
             // Alias attribute
             var highPriority =
-                (HighPriorityAttribute)method.GetCustomAttributes(typeof(HighPriorityAttribute), false).FirstOrDefault();
+                (HighPriorityAttribute)
+                    method.GetCustomAttributes(typeof (HighPriorityAttribute), false).FirstOrDefault();
             if (highPriority != null)
             {
-                this.HighPriority = true;
+                HighPriority = true;
             }
 
             // Alias attribute
-            var labels = (LabelAttribute)method.GetCustomAttributes(typeof(LabelAttribute), false).FirstOrDefault();
+            var labels = (LabelAttribute) method.GetCustomAttributes(typeof (LabelAttribute), false).FirstOrDefault();
             if (labels != null)
             {
-                this.Labels.AddRange(labels.Labels);
+                Labels.AddRange(labels.Labels);
             }
 
             // MinGroup attribute
             var minGroup =
-                (MinGroupAttribute)method.GetCustomAttributes(typeof(MinGroupAttribute), false).FirstOrDefault();
+                (MinGroupAttribute) method.GetCustomAttributes(typeof (MinGroupAttribute), false).FirstOrDefault();
             if (minGroup != null)
             {
-                this.MinGroup = minGroup.Group;
+                MinGroup = minGroup.Group;
             }
 
             // MinArgs attribute
-            var minArgs = (MinArgsAttribute)method.GetCustomAttributes(typeof(MinArgsAttribute), false).FirstOrDefault();
+            var minArgs =
+                (MinArgsAttribute) method.GetCustomAttributes(typeof (MinArgsAttribute), false).FirstOrDefault();
             if (minArgs != null)
             {
-                this.MinArgs = minArgs.MinArgs;
+                MinArgs = minArgs.MinArgs;
             }
 
             // CorrectUsage attribute
-            var correctUsage = (CorrectUsageAttribute[])method.GetCustomAttributes(typeof(CorrectUsageAttribute), false);
-            this.Usages.AddRange(correctUsage.Select(usage => usage.Usage));
+            var correctUsage =
+                (CorrectUsageAttribute[]) method.GetCustomAttributes(typeof (CorrectUsageAttribute), false);
+            Usages.AddRange(correctUsage.Select(usage => usage.Usage));
 
-            this.Events.Bind<InvokeEvent>(
-                this.OnInvoke,
-                this.HighPriority
+            Events.Bind<InvokeEvent>(
+                OnInvoke,
+                HighPriority
                     ? EventPriority.Low
                     : EventPriority.Lowest);
         }
 
         private void OnInvoke(object sender, InvokeEvent e)
         {
-            if (this.CanHandle(e.Message))
+            if (CanHandle(e.Message))
             {
                 if (e.Handled)
                 {
                     if (!e.IgnoresDuplicateWarning)
                     {
-                        this.Logger.Log(LogPriority.Warning, "Detected possible duplicate command: " + e.Message.Type);
+                        Logger.Log(LogPriority.Warning, "Detected possible duplicate command: " + e.Message.Type);
                     }
                 }
                 else
                 {
-                    e.Source.PluginName = this.GetName();
+                    e.Source.PluginName = GetName();
                     e.Handled = true;
-                    this.ExecuteCommand(e.Source, e.Message);
+                    ExecuteCommand(e.Source, e.Message);
                 }
             }
         }
 
         /// <summary>
-        /// Determines whether this instance can handle the specified message.
+        ///     Determines whether this instance can handle the specified message.
         /// </summary>
         /// <param name="message">The message.</param>
         /// <returns><c>true</c> if this instance can handle the specified message; otherwise, <c>false</c>.</returns>
         protected virtual bool CanHandle(ParsedCommand message)
         {
-            return this.Labels.Any(l => l.Equals(message.Type, StringComparison.OrdinalIgnoreCase));
+            return Labels.Any(l => l.Equals(message.Type, StringComparison.OrdinalIgnoreCase));
         }
 
         /// <summary>
-        /// Executes the command.
+        ///     Executes the command.
         /// </summary>
         /// <param name="source">The message source.</param>
         /// <param name="message">The parsed message.</param>
@@ -148,25 +152,25 @@ namespace CupCake
             {
                 if (message is HelpRequest)
                 {
-                    source.Reply("Command usage: " + this.GetUsageStr(message.Type));
+                    source.Reply("Command usage: " + GetUsageStr(message.Type));
                     return;
                 }
 
-                if (source.Group < this.MinGroup)
+                if (source.Group < MinGroup)
                     throw new AccessDeniedException();
-                if (message.Count < this.MinArgs)
+                if (message.Count < MinArgs)
                     throw new SyntaxException("Too few arguments.");
 
-                this.Run(source, message);
+                Run(source, message);
             }
             catch (AccessDeniedException)
             {
-                if (source.Group >= this.CommandService.ResponseMinGroup)
+                if (source.Group >= CommandService.ResponseMinGroup)
                     source.Reply("You are not allowed to run this command!");
             }
             catch (SyntaxException ex)
             {
-                source.Reply(ex.Message + " Correct usage: " + this.GetUsageStr(message.Type));
+                source.Reply(ex.Message + " Correct usage: " + GetUsageStr(message.Type));
             }
             catch (CommandException ex)
             {
@@ -177,14 +181,14 @@ namespace CupCake
         private string GetUsageStr(string label)
         {
             string[] correctUsages =
-                this.Usages.Select(usage => this.CommandService.CommandPrefix + label + " " + usage).ToArray();
+                Usages.Select(usage => CommandService.CommandPrefix + label + " " + usage).ToArray();
             return correctUsages.Any()
                 ? String.Join(" / ", correctUsages)
                 : "<unavailable>";
         }
 
         /// <summary>
-        /// This method is called whenever the command should be executed.
+        ///     This method is called whenever the command should be executed.
         /// </summary>
         /// <param name="source">The command source.</param>
         /// <param name="message">The parsed message.</param>

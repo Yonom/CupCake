@@ -20,47 +20,47 @@ namespace CupCake.Client.Windows
 
         public NewConnectionWindow(ClientHandle handle, RecentWorld recentWorld, bool isDebug)
         {
-            this._recentWorld = recentWorld;
-            this._isDebug = isDebug;
-            this.InitializeComponent();
+            _recentWorld = recentWorld;
+            _isDebug = isDebug;
+            InitializeComponent();
 
-            this._handle = handle;
-            this._handle.ReceiveClose += this._handle_ReceiveClose;
+            _handle = handle;
+            _handle.ReceiveClose += _handle_ReceiveClose;
 
-            this.Closed += this.NewConnectionWindow_Closed;
+            Closed += NewConnectionWindow_Closed;
 
             foreach (Profile profile in SettingsManager.Settings.Profiles.OrderBy(v => v.Id))
             {
                 var item = new TextBlock(new Run(profile.Name.GetVisualName())) {Tag = profile};
-                this.ProfileComboBox.Items.Add(item);
+                ProfileComboBox.Items.Add(item);
 
                 if (recentWorld.Profile == profile.Id)
-                    this.ProfileComboBox.SelectedItem = item;
+                    ProfileComboBox.SelectedItem = item;
             }
 
             foreach (Account account in SettingsManager.Settings.Accounts.OrderBy(v => v.Id))
             {
                 var item = new TextBlock(new Run((account.Name ?? account.Email).GetVisualName())) {Tag = account};
-                this.AccountComboBox.Items.Add(item);
+                AccountComboBox.Items.Add(item);
 
                 if (recentWorld.Account == account.Id)
-                    this.AccountComboBox.SelectedItem = item;
+                    AccountComboBox.SelectedItem = item;
             }
 
-            this.WorldIdTextBox.Text = recentWorld.WorldId;
+            WorldIdTextBox.Text = recentWorld.WorldId;
         }
 
         private void NewConnectionWindow_Closed(object sender, EventArgs e)
         {
-            this._handle.ReceiveClose -= this._handle_ReceiveClose;
+            _handle.ReceiveClose -= _handle_ReceiveClose;
         }
 
         private void _handle_ReceiveClose()
         {
             Dispatch.Invoke(() =>
             {
-                if (this.DialogResult == null)
-                    this.DialogResult = false;
+                if (DialogResult == null)
+                    DialogResult = false;
             });
         }
 
@@ -71,9 +71,9 @@ namespace CupCake.Client.Windows
             DatabaseType dbType;
             string dbCs;
 
-            if (this.ProfileComboBox.SelectedItem != null)
+            if (ProfileComboBox.SelectedItem != null)
             {
-                var profile = (Profile)((TextBlock)this.ProfileComboBox.SelectedItem).Tag;
+                var profile = (Profile) ((TextBlock) ProfileComboBox.SelectedItem).Tag;
                 pId = profile.Id;
                 pFolder = profile.Folder;
 
@@ -103,16 +103,16 @@ namespace CupCake.Client.Windows
             string aEmail = String.Empty;
             string aPass = String.Empty;
 
-            if (this.AccountComboBox.SelectedItem != null)
+            if (AccountComboBox.SelectedItem != null)
             {
-                var account = (Account)((TextBlock)this.AccountComboBox.SelectedItem).Tag;
+                var account = (Account) ((TextBlock) AccountComboBox.SelectedItem).Tag;
                 aId = account.Id;
                 aType = account.Type;
                 aEmail = account.Email;
                 aPass = account.Password.DecryptString().ToInsecureString();
             }
 
-            string worldId = this.WorldIdTextBox.Text;
+            string worldId = WorldIdTextBox.Text;
 
             var folders = new List<string>
             {
@@ -120,16 +120,16 @@ namespace CupCake.Client.Windows
                 pFolder
             };
 
-            if (this._isDebug)
+            if (_isDebug)
                 folders.Add(SettingsManager.DebugPath);
 
-            this._handle.DoSendSetData(aType, aEmail, aPass, worldId, folders.ToArray(), dbType, dbCs);
+            _handle.DoSendSetData(aType, aEmail, aPass, worldId, folders.ToArray(), dbType, dbCs);
 
-            this._recentWorld.Account = aId;
-            this._recentWorld.Profile = pId;
-            this._recentWorld.WorldId = worldId;
+            _recentWorld.Account = aId;
+            _recentWorld.Profile = pId;
+            _recentWorld.WorldId = worldId;
 
-            this.DialogResult = true;
+            DialogResult = true;
         }
     }
 }

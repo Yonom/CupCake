@@ -6,11 +6,11 @@ namespace CupCake.Room
     {
         internal MetaRoomEvent(string ownerUsername, int plays, int currentWoots, int totalWoots, string worldName)
         {
-            this.OwnerUsername = ownerUsername;
-            this.Plays = plays;
-            this.CurrentWoots = currentWoots;
-            this.TotalWoots = totalWoots;
-            this.WorldName = worldName;
+            OwnerUsername = ownerUsername;
+            Plays = plays;
+            CurrentWoots = currentWoots;
+            TotalWoots = totalWoots;
+            WorldName = worldName;
         }
 
         public int CurrentWoots { get; private set; }

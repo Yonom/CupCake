@@ -6,8 +6,8 @@ namespace CupCake.Messages.Send
     {
         public TouchCakeSendEvent(int x, int y)
         {
-            this.X = x;
-            this.Y = y;
+            X = x;
+            Y = y;
         }
 
         public int X { get; set; }
@@ -15,7 +15,7 @@ namespace CupCake.Messages.Send
 
         public override Message GetMessage()
         {
-            return Message.Create("caketouch", this.X, this.Y);
+            return Message.Create("caketouch", X, Y);
         }
     }
 }

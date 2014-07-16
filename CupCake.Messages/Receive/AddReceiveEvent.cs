@@ -8,19 +8,19 @@ namespace CupCake.Messages.Receive
         public AddReceiveEvent(Message message)
             : base(message)
         {
-            this.UserId = message.GetInteger(0);
-            this.Username = message.GetString(1);
-            this.Face = (Smiley)message.GetInteger(2);
-            this.UserPosX = message.GetInteger(3);
-            this.UserPosY = message.GetInteger(4);
-            this.IsGod = message.GetBoolean(5);
-            this.IsMod = message.GetBoolean(6);
-            this.HasChat = message.GetBoolean(7);
-            this.Coins = message.GetInteger(8);
-            this.IsMyFriend = message.GetBoolean(9);
-            this.IsPurple = message.GetBoolean(10);
-            this.MagicClass = (MagicClass)message.GetInteger(11);
-            this.IsClubMember = message.GetBoolean(12);
+            UserId = message.GetInteger(0);
+            Username = message.GetString(1);
+            Face = (Smiley) message.GetInteger(2);
+            UserPosX = message.GetInteger(3);
+            UserPosY = message.GetInteger(4);
+            IsGod = message.GetBoolean(5);
+            IsMod = message.GetBoolean(6);
+            HasChat = message.GetBoolean(7);
+            Coins = message.GetInteger(8);
+            IsMyFriend = message.GetBoolean(9);
+            IsPurple = message.GetBoolean(10);
+            MagicClass = (MagicClass) message.GetInteger(11);
+            IsClubMember = message.GetBoolean(12);
         }
 
         public int Coins { get; set; }

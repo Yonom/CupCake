@@ -13,9 +13,9 @@ namespace CupCake.DefaultCommands.Commands.User
         [CorrectUsage("player reason")]
         protected override void Run(IInvokeSource source, ParsedCommand message)
         {
-            Player player = this.PlayerService.MatchPlayer(message.Args[0]);
+            Player player = PlayerService.MatchPlayer(message.Args[0]);
 
-            this.Chatter.ReportAbuse(player.Username, message.GetTrail(1));
+            Chatter.ReportAbuse(player.Username, message.GetTrail(1));
 
             source.Reply("Reported {0}.", player.ChatName);
         }

@@ -6,9 +6,9 @@ namespace CupCake.Messages.Send
     {
         public CoinSendEvent(int coins, int coinX, int coinY)
         {
-            this.Coins = coins;
-            this.CoinX = coinX;
-            this.CoinY = coinY;
+            Coins = coins;
+            CoinX = coinX;
+            CoinY = coinY;
         }
 
         public int CoinX { get; set; }
@@ -17,7 +17,7 @@ namespace CupCake.Messages.Send
 
         public override Message GetMessage()
         {
-            return Message.Create("c", this.Coins, this.CoinX, this.CoinY);
+            return Message.Create("c", Coins, CoinX, CoinY);
         }
     }
 }

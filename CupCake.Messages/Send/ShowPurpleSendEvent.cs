@@ -6,14 +6,14 @@ namespace CupCake.Messages.Send
     {
         public ShowPurpleSendEvent(bool show)
         {
-            this.Show = show;
+            Show = show;
         }
 
         public bool Show { get; set; }
 
         public override Message GetMessage()
         {
-            return Message.Create("sp", this.Show);
+            return Message.Create("sp", Show);
         }
     }
 }

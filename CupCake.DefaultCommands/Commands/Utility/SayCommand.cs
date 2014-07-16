@@ -12,7 +12,7 @@ namespace CupCake.DefaultCommands.Commands.Utility
         [CorrectUsage("text")]
         protected override void Run(IInvokeSource source, ParsedCommand message)
         {
-            this.Chatter.ChatService.Chat(message.GetTrail(0), source.Name);
+            Chatter.ChatService.Chat(message.GetTrail(0), source.Name);
         }
     }
 }

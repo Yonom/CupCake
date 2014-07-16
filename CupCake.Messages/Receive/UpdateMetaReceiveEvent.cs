@@ -7,11 +7,11 @@ namespace CupCake.Messages.Receive
         public UpdateMetaReceiveEvent(Message message)
             : base(message)
         {
-            this.OwnerUsername = message.GetString(0);
-            this.WorldName = message.GetString(1);
-            this.Plays = message.GetInteger(2);
-            this.CurrentWoots = message.GetInteger(3);
-            this.TotalWoots = message.GetInteger(4);
+            OwnerUsername = message.GetString(0);
+            WorldName = message.GetString(1);
+            Plays = message.GetInteger(2);
+            CurrentWoots = message.GetInteger(3);
+            TotalWoots = message.GetInteger(4);
         }
 
         public int CurrentWoots { get; set; }

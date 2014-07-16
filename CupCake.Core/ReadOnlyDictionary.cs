@@ -10,19 +10,19 @@ namespace CupCake.Core
 
         public ReadOnlyDictionary()
         {
-            this._dictionary = new Dictionary<TKey, TValue>();
+            _dictionary = new Dictionary<TKey, TValue>();
         }
 
         public ReadOnlyDictionary(IDictionary<TKey, TValue> dictionary)
         {
-            this._dictionary = dictionary;
+            _dictionary = dictionary;
         }
 
         #region IDictionary<TKey,TValue> Members
 
         public TValue this[TKey key]
         {
-            get { return this._dictionary[key]; }
+            get { return _dictionary[key]; }
         }
 
         void IDictionary<TKey, TValue>.Add(TKey key, TValue value)
@@ -32,12 +32,12 @@ namespace CupCake.Core
 
         public bool ContainsKey(TKey key)
         {
-            return this._dictionary.ContainsKey(key);
+            return _dictionary.ContainsKey(key);
         }
 
         public ICollection<TKey> Keys
         {
-            get { return this._dictionary.Keys; }
+            get { return _dictionary.Keys; }
         }
 
         bool IDictionary<TKey, TValue>.Remove(TKey key)
@@ -47,12 +47,12 @@ namespace CupCake.Core
 
         public bool TryGetValue(TKey key, out TValue value)
         {
-            return this._dictionary.TryGetValue(key, out value);
+            return _dictionary.TryGetValue(key, out value);
         }
 
         public ICollection<TValue> Values
         {
-            get { return this._dictionary.Values; }
+            get { return _dictionary.Values; }
         }
 
         TValue IDictionary<TKey, TValue>.this[TKey key]
@@ -77,17 +77,17 @@ namespace CupCake.Core
 
         public bool Contains(KeyValuePair<TKey, TValue> item)
         {
-            return this._dictionary.Contains(item);
+            return _dictionary.Contains(item);
         }
 
         public void CopyTo(KeyValuePair<TKey, TValue>[] array, int arrayIndex)
         {
-            this._dictionary.CopyTo(array, arrayIndex);
+            _dictionary.CopyTo(array, arrayIndex);
         }
 
         public int Count
         {
-            get { return this._dictionary.Count; }
+            get { return _dictionary.Count; }
         }
 
         public bool IsReadOnly
@@ -106,7 +106,7 @@ namespace CupCake.Core
 
         public IEnumerator<KeyValuePair<TKey, TValue>> GetEnumerator()
         {
-            return this._dictionary.GetEnumerator();
+            return _dictionary.GetEnumerator();
         }
 
         #endregion
@@ -115,7 +115,7 @@ namespace CupCake.Core
 
         IEnumerator IEnumerable.GetEnumerator()
         {
-            return this.GetEnumerator();
+            return GetEnumerator();
         }
 
         #endregion

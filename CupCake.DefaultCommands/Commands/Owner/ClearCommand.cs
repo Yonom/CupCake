@@ -11,12 +11,12 @@ namespace CupCake.DefaultCommands.Commands.Owner
         [CorrectUsage("CLEAR")]
         protected override void Run(IInvokeSource source, ParsedCommand message)
         {
-            this.RequireOwner();
+            RequireOwner();
 
             if (message.Count == 0 || message.Args[0] != "CLEAR")
                 throw new CommandException("To user clear, type !clear CLEAR");
 
-            this.RoomService.Clear();
+            RoomService.Clear();
             source.Reply("Cleared level.");
         }
     }

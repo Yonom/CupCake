@@ -7,23 +7,23 @@ namespace CupCake.Messages.Receive
         public InitReceiveEvent(Message message)
             : base(message)
         {
-            this.OwnerUsername = message.GetString(0);
-            this.WorldName = message.GetString(1);
-            this.Plays = message.GetInteger(2);
-            this.CurrentWoots = message.GetInteger(3);
-            this.TotalWoots = message.GetInteger(4);
-            this.Encryption = message.GetString(5);
-            this.UserId = message.GetInteger(6);
-            this.SpawnX = message.GetInteger(7);
-            this.SpawnY = message.GetInteger(8);
-            this.Username = message.GetString(9);
-            this.CanEdit = message.GetBoolean(10);
-            this.IsOwner = message.GetBoolean(11);
-            this.RoomWidth = message.GetInteger(12);
-            this.RoomHeight = message.GetInteger(13);
-            this.IsTutorialRoom = message.GetBoolean(14);
-            this.Gravity = message.GetDouble(15);
-            this.AllowPotions = message.GetBoolean(16);
+            OwnerUsername = message.GetString(0);
+            WorldName = message.GetString(1);
+            Plays = message.GetInteger(2);
+            CurrentWoots = message.GetInteger(3);
+            TotalWoots = message.GetInteger(4);
+            Encryption = message.GetString(5);
+            UserId = message.GetInteger(6);
+            SpawnX = message.GetInteger(7);
+            SpawnY = message.GetInteger(8);
+            Username = message.GetString(9);
+            CanEdit = message.GetBoolean(10);
+            IsOwner = message.GetBoolean(11);
+            RoomWidth = message.GetInteger(12);
+            RoomHeight = message.GetInteger(13);
+            IsTutorialRoom = message.GetBoolean(14);
+            Gravity = message.GetDouble(15);
+            AllowPotions = message.GetBoolean(16);
         }
 
         public bool AllowPotions { get; set; }
@@ -46,14 +46,14 @@ namespace CupCake.Messages.Receive
 
         int IUserPosReceiveEvent.UserPosX
         {
-            get { return this.SpawnX; }
-            set { this.SpawnX = value; }
+            get { return SpawnX; }
+            set { SpawnX = value; }
         }
 
         int IUserPosReceiveEvent.UserPosY
         {
-            get { return this.SpawnY; }
-            set { this.SpawnY = value; }
+            get { return SpawnY; }
+            set { SpawnY = value; }
         }
     }
 }

@@ -11,7 +11,7 @@ namespace CupCake.DefaultCommands.Commands.Utility
         [CorrectUsage("")]
         protected override void Run(IInvokeSource source, ParsedCommand message)
         {
-            this.ActionService.GetCrown();
+            ActionService.GetCrown();
             source.Reply("Got crown.");
         }
     }

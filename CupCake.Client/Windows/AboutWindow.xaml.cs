@@ -9,9 +9,9 @@ namespace CupCake.Client.Windows
     {
         public AboutWindow()
         {
-            this.InitializeComponent();
+            InitializeComponent();
 
-            this.VersionRun.Text = ApplicationDeployment.IsNetworkDeployed
+            VersionRun.Text = ApplicationDeployment.IsNetworkDeployed
                 ? ApplicationDeployment.CurrentDeployment.CurrentVersion.ToString()
                 : "Debug";
         }

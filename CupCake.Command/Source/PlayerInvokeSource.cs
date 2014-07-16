@@ -10,7 +10,7 @@ namespace CupCake.Command.Source
         public PlayerInvokeSource(object sender, Group @group, Player player, ReplyCallback onReply)
             : base(sender, @group, player.Username, onReply)
         {
-            this.Player = player;
+            Player = player;
         }
 
         public Player Player { get; private set; }

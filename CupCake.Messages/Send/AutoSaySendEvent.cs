@@ -7,14 +7,14 @@ namespace CupCake.Messages.Send
     {
         public AutoSaySendEvent(AutoText text)
         {
-            this.Text = text;
+            Text = text;
         }
 
         public AutoText Text { get; set; }
 
         public override Message GetMessage()
         {
-            return Message.Create("autosay", (int)this.Text);
+            return Message.Create("autosay", (int) Text);
         }
     }
 }

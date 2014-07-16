@@ -5,12 +5,12 @@ using JetBrains.Annotations;
 namespace CupCake
 {
     /// <summary>
-    /// Class InvokeSourceExtensions.
+    ///     Class InvokeSourceExtensions.
     /// </summary>
     public static class InvokeSourceExtensions
     {
         /// <summary>
-        /// Replies the specified chat message to the invoke source.
+        ///     Replies the specified chat message to the invoke source.
         /// </summary>
         /// <param name="invokeSource">The invoke source.</param>
         /// <param name="message">The chat message.</param>

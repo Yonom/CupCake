@@ -7,8 +7,8 @@ namespace CupCake.Messages.Receive
         public WriteReceiveEvent(Message message)
             : base(message)
         {
-            this.Title = message.GetString(0);
-            this.Text = message.GetString(1);
+            Title = message.GetString(0);
+            Text = message.GetString(1);
         }
 
         public string Text { get; set; }

@@ -12,10 +12,10 @@ namespace CupCake.DefaultCommands.Commands.Owner
         [CorrectUsage("newName")]
         protected override void Run(IInvokeSource source, ParsedCommand message)
         {
-            this.RequireOwner();
+            RequireOwner();
 
-            var name = message.GetTrail(0);
-            this.RoomService.SetName(name);
+            string name = message.GetTrail(0);
+            RoomService.SetName(name);
             source.Reply("Name changed to: {0}", name);
         }
     }

@@ -12,7 +12,7 @@ namespace CupCake.DefaultCommands.Commands.Edit
         [CorrectUsage("[enabled]")]
         protected override void Run(IInvokeSource source, ParsedCommand message)
         {
-            this.RequireEdit();
+            RequireEdit();
 
             bool enabled;
 
@@ -29,10 +29,10 @@ namespace CupCake.DefaultCommands.Commands.Edit
             }
             else
             {
-                enabled = this.PlayerService.OwnPlayer.IsGod;
+                enabled = PlayerService.OwnPlayer.IsGod;
             }
 
-            this.ActionService.GodMode(enabled);
+            ActionService.GodMode(enabled);
 
             source.Reply("God mode was set to {0}.", enabled);
         }

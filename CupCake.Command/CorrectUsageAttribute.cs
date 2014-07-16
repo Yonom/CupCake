@@ -7,7 +7,7 @@ namespace CupCake.Command
     {
         public CorrectUsageAttribute(string usage)
         {
-            this.Usage = usage;
+            Usage = usage;
         }
 
         public string Usage { get; private set; }

@@ -7,8 +7,8 @@ namespace CupCake.Potions
     {
         internal PotionCountEvent(Potion potion, int count)
         {
-            this.Potion = potion;
-            this.Count = count;
+            Potion = potion;
+            Count = count;
         }
 
         public Potion Potion { get; private set; }

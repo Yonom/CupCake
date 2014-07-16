@@ -11,42 +11,42 @@ namespace CupCake.Core.Events
 
         public EventManager(EventsPlatform eventsPlatform, object sender)
         {
-            this._sender = sender;
-            this.EventsPlatform = eventsPlatform;
+            _sender = sender;
+            EventsPlatform = eventsPlatform;
         }
 
         public EventsPlatform EventsPlatform { get; private set; }
 
         public void Dispose()
         {
-            this.Dispose(true);
+            Dispose(true);
             GC.SuppressFinalize(this);
         }
 
         public void Bind<T>(EventHandler<T> callback, EventPriority priority = EventPriority.Normal) where T : Event
         {
-            if (this.Contains(callback))
+            if (Contains(callback))
             {
                 throw new ArgumentException("Callback has already been added to the specified event.");
             }
 
             var binding = new Binding<T>(this, callback, priority);
             binding.Subscribe();
-            this._bindings.Add(binding);
+            _bindings.Add(binding);
         }
 
         public bool Contains<T>(EventHandler<T> callback) where T : Event
         {
             return
-                this._bindings.Any(binding => typeof(T) == binding.Type && binding.GetCallback() == (Delegate)callback);
+                _bindings.Any(binding => typeof (T) == binding.Type && binding.GetCallback() == (Delegate) callback);
         }
 
         public bool TryGetBinding<T>(EventHandler<T> callback, out IBinding binding) where T : Event
         {
             foreach (
                 IBinding b in
-                    this._bindings.Where(
-                        b => typeof(T) == b.Type && b.GetCallback() == (Delegate)callback))
+                    _bindings.Where(
+                        b => typeof (T) == b.Type && b.GetCallback() == (Delegate) callback))
             {
                 binding = b;
                 return true;
@@ -58,14 +58,14 @@ namespace CupCake.Core.Events
 
         public void Raise<T>(T eventArgs) where T : Event
         {
-            this.EventsPlatform.Event<T>().Raise(this._sender, eventArgs);
+            EventsPlatform.Event<T>().Raise(_sender, eventArgs);
         }
 
         protected virtual void Dispose(bool disposing)
         {
             if (disposing)
             {
-                foreach (IBinding binding in this._bindings)
+                foreach (IBinding binding in _bindings)
                 {
                     binding.Unsubscribe();
                 }
@@ -80,34 +80,34 @@ namespace CupCake.Core.Events
 
             public Binding(EventManager parent, EventHandler<T> callback, EventPriority priority)
             {
-                this._parent = parent;
-                this._callback = callback;
-                this._priority = priority;
+                _parent = parent;
+                _callback = callback;
+                _priority = priority;
             }
 
             public Type Type
             {
-                get { return typeof(T); }
+                get { return typeof (T); }
             }
 
             public bool IsSubscribed
             {
-                get { return this._parent.EventsPlatform.Event<T>().Contains(this._callback); }
+                get { return _parent.EventsPlatform.Event<T>().Contains(_callback); }
             }
 
             public Delegate GetCallback()
             {
-                return this._callback;
+                return _callback;
             }
 
             public void Subscribe()
             {
-                this._parent.EventsPlatform.Event<T>().Bind(this._callback, this._priority);
+                _parent.EventsPlatform.Event<T>().Bind(_callback, _priority);
             }
 
             public void Unsubscribe()
             {
-                this._parent.EventsPlatform.Event<T>().Remove(this._callback);
+                _parent.EventsPlatform.Event<T>().Remove(_callback);
             }
         }
 

@@ -4,17 +4,17 @@ using MuffinFramework.Muffins;
 namespace CupCake
 {
     /// <summary>
-    /// Class CupCakeMuffin.
+    ///     Class CupCakeMuffin.
     /// </summary>
     public abstract class CupCakeMuffin : CupCakeMuffin<object>
     {
     }
 
     /// <summary>
-    /// Class CupCakeMuffin.
+    ///     Class CupCakeMuffin.
     /// </summary>
     /// <typeparam name="TProtocol">The type of the protocol.</typeparam>
-    [InheritedExport(typeof(IMuffin))]
+    [InheritedExport(typeof (IMuffin))]
     public abstract class CupCakeMuffin<TProtocol> : CupCakeMuffinPart<TProtocol>, IMuffin
     {
     }

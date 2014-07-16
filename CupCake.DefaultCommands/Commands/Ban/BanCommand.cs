@@ -14,11 +14,11 @@ namespace CupCake.DefaultCommands.Commands.Ban
         {
             if (message.Count >= 2)
             {
-                this.Ban(source, message.Args[0], message.GetTrail(1));
+                Ban(source, message.Args[0], message.GetTrail(1));
             }
             else
             {
-                this.Ban(source, message.Args[0]);
+                Ban(source, message.Args[0]);
             }
         }
     }

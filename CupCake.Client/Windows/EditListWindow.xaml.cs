@@ -19,40 +19,40 @@ namespace CupCake.Client.Windows
 
         public EditListWindow(EditListType type)
         {
-            this._type = type;
+            _type = type;
 
-            this.InitializeComponent();
-            this.HasSelection = false;
+            InitializeComponent();
+            HasSelection = false;
 
             switch (type)
             {
                 case EditListType.Profile:
-                    this._collection = SettingsManager.Settings.Profiles;
-                    this.Title = "Manage Profiles";
+                    _collection = SettingsManager.Settings.Profiles;
+                    Title = "Manage Profiles";
                     break;
                 case EditListType.Account:
-                    this._collection = SettingsManager.Settings.Accounts;
-                    this.Title = "Manage Accounts";
+                    _collection = SettingsManager.Settings.Accounts;
+                    Title = "Manage Accounts";
                     break;
                 case EditListType.Database:
-                    this._collection = SettingsManager.Settings.Databases;
-                    this.Title = "Manage Databases";
-                    this.AddButton.ContextMenu = this.Resources["AdvancedContextMenu"] as ContextMenu;
+                    _collection = SettingsManager.Settings.Databases;
+                    Title = "Manage Databases";
+                    AddButton.ContextMenu = Resources["AdvancedContextMenu"] as ContextMenu;
                     break;
             }
 
-            this.ItemsListBox.SelectionChanged += this.ItemsListBox_SelectionChanged;
-            this.Closing += this.EditListWindow_Closing;
+            ItemsListBox.SelectionChanged += ItemsListBox_SelectionChanged;
+            Closing += EditListWindow_Closing;
 
-            this.RefreshList();
+            RefreshList();
         }
 
         private bool HasSelection
         {
             set
             {
-                this.EditButton.IsEnabled = value;
-                this.RemoveButton.IsEnabled = value;
+                EditButton.IsEnabled = value;
+                RemoveButton.IsEnabled = value;
             }
         }
 
@@ -63,13 +63,13 @@ namespace CupCake.Client.Windows
 
         private void ItemsListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            this.HasSelection = this.ItemsListBox.SelectedItem != null;
+            HasSelection = ItemsListBox.SelectedItem != null;
         }
 
         private void AddButton_Click(object sender, RoutedEventArgs e)
         {
             IConfig p = null;
-            switch (this._type)
+            switch (_type)
             {
                 case EditListType.Profile:
                     p = Profile.NewEmpty();
@@ -82,48 +82,48 @@ namespace CupCake.Client.Windows
                     break;
             }
 
-            if (this.EditItem(p, true) == true)
+            if (EditItem(p, true) == true)
             {
-                this.AddItem(p);
+                AddItem(p);
             }
         }
 
         private void EditButton_Click(object sender, RoutedEventArgs e)
         {
-            var uiP = (TextBlock)this.ItemsListBox.SelectedItem;
-            var p = (IConfig)uiP.Tag;
-            if (this.EditItem(p, false) == true)
+            var uiP = (TextBlock) ItemsListBox.SelectedItem;
+            var p = (IConfig) uiP.Tag;
+            if (EditItem(p, false) == true)
             {
-                this.RefreshList();
+                RefreshList();
             }
         }
 
         private void RemoveButton_Click(object sender, RoutedEventArgs e)
         {
-            var uiP = (TextBlock)this.ItemsListBox.SelectedItem;
-            var p = (IConfig)uiP.Tag;
-            this.RemoveItem(p);
+            var uiP = (TextBlock) ItemsListBox.SelectedItem;
+            var p = (IConfig) uiP.Tag;
+            RemoveItem(p);
         }
 
         private void AddItem(IConfig p)
         {
-            this._collection.Add(p);
-            this.RefreshList();
+            _collection.Add(p);
+            RefreshList();
         }
 
         private void RemoveItem(IConfig p)
         {
-            this._collection.Remove(p);
-            this.RefreshList();
+            _collection.Remove(p);
+            RefreshList();
         }
 
         private void RefreshList()
         {
-            this.ItemsListBox.Items.Clear();
+            ItemsListBox.Items.Clear();
 
-            var textBlockStyle = this.FindResource("TextBlockStyle") as Style;
-            var menuItem = this.FindResource("StandardMenuItem") as Style;
-            foreach (IConfig p in ((IEnumerable<IConfig>)this._collection).OrderBy(k => k.Id))
+            var textBlockStyle = FindResource("TextBlockStyle") as Style;
+            var menuItem = FindResource("StandardMenuItem") as Style;
+            foreach (IConfig p in ((IEnumerable<IConfig>) _collection).OrderBy(k => k.Id))
             {
                 var textBlock = new TextBlock
                 {
@@ -132,9 +132,9 @@ namespace CupCake.Client.Windows
                     Tag = p
                 };
 
-                if (this._type == EditListType.Profile)
+                if (_type == EditListType.Profile)
                 {
-                    var localProfile = (Profile)p;
+                    var localProfile = (Profile) p;
                     var removeFromListMenuItem = new MenuItem
                     {
                         Header = "Open Folder In File Explorer",
@@ -156,27 +156,27 @@ namespace CupCake.Client.Windows
                     textBlock.ContextMenu = textBlockContextMenu;
                 }
 
-                this.ItemsListBox.Items.Add(textBlock);
+                ItemsListBox.Items.Add(textBlock);
             }
         }
 
         private bool? EditItem(IConfig item, bool isNew, bool isAdvanced = false)
         {
-            switch (this._type)
+            switch (_type)
             {
                 case EditListType.Profile:
-                    var profile = (Profile)item;
+                    var profile = (Profile) item;
                     var editProfile = new EditProfileWindow(profile, isNew) {Owner = this};
                     return editProfile.ShowDialog();
 
                 case EditListType.Account:
-                    var account = (Account)item;
+                    var account = (Account) item;
                     var editAccount = new EditAccountWindow(account, isNew) {Owner = this};
                     return editAccount.ShowDialog();
 
                 case EditListType.Database:
 
-                    var database = (Database)item;
+                    var database = (Database) item;
 
                     Window editDatabase;
                     if (!isAdvanced && isNew)
@@ -193,13 +193,13 @@ namespace CupCake.Client.Windows
 
         private void AdvancedMenuItem_OnClick(object sender, RoutedEventArgs e)
         {
-            if (this._type == EditListType.Database)
+            if (_type == EditListType.Database)
             {
                 Database p = Database.NewEmpty();
 
-                if (this.EditItem(p, true, true) == true)
+                if (EditItem(p, true, true) == true)
                 {
-                    this.AddItem(p);
+                    AddItem(p);
                 }
             }
         }

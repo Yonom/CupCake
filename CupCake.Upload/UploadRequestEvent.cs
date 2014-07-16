@@ -11,7 +11,7 @@ namespace CupCake.Upload
 
         public UploadRequestEvent(IBlockPlaceSendEvent sendEvent)
         {
-            this.SendEvent = sendEvent;
+            SendEvent = sendEvent;
         }
 
         public IBlockPlaceSendEvent SendEvent { get; set; }
@@ -27,11 +27,11 @@ namespace CupCake.Upload
         /// </summary>
         public int SendTries
         {
-            get { return this._sendTries; }
+            get { return _sendTries; }
             internal set
             {
-                this._sendTries = value;
-                this.OnTryingSend();
+                _sendTries = value;
+                OnTryingSend();
             }
         }
 
@@ -40,12 +40,12 @@ namespace CupCake.Upload
         /// </summary>
         public bool Verified
         {
-            get { return this._verified; }
+            get { return _verified; }
             internal set
             {
-                this._verified = value;
+                _verified = value;
                 if (value)
-                    this.OnVerifyComplete();
+                    OnVerifyComplete();
             }
         }
 
@@ -53,7 +53,7 @@ namespace CupCake.Upload
 
         protected virtual void OnTryingSend()
         {
-            EventHandler handler = this.TryingSend;
+            EventHandler handler = TryingSend;
             if (handler != null) handler(this, Empty);
         }
 
@@ -61,7 +61,7 @@ namespace CupCake.Upload
 
         protected virtual void OnVerifyComplete()
         {
-            EventHandler handler = this.VerifyComplete;
+            EventHandler handler = VerifyComplete;
             if (handler != null) handler(this, Empty);
         }
     }

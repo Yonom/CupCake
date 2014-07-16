@@ -9,12 +9,12 @@ namespace CupCake.Messages.Receive
         public PortalPlaceReceiveEvent(Message message)
             : base(message)
         {
-            this.PosX = message.GetInteger(0);
-            this.PosY = message.GetInteger(1);
-            this.Block = (PortalBlock)message.GetInteger(2);
-            this.PortalRotation = (PortalRotation)message.GetInteger(3);
-            this.PortalId = message.GetInteger(4);
-            this.PortalTarget = message.GetInteger(5);
+            PosX = message.GetInteger(0);
+            PosY = message.GetInteger(1);
+            Block = (PortalBlock) message.GetInteger(2);
+            PortalRotation = (PortalRotation) message.GetInteger(3);
+            PortalId = message.GetInteger(4);
+            PortalTarget = message.GetInteger(5);
         }
 
         public Layer Layer
@@ -31,14 +31,14 @@ namespace CupCake.Messages.Receive
 
         Layer IBlockPlaceReceiveEvent.Layer
         {
-            get { return this.Layer; }
+            get { return Layer; }
             set { throw new NotSupportedException("Can not set Layer on this kind of block"); }
         }
 
         Block IBlockPlaceReceiveEvent.Block
         {
-            get { return (Block)this.Block; }
-            set { this.Block = (PortalBlock)value; }
+            get { return (Block) Block; }
+            set { Block = (PortalBlock) value; }
         }
     }
 }

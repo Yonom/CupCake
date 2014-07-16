@@ -13,30 +13,30 @@ namespace CupCake.Client.Windows
 
         public EditDatabaseWindow(Database database, bool isNew)
         {
-            this._database = database;
-            this.InitializeComponent();
+            _database = database;
+            InitializeComponent();
 
-            this.Title = isNew
+            Title = isNew
                 ? "New Database"
                 : "Edit Database";
 
-            this.NameTextBox.Text = database.Name;
-            this.EngineComboBox.SelectedIndex = (int)database.Type;
-            this.CsTextBox.Text = database.ConnectionString;
+            NameTextBox.Text = database.Name;
+            EngineComboBox.SelectedIndex = (int) database.Type;
+            CsTextBox.Text = database.ConnectionString;
         }
 
         private void CancelButton_Click(object sender, RoutedEventArgs e)
         {
-            this.DialogResult = false;
+            DialogResult = false;
         }
 
         private void OkButton_Click(object sender, RoutedEventArgs e)
         {
-            this._database.Name = this.NameTextBox.Text;
-            this._database.Type = (DatabaseType)this.EngineComboBox.SelectedIndex;
-            this._database.ConnectionString = this.CsTextBox.Text;
+            _database.Name = NameTextBox.Text;
+            _database.Type = (DatabaseType) EngineComboBox.SelectedIndex;
+            _database.ConnectionString = CsTextBox.Text;
 
-            this.DialogResult = true;
+            DialogResult = true;
         }
     }
 }

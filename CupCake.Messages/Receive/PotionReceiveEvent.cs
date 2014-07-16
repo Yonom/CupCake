@@ -8,10 +8,10 @@ namespace CupCake.Messages.Receive
         public PotionReceiveEvent(Message message)
             : base(message)
         {
-            this.UserId = message.GetInteger(0);
-            this.Potion = (Potion)message.GetInteger(1);
-            this.Enabled = message.GetBoolean(2);
-            this.Timeout = message.GetInteger(3);
+            UserId = message.GetInteger(0);
+            Potion = (Potion) message.GetInteger(1);
+            Enabled = message.GetBoolean(2);
+            Timeout = message.GetInteger(3);
         }
 
         public bool Enabled { get; set; }

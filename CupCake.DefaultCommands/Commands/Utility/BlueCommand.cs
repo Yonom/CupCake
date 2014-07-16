@@ -12,7 +12,7 @@ namespace CupCake.DefaultCommands.Commands.Utility
         [CorrectUsage("")]
         protected override void Run(IInvokeSource source, ParsedCommand message)
         {
-            this.KeyService.PressKey(Key.Blue);
+            KeyService.PressKey(Key.Blue);
             source.Reply("Pressed blue key.");
         }
     }

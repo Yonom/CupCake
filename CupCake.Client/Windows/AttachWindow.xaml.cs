@@ -10,19 +10,19 @@ namespace CupCake.Client.Windows
     {
         public AttachWindow()
         {
-            this.InitializeComponent();
+            InitializeComponent();
 
-            this.AddressTextBox.Text = SettingsManager.Settings.LastAttachAddress;
-            this.PinPasswordBox.Password = SettingsManager.Settings.LastAttachPin;
+            AddressTextBox.Text = SettingsManager.Settings.LastAttachAddress;
+            PinPasswordBox.Password = SettingsManager.Settings.LastAttachPin;
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            SettingsManager.Settings.LastAttachAddress = this.AddressTextBox.Text;
-            SettingsManager.Settings.LastAttachPin = this.PinPasswordBox.Password;
+            SettingsManager.Settings.LastAttachAddress = AddressTextBox.Text;
+            SettingsManager.Settings.LastAttachPin = PinPasswordBox.Password;
             SettingsManager.Save();
 
-            this.DialogResult = true;
+            DialogResult = true;
         }
     }
 }

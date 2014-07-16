@@ -7,9 +7,9 @@ namespace CupCake.Permissions
     {
         internal ChangedPermissionEvent(Player player, Group oldPermission, Group newPermission)
         {
-            this.Player = player;
-            this.OldPermission = oldPermission;
-            this.NewPermission = newPermission;
+            Player = player;
+            OldPermission = oldPermission;
+            NewPermission = newPermission;
         }
 
         public Player Player { get; private set; }

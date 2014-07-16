@@ -12,11 +12,11 @@ namespace CupCake.DefaultCommands.Commands.User
         [CorrectUsage("[player]")]
         protected override void Run(IInvokeSource source, ParsedCommand message)
         {
-            this.RequireOwner();
-            Player player = this.GetPlayerOrSelf(source, message);
-            this.RequireSameRank(source, player);
+            RequireOwner();
+            Player player = GetPlayerOrSelf(source, message);
+            RequireSameRank(source, player);
 
-            this.Chatter.Kill(player.Username);
+            Chatter.Kill(player.Username);
 
             source.Reply("Killed {0}.", player.ChatName);
         }

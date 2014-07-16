@@ -8,7 +8,7 @@ namespace CupCake.Messages.Send
 
         public override Message GetMessage()
         {
-            return Message.Create(this.Encryption + "g");
+            return Message.Create(Encryption + "g");
         }
     }
 }

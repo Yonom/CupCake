@@ -25,24 +25,24 @@ namespace CupCake.DefaultCommands
 
         protected override void Enable()
         {
-            this.PingCommand = this.EnablePart<PingCommand>();
-            this.HiCommand = this.EnablePart<HiCommand>();
-            this.HelpCommand = this.EnablePart<HelpCommand>();
-            this.SayCommand = this.EnablePart<SayCommand>();
-            this.SayRawCommand = this.EnablePart<SayRawCommand>();
-            this.AccessCommand = this.EnablePart<AccessCommand>();
-            this.AutoSayCommand = this.EnablePart<AutoSayCommand>();
-            this.BlueCommand = this.EnablePart<BlueCommand>();
-            this.CompleteLevelCommand = this.EnablePart<CompleteLevelCommand>();
-            this.DieCommand = this.EnablePart<DieCommand>();
-            this.GetCrownCommand = this.EnablePart<GetCrownCommand>();
-            this.GiveWootCommand = this.EnablePart<GiveWootCommand>();
-            this.GreenCommand = this.EnablePart<GreenCommand>();
-            this.KillRoomCommand = this.EnablePart<KillRoomCommand>();
-            this.ModModeCommand = this.EnablePart<ModModeCommand>();
-            this.RedCommand = this.EnablePart<RedCommand>();
-            this.SetSmileyCommand = this.EnablePart<SetSmileyCommand>();
-            this.UsePotionCommand = this.EnablePart<UsePotionCommand>();
+            PingCommand = EnablePart<PingCommand>();
+            HiCommand = EnablePart<HiCommand>();
+            HelpCommand = EnablePart<HelpCommand>();
+            SayCommand = EnablePart<SayCommand>();
+            SayRawCommand = EnablePart<SayRawCommand>();
+            AccessCommand = EnablePart<AccessCommand>();
+            AutoSayCommand = EnablePart<AutoSayCommand>();
+            BlueCommand = EnablePart<BlueCommand>();
+            CompleteLevelCommand = EnablePart<CompleteLevelCommand>();
+            DieCommand = EnablePart<DieCommand>();
+            GetCrownCommand = EnablePart<GetCrownCommand>();
+            GiveWootCommand = EnablePart<GiveWootCommand>();
+            GreenCommand = EnablePart<GreenCommand>();
+            KillRoomCommand = EnablePart<KillRoomCommand>();
+            ModModeCommand = EnablePart<ModModeCommand>();
+            RedCommand = EnablePart<RedCommand>();
+            SetSmileyCommand = EnablePart<SetSmileyCommand>();
+            UsePotionCommand = EnablePart<UsePotionCommand>();
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Reflection;
 using CupCake.Core;
 using CupCake.Core.Events;
 using CupCake.Core.Metadata;
@@ -71,232 +72,232 @@ namespace CupCake.Players
 
         public bool HasCrown
         {
-            get { return this.Host.PlayerService.CrownPlayer == this; }
+            get { return Host.PlayerService.CrownPlayer == this; }
         }
 
         public bool IsGuest
         {
-            get { return PlayerUtils.IsGuest(this.Username); }
+            get { return PlayerUtils.IsGuest(Username); }
         }
 
         public string StorageName
         {
-            get { return PlayerUtils.GetStorageName(this.Username); }
+            get { return PlayerUtils.GetStorageName(Username); }
         }
 
         public string ChatName
         {
-            get { return PlayerUtils.GetChatName(this.Username); }
+            get { return PlayerUtils.GetChatName(Username); }
         }
 
         public int BlockX
         {
-            get { return BlockUtils.PosToBlock(this.PosX); }
+            get { return BlockUtils.PosToBlock(PosX); }
         }
 
         public int BlockY
         {
-            get { return BlockUtils.PosToBlock(this.PosY); }
+            get { return BlockUtils.PosToBlock(PosY); }
         }
 
         protected override void Enable()
         {
-            this.Metadata = new MetadataStore();
+            Metadata = new MetadataStore();
 
-            this.ExtractHostData();
+            ExtractHostData();
 
-            this.BindPlayerEvent<AutoTextReceiveEvent, AutoTextPlayerEvent>(this.OnAutoText);
-            this.BindPlayerEvent<CoinReceiveEvent, CoinPlayerEvent>(this.OnCoin);
-            this.BindPlayerEvent<FaceReceiveEvent, FacePlayerEvent>(this.OnFace);
-            this.BindPlayerEvent<MoveReceiveEvent, MovePlayerEvent>(this.OnMove);
-            this.BindPlayerEvent<GodModeReceiveEvent, GodModePlayerEvent>(this.OnGodMode);
-            this.BindPlayerEvent<ModModeReceiveEvent, ModModePlayerEvent>(this.OnModMode);
-            this.BindPlayerEvent<SilverCrownReceiveEvent, SilverCrownPlayerEvent>(this.OnSilverCrown);
-            this.BindPlayerEvent<LeftReceiveEvent, LeftPlayerEvent>(this.OnLeft);
-            this.BindPlayerEvent<PotionReceiveEvent, PotionPlayerEvent>(this.OnPotion);
-            this.BindPlayerEvent<SayReceiveEvent, SayPlayerEvent>(this.OnSay);
-            this.BindPlayerEvent<LevelUpReceiveEvent, LevelUpPlayerEvent>(this.OnLevelUp);
-            this.BindPlayerEvent<WootUpReceiveEvent, WootUpPlayerEvent>(this.OnWootUp);
-            this.BindPlayerEvent<KillReceiveEvent, KillPlayerEvent>(this.OnKill);
-            this.BindPlayerEvent<MagicReceiveEvent, MagicPlayerEvent>(this.OnMagic);
-            this.BindPlayerEvent<CrownReceiveEvent, CrownPlayerEvent>(this.OnCrown);
+            BindPlayerEvent<AutoTextReceiveEvent, AutoTextPlayerEvent>(OnAutoText);
+            BindPlayerEvent<CoinReceiveEvent, CoinPlayerEvent>(OnCoin);
+            BindPlayerEvent<FaceReceiveEvent, FacePlayerEvent>(OnFace);
+            BindPlayerEvent<MoveReceiveEvent, MovePlayerEvent>(OnMove);
+            BindPlayerEvent<GodModeReceiveEvent, GodModePlayerEvent>(OnGodMode);
+            BindPlayerEvent<ModModeReceiveEvent, ModModePlayerEvent>(OnModMode);
+            BindPlayerEvent<SilverCrownReceiveEvent, SilverCrownPlayerEvent>(OnSilverCrown);
+            BindPlayerEvent<LeftReceiveEvent, LeftPlayerEvent>(OnLeft);
+            BindPlayerEvent<PotionReceiveEvent, PotionPlayerEvent>(OnPotion);
+            BindPlayerEvent<SayReceiveEvent, SayPlayerEvent>(OnSay);
+            BindPlayerEvent<LevelUpReceiveEvent, LevelUpPlayerEvent>(OnLevelUp);
+            BindPlayerEvent<WootUpReceiveEvent, WootUpPlayerEvent>(OnWootUp);
+            BindPlayerEvent<KillReceiveEvent, KillPlayerEvent>(OnKill);
+            BindPlayerEvent<MagicReceiveEvent, MagicPlayerEvent>(OnMagic);
+            BindPlayerEvent<CrownReceiveEvent, CrownPlayerEvent>(OnCrown);
 
-            this.Events.Bind<TeleportUserReceiveEvent>(this.OnTeleportUser, EventPriority.High);
-            this.Events.Bind<TeleportEveryoneReceiveEvent>(this.OnTeleportEveryone, EventPriority.High);
+            Events.Bind<TeleportUserReceiveEvent>(OnTeleportUser, EventPriority.High);
+            Events.Bind<TeleportEveryoneReceiveEvent>(OnTeleportEveryone, EventPriority.High);
         }
 
         private void BindPlayerEvent<T, TPlayer>(EventHandler<T> callback)
             where T : Event, IUserReceiveEvent
             where TPlayer : PlayerEvent<T>
         {
-            this.Events.Bind<T>(
+            Events.Bind<T>(
                 (sender, e) =>
                 {
-                    if (e.UserId == this.UserId)
+                    if (e.UserId == UserId)
                     {
                         callback(sender, e);
-                        var instance = (TPlayer)Activator.CreateInstance(typeof(TPlayer),
-                            System.Reflection.BindingFlags.NonPublic |
-                            System.Reflection.BindingFlags.Instance,
+                        var instance = (TPlayer) Activator.CreateInstance(typeof (TPlayer),
+                            BindingFlags.NonPublic |
+                            BindingFlags.Instance,
                             null, new object[] {this, e}, null);
 
-                        this.SynchronizePlatform.Do(() =>
-                            this.Events.Raise(instance));
+                        SynchronizePlatform.Do(() =>
+                            Events.Raise(instance));
                     }
                 }, EventPriority.High);
         }
 
         private void ExtractHostData()
         {
-            var addArgs = this.Host as AddJoinArgs;
+            var addArgs = Host as AddJoinArgs;
             if (addArgs != null)
             {
                 AddReceiveEvent add = addArgs.AddReceiveEvent;
 
-                this.UserId = add.UserId;
-                this.Username = add.Username;
-                this.Smiley = add.Face;
-                this.HasChat = add.HasChat;
-                this.IsGod = add.IsGod;
-                this.IsMod = add.IsMod;
-                this.IsMyFriend = add.IsMyFriend;
-                this.Coins = add.Coins;
-                this.PosX = add.UserPosX;
-                this.PosY = add.UserPosY;
-                this.SpawnX = add.UserPosX;
-                this.SpawnY = add.UserPosY;
-                this.IsClubMember = add.IsClubMember;
-                this.MagicClass = add.MagicClass;
-                this.JumpPotion = add.IsPurple;
+                UserId = add.UserId;
+                Username = add.Username;
+                Smiley = add.Face;
+                HasChat = add.HasChat;
+                IsGod = add.IsGod;
+                IsMod = add.IsMod;
+                IsMyFriend = add.IsMyFriend;
+                Coins = add.Coins;
+                PosX = add.UserPosX;
+                PosY = add.UserPosY;
+                SpawnX = add.UserPosX;
+                SpawnY = add.UserPosY;
+                IsClubMember = add.IsClubMember;
+                MagicClass = add.MagicClass;
+                JumpPotion = add.IsPurple;
             }
 
-            var initArgs = this.Host as InitJoinArgs;
+            var initArgs = Host as InitJoinArgs;
             if (initArgs != null)
             {
                 InitReceiveEvent init = initArgs.InitReceiveEvent;
 
-                this.UserId = init.UserId;
-                this.Username = init.Username;
-                this.PosX = init.SpawnX;
-                this.PosY = init.SpawnY;
-                this.SpawnX = init.SpawnX;
-                this.SpawnY = init.SpawnY;
+                UserId = init.UserId;
+                Username = init.Username;
+                PosX = init.SpawnX;
+                PosY = init.SpawnY;
+                SpawnX = init.SpawnX;
+                SpawnY = init.SpawnY;
             }
         }
 
         private void OnAutoText(object sender, AutoTextReceiveEvent e)
         {
-            this.AutoText = e.AutoText;
+            AutoText = e.AutoText;
         }
 
         private void OnCoin(object sender, CoinReceiveEvent e)
         {
-            this.Coins = e.Coins;
+            Coins = e.Coins;
         }
 
         private void OnFace(object sender, FaceReceiveEvent e)
         {
-            this.Smiley = e.Face;
+            Smiley = e.Face;
         }
 
         private void OnMove(object sender, MoveReceiveEvent e)
         {
-            this.Coins = e.Coins;
-            this.Horizontal = e.Horizontal;
-            this.Vertical = e.Vertical;
-            this.ModifierX = e.ModifierX;
-            this.ModifierY = e.ModifierY;
-            this.SpeedX = e.SpeedX;
-            this.SpeedY = e.SpeedY;
-            this.PosX = e.UserPosX;
-            this.PosY = e.UserPosY;
-            this.SwitchOpened = e.IsPurple;
-            this.IsDead = e.IsDead;
+            Coins = e.Coins;
+            Horizontal = e.Horizontal;
+            Vertical = e.Vertical;
+            ModifierX = e.ModifierX;
+            ModifierY = e.ModifierY;
+            SpeedX = e.SpeedX;
+            SpeedY = e.SpeedY;
+            PosX = e.UserPosX;
+            PosY = e.UserPosY;
+            SwitchOpened = e.IsPurple;
+            IsDead = e.IsDead;
         }
 
         private void OnGodMode(object sender, GodModeReceiveEvent e)
         {
-            this.IsGod = e.IsGod;
+            IsGod = e.IsGod;
         }
 
         private void OnModMode(object sender, ModModeReceiveEvent e)
         {
-            this.IsMod = true;
+            IsMod = true;
         }
 
         private void OnSilverCrown(object sender, SilverCrownReceiveEvent e)
         {
-            this.HasSilverCrown = true;
+            HasSilverCrown = true;
         }
 
         private void OnLeft(object sender, LeftReceiveEvent e)
         {
-            this.IsDisconnected = true;
+            IsDisconnected = true;
         }
 
         private void OnPotion(object sender, PotionReceiveEvent e)
         {
-            this.LastPotion = e.Potion;
-            this.LastPotionEnabled = e.Enabled;
-            this.LastPotionTimeout = e.Timeout;
+            LastPotion = e.Potion;
+            LastPotionEnabled = e.Enabled;
+            LastPotionTimeout = e.Timeout;
 
             switch (e.Potion)
             {
                 case Potion.RedAura:
-                    this.RedAuraPotion = e.Enabled;
+                    RedAuraPotion = e.Enabled;
                     break;
                 case Potion.BlueAura:
-                    this.BlueAuraPotion = e.Enabled;
+                    BlueAuraPotion = e.Enabled;
                     break;
                 case Potion.YellowAura:
-                    this.YellowAuraPotion = e.Enabled;
+                    YellowAuraPotion = e.Enabled;
                     break;
                 case Potion.GreenAura:
-                    this.GreenAuraPotion = e.Enabled;
+                    GreenAuraPotion = e.Enabled;
                     break;
                 case Potion.Jump:
-                    this.JumpPotion = e.Enabled;
+                    JumpPotion = e.Enabled;
                     break;
                 case Potion.Fire:
-                    this.FirePotion = e.Enabled;
+                    FirePotion = e.Enabled;
                     break;
                 case Potion.Curse:
-                    this.CursePotion = e.Enabled;
+                    CursePotion = e.Enabled;
                     break;
                 case Potion.Protection:
-                    this.ProtectionPotion = e.Enabled;
+                    ProtectionPotion = e.Enabled;
                     break;
                 case Potion.Zombie:
-                    this.ZombiePotion = e.Enabled;
+                    ZombiePotion = e.Enabled;
                     break;
                 case Potion.Respawn:
-                    this.RespawnPotion = e.Enabled;
+                    RespawnPotion = e.Enabled;
                     break;
                 case Potion.Levitation:
-                    this.LevitationPotion = e.Enabled;
+                    LevitationPotion = e.Enabled;
                     break;
                 case Potion.Flaunt:
-                    this.FlauntPotion = e.Enabled;
+                    FlauntPotion = e.Enabled;
                     break;
                 case Potion.Solitude:
-                    this.SolitudePotion = e.Enabled;
+                    SolitudePotion = e.Enabled;
                     break;
             }
         }
 
         private void OnSay(object sender, SayReceiveEvent e)
         {
-            this.Say = e.Text;
+            Say = e.Text;
         }
 
         private void OnLevelUp(object sender, LevelUpReceiveEvent e)
         {
-            this.MagicClass = e.NewClass;
+            MagicClass = e.NewClass;
         }
 
         private void OnWootUp(object sender, WootUpReceiveEvent e)
         {
-            this.HasWooted = true;
+            HasWooted = true;
         }
 
         private void OnMagic(object sender, MagicReceiveEvent e)
@@ -306,7 +307,7 @@ namespace CupCake.Players
 
         private void OnKill(object sender, KillReceiveEvent e)
         {
-            this.IsDead = true;
+            IsDead = true;
         }
 
         private void OnCrown(object sender, CrownReceiveEvent e)
@@ -317,33 +318,33 @@ namespace CupCake.Players
 
         private void OnTeleportUser(object sender, TeleportUserReceiveEvent e)
         {
-            if (this.UserId == e.UserId)
+            if (UserId == e.UserId)
             {
-                this.PosX = e.UserPosX;
-                this.PosY = e.UserPosY;
+                PosX = e.UserPosX;
+                PosY = e.UserPosY;
 
-                var point = new Point(this.PosX, this.PosY);
-                this.SynchronizePlatform.Do(() =>
-                    this.Events.Raise(new TeleportPlayerEvent(this, point)));
+                var point = new Point(PosX, PosY);
+                SynchronizePlatform.Do(() =>
+                    Events.Raise(new TeleportPlayerEvent(this, point)));
             }
         }
 
         private void OnTeleportEveryone(object sender, TeleportEveryoneReceiveEvent e)
         {
-            if (e.Coordinates.ContainsKey(this.UserId))
+            if (e.Coordinates.ContainsKey(UserId))
             {
-                Point location = e.Coordinates[this.UserId];
-                this.PosX = location.X;
-                this.PosY = location.Y;
+                Point location = e.Coordinates[UserId];
+                PosX = location.X;
+                PosY = location.Y;
 
                 if (e.ResetCoins)
                 {
-                    this.Coins = default(int);
+                    Coins = default(int);
                 }
 
-                var point = new Point(this.PosX, this.PosY);
-                this.SynchronizePlatform.Do(() =>
-                    this.Events.Raise(new TeleportPlayerEvent(this, point)));
+                var point = new Point(PosX, PosY);
+                SynchronizePlatform.Do(() =>
+                    Events.Raise(new TeleportPlayerEvent(this, point)));
             }
         }
     }

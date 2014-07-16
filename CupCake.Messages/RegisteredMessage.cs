@@ -11,15 +11,15 @@ namespace CupCake.Messages
 
         public RegisteredMessage(EventManager events)
         {
-            this._events = events;
+            _events = events;
         }
 
         public void Invoke(Message message)
         {
-            var instance = (T)Activator.CreateInstance(typeof(T), message);
+            var instance = (T) Activator.CreateInstance(typeof (T), message);
 
-            this._events.Raise<ReceiveEvent>(instance);
-            this._events.Raise(instance);
+            _events.Raise<ReceiveEvent>(instance);
+            _events.Raise(instance);
         }
     }
 }

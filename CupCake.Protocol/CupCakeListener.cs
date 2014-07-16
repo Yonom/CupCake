@@ -15,14 +15,14 @@ namespace CupCake.Protocol
             var server = new TcpListener(ipAddress, port);
             server.Start();
 
-            this.EndPoint = server.Server.LocalEndPoint;
+            EndPoint = server.Server.LocalEndPoint;
 
             new Thread(() =>
             {
                 while (true)
                 {
                     TcpClient client = server.AcceptTcpClient();
-                    this.HandleConnectionNewThread(client, callback);
+                    HandleConnectionNewThread(client, callback);
                 }
             }) {IsBackground = true}.Start();
         }
@@ -33,13 +33,13 @@ namespace CupCake.Protocol
 
         protected virtual void OnPathRequest(Stream stream)
         {
-            Action<Stream> handler = this.PathRequest;
+            Action<Stream> handler = PathRequest;
             if (handler != null) handler(stream);
         }
 
         private void HandleConnectionNewThread(TcpClient client, Action<TcpClient, NetworkStream> callback)
         {
-            new Thread(() => this.HandleConnection(client, callback)) {IsBackground = true}.Start();
+            new Thread(() => HandleConnection(client, callback)) {IsBackground = true}.Start();
         }
 
         private void HandleConnection(TcpClient state, Action<TcpClient, NetworkStream> callback)
@@ -49,14 +49,14 @@ namespace CupCake.Protocol
                 using (TcpClient client = state)
                 using (NetworkStream stream = client.GetStream())
                 {
-                    this.Send(stream, Message.Hello);
-                    var cmd = (Message)stream.ReadByte();
+                    Send(stream, Message.Hello);
+                    var cmd = (Message) stream.ReadByte();
 
                     if (cmd == Message.Hello)
                     {
-                        this.Send(stream, new Hello {Version = Hello.VersionNumber});
+                        Send(stream, new Hello {Version = Hello.VersionNumber});
 
-                        var hello = this.Get<Hello>(stream);
+                        var hello = Get<Hello>(stream);
                         if (hello.Version != Hello.VersionNumber)
                         {
                             throw new InvalidDataException("Server and Client version numbers do not match.");
@@ -66,7 +66,7 @@ namespace CupCake.Protocol
                     }
                     else if (cmd == Message.RequestPath)
                     {
-                        this.OnPathRequest(stream);
+                        OnPathRequest(stream);
                     }
                 }
             }
@@ -96,7 +96,7 @@ namespace CupCake.Protocol
         {
             var client = new TcpClient();
             client.Connect(endPoint);
-            this.HandleConnectionNewThread(client, callback);
+            HandleConnectionNewThread(client, callback);
         }
 
         public T Get<T>(NetworkStream stream)
@@ -106,13 +106,13 @@ namespace CupCake.Protocol
 
         public void Send(NetworkStream stream, Message message)
         {
-            stream.WriteByte((byte)message);
+            stream.WriteByte((byte) message);
         }
 
         public void Send<T>(NetworkStream stream, Message message, T messageObj)
         {
-            this.Send(stream, message);
-            this.Send(stream, messageObj);
+            Send(stream, message);
+            Send(stream, messageObj);
         }
 
         public void Send<T>(NetworkStream stream, T messageObj)

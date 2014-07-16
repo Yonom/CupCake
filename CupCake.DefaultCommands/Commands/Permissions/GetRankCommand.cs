@@ -15,12 +15,12 @@ namespace CupCake.DefaultCommands.Commands.Permissions
             if (message.Count >= 1)
             {
                 string user = message.Args[0];
-                this.PlayerService.MatchPlayer(user,
+                PlayerService.MatchPlayer(user,
                     player =>
                         source.Reply("{0}'s rank is {1}", player.ChatName, player.GetGroup()),
                     username =>
                         source.Reply("{0} is now {1}.", PlayerUtils.GetChatName(username),
-                            this.Host.GetPermission(PlayerUtils.GetStorageName(username))));
+                            Host.GetPermission(PlayerUtils.GetStorageName(username))));
             }
             var playerSource = source as PlayerInvokeSource;
             if (playerSource != null)

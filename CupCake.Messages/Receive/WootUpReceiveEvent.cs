@@ -7,7 +7,7 @@ namespace CupCake.Messages.Receive
         public WootUpReceiveEvent(Message message)
             : base(message)
         {
-            this.UserId = message.GetInteger(0);
+            UserId = message.GetInteger(0);
         }
 
         public int UserId { get; set; }

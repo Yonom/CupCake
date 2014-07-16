@@ -7,8 +7,8 @@ namespace CupCake.Messages.Send
     {
         public TouchUserSendEvent(int userId, Potion reason)
         {
-            this.UserId = userId;
-            this.Reason = reason;
+            UserId = userId;
+            Reason = reason;
         }
 
         public Potion Reason { get; set; }
@@ -16,7 +16,7 @@ namespace CupCake.Messages.Send
 
         public override Message GetMessage()
         {
-            return Message.Create("touch", this.UserId, this.Reason);
+            return Message.Create("touch", UserId, Reason);
         }
     }
 }

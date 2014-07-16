@@ -6,14 +6,14 @@ namespace CupCake.Messages.Send
     {
         public AccessSendEvent(string editKey)
         {
-            this.EditKey = editKey;
+            EditKey = editKey;
         }
 
         public string EditKey { get; set; }
 
         public override Message GetMessage()
         {
-            return Message.Create("access", this.EditKey);
+            return Message.Create("access", EditKey);
         }
     }
 }

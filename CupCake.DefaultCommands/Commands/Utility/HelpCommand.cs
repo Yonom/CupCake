@@ -12,7 +12,7 @@ namespace CupCake.DefaultCommands.Commands.Utility
         [CorrectUsage("command")]
         protected override void Run(IInvokeSource source, ParsedCommand message)
         {
-            this.CommandService.Invoke(source, new HelpRequest(message.Args[0]));
+            CommandService.Invoke(source, new HelpRequest(message.Args[0]));
         }
     }
 }

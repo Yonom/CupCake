@@ -17,18 +17,18 @@ namespace CupCake.Keys
 
         protected override void Enable()
         {
-            this.Events.Bind<HideKeyReceiveEvent>(this.OnHideKey, EventPriority.High);
-            this.Events.Bind<ShowKeyReceiveEvent>(this.OnShowKey, EventPriority.High);
+            Events.Bind<HideKeyReceiveEvent>(OnHideKey, EventPriority.High);
+            Events.Bind<ShowKeyReceiveEvent>(OnShowKey, EventPriority.High);
         }
 
         private void OnHideKey(object sender, HideKeyReceiveEvent e)
         {
-            this.ChangeKey(e.Keys, false);
+            ChangeKey(e.Keys, false);
         }
 
         private void OnShowKey(object sender, ShowKeyReceiveEvent e)
         {
-            this.ChangeKey(e.Keys, true);
+            ChangeKey(e.Keys, true);
         }
 
         private void ChangeKey(IEnumerable<Key> keys, bool enabled)
@@ -38,19 +38,19 @@ namespace CupCake.Keys
                 switch (k)
                 {
                     case Key.Blue:
-                        this.BlueKey = enabled;
+                        BlueKey = enabled;
                         break;
 
                     case Key.Green:
-                        this.GreenKey = enabled;
+                        GreenKey = enabled;
                         break;
 
                     case Key.Red:
-                        this.RedKey = enabled;
+                        RedKey = enabled;
                         break;
 
                     case Key.TimeDoor:
-                        this.TimeDoor = enabled;
+                        TimeDoor = enabled;
                         break;
                 }
             }
@@ -61,15 +61,15 @@ namespace CupCake.Keys
             switch (key)
             {
                 case Key.Blue:
-                    this.Events.Raise(new PressBlueKeySendEvent());
+                    Events.Raise(new PressBlueKeySendEvent());
                     break;
 
                 case Key.Green:
-                    this.Events.Raise(new PressGreenKeySendEvent());
+                    Events.Raise(new PressGreenKeySendEvent());
                     break;
 
                 case Key.Red:
-                    this.Events.Raise(new PressRedKeySendEvent());
+                    Events.Raise(new PressRedKeySendEvent());
                     break;
 
                 default:

@@ -12,9 +12,9 @@ namespace CupCake.DefaultCommands.Commands.Owner
         [CorrectUsage("key")]
         protected override void Run(IInvokeSource source, ParsedCommand message)
         {
-            this.RequireOwner();
+            RequireOwner();
             string key = message.GetTrail(0);
-            this.RoomService.ChangeKey(key);
+            RoomService.ChangeKey(key);
             source.Reply("Set key to {0}.", key);
         }
     }

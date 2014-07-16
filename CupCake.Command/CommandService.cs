@@ -19,62 +19,62 @@ namespace CupCake.Command
 
         protected override void Enable()
         {
-            this.CommandPrefix = DefaultPrefix;
-            this.ResponseMinGroup = Group.Moderator;
+            CommandPrefix = DefaultPrefix;
+            ResponseMinGroup = Group.Moderator;
 
-            this.ServiceLoader.EnableComplete += this.ServiceLoader_EnableComplete;
-            this.Events.Bind<SayPlayerEvent>(this.OnSay, EventPriority.High);
+            ServiceLoader.EnableComplete += ServiceLoader_EnableComplete;
+            Events.Bind<SayPlayerEvent>(OnSay, EventPriority.High);
         }
 
         private void ServiceLoader_EnableComplete(object sender, EventArgs e)
         {
-            this._chatService = this.ServiceLoader.Get<ChatService>();
+            _chatService = ServiceLoader.Get<ChatService>();
         }
 
         private void OnSay(object sender, SayPlayerEvent e)
         {
-            this.SynchronizePlatform.Do(() =>
+            SynchronizePlatform.Do(() =>
             {
-                if (e.Player.Say.StartsWith(this.CommandPrefix))
+                if (e.Player.Say.StartsWith(CommandPrefix))
                 {
-                    this.InvokeFromPlayer(e.Player, new ParsedCommand(e.Player.Say.Substring(this.CommandPrefix.Length)));
+                    InvokeFromPlayer(e.Player, new ParsedCommand(e.Player.Say.Substring(CommandPrefix.Length)));
                 }
             });
         }
 
         public void InvokeFromPlayer(Player player, ParsedCommand message)
         {
-            this.InvokeFromPlayer(player, player.GetGroup(), message);
+            InvokeFromPlayer(player, player.GetGroup(), message);
         }
 
         public void InvokeFromPlayer(Player player, Group group, ParsedCommand message)
         {
             var source = new PlayerInvokeSource(this, group, player,
                 (name, msg) =>
-                    this._chatService.Reply(player.Username, name, msg));
-            this.Invoke(source, message);
+                    _chatService.Reply(player.Username, name, msg));
+            Invoke(source, message);
         }
 
         public void InvokeFromConsole(ParsedCommand message)
         {
-            this.InvokeFromConsole(Group.Host, message);
+            InvokeFromConsole(Group.Host, message);
         }
 
         public void InvokeFromConsole(Group group, ParsedCommand message)
         {
             var source = new ConsoleInvokeSource(this, group,
                 (name, msg) =>
-                    this.Logger.LogPlatform.Log(name, LogPriority.Message, msg));
+                    Logger.LogPlatform.Log(name, LogPriority.Message, msg));
 
-            this.Invoke(source, message);
+            Invoke(source, message);
         }
 
         public void Invoke(IInvokeSource source, ParsedCommand message)
         {
             var e = new InvokeEvent(source, message);
-            this.Events.Raise(e);
+            Events.Raise(e);
 
-            if (!e.Handled && source.Group >= this.ResponseMinGroup)
+            if (!e.Handled && source.Group >= ResponseMinGroup)
                 source.Reply(UnknownCommandStr);
         }
     }

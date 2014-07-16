@@ -13,54 +13,54 @@ namespace CupCake.HostAPI.Status
 
         public ReadOnlyCollection<StatusItem> Statuses
         {
-            get { return new ReadOnlyCollection<StatusItem>(this._statuses); }
+            get { return new ReadOnlyCollection<StatusItem>(_statuses); }
         }
 
         protected override void Enable()
         {
-            this.SyntaxProvider = new BasicStatusSyntaxProvider();
+            SyntaxProvider = new BasicStatusSyntaxProvider();
         }
 
         public void Add(StatusItem item)
         {
-            item.Changed += this.item_Changed;
+            item.Changed += item_Changed;
 
-            lock (this._statuses)
+            lock (_statuses)
             {
-                this._statuses.Add(item);
+                _statuses.Add(item);
             }
 
-            this.UpdateStatus();
+            UpdateStatus();
         }
 
         public bool Remove(StatusItem item)
         {
-            item.Changed -= this.item_Changed;
+            item.Changed -= item_Changed;
 
             bool result;
-            lock (this._statuses)
+            lock (_statuses)
             {
-                result = this._statuses.Remove(item);
+                result = _statuses.Remove(item);
             }
 
-            this.UpdateStatus();
+            UpdateStatus();
             return result;
         }
 
         public void UpdateStatus()
         {
             StatusItem[] statusItems;
-            lock (this._statuses)
+            lock (_statuses)
             {
-                statusItems = this._statuses.ToArray();
+                statusItems = _statuses.ToArray();
             }
 
-            this.Events.Raise(new ChangeStatusEvent(this.SyntaxProvider.Parse(statusItems)));
+            Events.Raise(new ChangeStatusEvent(SyntaxProvider.Parse(statusItems)));
         }
 
         private void item_Changed(object sender, EventArgs e)
         {
-            this.UpdateStatus();
+            UpdateStatus();
         }
     }
 }

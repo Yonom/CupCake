@@ -29,7 +29,7 @@ namespace CupCake.Chat
                     }, RegexOptions.IgnoreCase | RegexOptions.CultureInvariant);
                 }
 
-                if (input.Length > 4 && input.Count(Char.IsUpper) > input.Length / 2)
+                if (input.Length > 4 && input.Count(Char.IsUpper) > input.Length/2)
                     input = input.ToLower();
             }
 

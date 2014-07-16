@@ -9,16 +9,16 @@ namespace CupCake.Server.StorageProviders
 
         public MySqlStorageProvider(string connectionString)
         {
-            this._connectionString = connectionString;
+            _connectionString = connectionString;
 
-            this.CreateTable();
+            CreateTable();
         }
 
         public void Set(string id, string key, string value)
         {
             try
             {
-                using (var conn = new MySqlConnection(this._connectionString))
+                using (var conn = new MySqlConnection(_connectionString))
                 {
                     const string query =
                         "INSERT INTO cupcake VALUES (@id, @key, @value) ON DUPLICATE KEY UPDATE id = @id";
@@ -43,7 +43,7 @@ namespace CupCake.Server.StorageProviders
         {
             try
             {
-                using (var conn = new MySqlConnection(this._connectionString))
+                using (var conn = new MySqlConnection(_connectionString))
                 {
                     const string query = "SELECT value FROM cupcake WHERE id = @id AND key = @key";
                     using (var cmd = new MySqlCommand(query, conn))
@@ -52,7 +52,7 @@ namespace CupCake.Server.StorageProviders
                         cmd.Parameters.AddWithValue("@key", key);
 
                         conn.Open();
-                        return (string)cmd.ExecuteScalar();
+                        return (string) cmd.ExecuteScalar();
                     }
                 }
             }
@@ -66,7 +66,7 @@ namespace CupCake.Server.StorageProviders
         {
             try
             {
-                using (var conn = new MySqlConnection(this._connectionString))
+                using (var conn = new MySqlConnection(_connectionString))
                 {
                     const string query =
                         "CREATE TABLE IF NOT EXISTS cupcake (id VARCHAR(45) NOT NULL,key VARCHAR(45) NOT NULL,value TEXT NULL,PRIMARY KEY (id, key));";

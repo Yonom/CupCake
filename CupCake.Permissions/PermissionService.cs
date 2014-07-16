@@ -8,7 +8,7 @@ namespace CupCake.Permissions
     {
         protected override void Enable()
         {
-            this.Events.Bind<JoinPlayerEvent>(this.OnJoin, EventPriority.High);
+            Events.Bind<JoinPlayerEvent>(OnJoin, EventPriority.High);
         }
 
         private void OnJoin(object sender, JoinPlayerEvent e)
@@ -17,8 +17,8 @@ namespace CupCake.Permissions
                 (o, args) =>
                 {
                     if (args.Key == "Group")
-                        this.Events.Raise(new ChangedPermissionEvent(e.Player, (Group)args.OldValue,
-                            (Group)args.NewValue));
+                        Events.Raise(new ChangedPermissionEvent(e.Player, (Group) args.OldValue,
+                            (Group) args.NewValue));
                 };
         }
 

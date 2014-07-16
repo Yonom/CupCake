@@ -13,33 +13,33 @@ namespace CupCake.Messages
 
         public MessageManager(EventManager eventsPlatform)
         {
-            this._eventsPlatform = eventsPlatform;
+            _eventsPlatform = eventsPlatform;
         }
 
         public bool TryGetMessage(string str, out IRegisteredMessage message)
         {
-            return this._messageDictionary.TryGetValue(str, out message);
+            return _messageDictionary.TryGetValue(str, out message);
         }
 
         public void RegisterMessage<T>(string str) where T : ReceiveEvent
         {
-            this._messageDictionary.TryAdd(str, new RegisteredMessage<T>(this._eventsPlatform));
+            _messageDictionary.TryAdd(str, new RegisteredMessage<T>(_eventsPlatform));
         }
 
         public bool UnRegisterMessage(string str)
         {
             IRegisteredMessage registeredMessage;
-            return this._messageDictionary.TryRemove(str, out registeredMessage);
+            return _messageDictionary.TryRemove(str, out registeredMessage);
         }
 
         public bool Contains(string str)
         {
-            return this._messageDictionary.ContainsKey(str);
+            return _messageDictionary.ContainsKey(str);
         }
 
         public void UnRegisterAll()
         {
-            this._messageDictionary.Clear();
+            _messageDictionary.Clear();
         }
     }
 }

@@ -98,7 +98,7 @@ namespace CupCake.Server
                 },
                 {
                     "t|accounttype|type=",
-                    v => { _accountType = (AccountType)Enum.Parse(typeof(AccountType), v); }
+                    v => { _accountType = (AccountType) Enum.Parse(typeof (AccountType), v); }
                 },
                 {
                     "e|email=",
@@ -118,7 +118,7 @@ namespace CupCake.Server
                 },
                 {
                     "db|dbtype=",
-                    v => { _databaseType = (DatabaseType)Enum.Parse(typeof(DatabaseType), v); }
+                    v => { _databaseType = (DatabaseType) Enum.Parse(typeof (DatabaseType), v); }
                 },
                 {
                     "cs|connectionstring|connectionstr|connstr=",

@@ -19,18 +19,18 @@ namespace CupCake.DefaultCommands
 
         protected override void Enable()
         {
-            this.ClearCommand = this.EnablePart<ClearCommand>();
-            this.EnablePotsCommand = this.EnablePart<EnablePotsCommand>();
-            this.KillAllCommand = this.EnablePart<KillAllCommand>();
-            this.LoadlevelCommand = this.EnablePart<LoadlevelCommand>();
-            this.NameCommand = this.EnablePart<NameCommand>();
-            this.PotionsOffCommand = this.EnablePart<PotionsOffCommand>();
-            this.PotionsOnCommand = this.EnablePart<PotionsOnCommand>();
-            this.ResetCommand = this.EnablePart<ResetCommand>();
-            this.RespawnAllCommand = this.EnablePart<RespawnAllCommand>();
-            this.SaveCommand = this.EnablePart<SaveCommand>();
-            this.SetKeyCommand = this.EnablePart<SetKeyCommand>();
-            this.VisibleCommand = this.EnablePart<VisibleCommand>();
+            ClearCommand = EnablePart<ClearCommand>();
+            EnablePotsCommand = EnablePart<EnablePotsCommand>();
+            KillAllCommand = EnablePart<KillAllCommand>();
+            LoadlevelCommand = EnablePart<LoadlevelCommand>();
+            NameCommand = EnablePart<NameCommand>();
+            PotionsOffCommand = EnablePart<PotionsOffCommand>();
+            PotionsOnCommand = EnablePart<PotionsOnCommand>();
+            ResetCommand = EnablePart<ResetCommand>();
+            RespawnAllCommand = EnablePart<RespawnAllCommand>();
+            SaveCommand = EnablePart<SaveCommand>();
+            SetKeyCommand = EnablePart<SetKeyCommand>();
+            VisibleCommand = EnablePart<VisibleCommand>();
         }
     }
 }

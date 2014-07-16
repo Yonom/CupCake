@@ -11,8 +11,8 @@ namespace CupCake.DefaultCommands.Commands.Owner
         [CorrectUsage("")]
         protected override void Run(IInvokeSource source, ParsedCommand message)
         {
-            this.RequireOwner();
-            this.Chatter.Reset();
+            RequireOwner();
+            Chatter.Reset();
             source.Reply("Level reset.");
         }
     }

@@ -14,9 +14,9 @@ namespace CupCake.Core.Events
         {
             get
             {
-                lock (this._eventHandlers)
+                lock (_eventHandlers)
                 {
-                    return this._eventHandlers.Count;
+                    return _eventHandlers.Count;
                 }
             }
         }
@@ -27,46 +27,46 @@ namespace CupCake.Core.Events
 
         public void Clear()
         {
-            lock (this._eventHandlers)
+            lock (_eventHandlers)
             {
-                this._eventHandlers.Clear();
+                _eventHandlers.Clear();
             }
         }
 
         public bool Contains(EventHandler<T> item)
         {
-            lock (this._eventHandlers)
+            lock (_eventHandlers)
             {
-                return this._eventHandlers.Values.Any(handlerGroup => handlerGroup.Contains(item));
+                return _eventHandlers.Values.Any(handlerGroup => handlerGroup.Contains(item));
             }
         }
 
         public bool Remove(EventHandler<T> item)
         {
-            lock (this._eventHandlers)
+            lock (_eventHandlers)
             {
-                return this._eventHandlers.Values.Any(handlerGroup => handlerGroup.Remove(item));
+                return _eventHandlers.Values.Any(handlerGroup => handlerGroup.Remove(item));
             }
         }
 
         public void Bind(EventHandler<T> callback, EventPriority priority = EventPriority.Normal)
         {
-            lock (this._eventHandlers)
+            lock (_eventHandlers)
             {
-                if (!this._eventHandlers.ContainsKey(priority))
-                    this._eventHandlers.Add(priority, new List<EventHandler<T>>());
+                if (!_eventHandlers.ContainsKey(priority))
+                    _eventHandlers.Add(priority, new List<EventHandler<T>>());
 
-                this._eventHandlers[priority].Add(callback);
+                _eventHandlers[priority].Add(callback);
             }
         }
 
         public void Raise(object sender, T e)
         {
             EventHandler<T>[] handlers;
-            lock (this._eventHandlers)
+            lock (_eventHandlers)
             {
                 // Create an array of all handlers in the right order
-                handlers = this._eventHandlers.OrderBy(k => k.Key)
+                handlers = _eventHandlers.OrderBy(k => k.Key)
                     .SelectMany(k => k.Value).ToArray();
             }
 

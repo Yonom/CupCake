@@ -9,10 +9,10 @@ namespace CupCake.Messages.Receive
         public CoinDoorPlaceReceiveEvent(Message message)
             : base(message)
         {
-            this.PosX = message.GetInteger(0);
-            this.PosY = message.GetInteger(1);
-            this.Block = (CoinDoorBlock)message.GetInteger(2);
-            this.CoinsToOpen = message.GetInteger(3);
+            PosX = message.GetInteger(0);
+            PosY = message.GetInteger(1);
+            Block = (CoinDoorBlock) message.GetInteger(2);
+            CoinsToOpen = message.GetInteger(3);
         }
 
         public Layer Layer
@@ -28,14 +28,14 @@ namespace CupCake.Messages.Receive
 
         Layer IBlockPlaceReceiveEvent.Layer
         {
-            get { return this.Layer; }
+            get { return Layer; }
             set { throw new NotSupportedException("Can not set Layer on this kind of block"); }
         }
 
         Block IBlockPlaceReceiveEvent.Block
         {
-            get { return (Block)this.Block; }
-            set { this.Block = (CoinDoorBlock)value; }
+            get { return (Block) Block; }
+            set { Block = (CoinDoorBlock) value; }
         }
     }
 }

@@ -6,8 +6,8 @@ namespace CupCake.World
     {
         internal ResizeWorldEvent(int newWidth, int newHeight)
         {
-            this.NewHeight = newHeight;
-            this.NewWidth = newWidth;
+            NewHeight = newHeight;
+            NewWidth = newWidth;
         }
 
         public int NewHeight { get; private set; }

@@ -24,7 +24,7 @@
             <ScrollViewer VerticalScrollBarVisibility="Auto" Background="{DynamicResource TextBoxBackground}">
                 <TextBox Name="OutputTextBox" FontFamily="Consolas" FontSize="16" IsReadOnly="True"
                          Style="{DynamicResource NoHoverTextBoxStyle}" PreviewMouseUp="OutputTextBox_OnMouseUp"
-                         Text="--- Connection established ---" TextWrapping="Wrap"/>
+                         Text="--- Connection established ---" TextWrapping="Wrap" />
                 <i:Interaction.Behaviors>
                     <behaviors:AutoScrollBehavior />
                 </i:Interaction.Behaviors>

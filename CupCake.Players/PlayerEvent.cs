@@ -1,5 +1,4 @@
 ﻿using CupCake.Core.Events;
-using CupCake.Messages.Receive;
 
 namespace CupCake.Players
 {
@@ -7,8 +6,8 @@ namespace CupCake.Players
     {
         internal PlayerEvent(Player player, TBase innerEvent)
         {
-            this.Player = player;
-            this.InnerEvent = innerEvent;
+            Player = player;
+            InnerEvent = innerEvent;
         }
 
         public TBase InnerEvent { get; private set; }

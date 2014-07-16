@@ -8,8 +8,8 @@ namespace CupCake.Messages.Receive
         public FaceReceiveEvent(Message message)
             : base(message)
         {
-            this.UserId = message.GetInteger(0);
-            this.Face = (Smiley)message.GetInteger(1);
+            UserId = message.GetInteger(0);
+            Face = (Smiley) message.GetInteger(1);
         }
 
         public Smiley Face { get; set; }

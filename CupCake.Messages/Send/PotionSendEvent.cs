@@ -7,7 +7,7 @@ namespace CupCake.Messages.Send
     {
         public PotionSendEvent(Potion potion)
         {
-            this.Potion = potion;
+            Potion = potion;
         }
 
         public Potion Potion { get; set; }
@@ -16,7 +16,7 @@ namespace CupCake.Messages.Send
 
         public override Message GetMessage()
         {
-            return Message.Create(this.Encryption + "p", (int)this.Potion);
+            return Message.Create(Encryption + "p", (int) Potion);
         }
     }
 }

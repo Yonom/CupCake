@@ -9,32 +9,32 @@ namespace CupCake.HostAPI.Status
 
         public StatusItem(string name, string value)
         {
-            this.Name = name;
-            this.Value = value;
+            Name = name;
+            Value = value;
         }
 
         public string Name
         {
-            get { return this._name; }
+            get { return _name; }
             set
             {
-                if (this._name != value)
+                if (_name != value)
                 {
-                    this._name = value;
-                    this.OnChanged();
+                    _name = value;
+                    OnChanged();
                 }
             }
         }
 
         public string Value
         {
-            get { return this._value; }
+            get { return _value; }
             set
             {
-                if (this._name != value)
+                if (_name != value)
                 {
-                    this._value = value;
-                    this.OnChanged();
+                    _value = value;
+                    OnChanged();
                 }
             }
         }
@@ -43,7 +43,7 @@ namespace CupCake.HostAPI.Status
 
         protected virtual void OnChanged()
         {
-            EventHandler handler = this.Changed;
+            EventHandler handler = Changed;
             if (handler != null) handler(this, EventArgs.Empty);
         }
     }

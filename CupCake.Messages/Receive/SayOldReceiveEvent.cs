@@ -7,9 +7,9 @@ namespace CupCake.Messages.Receive
         public SayOldReceiveEvent(Message message)
             : base(message)
         {
-            this.Username = message.GetString(0);
-            this.Text = message.GetString(1);
-            this.IsMyFriend = message.GetBoolean(2);
+            Username = message.GetString(0);
+            Text = message.GetString(1);
+            IsMyFriend = message.GetBoolean(2);
         }
 
         public bool IsMyFriend { get; set; }

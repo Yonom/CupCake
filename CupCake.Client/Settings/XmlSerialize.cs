@@ -8,7 +8,7 @@ namespace CupCake.Client.Settings
     {
         public static void Serialize<T>(T obj, string path)
         {
-            var serializer = new XmlSerializer(typeof(T));
+            var serializer = new XmlSerializer(typeof (T));
             using (var writer = new XmlTextWriter(path, Encoding.UTF8)
             {
                 Formatting = Formatting.Indented,
@@ -23,9 +23,9 @@ namespace CupCake.Client.Settings
         {
             using (var reader = new XmlTextReader(path))
             {
-                var deserializer = new XmlSerializer(typeof(T));
+                var deserializer = new XmlSerializer(typeof (T));
                 object obj = deserializer.Deserialize(reader);
-                var xmlData = (T)obj;
+                var xmlData = (T) obj;
                 return xmlData;
             }
         }

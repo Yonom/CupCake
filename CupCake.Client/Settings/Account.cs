@@ -12,7 +12,7 @@ namespace CupCake.Client.Settings
 
         string IConfig.Name
         {
-            get { return this.Name ?? this.Email; }
+            get { return Name ?? Email; }
         }
 
         public static Account NewEmpty()

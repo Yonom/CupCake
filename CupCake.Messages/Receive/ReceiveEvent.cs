@@ -8,7 +8,7 @@ namespace CupCake.Messages.Receive
     {
         protected ReceiveEvent(Message message)
         {
-            this.PlayerIOMessage = message;
+            PlayerIOMessage = message;
         }
 
         [EditorBrowsable(EditorBrowsableState.Advanced)]
@@ -16,7 +16,7 @@ namespace CupCake.Messages.Receive
 
         public override string ToString()
         {
-            return this.PlayerIOMessage.ToString();
+            return PlayerIOMessage.ToString();
         }
     }
 }

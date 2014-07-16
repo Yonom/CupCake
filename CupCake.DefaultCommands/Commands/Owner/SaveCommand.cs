@@ -11,11 +11,11 @@ namespace CupCake.DefaultCommands.Commands.Owner
         [CorrectUsage("SAVE")]
         protected override void Run(IInvokeSource source, ParsedCommand message)
         {
-            this.RequireOwner();
+            RequireOwner();
             if (message.Count == 0 || message.Args[0] != "SAVE")
                 throw new CommandException("To user clear, type !clear SAVE");
 
-            this.RoomService.Save();
+            RoomService.Save();
             source.Reply("Saved.");
         }
     }

@@ -4,8 +4,8 @@
     {
         public Logger(LogPlatform logPlatform, string name)
         {
-            this.LogPlatform = logPlatform;
-            this.Name = name;
+            LogPlatform = logPlatform;
+            Name = name;
         }
 
         public LogPlatform LogPlatform { get; private set; }
@@ -13,7 +13,7 @@
 
         public void Log(LogPriority priority, string message)
         {
-            this.LogPlatform.Log(this.Name, priority, message);
+            LogPlatform.Log(Name, priority, message);
         }
     }
 }

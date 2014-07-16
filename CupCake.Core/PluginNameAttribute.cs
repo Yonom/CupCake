@@ -7,7 +7,7 @@ namespace CupCake.Core
     {
         public PluginNameAttribute(string name)
         {
-            this.Name = name;
+            Name = name;
         }
 
         public string Name { get; private set; }
