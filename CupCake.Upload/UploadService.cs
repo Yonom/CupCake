@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Linq;
+using System.Collections.Generic;
 using System.Threading;
 using CupCake.Core;
 using CupCake.Core.Events;
@@ -14,8 +14,8 @@ namespace CupCake.Upload
 {
     public sealed class UploadService : CupCakeService
     {
-        private readonly Deque<UploadRequestEvent> _checkQueue = new Deque<UploadRequestEvent>();
-        private int[,,] _uploaded;
+        private readonly Queue<UploadRequestEvent> _checkQueue = new Queue<UploadRequestEvent>();
+        private bool[,,] _uploaded;
         private DequeWorker _workThread;
         private WorldService _world;
 
@@ -137,23 +137,11 @@ namespace CupCake.Upload
 
             lock (this._checkQueue)
             {
-                if (request.SendTries < 5)
+                if (!this._uploaded[(int)e.Layer, e.X, e.Y] && request.SendTries < 5)
                 {
-                    // If there already was a block in the lag checks, remove it, add this one instead
-                    if (this._uploaded[(int)e.Layer, e.X, e.Y] > 0)
-                    {
-                        UploadRequestEvent prev =
-                            this._checkQueue.FirstOrDefault(
-                                req =>
-                                    req.SendEvent.Layer == e.Layer && req.SendEvent.X == e.X && req.SendEvent.Y == e.Y);
-                        if (prev != null)
-                        {
-                            this._checkQueue.Remove(prev);
-                        }
-                    }
-                    this._uploaded[(int)e.Layer, e.X, e.Y]++;
+                    this._uploaded[(int)e.Layer, e.X, e.Y] = true;
 
-                    this._checkQueue.AddToBack(request);
+                    this._checkQueue.Enqueue(request);
                 }
             }
         }
@@ -210,14 +198,9 @@ namespace CupCake.Upload
 
         private void OnBlockPlace(object sender, PlaceWorldEvent e)
         {
-            // If there has been a block uploaded at this position
-            if (this._uploaded[(int)e.WorldBlock.Layer, e.WorldBlock.X, e.WorldBlock.Y] > 0)
+            if (this._uploaded[(int)e.WorldBlock.Layer, e.WorldBlock.X, e.WorldBlock.Y])
             {
-                // If this is the last block being uploaded to this position
-                if (--this._uploaded[(int)e.WorldBlock.Layer, e.WorldBlock.X, e.WorldBlock.Y] == 0)
-                {
-                    this.DoLagCheck(false);
-                }
+                this.DoLagCheck(false);
             }
         }
 
@@ -227,10 +210,10 @@ namespace CupCake.Upload
             {
                 while (this._checkQueue.Count > 0)
                 {
-                    UploadRequestEvent request = this._checkQueue.RemoveFromFront();
+                    UploadRequestEvent request = this._checkQueue.Dequeue();
                     IBlockPlaceSendEvent er = request.SendEvent;
 
-                    this._uploaded[(int)er.Layer, er.X, er.Y] = 0;
+                    this._uploaded[(int)er.Layer, er.X, er.Y] = false;
                     if (this.IsUploaded(er))
                     {
                         request.Verified = true;
@@ -274,7 +257,7 @@ namespace CupCake.Upload
 
         private void ResetUploaded(int width, int height)
         {
-            this._uploaded = new int[2, width, height];
+            this._uploaded = new bool[2, width, height];
         }
 
         public void UploadBlock(int x, int y, Block block)
