@@ -89,6 +89,7 @@ namespace CupCake.Chat
             if (!this._mySendTimer.Enabled)
             {
                 this.DoSendTick();
+                
                 this._mySendTimer.Start();
             }
         }

@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using CupCake.Chat;
+using CupCake.Core;
 using CupCake.Core.Events;
 using CupCake.Core.Storage;
 using CupCake.Host;
@@ -21,6 +22,7 @@ namespace CupCake.Server
         public const string GameId = "everybody-edits-su9rn58o40itdbnw69plyw";
         private CupCakeClient _client;
         private EventsPlatform _eventsPlatform;
+        private SynchronizePlatform _synchronizePlatform;
         private IStorageProvider _storage;
 
         public event Action<string> Output;
@@ -49,7 +51,10 @@ namespace CupCake.Server
 
         public void Input(string input)
         {
-            this._eventsPlatform.Event<InputEvent>().Raise(this, new InputEvent(input));
+            this._synchronizePlatform.DoSynchronously(() =>
+            {
+                this._eventsPlatform.Event<InputEvent>().Raise(this, new InputEvent(input));
+            });
         }
 
         private void PlatformLoader_EnableComplete(object sender, EventArgs e)
@@ -62,6 +67,7 @@ namespace CupCake.Server
             }
 
             // Listen to HostAPI events
+            this._synchronizePlatform = this._client.PlatformLoader.Get<SynchronizePlatform>();
             this._eventsPlatform = this._client.PlatformLoader.Get<EventsPlatform>();
             this._eventsPlatform.Event<OutputEvent>().Bind(this.OnOutput, EventPriority.Lowest);
             this._eventsPlatform.Event<ChangeTitleEvent>().Bind(this.OnChangeTitle, EventPriority.Lowest);

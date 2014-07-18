@@ -123,7 +123,7 @@ namespace CupCake
         }
 
         /// <summary>
-        /// Teleports the specified username. (/kick &lt;username&gt; &lt;reason&gt;).
+        /// Teleports the specified username. (/teleport &lt;username&gt; &lt;x&gt; &lt;y&gt;).
         /// </summary>
         /// <param name="username">The username.</param>
         /// <param name="x">The x.</param>
