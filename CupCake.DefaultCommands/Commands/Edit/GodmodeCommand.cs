@@ -29,7 +29,7 @@ namespace CupCake.DefaultCommands.Commands.Edit
             }
             else
             {
-                enabled = this.PlayerService.OwnPlayer.IsGod;
+                enabled = !this.PlayerService.OwnPlayer.IsGod;
             }
 
             this.ActionService.GodMode(enabled);
