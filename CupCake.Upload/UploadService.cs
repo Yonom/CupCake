@@ -86,7 +86,7 @@ namespace CupCake.Upload
                     Thread.Sleep(10);
                 }
 
-                if (this._workThread.Count == 0)
+                if (this._workThread.Count == 0 && this.LagCheckCount > 0)
                 {
                     ThreadPool.QueueUserWorkItem(o =>
                     {
@@ -109,7 +109,6 @@ namespace CupCake.Upload
         /// <summary>
         ///     Uploads the given block and makes sure it gets placed
         /// </summary>
-        /// <param name="request"></param>
         private bool Send(UploadRequestEvent request)
         {
             IBlockPlaceSendEvent e = request.SendEvent;
@@ -248,11 +247,14 @@ namespace CupCake.Upload
 
         private void Reset(int width, int height)
         {
+            bool enableLater = this._workThread.IsAlive;
+
             this._workThread.Stop();
             this.ClearQueue();
             this.ResetUploaded(width, height);
             this._workThread.Clear();
-            this._workThread.Start();
+            if (enableLater)
+                this._workThread.Start();
         }
 
         private void ResetUploaded(int width, int height)
