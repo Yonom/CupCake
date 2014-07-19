@@ -21,8 +21,10 @@ namespace CupCake.Messages.Receive
             this.IsPurple = message.GetBoolean(10);
             this.MagicClass = (MagicClass)message.GetInteger(11);
             this.IsClubMember = message.GetBoolean(12);
+            this.IsGuardian = message.GetBoolean(13);
         }
 
+        public bool IsGuardian { get; set; }
         public int Coins { get; set; }
         public Smiley Face { get; set; }
         public bool HasChat { get; set; }

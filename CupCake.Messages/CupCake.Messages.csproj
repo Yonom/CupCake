@@ -47,9 +47,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BlockUtils.cs" />
+    <Compile Include="Receive\GuardianModeReceiveEvent.cs" />
     <Compile Include="Receive\IBlockPlaceReceiveEvent.cs" />
     <Compile Include="Receive\IMetadataReceiveMessage.cs" />
     <Compile Include="Receive\PotionCountReceiveEvent.cs" />
+    <Compile Include="Send\GuardianModeSendMessage.cs" />
     <Compile Include="Send\IBlockPlaceSendEvent.cs" />
     <Compile Include="Send\ShowPurpleSendEvent.cs" />
     <Compile Include="User\AccessRight.cs" />

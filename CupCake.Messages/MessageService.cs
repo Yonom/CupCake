@@ -90,6 +90,7 @@ namespace CupCake.Messages
             this.MessageManager.RegisterMessage<MagicReceiveEvent>("w");
             this.MessageManager.RegisterMessage<LevelUpReceiveEvent>("levelup");
             this.MessageManager.RegisterMessage<GodModeReceiveEvent>("god");
+            this.MessageManager.RegisterMessage<GuardianModeReceiveEvent>("guardian");
             this.MessageManager.RegisterMessage<ModModeReceiveEvent>("mod");
             this.MessageManager.RegisterMessage<WootUpReceiveEvent>("wu");
             this.MessageManager.RegisterMessage<KillReceiveEvent>("kill");

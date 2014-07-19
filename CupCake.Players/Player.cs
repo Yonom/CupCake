@@ -19,7 +19,9 @@ namespace CupCake.Players
         public int UserId { get; private set; }
 
         public bool IsGod { get; private set; }
+        public bool IsGuardian { get; private set; }
         public bool IsMod { get; private set; }
+
         public bool IsDead { get; private set; }
         public bool IsMyFriend { get; private set; }
         public bool IsClubMember { get; private set; }
@@ -74,6 +76,11 @@ namespace CupCake.Players
             get { return this.Host.PlayerService.CrownPlayer == this; }
         }
 
+        public bool IsFlying
+        {
+            get { return this.IsGod || this.IsGuardian || this.IsMod; }
+        }
+
         public bool IsGuest
         {
             get { return PlayerUtils.IsGuest(this.Username); }
@@ -110,6 +117,7 @@ namespace CupCake.Players
             this.BindPlayerEvent<FaceReceiveEvent, FacePlayerEvent>(this.OnFace);
             this.BindPlayerEvent<MoveReceiveEvent, MovePlayerEvent>(this.OnMove);
             this.BindPlayerEvent<GodModeReceiveEvent, GodModePlayerEvent>(this.OnGodMode);
+            this.BindPlayerEvent<GuardianModeReceiveEvent, GuardianModePlayerEvent>(this.OnGruadianMode);
             this.BindPlayerEvent<ModModeReceiveEvent, ModModePlayerEvent>(this.OnModMode);
             this.BindPlayerEvent<SilverCrownReceiveEvent, SilverCrownPlayerEvent>(this.OnSilverCrown);
             this.BindPlayerEvent<LeftReceiveEvent, LeftPlayerEvent>(this.OnLeft);
@@ -158,6 +166,7 @@ namespace CupCake.Players
                 this.Smiley = add.Face;
                 this.HasChat = add.HasChat;
                 this.IsGod = add.IsGod;
+                this.IsGuardian = add.IsGuardian;
                 this.IsMod = add.IsMod;
                 this.IsMyFriend = add.IsMyFriend;
                 this.Coins = add.Coins;
@@ -217,6 +226,11 @@ namespace CupCake.Players
         private void OnGodMode(object sender, GodModeReceiveEvent e)
         {
             this.IsGod = e.IsGod;
+        }
+
+        private void OnGruadianMode(object sender, GuardianModeReceiveEvent e)
+        {
+            this.IsGuardian = e.IsGuardian;
         }
 
         private void OnModMode(object sender, ModModeReceiveEvent e)

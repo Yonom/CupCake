@@ -47,6 +47,7 @@
     <Compile Include="Commands\BanCommandBase.cs" />
     <Compile Include="Commands\Ban\TempBanCommand.cs" />
     <Compile Include="Commands\EditCommandBase.cs" />
+    <Compile Include="Commands\Utility\GuardianModeCommand.cs" />
     <Compile Include="EditCommandsMuffin.cs" />
     <Compile Include="Commands\Edit\GodModeCommand.cs" />
     <Compile Include="Commands\OwnerCommandBase.cs" />

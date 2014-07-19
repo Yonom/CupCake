@@ -88,6 +88,11 @@ namespace CupCake.Actions
             this.Events.Raise(new GodModeSendEvent(enabled));
         }
 
+        public void GuardianMode(bool enabled)
+        {
+            this.Events.Raise(new GuardianModeSendMessage(enabled));
+        }
+
         public void ModMode()
         {
             this.Events.Raise(new ModModeSendEvent());
