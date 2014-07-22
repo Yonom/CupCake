@@ -86,8 +86,14 @@ namespace CupCake.Upload
                     Thread.Sleep(10);
                 }
 
-                if (this._workThread.Count == 0 && this.LagCheckCount > 0)
+                if (this._workThread.Count == 0)
                 {
+                    // Make sure this is the last work item
+                    // BugFix for single core machines
+                    this.SynchronizePlatform.DoSynchronously(() => { });
+                    if (this._workThread.Count != 0)
+                        return;
+
                     ThreadPool.QueueUserWorkItem(o =>
                     {
                         Thread.Sleep(1000);

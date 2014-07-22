@@ -65,6 +65,7 @@ namespace CupCake.Chat
             if (this.CheckHistory(msg))
             {
                 this.SendChat("." + msg);
+                return;
             }
 
             lock (this._myHistoryList)
