@@ -9,7 +9,8 @@
                       SnapsToDevicePixels="True"
                       Icon="/Resources/CupCake.ico"
                       ShowIconOnTitleBar="False"
-                      Background="{StaticResource LightBackground}">
+                      Background="{StaticResource LightBackground}"
+                      SaveWindowPosition="True">
 
     <DockPanel>
         <Menu DockPanel.Dock="Top" SnapsToDevicePixels="True" Margin="2,0,0,0">
