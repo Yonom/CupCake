@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Threading;
 using CupCake.Core;
 using CupCake.Core.Events;
+using CupCake.Core.Log;
 using CupCake.Messages.Blocks;
 using CupCake.Messages.Receive;
 using CupCake.Messages.Send;
@@ -90,13 +92,11 @@ namespace CupCake.Upload
                 {
                     // Make sure this is the last work item
                     // BugFix for single core machines
-                    this.SynchronizePlatform.DoSynchronously(() => { });
-                    if (this._workThread.Count != 0)
-                        return;
-
-                    ThreadPool.QueueUserWorkItem(o =>
+                    this.SynchronizePlatform.DoSynchronously(() =>
                     {
-                        Thread.Sleep(1000);
+                        if (this._workThread.Count != 0)
+                            return;
+
                         this.DoLagCheck(true);
                     });
                 }
