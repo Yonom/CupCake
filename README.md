@@ -3,4 +3,4 @@ CupCake [![Build status](https://ci.appveyor.com/api/projects/status/6g3oyrs5utk
 
 A robust bot library for Everybody Edits. Based on MuffinFramework.
 
-Documentation coming soon! :)
+Documentation is available at http://github.com/Yonom/CupCake/wiki
