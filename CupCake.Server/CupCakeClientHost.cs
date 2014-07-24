@@ -149,8 +149,9 @@ namespace CupCake.Server
             {
                  connection = rabbitAuth.LogIn(email, password, roomId);
             }
-            catch (Exception e)
+            catch (ArgumentException e)
             {
+                // The authentication type was not recognized.
                 this.Disconnected();
             }
 
