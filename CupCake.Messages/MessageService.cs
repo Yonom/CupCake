@@ -151,5 +151,15 @@ namespace CupCake.Messages
                 this.ConnectionPlatform.Connection.Send(e.GetMessage());
             }
         }
+
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                this.ConnectionPlatform.Connection.OnMessage -= this.Connection_OnMessage;
+            }
+
+            base.Dispose(disposing);
+        }
     }
 }

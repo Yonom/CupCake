@@ -1,12 +1,14 @@
 ﻿using System;
 using System.Collections.Concurrent;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace CupCake.Core.Events
 {
     public class EventManager : IDisposable
     {
-        private readonly ConcurrentBag<IBinding> _bindings = new ConcurrentBag<IBinding>();
+        private readonly object _lockObj = new object();
+        private readonly List<IBinding> _bindings = new List<IBinding>();
         private readonly object _sender;
 
         public EventManager(EventsPlatform eventsPlatform, object sender)
@@ -32,28 +34,40 @@ namespace CupCake.Core.Events
 
             var binding = new Binding<T>(this, callback, priority);
             binding.Subscribe();
-            this._bindings.Add(binding);
+
+            lock (this._lockObj)
+            {
+                this._bindings.Add(binding);
+            }
         }
 
         public bool Contains<T>(EventHandler<T> callback) where T : Event
         {
-            return
-                this._bindings.Any(binding => typeof(T) == binding.Type && binding.GetCallback() == (Delegate)callback);
+            lock (this._lockObj)
+            {
+                return this._bindings.Any(
+                    binding =>
+                        typeof(T) == binding.Type &&
+                        binding.GetCallback() == (Delegate)callback);
+            }
         }
 
         public bool TryGetBinding<T>(EventHandler<T> callback, out IBinding binding) where T : Event
         {
-            foreach (
-                IBinding b in
-                    this._bindings.Where(
-                        b => typeof(T) == b.Type && b.GetCallback() == (Delegate)callback))
+            lock (this._lockObj)
             {
-                binding = b;
-                return true;
-            }
+                foreach (IBinding b in 
+                    this._bindings.Where(b => 
+                        typeof(T) == b.Type &&
+                        b.GetCallback() == (Delegate)callback))
+                {
+                    binding = b;
+                    return true;
+                }
 
-            binding = null;
-            return false;
+                binding = null;
+                return false;
+            }
         }
 
         public void Raise<T>(T eventArgs) where T : Event
@@ -65,9 +79,12 @@ namespace CupCake.Core.Events
         {
             if (disposing)
             {
-                foreach (IBinding binding in this._bindings)
+                lock (this._lockObj)
                 {
-                    binding.Unsubscribe();
+                    foreach (IBinding binding in this._bindings)
+                    {
+                        binding.Unsubscribe();
+                    }
                 }
             }
         }

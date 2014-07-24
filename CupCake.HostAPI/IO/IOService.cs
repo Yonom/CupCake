@@ -37,5 +37,15 @@ namespace CupCake.HostAPI.IO
                 this.Events.Raise(outputEvent);
             }
         }
+
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                this.Logger.LogPlatform.LogReceived -= this.LogPlatform_LogReceived;
+            }
+
+            base.Dispose(disposing);
+        }
     }
 }

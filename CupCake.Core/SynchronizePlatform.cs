@@ -47,5 +47,15 @@ namespace CupCake.Core
 
             return this._thread.DoGet(action);
         }
+
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                this._thread.Dispose();
+            }
+
+            base.Dispose(disposing);
+        }
     }
 }

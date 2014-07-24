@@ -218,6 +218,16 @@ namespace CupCake.World
             this.ServiceLoader.EnableComplete += this.ServiceLoader_EnableComplete;
         }
 
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                this.ServiceLoader.EnableComplete -= this.ServiceLoader_EnableComplete;
+            }
+
+            base.Dispose(disposing);
+        }
+
         private void ServiceLoader_EnableComplete(object sender, EventArgs e)
         {
             this._playerService = this.ServiceLoader.Get<PlayerService>();

@@ -241,8 +241,11 @@ namespace CupCake.Chat
         {
             if (disposing)
             {
+                this._mySendTimer.Elapsed -= this.SendTimer_Elapsed;
                 this._mySendTimer.Dispose();
             }
+
+            base.Dispose(disposing);
         }
     }
 }
