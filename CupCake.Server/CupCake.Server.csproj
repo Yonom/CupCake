@@ -74,6 +74,9 @@
     <Reference Include="PlayerIOClient">
       <HintPath>..\Lib\PlayerIOClient.dll</HintPath>
     </Reference>
+    <Reference Include="Rabbit">
+      <HintPath>..\Lib\Rabbit.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.Core" />
@@ -142,6 +145,7 @@
     <None Include="app.config" />
     <None Include="Key.snk" />
     <None Include="packages.config" />
+    <None Include="Rabbit_key.snk" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="x64\SQLite.Interop.dll">
