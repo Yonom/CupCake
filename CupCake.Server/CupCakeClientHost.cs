@@ -138,22 +138,10 @@ namespace CupCake.Server
             }
 
             // Get room version
-            this.LogMessage("Getting room version...");
-            int version = RoomHelper.GetVersion();
-            string roomType = RoomHelper.GetRoomType(roomId, version);
-
+            this.LogMessage("Joining room...");
             // Connect to playerIO and join room
             var rabbitAuth = new Rabbit.Rabbit();
-            Connection connection = null;
-            try
-            {
-                 connection = rabbitAuth.LogIn(email, password, roomId);
-            }
-            catch (ArgumentException e)
-            {
-                // The authentication type was not recognized.
-                this.Disconnected();
-            }
+            Connection connection = rabbitAuth.LogIn(email, password, roomId);
 
             // Start
             this.LogMessage("Starting plugins...");
@@ -161,6 +149,8 @@ namespace CupCake.Server
 
             // Handle disconnect, if we are already too late, disconnect
             connection.OnDisconnect += this.connection_OnDisconnect;
+            if (!connection.Connected)
+                this.Disconnected();
 
             this.LogMessage("Done.");
         }
