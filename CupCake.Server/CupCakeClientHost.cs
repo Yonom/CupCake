@@ -14,6 +14,7 @@ using CupCake.HostAPI.Title;
 using CupCake.Protocol;
 using CupCake.Server.SyntaxProviders;
 using PlayerIOClient;
+using Rabbit.Auth;
 
 namespace CupCake.Server
 {
@@ -141,15 +142,17 @@ namespace CupCake.Server
             int version = RoomHelper.GetVersion();
             string roomType = RoomHelper.GetRoomType(roomId, version);
 
-            // Connect to playerIO
-            this.LogMessage("Logging in...");
-            Client playerioclient = accType == AccountType.Regular
-                ? PlayerIO.QuickConnect.SimpleConnect(GameId, email, password)
-                : PlayerIO.QuickConnect.FacebookOAuthConnect(GameId, email, String.Empty);
-
-            // Join room
-            this.LogMessage("Joining room...");
-            Connection connection = playerioclient.Multiplayer.CreateJoinRoom(roomId, roomType, true, null, null);
+            // Connect to playerIO and join room
+            var rabbitAuth = new Rabbit.Rabbit();
+            Connection connection = null;
+            try
+            {
+                 connection = rabbitAuth.LogIn(email, password, roomId);
+            }
+            catch (Exception e)
+            {
+                this.Disconnected();
+            }
 
             // Start
             this.LogMessage("Starting plugins...");
@@ -157,8 +160,6 @@ namespace CupCake.Server
 
             // Handle disconnect, if we are already too late, disconnect
             connection.OnDisconnect += this.connection_OnDisconnect;
-            if (!connection.Connected)
-                this.Disconnected();
 
             this.LogMessage("Done.");
         }
