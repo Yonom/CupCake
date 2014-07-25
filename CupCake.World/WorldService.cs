@@ -223,6 +223,11 @@ namespace CupCake.World
             if (disposing)
             {
                 this.ServiceLoader.EnableComplete -= this.ServiceLoader_EnableComplete;
+
+                this._blocks = null;
+                this._playerService = null;
+                this.RoomHeight = 0;
+                this.RoomWidth = 0;
             }
 
             base.Dispose(disposing);

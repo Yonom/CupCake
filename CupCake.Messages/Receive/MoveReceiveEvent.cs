@@ -18,9 +18,10 @@ namespace CupCake.Messages.Receive
             this.Vertical = message.GetDouble(8);
             this.Coins = message.GetInteger(9);
             this.IsPurple = message.GetBoolean(10);
-            this.IsDead = message.GetBoolean(11);
+            this.SpaceDown = message.GetBoolean(11);
         }
 
+        public bool SpaceDown { get; set; }
         public int Coins { get; set; }
         public double Horizontal { get; set; }
         public bool IsPurple { get; set; }
@@ -29,7 +30,6 @@ namespace CupCake.Messages.Receive
         public double SpeedX { get; set; }
         public double SpeedY { get; set; }
         public double Vertical { get; set; }
-        public bool IsDead { get; set; }
 
         public int BlockX
         {

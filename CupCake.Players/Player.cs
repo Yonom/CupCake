@@ -44,6 +44,7 @@ namespace CupCake.Players
         public double ModifierX { get; private set; }
         public double ModifierY { get; private set; }
         public double Vertical { get; private set; }
+        public bool SpaceDown { get; set; }
 
         public double Horizontal { get; private set; }
         public string Say { get; private set; }
@@ -219,8 +220,9 @@ namespace CupCake.Players
             this.SpeedY = e.SpeedY;
             this.PosX = e.UserPosX;
             this.PosY = e.UserPosY;
+            this.IsDead = false;
             this.SwitchOpened = e.IsPurple;
-            this.IsDead = e.IsDead;
+            this.SpaceDown = e.SpaceDown;
         }
 
         private void OnGodMode(object sender, GodModeReceiveEvent e)
@@ -335,6 +337,7 @@ namespace CupCake.Players
             {
                 this.PosX = e.UserPosX;
                 this.PosY = e.UserPosY;
+                this.IsDead = false;
 
                 var point = new Point(this.PosX, this.PosY);
                 this.SynchronizePlatform.Do(() =>
@@ -349,6 +352,7 @@ namespace CupCake.Players
                 Point location = e.Coordinates[this.UserId];
                 this.PosX = location.X;
                 this.PosY = location.Y;
+                this.IsDead = false;
 
                 if (e.ResetCoins)
                 {
