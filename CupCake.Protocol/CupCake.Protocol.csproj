@@ -49,7 +49,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AccountType.cs" />
     <Compile Include="Authentication.cs" />
     <Compile Include="ClientHandle.cs" />
     <Compile Include="DatabaseType.cs" />

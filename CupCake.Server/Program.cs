@@ -94,10 +94,6 @@ namespace CupCake.Server
                     v => { _settings.Pin = v; }
                 },
                 {
-                    "t|accounttype|type=",
-                    v => { _settings.AccountType = (AccountType)Enum.Parse(typeof(AccountType), v); }
-                },
-                {
                     "e|email=",
                     v => { _settings.Email = v; }
                 },
@@ -254,7 +250,6 @@ namespace CupCake.Server
             {
                 if (!authenticated) return;
 
-                _settings.AccountType = data.AccountType;
                 _settings.Email = data.Email;
                 _settings.Password = data.Password;
                 _settings.World = data.World;
@@ -288,7 +283,7 @@ namespace CupCake.Server
                 throw;
             }
 
-            _clientEx.Start(_settings.AccountType, _settings.Email, _settings.Password, _settings.World, _settings.Dirs.ToArray(), storage);
+            _clientEx.Start(_settings.Email, _settings.Password, _settings.World, _settings.Dirs.ToArray(), storage);
         }
     }
 }

@@ -14,7 +14,6 @@ namespace CupCake.Server
         public string Email;
         public string Password;
         public string World;
-        public AccountType AccountType;
         public DatabaseType DatabaseType;
         public string ConnectionString;
         public bool Debug;

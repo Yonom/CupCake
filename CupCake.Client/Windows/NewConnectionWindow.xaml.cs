@@ -99,7 +99,6 @@ namespace CupCake.Client.Windows
             }
 
             int aId = default(int);
-            AccountType aType = default(AccountType);
             string aEmail = String.Empty;
             string aPass = String.Empty;
 
@@ -107,7 +106,6 @@ namespace CupCake.Client.Windows
             {
                 var account = (Account)((TextBlock)this.AccountComboBox.SelectedItem).Tag;
                 aId = account.Id;
-                aType = account.Type;
                 aEmail = account.Email;
                 aPass = account.Password.DecryptString().ToInsecureString();
             }
@@ -123,7 +121,7 @@ namespace CupCake.Client.Windows
             if (this._isDebug)
                 folders.Add(SettingsManager.DebugPath);
 
-            this._handle.DoSendSetData(aType, aEmail, aPass, worldId, folders.ToArray(), dbType, dbCs);
+            this._handle.DoSendSetData(aEmail, aPass, worldId, folders.ToArray(), dbType, dbCs);
 
             this._recentWorld.Account = aId;
             this._recentWorld.Profile = pId;

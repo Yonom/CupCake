@@ -115,7 +115,7 @@ namespace CupCake.Server
             this.OnOutput(String.Format("*** {0}", str));
         }
 
-        public void Start(AccountType accType, string email, string password, string roomId, string[] directories,
+        public void Start(string email, string password, string roomId, string[] directories,
             IStorageProvider storage)
         {
             this._storage = storage;

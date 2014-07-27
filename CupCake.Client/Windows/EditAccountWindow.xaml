@@ -26,7 +26,6 @@
             <RowDefinition Height="40" />
             <RowDefinition Height="40" />
             <RowDefinition Height="40" />
-            <RowDefinition Height="40" />
             <RowDefinition Height="5" />
             <RowDefinition Height="30" />
         </Grid.RowDefinitions>
@@ -40,31 +39,19 @@
 
         <TextBlock FontSize="16" Foreground="{StaticResource Foreground}" VerticalAlignment="Center" Grid.Row="1"
                    Grid.Column="0">
-            Type
-        </TextBlock>
-        <ComboBox Name="TypeComboBox" VerticalAlignment="Center" FontSize="16" Grid.Column="1" SelectedIndex="0"
-                  Grid.Row="1" Grid.ColumnSpan="3">
-            <ComboBox.Items>
-                <TextBlock>Regular</TextBlock>
-                <TextBlock>Facebook</TextBlock>
-            </ComboBox.Items>
-        </ComboBox>
-
-        <TextBlock FontSize="16" Foreground="{StaticResource Foreground}" VerticalAlignment="Center" Grid.Row="2"
-                   Grid.Column="0">
             Email / Token
         </TextBlock>
         <TextBox Name="EmailTextBox" VerticalAlignment="Center" FontSize="16" Grid.Column="1" Grid.ColumnSpan="3"
-                 Grid.Row="2" Padding="2" />
+                 Grid.Row="1" Padding="2" />
 
-        <TextBlock FontSize="16" Foreground="{StaticResource Foreground}" VerticalAlignment="Center" Grid.Row="3"
+        <TextBlock FontSize="16" Foreground="{StaticResource Foreground}" VerticalAlignment="Center" Grid.Row="2"
                    Grid.Column="0">
             Password
         </TextBlock>
         <PasswordBox Name="PasswordBox" VerticalAlignment="Center" FontSize="16" Grid.Column="1" Grid.ColumnSpan="3"
-                     Grid.Row="3" Padding="2" PreviewTextInput="PreviewPasswordBox_OnTextInput" />
+                     Grid.Row="2" Padding="2"/>
 
-        <Button Content="Cancel" Grid.Row="5" Grid.Column="1" Height="30" Click="CancelButton_Click" />
-        <Button Content="Save" Grid.Row="5" Grid.Column="3" Height="30" Click="OkButton_Click" />
+        <Button Content="Cancel" Grid.Row="4" Grid.Column="1" Height="30" Click="CancelButton_Click" />
+        <Button Content="Save" Grid.Row="4" Grid.Column="3" Height="30" Click="OkButton_Click" />
     </Grid>
 </controls:MetroWindow>

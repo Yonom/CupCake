@@ -12,7 +12,6 @@ namespace CupCake.Client.Windows
     public partial class EditAccountWindow
     {
         private readonly Account _account;
-        private bool _passwordChanged;
 
         public EditAccountWindow(Account account, bool isNew)
         {
@@ -25,7 +24,6 @@ namespace CupCake.Client.Windows
                 : "Edit Account";
 
             this.NameTextBox.Text = account.Name;
-            this.TypeComboBox.SelectedIndex = (int)account.Type;
             this.EmailTextBox.Text = account.Email;
             this.PasswordBox.Password = isNew
                 ? String.Empty
@@ -35,9 +33,8 @@ namespace CupCake.Client.Windows
         private void OkButton_Click(object sender, RoutedEventArgs e)
         {
             this._account.Name = this.NameTextBox.Text;
-            this._account.Type = (AccountType)this.TypeComboBox.SelectedIndex;
             this._account.Email = this.EmailTextBox.Text;
-            if (this._passwordChanged)
+            if (this.PasswordBox.Password != new string('*', 12))
             {
                 this._account.Password = this.PasswordBox.SecurePassword.EncryptString();
             }
@@ -47,11 +44,6 @@ namespace CupCake.Client.Windows
         private void CancelButton_Click(object sender, RoutedEventArgs e)
         {
             this.DialogResult = false;
-        }
-
-        private void PreviewPasswordBox_OnTextInput(object sender, TextCompositionEventArgs e)
-        {
-            this._passwordChanged = true;
         }
     }
 }
