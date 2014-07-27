@@ -21,7 +21,7 @@ namespace CupCake.Server.StorageProviders
                 using (var conn = new MySqlConnection(this._connectionString))
                 {
                     const string query =
-                        "INSERT INTO cupcake VALUES (@id, @key, @value) ON DUPLICATE KEY UPDATE id = @id";
+                        "INSERT INTO `cupcake` VALUES (@id, @key, @value) ON DUPLICATE KEY UPDATE `id` = @id";
                     using (var cmd = new MySqlCommand(query, conn))
                     {
                         cmd.Parameters.AddWithValue("@id", id);
@@ -45,7 +45,7 @@ namespace CupCake.Server.StorageProviders
             {
                 using (var conn = new MySqlConnection(this._connectionString))
                 {
-                    const string query = "SELECT value FROM cupcake WHERE id = @id AND key = @key";
+                    const string query = "SELECT `value`FROM `cupcake` WHERE `id` = @id AND `key` = @key";
                     using (var cmd = new MySqlCommand(query, conn))
                     {
                         cmd.Parameters.AddWithValue("@id", id);
@@ -69,7 +69,7 @@ namespace CupCake.Server.StorageProviders
                 using (var conn = new MySqlConnection(this._connectionString))
                 {
                     const string query =
-                        "CREATE TABLE IF NOT EXISTS cupcake (id VARCHAR(45) NOT NULL,key VARCHAR(45) NOT NULL,value TEXT NULL,PRIMARY KEY (id, key));";
+                        "CREATE TABLE IF NOT EXISTS `cupcake` (`id` varchar(45) NOT NULL,`key` varchar(45) NOT NULL,`value` text,PRIMARY KEY (`id`,`key`));";
                     using (var cmd = new MySqlCommand(query, conn))
                     {
                         conn.Open();
