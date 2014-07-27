@@ -352,6 +352,9 @@ namespace CupCake.Players
                 Point location = e.Coordinates[this.UserId];
                 this.PosX = location.X;
                 this.PosY = location.Y;
+                this.SpawnX = location.X;
+                this.SpawnY = location.Y;
+                
                 this.IsDead = false;
 
                 if (e.ResetCoins)
