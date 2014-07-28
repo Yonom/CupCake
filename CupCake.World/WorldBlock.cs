@@ -288,6 +288,11 @@ namespace CupCake.World
             }
         }
 
+        public WorldBlock Clone()
+        {
+            return new WorldBlock(Layer, X, Y, Block) {_data = _data.Clone()};
+        }
+
         private struct BlockData
         {
             internal string Text { get; set; }
@@ -298,6 +303,21 @@ namespace CupCake.World
             internal PortalRotation PortalRotation { get; set; }
             internal int SoundId { get; set; }
             internal int Rotation { get; set; }
+
+            internal BlockData Clone()
+            {
+                return new BlockData
+                {
+                    Text = Text,
+                    WorldPortalTarget = WorldPortalTarget,
+                    CoinsToCollect = CoinsToCollect,
+                    PortalId = PortalId,
+                    PortalTarget = PortalTarget,
+                    PortalRotation = PortalRotation,
+                    SoundId = SoundId,
+                    Rotation = Rotation
+                };
+            }
         }
     }
 }
