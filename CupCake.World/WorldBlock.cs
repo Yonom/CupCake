@@ -265,24 +265,24 @@ namespace CupCake.World
             throw new NotSupportedException("The given send message is not supported.");
         }
 
-        public IBlockPlaceSendEvent ToEvent(WorldBlock block)
+        public IBlockPlaceSendEvent ToEvent()
         {
-            switch (block.BlockType)
+            switch (this.BlockType)
             {
                 case BlockType.Normal:
-                    return new BlockPlaceSendEvent(block.Layer, block.X, block.Y, block.Block);
+                    return new BlockPlaceSendEvent(this.Layer, this.X, this.Y, this.Block);
                 case BlockType.CoinDoor:
-                    return new CoinDoorPlaceSendEvent(block.Layer, block.X, block.Y, (CoinDoorBlock)block.Block, block.CoinsToCollect);
+                    return new CoinDoorPlaceSendEvent(this.Layer, this.X, this.Y, (CoinDoorBlock)this.Block, this.CoinsToCollect);
                 case BlockType.Portal:
-                    return new PortalPlaceSendEvent(block.Layer, block.X, block.Y, (PortalBlock)block.Block, block.PortalId, block.PortalTarget, block.PortalRotation);
+                    return new PortalPlaceSendEvent(this.Layer, this.X, this.Y, (PortalBlock)this.Block, this.PortalId, this.PortalTarget, this.PortalRotation);
                 case BlockType.Sound:
-                    return new SoundPlaceSendEvent(block.Layer, block.X, block.Y, (SoundBlock)block.Block, block.SoundId);
+                    return new SoundPlaceSendEvent(this.Layer, this.X, this.Y, (SoundBlock)this.Block, this.SoundId);
                 case BlockType.Label:
-                    return new LabelPlaceSendEvent(block.Layer, block.X, block.Y, (LabelBlock)block.Block, block.Text);
+                    return new LabelPlaceSendEvent(this.Layer, this.X, this.Y, (LabelBlock)this.Block, this.Text);
                 case BlockType.Rotatable:
-                    return new RotatablePlaceSendEvent(block.Layer, block.X, block.Y, (RotatableBlock)block.Block, block.Rotation);
+                    return new RotatablePlaceSendEvent(this.Layer, this.X, this.Y, (RotatableBlock)this.Block, this.Rotation);
                 case BlockType.WorldPortal:
-                    return new WorldPortalPlaceSendEvent(block.Layer, block.X, block.Y, (WorldPortalBlock)block.Block, block.WorldPortalTarget);
+                    return new WorldPortalPlaceSendEvent(this.Layer, this.X, this.Y, (WorldPortalBlock)this.Block, this.WorldPortalTarget);
                 default:
                     throw new NotSupportedException("The given send message is not supported.");
             }
