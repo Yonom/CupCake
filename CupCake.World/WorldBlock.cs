@@ -1,5 +1,7 @@
 using System;
+using System.CodeDom;
 using System.Diagnostics;
+using System.Reflection.Emit;
 using CupCake.Core.Metadata;
 using CupCake.Messages.Blocks;
 using CupCake.Messages.Send;
@@ -261,6 +263,29 @@ namespace CupCake.World
             }
 
             throw new NotSupportedException("The given send message is not supported.");
+        }
+
+        public IBlockPlaceSendEvent ToEvent(WorldBlock block)
+        {
+            switch (block.BlockType)
+            {
+                case BlockType.Normal:
+                    return new BlockPlaceSendEvent(block.Layer, block.X, block.Y, block.Block);
+                case BlockType.CoinDoor:
+                    return new CoinDoorPlaceSendEvent(block.Layer, block.X, block.Y, (CoinDoorBlock)block.Block, block.CoinsToCollect);
+                case BlockType.Portal:
+                    return new PortalPlaceSendEvent(block.Layer, block.X, block.Y, (PortalBlock)block.Block, block.PortalId, block.PortalTarget, block.PortalRotation);
+                case BlockType.Sound:
+                    return new SoundPlaceSendEvent(block.Layer, block.X, block.Y, (SoundBlock)block.Block, block.SoundId);
+                case BlockType.Label:
+                    return new LabelPlaceSendEvent(block.Layer, block.X, block.Y, (LabelBlock)block.Block, block.Text);
+                case BlockType.Rotatable:
+                    return new RotatablePlaceSendEvent(block.Layer, block.X, block.Y, (RotatableBlock)block.Block, block.Rotation);
+                case BlockType.WorldPortal:
+                    return new WorldPortalPlaceSendEvent(block.Layer, block.X, block.Y, (WorldPortalBlock)block.Block, block.WorldPortalTarget);
+                default:
+                    throw new NotSupportedException("The given send message is not supported.");
+            }
         }
 
 // ReSharper disable once UnusedMember.Local

@@ -152,10 +152,11 @@ namespace CupCake.Upload
         }
 
         /// <summary>
-        ///     Calls the correct event for the given BlockPlaceSendEvent
+        ///     Calls the correct event for the given BlockPlaceSendEvent.
+        ///     Note that this does NOT check if the block was skipped!
         /// </summary>
         /// <param name="e"></param>
-        private void RaiseEvent(IBlockPlaceSendEvent e)
+        public void RaiseEvent(IBlockPlaceSendEvent e)
         {
             var blockEvent = e as BlockPlaceSendEvent;
             if (blockEvent != null)
