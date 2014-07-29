@@ -249,66 +249,73 @@ namespace CupCake.World
         private void OnBlockPlace(object sender, BlockPlaceReceiveEvent e)
         {
             WorldBlock b = this._blocks[(int)e.Layer, e.PosX, e.PosY];
+            WorldBlock oldBlock = b.Clone();
             b.SetBlock(e.Block);
 
-            this.RaisePlaceWorld(b, e.UserId);
+            this.RaisePlaceWorld(b, oldBlock);
         }
 
         private void OnCoinDoorPlace(object sender, CoinDoorPlaceReceiveEvent e)
         {
             WorldBlock b = this._blocks[(int)e.Layer, e.PosX, e.PosY];
+            WorldBlock oldBlock = b.Clone();
             b.SetCoinDoor(e.Block, e.CoinsToOpen);
 
-            this.RaisePlaceWorld(b);
+            this.RaisePlaceWorld(b, oldBlock);
         }
 
         private void OnLabelPlace(object sender, LabelPlaceReceiveEvent e)
         {
             WorldBlock b = this._blocks[(int)e.Layer, e.PosX, e.PosY];
+            WorldBlock oldBlock = b.Clone();
             b.SetLabel(e.Block, e.Text);
 
-            this.RaisePlaceWorld(b);
+            this.RaisePlaceWorld(b, oldBlock);
         }
 
         private void OnPortalPlace(object sender, PortalPlaceReceiveEvent e)
         {
             WorldBlock b = this._blocks[(int)e.Layer, e.PosX, e.PosY];
+            WorldBlock oldBlock = b.Clone();
             b.SetPortal(e.Block, e.PortalId, e.PortalTarget, e.PortalRotation);
 
-            this.RaisePlaceWorld(b);
+            this.RaisePlaceWorld(b, oldBlock);
         }
 
         private void OnWorldPortalPlace(object sender, WorldPortalPlaceReceiveEvent e)
         {
             WorldBlock b = this._blocks[(int)e.Layer, e.PosX, e.PosY];
+            WorldBlock oldBlock = b.Clone();
             b.SetWorldPortal(e.Block, e.WorldPortalTarget);
 
-            this.RaisePlaceWorld(b);
+            this.RaisePlaceWorld(b, oldBlock);
         }
 
         private void OnSoundPlace(object sender, SoundPlaceReceiveEvent e)
         {
             WorldBlock b = this._blocks[(int)e.Layer, e.PosX, e.PosY];
+            WorldBlock oldBlock = b.Clone();
             b.SetSound(e.Block, e.SoundId);
 
-            this.RaisePlaceWorld(b);
+            this.RaisePlaceWorld(b, oldBlock);
         }
 
         private void OnRotatablePlace(object sender, RotatablePlaceReceiveEvent e)
         {
             WorldBlock b = this._blocks[(int)e.Layer, e.PosX, e.PosY];
+            WorldBlock oldBlock = b.Clone();
             b.SetRotatable(e.Block, e.Rotation);
 
-            this.RaisePlaceWorld(b, -1);
+            this.RaisePlaceWorld(b, oldBlock);
         }
 
-        private void RaisePlaceWorld(WorldBlock b, int userId = -1)
+        private void RaisePlaceWorld(WorldBlock b, WorldBlock oldB, int userId = -1)
         {
             Player p;
             this._playerService.TryGetPlayer(userId, out p);
 
             this.SynchronizePlatform.Do(() =>
-                this.Events.Raise(new PlaceWorldEvent(b, p)));
+                this.Events.Raise(new PlaceWorldEvent(b, oldB, p)));
         }
 
         private void OnReset(object sender, ResetReceiveEvent e)
