@@ -252,7 +252,7 @@ namespace CupCake.World
             WorldBlock oldBlock = b.Clone();
             b.SetBlock(e.Block);
 
-            this.RaisePlaceWorld(b, oldBlock);
+            this.RaisePlaceWorld(b, oldBlock, e.UserId);
         }
 
         private void OnCoinDoorPlace(object sender, CoinDoorPlaceReceiveEvent e)
