@@ -168,7 +168,8 @@ namespace CupCake.Server
 
         public void Dispose()
         {
-            this._client.Dispose();
+            if (this._client != null)
+                this._client.Dispose();
         }
     }
 }

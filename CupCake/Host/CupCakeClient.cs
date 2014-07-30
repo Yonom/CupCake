@@ -40,7 +40,6 @@ namespace CupCake.Host
             if (connection == null)
                 throw new ArgumentNullException("connection");
             this._connection = connection;
-
             base.Start();
         }
 

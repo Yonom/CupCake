@@ -315,7 +315,11 @@ namespace CupCake.World
 
         public WorldBlock Clone()
         {
-            return new WorldBlock(Layer, X, Y, Block) {_data = _data.Clone()};
+            return new WorldBlock(Layer, X, Y, Block)
+            {
+                _data = _data.Clone(), 
+                BlockType = BlockType
+            };
         }
 
         private struct BlockData
