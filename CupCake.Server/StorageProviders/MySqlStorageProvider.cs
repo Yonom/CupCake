@@ -21,7 +21,7 @@ namespace CupCake.Server.StorageProviders
                 using (var conn = new MySqlConnection(this._connectionString))
                 {
                     const string query =
-                        "INSERT INTO `cupcake` VALUES (@id, @key, @value) ON DUPLICATE KEY UPDATE `id` = @id";
+                        "INSERT INTO `cupcake` VALUES (@id, @key, @value) ON DUPLICATE KEY UPDATE `value` = @value";
                     using (var cmd = new MySqlCommand(query, conn))
                     {
                         cmd.Parameters.AddWithValue("@id", id);
