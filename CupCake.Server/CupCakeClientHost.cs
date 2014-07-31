@@ -141,7 +141,7 @@ namespace CupCake.Server
             this.LogMessage("Joining room...");
             // Connect to playerIO and join room
             var rabbitAuth = new Rabbit.Rabbit();
-            Connection connection = rabbitAuth.LogIn(email, password, roomId);
+            Connection connection = rabbitAuth.LogIn(email, roomId, password);
 
             // Start
             this.LogMessage("Starting plugins...");
