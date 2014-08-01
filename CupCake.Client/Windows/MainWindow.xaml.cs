@@ -253,6 +253,13 @@ namespace CupCake.Client.Windows
             this.RefreshRecent();
         }
 
+        private void RemoveAllRecent()
+        {
+            SettingsManager.Settings.RecentWorlds.Clear();
+            SettingsManager.Save();
+            this.RefreshRecent();
+        }
+
         private void SetIncoming(RecentWorld recent)
         {
             this.IncomingSettings = recent;
@@ -514,6 +521,11 @@ namespace CupCake.Client.Windows
 
             SettingsManager.Save();
             this.RefreshRecent();
+        }
+
+        private void ClearRecentWorldsButton_Click(object sender, RoutedEventArgs e)
+        {
+            this.RemoveAllRecent();
         }
     }
 }
