@@ -92,7 +92,7 @@ namespace CupCake.Upload
                 {
                     // Make sure this is the last work item
                     // BugFix for single core machines
-                    this.SynchronizePlatform.DoSynchronously(() =>
+                    this.SynchronizePlatform.Do(() =>
                     {
                         if (this._workThread.Count != 0)
                             return;
