@@ -36,7 +36,7 @@
                   SelectedIndex="0" />
         <Button Name="EditProfileButton" Content="..." Grid.Row="0" Grid.Column="3" Height="30" Click="EditProfileButton_Click" />
 
-        <Separator Grid.Row="1" Grid.ColumnSpan="2" Grid.Column="0" Background="#11FFFFFF" />
+        <Separator Grid.Row="1" Grid.ColumnSpan="4" Grid.Column="0" Background="#11FFFFFF" />
 
         <TextBlock FontSize="16" Grid.Row="2" Grid.Column="0" Foreground="{StaticResource Foreground}"
                    VerticalAlignment="Center">
@@ -44,6 +44,7 @@
         </TextBlock>
         <ComboBox Name="AccountComboBox" VerticalAlignment="Center" FontSize="16" Grid.Row="2" Grid.Column="1"
                   SelectedIndex="0" />
+        <Button Name="EditAccountButton" Content="..." Grid.Row="2" Grid.Column="3" Height="30" Click="EditAccountButton_Click" />
 
         <TextBlock FontSize="16" Grid.Row="3" Grid.Column="0" Foreground="{StaticResource Foreground}"
                    VerticalAlignment="Center">
