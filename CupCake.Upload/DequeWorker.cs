@@ -61,7 +61,6 @@ namespace CupCake.Upload
             if (enabledStop)
             {
                 this._resetEvent.Set();
-                this._thread.Join();
             }
         }
 
