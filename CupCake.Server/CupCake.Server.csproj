@@ -74,8 +74,9 @@
     <Reference Include="PlayerIOClient">
       <HintPath>..\Lib\PlayerIOClient.dll</HintPath>
     </Reference>
-    <Reference Include="Rabbit">
-      <HintPath>..\Lib\Rabbit.dll</HintPath>
+    <Reference Include="Rabbit, Version=1.0.0.0, Culture=neutral, PublicKeyToken=d1393b3767691f4e, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\EE-Rabbit.0.7\lib\Rabbit.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.Composition" />
