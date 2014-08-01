@@ -64,7 +64,7 @@ namespace CupCake.Client.Windows
             });
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void CreateButton_Click(object sender, RoutedEventArgs e)
         {
             int pId;
             string pFolder;
@@ -128,6 +128,12 @@ namespace CupCake.Client.Windows
             this._recentWorld.WorldId = worldId;
 
             this.DialogResult = true;
+        }
+
+        private void EditProfileButton_Click(object sender, RoutedEventArgs e)
+        {
+            var profile = (Profile)((TextBlock)this.ProfileComboBox.SelectedItem).Tag;
+            new EditProfileWindow(profile, false).ShowDialog();
         }
     }
 }

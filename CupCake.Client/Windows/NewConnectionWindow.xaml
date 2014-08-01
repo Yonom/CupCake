@@ -28,10 +28,13 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition />
             <ColumnDefinition Width="2*" />
+            <ColumnDefinition Width="10" />
+            <ColumnDefinition Width="30" />
         </Grid.ColumnDefinitions>
         <TextBlock FontSize="16" Foreground="{StaticResource Foreground}" VerticalAlignment="Center">Profile</TextBlock>
         <ComboBox Name="ProfileComboBox" VerticalAlignment="Center" FontSize="16" Grid.Row="0" Grid.Column="1"
                   SelectedIndex="0" />
+        <Button Name="EditProfileButton" Content="..." Grid.Row="0" Grid.Column="3" Height="30" Click="EditProfileButton_Click" />
 
         <Separator Grid.Row="1" Grid.ColumnSpan="2" Grid.Column="0" Background="#11FFFFFF" />
 
@@ -48,7 +51,7 @@
         </TextBlock>
         <TextBox Name="WorldIdTextBox" FontSize="16" Grid.Row="3" Foreground="{StaticResource Foreground}"
                  Grid.Column="1" Padding="2" VerticalAlignment="Center" />
-        <Button Content="Create" Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2" Click="Button_Click" />
+        <Button Name="CreateButton" Content="Create" Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="4" Click="CreateButton_Click" />
 
     </Grid>
 </controls:MetroWindow>
