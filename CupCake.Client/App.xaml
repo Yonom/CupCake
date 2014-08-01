@@ -10,6 +10,7 @@
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/Selen.Wpf.Core;component/Resources.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/Selen.Wpf.SystemStyles;component/Styles.xaml" />
+                <ResourceDictionary Source="Styles/Colors.xaml" />
                 <ResourceDictionary Source="Styles/TextBoxStyles.xaml" />
                 <ResourceDictionary Source="Styles/TextBlockStyles.xaml" />
                 <ResourceDictionary Source="Styles/PasswordBoxStyles.xaml" />
