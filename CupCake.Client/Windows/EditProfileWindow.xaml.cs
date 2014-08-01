@@ -113,5 +113,14 @@ namespace CupCake.Client.Windows
                 this.FolderTextBox.Text = folder;
             }
         }
+
+        private void EditDatabaseButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (this.DatabaseComboBox.SelectedItem != null)
+            {
+                var database = (Database)((TextBlock)this.DatabaseComboBox.SelectedItem).Tag;
+                new EditDatabaseWindow(database, false).ShowDialog();
+            }
+        }
     }
 }
