@@ -35,9 +35,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="CupCake.Core">
-      <HintPath>..\CupCake.Core\bin\Debug\CupCake.Core.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
   </ItemGroup>
   <Choose>
@@ -56,6 +53,12 @@
     <Compile Include="Core\PointTests.cs" />
     <Compile Include="Core\RectangleTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\CupCake.Core\CupCake.Core.csproj">
+      <Project>{598d616c-4886-482b-af57-7bc7daa56cce}</Project>
+      <Name>CupCake.Core</Name>
+    </ProjectReference>
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
