@@ -76,7 +76,7 @@
     </Reference>
     <Reference Include="Rabbit, Version=1.0.0.0, Culture=neutral, PublicKeyToken=d1393b3767691f4e, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\EE-Rabbit.0.7\lib\Rabbit.dll</HintPath>
+      <HintPath>..\packages\EE-Rabbit.0.7.2\lib\Rabbit.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.Composition" />
