@@ -77,6 +77,7 @@ namespace CupCake.Client.Windows
         private void MainWindow_ContentRendered(object sender, EventArgs e)
         {
             this.RefreshRecent();
+            this.UnblockDir();
             this.StartServer();
         }
 
@@ -263,6 +264,11 @@ namespace CupCake.Client.Windows
         private void SetIncoming(RecentWorld recent)
         {
             this.IncomingSettings = recent;
+        }
+
+        private void UnblockDir()
+        {
+            FileHelper.UnblockPath(SettingsManager.CupCakePath);
         }
 
         private void StartServer()
