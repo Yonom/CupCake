@@ -5,7 +5,7 @@ namespace CupCake.Messages.Send
 {
     public class SoundPlaceSendEvent : SendEvent, IBlockPlaceSendEvent
     {
-        public SoundPlaceSendEvent(Layer layer, int x, int y, SoundBlock block, int soundId)
+        public SoundPlaceSendEvent(Layer layer, int x, int y, SoundBlock block, uint soundId)
         {
             this.Block = block;
             this.X = x;
@@ -16,7 +16,7 @@ namespace CupCake.Messages.Send
         }
 
         public SoundBlock Block { get; set; }
-        public int SoundId { get; set; }
+        public uint SoundId { get; set; }
 
         Block IBlockPlaceSendEvent.Block
         {

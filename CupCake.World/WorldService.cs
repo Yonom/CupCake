@@ -59,7 +59,7 @@ namespace CupCake.World
                 {
                     case Block.CoinDoor:
                     case Block.CoinGate:
-                        int coinsToCollect = m.GetInteger(pointer);
+                        uint coinsToCollect = m.GetUInt(pointer);
                         pointer += 1;
 
                         for (int i = 0; i <= byteArrayX.Length - 1; i += 2)
@@ -73,7 +73,7 @@ namespace CupCake.World
                         break;
                     case Block.MusicPiano:
                     case Block.MusicDrum:
-                        int soundId = m.GetInteger(pointer);
+                        uint soundId = m.GetUInt(pointer);
                         pointer += 1;
 
                         for (int i = 0; i <= byteArrayX.Length - 1; i += 2)
@@ -92,7 +92,7 @@ namespace CupCake.World
                     case Block.DecorSciFi2013YellowStraight:
                     case Block.DecorSciFi2013GreenSlope:
                     case Block.DecorSciFi2013GreenStraight:
-                        int rotation = m.GetInteger(pointer);
+                        uint rotation = m.GetUInt(pointer);
                         pointer += 1;
 
                         for (int i = 0; i <= byteArrayX.Length - 1; i += 2)
@@ -106,9 +106,9 @@ namespace CupCake.World
                         break;
                     case Block.Portal:
                     case Block.InvisiblePortal:
-                        var portalRotation = (PortalRotation)m.GetInteger(pointer);
-                        int portalId = m.GetInteger(pointer + 1u);
-                        int portalTarget = m.GetInteger(pointer + 2u);
+                        var portalRotation = (PortalRotation)m.GetUInt(pointer);
+                        uint portalId = m.GetUInt(pointer + 1u);
+                        uint portalTarget = m.GetUInt(pointer + 2u);
                         pointer += 3;
 
                         for (int i = 0; i <= byteArrayX.Length - 1; i += 2)

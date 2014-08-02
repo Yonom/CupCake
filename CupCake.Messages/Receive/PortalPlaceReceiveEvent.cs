@@ -12,9 +12,9 @@ namespace CupCake.Messages.Receive
             this.PosX = message.GetInteger(0);
             this.PosY = message.GetInteger(1);
             this.Block = (PortalBlock)message.GetInteger(2);
-            this.PortalRotation = (PortalRotation)message.GetInteger(3);
-            this.PortalId = message.GetInteger(4);
-            this.PortalTarget = message.GetInteger(5);
+            this.PortalRotation = (PortalRotation)message.GetUInt(3);
+            this.PortalId = message.GetUInt(4);
+            this.PortalTarget = message.GetUInt(5);
         }
 
         public Layer Layer
@@ -23,9 +23,9 @@ namespace CupCake.Messages.Receive
         }
 
         public PortalBlock Block { get; set; }
-        public int PortalId { get; set; }
+        public uint PortalId { get; set; }
         public PortalRotation PortalRotation { get; set; }
-        public int PortalTarget { get; set; }
+        public uint PortalTarget { get; set; }
         public int PosX { get; set; }
         public int PosY { get; set; }
 

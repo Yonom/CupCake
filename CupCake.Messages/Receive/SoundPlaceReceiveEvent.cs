@@ -12,7 +12,7 @@ namespace CupCake.Messages.Receive
             this.PosX = message.GetInteger(0);
             this.PosY = message.GetInteger(1);
             this.Block = (SoundBlock)message.GetInteger(2);
-            this.SoundId = message.GetInteger(3);
+            this.SoundId = message.GetUInt(3);
         }
 
         public Layer Layer
@@ -21,7 +21,7 @@ namespace CupCake.Messages.Receive
         }
 
         public SoundBlock Block { get; set; }
-        public int SoundId { get; set; }
+        public uint SoundId { get; set; }
 
         public int PosX { get; set; }
         public int PosY { get; set; }

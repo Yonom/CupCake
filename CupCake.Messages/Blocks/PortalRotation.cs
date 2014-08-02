@@ -3,7 +3,7 @@ namespace CupCake.Messages.Blocks
     /// <summary>
     ///     Describes the direction of a portal.
     /// </summary>
-    public enum PortalRotation
+    public enum PortalRotation : uint
     {
         /// <summary>
         ///     Portal pointing downwards

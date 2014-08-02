@@ -12,7 +12,7 @@ namespace CupCake.Messages.Receive
             this.PosX = message.GetInteger(0);
             this.PosY = message.GetInteger(1);
             this.Block = (RotatableBlock)message.GetInteger(2);
-            this.Rotation = message.GetInteger(3);
+            this.Rotation = message.GetUInt(3);
         }
 
         public Layer Layer
@@ -21,7 +21,7 @@ namespace CupCake.Messages.Receive
         }
 
         public RotatableBlock Block { get; set; }
-        public int Rotation { get; set; }
+        public uint Rotation { get; set; }
 
         public int PosX { get; set; }
         public int PosY { get; set; }

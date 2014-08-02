@@ -279,7 +279,7 @@ namespace CupCake.Upload
             this.Events.Raise(this.GetBlock(layer, x, y, block));
         }
 
-        public void UploadCoinDoor(int x, int y, CoinDoorBlock block, int coinsToCollect)
+        public void UploadCoinDoor(int x, int y, CoinDoorBlock block, uint coinsToCollect)
         {
             this.Events.Raise(this.GetCoinDoor(x, y, block, coinsToCollect));
         }
@@ -289,7 +289,7 @@ namespace CupCake.Upload
             this.Events.Raise(this.GetLabel(x, y, block, text));
         }
 
-        public void UploadPortal(int x, int y, PortalBlock block, int id, int target, PortalRotation rotation)
+        public void UploadPortal(int x, int y, PortalBlock block, uint id, uint target, PortalRotation rotation)
         {
             this.Events.Raise(this.GetPortal(x, y, block, id, target, rotation));
         }
@@ -299,12 +299,12 @@ namespace CupCake.Upload
             this.Events.Raise(this.GetWorldPortal(x, y, block, roomId));
         }
 
-        public void UploadSound(int x, int y, SoundBlock block, int soundId)
+        public void UploadSound(int x, int y, SoundBlock block, uint soundId)
         {
             this.Events.Raise(this.GetSound(x, y, block, soundId));
         }
 
-        public void UploadRotatable(int x, int y, RotatableBlock block, int rotation)
+        public void UploadRotatable(int x, int y, RotatableBlock block, uint rotation)
         {
             this.Events.Raise(this.GetRotatable(x, y, block, rotation));
         }
@@ -315,7 +315,7 @@ namespace CupCake.Upload
             return new UploadRequestEvent(e);
         }
 
-        public UploadRequestEvent GetCoinDoor(int x, int y, CoinDoorBlock block, int coinsToCollect)
+        public UploadRequestEvent GetCoinDoor(int x, int y, CoinDoorBlock block, uint coinsToCollect)
         {
             var e = new CoinDoorPlaceSendEvent(Layer.Foreground, x, y, block, coinsToCollect);
             return new UploadRequestEvent(e);
@@ -327,7 +327,7 @@ namespace CupCake.Upload
             return new UploadRequestEvent(e);
         }
 
-        public UploadRequestEvent GetPortal(int x, int y, PortalBlock block, int id, int target,
+        public UploadRequestEvent GetPortal(int x, int y, PortalBlock block, uint id, uint target,
             PortalRotation rotation)
         {
             var e = new PortalPlaceSendEvent(Layer.Foreground, x, y, block, id, target, rotation);
@@ -340,13 +340,13 @@ namespace CupCake.Upload
             return new UploadRequestEvent(e);
         }
 
-        public UploadRequestEvent GetSound(int x, int y, SoundBlock block, int soundId)
+        public UploadRequestEvent GetSound(int x, int y, SoundBlock block, uint soundId)
         {
             var e = new SoundPlaceSendEvent(Layer.Foreground, x, y, block, soundId);
             return new UploadRequestEvent(e);
         }
 
-        public UploadRequestEvent GetRotatable(int x, int y, RotatableBlock block, int rotation)
+        public UploadRequestEvent GetRotatable(int x, int y, RotatableBlock block, uint rotation)
         {
             var e = new RotatablePlaceSendEvent(Layer.Foreground, x, y, block, rotation);
             return new UploadRequestEvent(e);

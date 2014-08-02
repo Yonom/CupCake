@@ -12,7 +12,7 @@ namespace CupCake.Messages.Receive
             this.PosX = message.GetInteger(0);
             this.PosY = message.GetInteger(1);
             this.Block = (CoinDoorBlock)message.GetInteger(2);
-            this.CoinsToOpen = message.GetInteger(3);
+            this.CoinsToOpen = message.GetUInt(3);
         }
 
         public Layer Layer
@@ -21,7 +21,7 @@ namespace CupCake.Messages.Receive
         }
 
         public CoinDoorBlock Block { get; set; }
-        public int CoinsToOpen { get; set; }
+        public uint CoinsToOpen { get; set; }
 
         public int PosX { get; set; }
         public int PosY { get; set; }

@@ -62,7 +62,7 @@ namespace CupCake.World
             }
         }
 
-        public int CoinsToCollect
+        public uint CoinsToCollect
         {
             get
             {
@@ -73,7 +73,7 @@ namespace CupCake.World
             }
         }
 
-        public int PortalId
+        public uint PortalId
         {
             get
             {
@@ -84,7 +84,7 @@ namespace CupCake.World
             }
         }
 
-        public int PortalTarget
+        public uint PortalTarget
         {
             get
             {
@@ -106,7 +106,7 @@ namespace CupCake.World
             }
         }
 
-        public int SoundId
+        public uint SoundId
         {
             get
             {
@@ -117,7 +117,7 @@ namespace CupCake.World
             }
         }
 
-        public int Rotation
+        public uint Rotation
         {
             get
             {
@@ -135,7 +135,7 @@ namespace CupCake.World
             this._data = new BlockData();
         }
 
-        internal void SetCoinDoor(CoinDoorBlock block, int coinsToCollect)
+        internal void SetCoinDoor(CoinDoorBlock block, uint coinsToCollect)
         {
             this.BlockType = BlockType.CoinDoor;
             this.Block = (Block)block;
@@ -146,7 +146,7 @@ namespace CupCake.World
             };
         }
 
-        internal void SetPortal(PortalBlock block, int portalId, int portalTarget, PortalRotation portalRotation)
+        internal void SetPortal(PortalBlock block, uint portalId, uint portalTarget, PortalRotation portalRotation)
         {
             this.BlockType = BlockType.Portal;
             this.Block = (Block)block;
@@ -159,7 +159,7 @@ namespace CupCake.World
             };
         }
 
-        internal void SetSound(SoundBlock block, int soundId)
+        internal void SetSound(SoundBlock block, uint soundId)
         {
             this.BlockType = BlockType.Sound;
             this.Block = (Block)block;
@@ -170,7 +170,7 @@ namespace CupCake.World
             };
         }
 
-        internal void SetRotatable(RotatableBlock block, int rotation)
+        internal void SetRotatable(RotatableBlock block, uint rotation)
         {
             this.BlockType = BlockType.Rotatable;
             this.Block = (Block)block;
@@ -326,12 +326,12 @@ namespace CupCake.World
         {
             internal string Text { get; set; }
             internal string WorldPortalTarget { get; set; }
-            internal int CoinsToCollect { get; set; }
-            internal int PortalId { get; set; }
-            internal int PortalTarget { get; set; }
+            internal uint CoinsToCollect { get; set; }
+            internal uint PortalId { get; set; }
+            internal uint PortalTarget { get; set; }
             internal PortalRotation PortalRotation { get; set; }
-            internal int SoundId { get; set; }
-            internal int Rotation { get; set; }
+            internal uint SoundId { get; set; }
+            internal uint Rotation { get; set; }
 
             internal BlockData Clone()
             {

@@ -5,7 +5,7 @@ namespace CupCake.Messages.Send
 {
     public class RotatablePlaceSendEvent : SendEvent, IBlockPlaceSendEvent
     {
-        public RotatablePlaceSendEvent(Layer layer, int x, int y, RotatableBlock block, int rotation)
+        public RotatablePlaceSendEvent(Layer layer, int x, int y, RotatableBlock block, uint rotation)
         {
             this.Block = block;
             this.X = x;
@@ -16,7 +16,7 @@ namespace CupCake.Messages.Send
         }
 
         public RotatableBlock Block { get; set; }
-        public int Rotation { get; set; }
+        public uint Rotation { get; set; }
 
         Block IBlockPlaceSendEvent.Block
         {

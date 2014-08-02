@@ -5,7 +5,7 @@ namespace CupCake.Messages.Send
 {
     public class CoinDoorPlaceSendEvent : SendEvent, IBlockPlaceSendEvent
     {
-        public CoinDoorPlaceSendEvent(Layer layer, int x, int y, CoinDoorBlock block, int coinsToCollect)
+        public CoinDoorPlaceSendEvent(Layer layer, int x, int y, CoinDoorBlock block, uint coinsToCollect)
         {
             this.Block = block;
             this.X = x;
@@ -16,7 +16,7 @@ namespace CupCake.Messages.Send
         }
 
         public CoinDoorBlock Block { get; set; }
-        public int CoinsToCollect { get; set; }
+        public uint CoinsToCollect { get; set; }
 
         Block IBlockPlaceSendEvent.Block
         {
