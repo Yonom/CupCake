@@ -11,9 +11,17 @@ using CupCake.Players.Join;
 namespace CupCake.Players
 {
     [DebuggerDisplay("Username = {Username}, Smiley = {Smiley}")]
-    public sealed class Player : CupCakeServicePart<JoinArgs>
+    public sealed class Player : MetadataServicePart<JoinArgs>
     {
-        public MetadataStore Metadata { get; private set; }
+        [Obsolete("Use the Get<T> and Set<T> methods instead.")]
+        public MetadataStore Metadata {
+            get { return this.MetadataStore; }
+        }
+
+        protected override object MetadataKey
+        {
+            get { return this.UserId; }
+        }
 
         public string Username { get; private set; }
         public int UserId { get; private set; }
@@ -109,8 +117,6 @@ namespace CupCake.Players
 
         protected override void Enable()
         {
-            this.Metadata = new MetadataStore();
-
             this.ExtractHostData();
 
             this.BindPlayerEvent<AutoTextReceiveEvent, AutoTextPlayerEvent>(this.OnAutoText);

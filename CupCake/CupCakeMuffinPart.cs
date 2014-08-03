@@ -9,6 +9,7 @@ using CupCake.Command;
 using CupCake.Core;
 using CupCake.Core.Events;
 using CupCake.Core.Log;
+using CupCake.Core.Metadata;
 using CupCake.Core.Storage;
 using CupCake.HostAPI.IO;
 using CupCake.HostAPI.Status;
@@ -50,6 +51,7 @@ namespace CupCake
         private readonly List<Timer> _timers = new List<Timer>();
         private readonly Lazy<UploadService> _uploadService;
         private readonly Lazy<WorldService> _worldService;
+        private readonly Lazy<MetadataPlatform> _metadataPlatform;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="CupCakeMuffinPart{TProtocol}"/> class.
@@ -62,6 +64,7 @@ namespace CupCake
             this._synchronizePlatform =
                 new Lazy<SynchronizePlatform>(() => this.PlatformLoader.Get<SynchronizePlatform>());
             this._storagePlatform = new Lazy<StoragePlatform>(() => this.PlatformLoader.Get<StoragePlatform>());
+            this._metadataPlatform = new Lazy<MetadataPlatform>(() => this.PlatformLoader.Get<MetadataPlatform>());
 
             this._events = new Lazy<EventManager>(() =>
             {
@@ -256,6 +259,15 @@ namespace CupCake
         protected StoragePlatform StoragePlatform
         {
             get { return this._storagePlatform.Value; }
+        }
+
+        /// <summary>
+        /// Gets the metadata platform
+        /// </summary>
+        /// <value>The metadata platform.</value>
+        protected MetadataPlatform MetadataPlatform
+        {
+            get { return this._metadataPlatform.Value; }
         }
 
         /// <summary>

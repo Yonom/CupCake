@@ -5,6 +5,7 @@ using System.Reflection;
 using System.Timers;
 using CupCake.Core.Events;
 using CupCake.Core.Log;
+using CupCake.Core.Metadata;
 using CupCake.Core.Storage;
 using MuffinFramework.Services;
 
@@ -18,6 +19,7 @@ namespace CupCake.Core
         private readonly Lazy<string> _name;
         private readonly Lazy<StoragePlatform> _storagePlatform;
         private readonly Lazy<SynchronizePlatform> _synchronizePlatofrm;
+        private readonly Lazy<MetadataPlatform> _metadataPlatform;
         private readonly List<Timer> _timers = new List<Timer>();
 
         protected CupCakeServicePart()
@@ -28,6 +30,7 @@ namespace CupCake.Core
             this._synchronizePlatofrm =
                 new Lazy<SynchronizePlatform>(() => this.PlatformLoader.Get<SynchronizePlatform>());
             this._storagePlatform = new Lazy<StoragePlatform>(() => this.PlatformLoader.Get<StoragePlatform>());
+            this._metadataPlatform = new Lazy<MetadataPlatform>(() => this.PlatformLoader.Get<MetadataPlatform>());
 
             this._logger = new Lazy<Logger>(() =>
             {
@@ -68,6 +71,11 @@ namespace CupCake.Core
             get { return this._storagePlatform.Value; }
         }
 
+        protected MetadataPlatform MetadataPlatform
+        {
+            get { return this._metadataPlatform.Value; }
+        }
+        
         protected Timer GetTimer(int interval)
         {
             var timer = new Timer(interval) {SynchronizingObject = this.SynchronizePlatform.SynchronizingObject};

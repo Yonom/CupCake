@@ -2,6 +2,7 @@ using System;
 using System.Diagnostics;
 using CupCake.Core;
 using CupCake.Core.Events;
+using CupCake.Core.Metadata;
 using CupCake.Messages.Blocks;
 using CupCake.Messages.Receive;
 using CupCake.Players;
@@ -25,7 +26,7 @@ namespace CupCake.World
             get { return this._blocks[(int)layer, x, y]; }
         }
 
-        private static WorldBlock[,,] ParseWorld(Message m, int sizeX, int sizeY, uint offset)
+        private WorldBlock[,,] ParseWorld(Message m, int sizeX, int sizeY, uint offset)
         {
             // Find the start of the world
             uint start = 0;
@@ -49,18 +50,16 @@ namespace CupCake.World
                 if (m[pointer] as string != null && m.GetString(pointer) == "we")
                     break;
 
-                var block = (Block)m.GetInteger(pointer);
-                int l = m.GetInteger(pointer + 1);
-                byte[] byteArrayX = m.GetByteArray(pointer + 2);
-                byte[] byteArrayY = m.GetByteArray(pointer + 3);
-                pointer += 4;
+                var block = (Block)m.GetInteger(pointer++);
+                int l = m.GetInteger(pointer++);
+                byte[] byteArrayX = m.GetByteArray(pointer++);
+                byte[] byteArrayY = m.GetByteArray(pointer++);
 
                 switch (block)
                 {
                     case Block.CoinDoor:
                     case Block.CoinGate:
-                        uint coinsToCollect = m.GetUInt(pointer);
-                        pointer += 1;
+                        uint coinsToCollect = m.GetUInt(pointer++);
 
                         for (int i = 0; i <= byteArrayX.Length - 1; i += 2)
                         {
@@ -73,8 +72,7 @@ namespace CupCake.World
                         break;
                     case Block.MusicPiano:
                     case Block.MusicDrum:
-                        uint soundId = m.GetUInt(pointer);
-                        pointer += 1;
+                        uint soundId = m.GetUInt(pointer++);
 
                         for (int i = 0; i <= byteArrayX.Length - 1; i += 2)
                         {
@@ -92,8 +90,7 @@ namespace CupCake.World
                     case Block.DecorSciFi2013YellowStraight:
                     case Block.DecorSciFi2013GreenSlope:
                     case Block.DecorSciFi2013GreenStraight:
-                        uint rotation = m.GetUInt(pointer);
-                        pointer += 1;
+                        uint rotation = m.GetUInt(pointer++);
 
                         for (int i = 0; i <= byteArrayX.Length - 1; i += 2)
                         {
@@ -106,10 +103,9 @@ namespace CupCake.World
                         break;
                     case Block.Portal:
                     case Block.InvisiblePortal:
-                        var portalRotation = (PortalRotation)m.GetUInt(pointer);
-                        uint portalId = m.GetUInt(pointer + 1u);
-                        uint portalTarget = m.GetUInt(pointer + 2u);
-                        pointer += 3;
+                        var portalRotation = (PortalRotation)m.GetUInt(pointer++);
+                        uint portalId = m.GetUInt(pointer++);
+                        uint portalTarget = m.GetUInt(pointer++);
 
                         for (int i = 0; i <= byteArrayX.Length - 1; i += 2)
                         {
@@ -121,8 +117,7 @@ namespace CupCake.World
 
                         break;
                     case Block.WorldPortal:
-                        string worldPortalTarget = m.GetString(pointer);
-                        pointer += 1;
+                        string worldPortalTarget = m.GetString(pointer++);
 
                         for (int i = 0; i <= byteArrayX.Length - 1; i += 2)
                         {
@@ -135,8 +130,7 @@ namespace CupCake.World
                         break;
                     case Block.DecorSign:
                     case Block.DecorLabel:
-                        string text = m.GetString(pointer);
-                        pointer += 1;
+                        string text = m.GetString(pointer++);
 
                         for (int i = 0; i <= byteArrayX.Length - 1; i += 2)
                         {
@@ -162,7 +156,7 @@ namespace CupCake.World
             return worldArray;
         }
 
-        private static WorldBlock[,,] GetEmptyWorld(int sizeX, int sizeY, Block fillBlock, Block borderBlock)
+        private WorldBlock[, ,] GetEmptyWorld(int sizeX, int sizeY, Block fillBlock, Block borderBlock)
         {
             var blockArray = new WorldBlock[2, sizeX, sizeY];
 
@@ -171,15 +165,9 @@ namespace CupCake.World
 
             // Fill the middle with GravityNothing blocks
             for (var l = Layer.Background; l >= Layer.Foreground; l += -1)
-            {
                 for (int x = 0; x <= maxX; x++)
-                {
                     for (int y = 0; y <= maxY; y++)
-                    {
                         NewBlock(blockArray, l, x, y, fillBlock);
-                    }
-                }
-            }
 
             // Border drawing
             for (int y = 0; y <= maxY; y++)
@@ -197,9 +185,9 @@ namespace CupCake.World
             return blockArray;
         }
 
-        private static void NewBlock(WorldBlock[,,] blockArray, Layer layer, int x, int y, Block block)
+        private void NewBlock(WorldBlock[,,] blockArray, Layer layer, int x, int y, Block block)
         {
-            blockArray[(int)layer, x, y] = new WorldBlock(layer, x, y, block);
+            blockArray[(int)layer, x, y] = new WorldBlock(this.MetadataPlatform, layer, x, y, block);
         }
 
         protected override void Enable()

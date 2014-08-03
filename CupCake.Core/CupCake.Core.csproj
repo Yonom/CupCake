@@ -61,6 +61,9 @@
     <Compile Include="Events\EventsPlatform.cs" />
     <Compile Include="Log\LogPlatform.cs" />
     <Compile Include="Metadata\MetadataChangedEventArgs.cs" />
+    <Compile Include="Metadata\MetadataPlatform.cs" />
+    <Compile Include="Metadata\MetadataProvider.cs" />
+    <Compile Include="Metadata\MetadataServicePart.cs" />
     <Compile Include="Metadata\MetadataStore.cs" />
     <Compile Include="PluginNameAttribute.cs" />
     <Compile Include="Point.cs" />

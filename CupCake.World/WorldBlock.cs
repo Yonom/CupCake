@@ -2,26 +2,21 @@ using System;
 using System.CodeDom;
 using System.Diagnostics;
 using System.Reflection.Emit;
+using CupCake.Core;
 using CupCake.Core.Metadata;
+using CupCake.Messages;
 using CupCake.Messages.Blocks;
 using CupCake.Messages.Send;
 
 namespace CupCake.World
 {
     [DebuggerDisplay("Block = {Block}, Data = {DebuggerData()}")]
-    public class WorldBlock
+    public class WorldBlock : MetadataProvider
     {
-        private readonly Lazy<MetadataStore> _metadata;
         private BlockData _data;
 
-        public WorldBlock()
-        {
-            this._data = new BlockData();
-            this._metadata = new Lazy<MetadataStore>(() => new MetadataStore());
-        }
-
-        internal WorldBlock(Layer layer, int x, int y, Block block)
-            : this()
+        internal WorldBlock(MetadataPlatform metadataPlatform, Layer layer, int x, int y, Block block)
+            : base(metadataPlatform)
         {
             this.Layer = layer;
             this.X = x;
@@ -29,15 +24,21 @@ namespace CupCake.World
             this.SetBlock(block);
         }
 
+        protected override object MetadataKey
+        {
+            get { return new Point3D(this.Layer, this.X, this.Y); }
+        }
+
         public Layer Layer { get; private set; }
         public int X { get; private set; }
         public int Y { get; private set; }
         public virtual BlockType BlockType { get; private set; }
         public Block Block { get; private set; }
-
+        
+        [Obsolete("Use the Get<T> and Set<T> methods instead.")]
         public MetadataStore Metadata
         {
-            get { return this._metadata.Value; }
+            get { return this.MetadataStore; }
         }
 
         public string Text
@@ -315,10 +316,10 @@ namespace CupCake.World
 
         public WorldBlock Clone()
         {
-            return new WorldBlock(Layer, X, Y, Block)
+            return new WorldBlock(this.MetadataPlatform, this.Layer, this.X, this.Y, this.Block)
             {
-                _data = _data.Clone(), 
-                BlockType = BlockType
+                _data = this._data.Clone(),
+                BlockType = this.BlockType
             };
         }
 
@@ -337,14 +338,14 @@ namespace CupCake.World
             {
                 return new BlockData
                 {
-                    Text = Text,
-                    WorldPortalTarget = WorldPortalTarget,
-                    CoinsToCollect = CoinsToCollect,
-                    PortalId = PortalId,
-                    PortalTarget = PortalTarget,
-                    PortalRotation = PortalRotation,
-                    SoundId = SoundId,
-                    Rotation = Rotation
+                    Text = this.Text,
+                    WorldPortalTarget = this.WorldPortalTarget,
+                    CoinsToCollect = this.CoinsToCollect,
+                    PortalId = this.PortalId,
+                    PortalTarget = this.PortalTarget,
+                    PortalRotation = this.PortalRotation,
+                    SoundId = this.SoundId,
+                    Rotation = this.Rotation
                 };
             }
         }
