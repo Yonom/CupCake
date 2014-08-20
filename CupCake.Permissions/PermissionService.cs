@@ -13,7 +13,7 @@ namespace CupCake.Permissions
 
         private void OnJoin(object sender, JoinPlayerEvent e)
         {
-            e.Player.Metadata.MetadataChanged +=
+            e.Player.MetadataChanged +=
                 (o, args) =>
                 {
                     if (args.Key == "Group")

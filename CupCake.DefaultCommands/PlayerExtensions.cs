@@ -6,7 +6,7 @@ namespace CupCake.DefaultCommands
     {
         public static bool GetRankLoaded(this Player p)
         {
-            return p.GetBool("RankLoaded");
+            return p.Get<bool>("RankLoaded");
         }
 
         internal static void SetRankLoaded(this Player p, bool loaded)
