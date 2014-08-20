@@ -7,8 +7,7 @@ namespace CupCake.Command
     {
         internal static string GetTrimmedName(this Player p)
         {
-            string g;
-            p.Metadata.GetMetadata("TrimmedName", out g);
+            var g = p.Get<string>("TrimmedName");
             if (g == null)
             {
                 g = ChatUtils.ApplyAntiSpam(p.Username);
@@ -19,7 +18,7 @@ namespace CupCake.Command
 
         private static void SetTrimmedName(this Player p, string name)
         {
-            p.Metadata.SetMetadata("TrimmedName", name);
+            p.Set("TrimmedName", name);
         }
     }
 }

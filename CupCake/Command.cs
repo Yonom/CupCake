@@ -18,6 +18,22 @@ namespace CupCake
     public abstract class Command<TProtocol> : CupCakeMuffinPart<TProtocol>
     {
         /// <summary>
+        /// Initializes a new instance of the <see cref="Command{TProtocol}"/> class.
+        /// </summary>
+        protected Command()
+        {
+            this.Method = this.GetType().GetMethod("Run", BindingFlags.Instance | BindingFlags.NonPublic);
+        }
+
+        /// <summary>
+        /// Gets or sets the method that is called when this command is invoked.
+        /// </summary>
+        /// <value>
+        /// The method that is called when this command is invoked.
+        /// </value>
+        public MethodBase Method { get; set; }
+
+        /// <summary>
         /// Gets the labels list set for this command.
         /// Usually set through the <see cref="LabelAttribute"/>.
         /// </summary>
@@ -58,24 +74,22 @@ namespace CupCake
         /// </summary>
         [Obsolete("You should not call Enable() on a command.", true)]
 #pragma warning disable 809
-        protected override void Enable()
+        protected override sealed void Enable()
 #pragma warning restore 809
         {
             this.Labels = new List<string>();
             this.Usages = new List<string>();
 
-            MethodBase method = this.GetType().GetMethod("Run", BindingFlags.Instance | BindingFlags.NonPublic);
-
             // Alias attribute
             var highPriority =
-                (HighPriorityAttribute)method.GetCustomAttributes(typeof(HighPriorityAttribute), false).FirstOrDefault();
+                (HighPriorityAttribute)Method.GetCustomAttributes(typeof(HighPriorityAttribute), false).FirstOrDefault();
             if (highPriority != null)
             {
                 this.HighPriority = true;
             }
 
             // Alias attribute
-            var labels = (LabelAttribute)method.GetCustomAttributes(typeof(LabelAttribute), false).FirstOrDefault();
+            var labels = (LabelAttribute)Method.GetCustomAttributes(typeof(LabelAttribute), false).FirstOrDefault();
             if (labels != null)
             {
                 this.Labels.AddRange(labels.Labels);
@@ -83,21 +97,21 @@ namespace CupCake
 
             // MinGroup attribute
             var minGroup =
-                (MinGroupAttribute)method.GetCustomAttributes(typeof(MinGroupAttribute), false).FirstOrDefault();
+                (MinGroupAttribute)Method.GetCustomAttributes(typeof(MinGroupAttribute), false).FirstOrDefault();
             if (minGroup != null)
             {
                 this.MinGroup = minGroup.Group;
             }
 
             // MinArgs attribute
-            var minArgs = (MinArgsAttribute)method.GetCustomAttributes(typeof(MinArgsAttribute), false).FirstOrDefault();
+            var minArgs = (MinArgsAttribute)Method.GetCustomAttributes(typeof(MinArgsAttribute), false).FirstOrDefault();
             if (minArgs != null)
             {
                 this.MinArgs = minArgs.MinArgs;
             }
 
             // CorrectUsage attribute
-            var correctUsage = (CorrectUsageAttribute[])method.GetCustomAttributes(typeof(CorrectUsageAttribute), false);
+            var correctUsage = (CorrectUsageAttribute[])Method.GetCustomAttributes(typeof(CorrectUsageAttribute), false);
             this.Usages.AddRange(correctUsage.Select(usage => usage.Usage));
 
             this.Events.Bind<InvokeEvent>(

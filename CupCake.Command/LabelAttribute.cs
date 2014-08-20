@@ -3,7 +3,7 @@
 namespace CupCake.Command
 {
     [AttributeUsage(AttributeTargets.Method)]
-    public sealed class LabelAttribute : Attribute
+    public class LabelAttribute : Attribute
     {
         public LabelAttribute(params string[] labels)
         {

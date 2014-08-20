@@ -55,6 +55,7 @@
   <ItemGroup>
     <Compile Include="Chatter.cs" />
     <Compile Include="CodeAnnotations.cs" />
+    <Compile Include="CommandAttribute.cs" />
     <Compile Include="Host\CupCakeClient.cs" />
     <Compile Include="Command.cs" />
     <Compile Include="CupCakeMuffin.cs" />
@@ -62,6 +63,7 @@
     <Compile Include="EEMuffin.cs" />
     <Compile Include="InvokeSourceExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RelayCommand.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\CupCake.Actions\CupCake.Actions.csproj">
