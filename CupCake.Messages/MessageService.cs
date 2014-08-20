@@ -13,7 +13,10 @@ namespace CupCake.Messages
         public MessageManager MessageManager { get; private set; }
 
         protected override void Enable()
-        {
+        {            
+            // Bind OnMessage
+            this.ConnectionPlatform.Connection.OnMessage += this.Connection_OnMessage;
+
             // Init MessageManager
             this.MessageManager = new MessageManager(this.Events);
 
@@ -22,15 +25,6 @@ namespace CupCake.Messages
             this.MessageManager.RegisterMessage<InfoReceiveEvent>("info");
             this.MessageManager.RegisterMessage<UpgradeReceiveEvent>("upgrade");
             this.MessageManager.RegisterMessage<AllowPotionsReceiveEvent>("allowpotions");
-
-            // Bind Init receive message
-            this.Events.Bind<InitReceiveEvent>(this.OnInit, EventPriority.High);
-
-            // Bind OnMessage
-            this.ConnectionPlatform.Connection.OnMessage += this.Connection_OnMessage;
-
-            // Bind SendEvent event
-            this.Events.Bind<SendEvent>(this.OnSendEvent, EventPriority.Lowest);
 
             // Bind all SendEvent events
             this.Events.Bind<InitSendEvent>(this.OnAnySendEvent, EventPriority.Lowest);
@@ -69,9 +63,13 @@ namespace CupCake.Messages
             this.Events.Bind<CheckpointSendEvent>(this.OnAnySendEvent, EventPriority.Lowest);
             this.Events.Bind<TouchUserSendEvent>(this.OnAnySendEvent, EventPriority.Lowest);
             this.Events.Bind<ShowPurpleSendEvent>(this.OnAnySendEvent, EventPriority.Lowest);
+            
+            // Send the init message
+            this.Events.Raise(new InitSendEvent());
         }
 
-        private void OnInit(object sender, InitReceiveEvent e)
+        [EventListener(EventPriority.High)]
+        private void OnInit(InitReceiveEvent e)
         {
             this._inited = true;
 
@@ -119,6 +117,9 @@ namespace CupCake.Messages
             this.MessageManager.RegisterMessage<GiveWitchReceiveEvent>("givewitch");
             this.MessageManager.RegisterMessage<GiveGrinchReceiveEvent>("givegrinch");
             this.MessageManager.RegisterMessage<RefreshShopReceiveEvent>("refreshshop");
+            
+            // Send the init2 message
+            this.Events.Raise(new Init2SendEvent());
         }
 
         private void Connection_OnMessage(object sender, Message e)
@@ -144,7 +145,8 @@ namespace CupCake.Messages
             this.Events.Raise(e);
         }
 
-        private void OnSendEvent(object sender, SendEvent e)
+        [EventListener(EventPriority.Lowest)]
+        private void OnSendEvent(SendEvent e)
         {
             if (!e.Cancelled)
             {
