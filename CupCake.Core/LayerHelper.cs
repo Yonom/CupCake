@@ -28,7 +28,7 @@ namespace CupCake.Core
                 var eType = e.ParameterType;
 
                 var bindMethod =
-                    typeof(LayerHelper).GetMethod("Bind", BindingFlags.NonPublic | BindingFlags.Instance)
+                    typeof(LayerHelper).GetMethod("Bind", BindingFlags.NonPublic | BindingFlags.Static)
                         .MakeGenericMethod(eType);
                 var attribute =
                     (EventListenerAttribute)
