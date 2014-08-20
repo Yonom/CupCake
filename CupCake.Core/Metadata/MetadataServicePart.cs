@@ -9,6 +9,7 @@ namespace CupCake.Core.Metadata
 
         public event EventHandler<MetadataChangedEventArgs> MetadataChanged;
 
+        // TODO: Remove this once deprecated properties get removed.
         protected MetadataStore MetadataStore
         {
             get { return this._metadataStore.Value; }

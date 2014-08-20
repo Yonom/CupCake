@@ -55,6 +55,7 @@
     <Compile Include="Events\EventHandle.cs" />
     <Compile Include="Events\EventManager.cs" />
     <Compile Include="Events\EventPriority.cs" />
+    <Compile Include="LayerHelper.cs" />
     <Compile Include="Log\Logger.cs" />
     <Compile Include="Log\LogEventArgs.cs" />
     <Compile Include="Log\LogPriority.cs" />

@@ -7,6 +7,7 @@ using CupCake.Core.Events;
 using CupCake.Core.Log;
 using CupCake.Core.Metadata;
 using CupCake.Core.Storage;
+using MuffinFramework.Muffins;
 using MuffinFramework.Services;
 
 namespace CupCake.Core
@@ -23,7 +24,7 @@ namespace CupCake.Core
 
         protected CupCakeServicePart()
         {
-            this._name = new Lazy<string>(this.FindName);
+            this._name = new Lazy<string>(() => LayerHelper.FindName(this.GetType()));
 
             this._connectionPlatform = new Lazy<ConnectionPlatform>(() => this.PlatformLoader.Get<ConnectionPlatform>());
             this._synchronizePlatofrm =
@@ -43,6 +44,18 @@ namespace CupCake.Core
                 var eventsPlatform = this.PlatformLoader.Get<EventsPlatform>();
                 return new EventManager(eventsPlatform, this);
             });
+        }
+
+        /// <summary>
+        /// Enables the specified arguments.
+        /// </summary>
+        /// <param name="args">The arguments.</param>
+        public override sealed void Enable(ServiceArgs args)
+        {
+            base.Enable(args);
+
+            var methods = this.GetType().GetMethods(BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Instance);
+            LayerHelper.LoadEventhandlers(this, this.Events, methods);
         }
 
         protected Logger Logger
@@ -73,20 +86,6 @@ namespace CupCake.Core
         protected MetadataPlatform MetadataPlatform
         {
             get { return this._metadataPlatform.Value; }
-        }
-
-        private string FindName()
-        {
-            var pluginName =
-                (PluginNameAttribute)
-                    Assembly.GetAssembly(this.GetType())
-                        .GetCustomAttributes(typeof(PluginNameAttribute), false)
-                        .FirstOrDefault();
-
-            if (pluginName != null)
-                return pluginName.Name;
-
-            return this.GetType().Namespace;
         }
 
         protected virtual string GetName()

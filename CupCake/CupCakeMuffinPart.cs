@@ -110,61 +110,8 @@ namespace CupCake
             base.Enable(args);
 
             var methods = this.GetType().GetMethods(BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Instance);
-            this.LoadEventhandlers(methods);
+            LayerHelper.LoadEventhandlers(this, this.Events, methods);
             this.LoadCommands(methods);
-        }
-
-        private void LoadEventhandlers(IEnumerable<MethodInfo> methods)
-        {
-            var eventHandlers = methods.Where(prop => prop.IsDefined(typeof(EventListenerAttribute), true));
-            foreach (var eventHandler in eventHandlers)
-            {
-                if (eventHandler.ReturnType != typeof(void))
-                    throw this.GetEventEx(eventHandler.Name, "Event listeners must have the return type void.");
-                var parameters = eventHandler.GetParameters();
-                if (parameters.Length < 1)
-                    throw this.GetEventEx(eventHandler.Name, "Too few arguments.");
-                if (parameters.Length > 2)
-                    throw this.GetEventEx(eventHandler.Name, "Too many arguments.");
-
-                var e = parameters.Last();
-                if (!typeof(Event).IsAssignableFrom(e.ParameterType))
-                    throw this.GetEventEx(eventHandler.Name, "Last argument must be an event.");
-                var eType = e.ParameterType;
-
-                var bindMethod =
-                    typeof(CupCakeMuffinPart<TProtocol>).GetMethod("Bind",
-                        BindingFlags.NonPublic | BindingFlags.Instance).MakeGenericMethod(eType);
-                var attribute =
-                    (EventListenerAttribute)
-                        eventHandler.GetCustomAttributes(typeof(EventListenerAttribute), false).First();
-                bindMethod.Invoke(this, new object[] {eventHandler, parameters, attribute.Priority});
-            }
-        }
-
-
-        private void Bind<TEvent>(MethodInfo eventHandler, ParameterInfo[] parameters, EventPriority priority)
-            where TEvent : Event
-        {
-            EventHandler<TEvent> handler;
-            if (parameters.Length == 2)
-            {
-                var sender = parameters.First();
-
-                if (sender.ParameterType == typeof(object))
-                    throw this.GetEventEx(eventHandler.Name, "First argument must be an object.");
-
-                handler =
-                    (EventHandler<TEvent>)Delegate.CreateDelegate(typeof(EventHandler<TEvent>), this, eventHandler);
-            }
-            else
-            {
-                var tempHandler = (Action<TEvent>)Delegate.CreateDelegate(typeof(Action<TEvent>), this, eventHandler);
-                handler = (se, ev) => tempHandler(ev);
-            }
-
-            MethodInfo method = typeof(EventManager).GetMethod("Bind").MakeGenericMethod(typeof(TEvent));
-            method.Invoke(this.Events, new object[] {handler, priority});
         }
 
         private void LoadCommands(IEnumerable<MethodInfo> methods)
@@ -190,11 +137,6 @@ namespace CupCake
                 cmd.Enable(null, new MuffinArgs(this.PlatformLoader, this.ServiceLoader, this.MuffinLoader));
                 this._commands.Add(cmd);
             }
-        }
-
-        private Exception GetEventEx(string name, string reason)
-        {
-            return new TypeLoadException(String.Format("Unable to assign the method {0}.{1} to an event listener. {2}", this.GetType().FullName, name, reason));
         }
         
         private Exception GetCommandEx(string name, string reason)
