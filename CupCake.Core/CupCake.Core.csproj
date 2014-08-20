@@ -50,6 +50,7 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="EventListenerAttribute.cs" />
     <Compile Include="Events\Event.cs" />
     <Compile Include="Events\EventHandle.cs" />
     <Compile Include="Events\EventManager.cs" />

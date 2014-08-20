@@ -1,4 +1,5 @@
 ﻿using System;
+using CupCake.Core;
 using CupCake.Messages.Receive;
 using CupCake.Messages.Send;
 
@@ -9,8 +10,6 @@ namespace CupCake
         protected override void Enable()
         {
             this.MuffinLoader.EnableComplete += this.MuffinLoader_EnableComplete;
-
-            this.Events.Bind<InitReceiveEvent>(this.OnInit);
         }
 
         private void MuffinLoader_EnableComplete(object sender, EventArgs e)
@@ -18,7 +17,8 @@ namespace CupCake
             this.Events.Raise(new InitSendEvent());
         }
 
-        private void OnInit(object sender, InitReceiveEvent e)
+        [EventListener]
+        private void OnInit(InitReceiveEvent e)
         {
             this.Events.Raise(new Init2SendEvent());
         }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using System.Runtime.InteropServices;
 using System.Timers;
 using CupCake.Actions;
 using CupCake.Chat;
@@ -97,6 +98,72 @@ namespace CupCake
             this._ioService = new Lazy<IOService>(() => this.ServiceLoader.Get<IOService>());
             this._statusService = new Lazy<StatusService>(() => this.ServiceLoader.Get<StatusService>());
             this._permissionService = new Lazy<PermissionService>(() => this.ServiceLoader.Get<PermissionService>());
+        }
+
+        public override sealed void Enable(MuffinArgs args)
+        {
+            base.Enable(args);
+
+            var methods = this.GetType().GetMethods(BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Instance);
+            this.LoadEventhandlers(methods);
+        }
+
+        private void LoadEventhandlers(IEnumerable<MethodInfo> methods)
+        {
+            var eventHandlers = methods.Where(prop => prop.IsDefined(typeof(EventListenerAttribute), true));
+            foreach (var eventHandler in eventHandlers)
+            {
+                var attribute =
+                    (EventListenerAttribute)
+                        eventHandler.GetCustomAttributes(typeof(EventListenerAttribute), false).First();
+                var parameters = eventHandler.GetParameters();
+                if (parameters.Length < 1)
+                    throw this.GetLoadException(eventHandler.Name, "Too few arguments.");
+                if (parameters.Length > 2)
+                    throw this.GetLoadException(eventHandler.Name, "Too many arguments.");
+
+                var e = parameters.Last();
+                if (!typeof(Event).IsAssignableFrom(e.ParameterType))
+                    throw this.GetLoadException(eventHandler.Name, "Last argument must be an event.");
+                var eType = e.ParameterType;
+
+                var bindMethod = typeof(CupCakeMuffinPart<TProtocol>).GetMethod("Bind", BindingFlags.NonPublic | BindingFlags.Instance).MakeGenericMethod(eType);
+                bindMethod.Invoke(this, new object[] {eventHandler, parameters, attribute.Priority});
+            }
+        }
+
+
+        private void Bind<TEvent>(MethodInfo eventHandler, ParameterInfo[] parameters, EventPriority priority) where TEvent : Event
+        {
+            EventHandler<TEvent> handler;
+            if (parameters.Length == 2)
+            {
+                var sender = parameters.First();
+
+                if (!typeof(object).IsAssignableFrom(sender.ParameterType))
+                    throw this.GetLoadException(eventHandler.Name, "First argument must be an object.");
+
+                handler = (EventHandler<TEvent>)Delegate.CreateDelegate(typeof(EventHandler<TEvent>), this, eventHandler);
+            }
+            else
+            {
+                var tempHandler = (Action<TEvent>)Delegate.CreateDelegate(typeof(Action<TEvent>), this, eventHandler);
+                handler = (se, ev) => tempHandler(ev);
+            }
+
+            
+            MethodInfo method = typeof(EventManager).GetMethod("Bind").MakeGenericMethod(typeof(TEvent));
+            method.Invoke(this.Events, new object[] { handler, priority });
+        }
+
+        private void LoadCommands()
+        {
+
+        }
+
+        private Exception GetLoadException(string name, string reason)
+        {
+            return new TypeLoadException(String.Format("Unable to assign the method {0}.{1} to an event handler. {2}", this.GetType().FullName, name, reason));
         }
 
         /// <summary>
