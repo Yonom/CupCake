@@ -20,7 +20,6 @@ namespace CupCake.Core
         private readonly Lazy<StoragePlatform> _storagePlatform;
         private readonly Lazy<SynchronizePlatform> _synchronizePlatofrm;
         private readonly Lazy<MetadataPlatform> _metadataPlatform;
-        private readonly List<Timer> _timers = new List<Timer>();
 
         protected CupCakeServicePart()
         {
@@ -75,13 +74,6 @@ namespace CupCake.Core
         {
             get { return this._metadataPlatform.Value; }
         }
-        
-        protected Timer GetTimer(int interval)
-        {
-            var timer = new Timer(interval) {SynchronizingObject = this.SynchronizePlatform.SynchronizingObject};
-            this._timers.Add(timer);
-            return timer;
-        }
 
         private string FindName()
         {
@@ -109,11 +101,6 @@ namespace CupCake.Core
                 if (this._events.IsValueCreated)
                 {
                     this._events.Value.Dispose();
-                }
-
-                foreach (Timer timer in this._timers)
-                {
-                    timer.Dispose();
                 }
             }
 

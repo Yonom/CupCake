@@ -24,11 +24,5 @@ namespace CupCake
         {
             this.Events.Raise(new Init2SendEvent());
         }
-
-        [Command("HAI")]
-        private void OnHai(IInvokeSource source, ParsedCommand message)
-        {
-            
-        }
     }
 }

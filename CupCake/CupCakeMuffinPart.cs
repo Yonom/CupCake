@@ -50,7 +50,7 @@ namespace CupCake
         private readonly Lazy<StatusService> _statusService;
         private readonly Lazy<StoragePlatform> _storagePlatform;
         private readonly Lazy<SynchronizePlatform> _synchronizePlatform;
-        private readonly List<Timer> _timers = new List<Timer>();
+        private readonly List<RelayCommand> _commands = new List<RelayCommand>();
         private readonly Lazy<UploadService> _uploadService;
         private readonly Lazy<WorldService> _worldService;
         private readonly Lazy<MetadataPlatform> _metadataPlatform;
@@ -185,8 +185,10 @@ namespace CupCake
                 var handler =
                     (Action<IInvokeSource, ParsedCommand>)
                         Delegate.CreateDelegate(typeof(Action<IInvokeSource, ParsedCommand>), this, eventHandler);
-                
-                new RelayCommand(handler).Enable(null, new MuffinArgs(this.PlatformLoader, this.ServiceLoader, this.MuffinLoader));
+
+                var cmd = new RelayCommand(handler);
+                cmd.Enable(null, new MuffinArgs(this.PlatformLoader, this.ServiceLoader, this.MuffinLoader));
+                this._commands.Add(cmd);
             }
         }
 
@@ -194,8 +196,7 @@ namespace CupCake
         {
             return new TypeLoadException(String.Format("Unable to assign the method {0}.{1} to an event listener. {2}", this.GetType().FullName, name, reason));
         }
-
-
+        
         private Exception GetCommandEx(string name, string reason)
         {
             return new TypeLoadException(String.Format("Unable to assign the method {0}.{1} to a command handler. {2}", this.GetType().FullName, name, reason));
@@ -372,18 +373,6 @@ namespace CupCake
             get { return this._metadataPlatform.Value; }
         }
 
-        /// <summary>
-        /// Creates a new timer with the given interval, schedules its dispose on this plugin's disable, and returns the timer.
-        /// </summary>
-        /// <param name="interval">The interval.</param>
-        /// <returns>The requested Timer.</returns>
-        protected Timer GetTimer(int interval)
-        {
-            var timer = new Timer(interval) {SynchronizingObject = this.SynchronizePlatform.SynchronizingObject};
-            this._timers.Add(timer);
-            return timer;
-        }
-
         private string FindName()
         {
             var pluginName =
@@ -420,9 +409,9 @@ namespace CupCake
                     this._events.Value.Dispose();
                 }
 
-                foreach (Timer timer in this._timers)
+                foreach (var command in this._commands)
                 {
-                    timer.Dispose();
+                    command.Dispose();
                 }
             }
 
