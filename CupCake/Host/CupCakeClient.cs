@@ -24,9 +24,7 @@ namespace CupCake.Host
         public CupCakeClient(params ComposablePartCatalog[] catalog)
             : base(catalog)
         {
-            this.AggregateCatalog.Catalogs.Add(new AssemblyCatalog(Assembly.GetExecutingAssembly()));
-            this.AggregateCatalog.Catalogs.Add(new DirectoryCatalog(Environment.CurrentDirectory,
-                "CupCake.*.dll"));
+            this.AggregateCatalog.Catalogs.Add(new DirectoryCatalog(Environment.CurrentDirectory, "CupCake.*.dll"));
             this.PlatformLoader.EnableComplete += this.PlatformLoader_EnableComplete;
         }
 
