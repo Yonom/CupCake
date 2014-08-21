@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using CupCake.Command;
+using JetBrains.Annotations;
 
 namespace CupCake
 {
     /// <summary>
     /// Indicates that a method handles a command.
     /// </summary>
-    [AttributeUsage(AttributeTargets.Method)]
+    [AttributeUsage(AttributeTargets.Method), MeansImplicitUse]
     public sealed class CommandAttribute : LabelAttribute
     {
         /// <summary>

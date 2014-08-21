@@ -4,6 +4,7 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using CupCake.Core.Events;
+using JetBrains.Annotations;
 
 namespace CupCake.Core
 {
@@ -38,6 +39,7 @@ namespace CupCake.Core
         }
 
 
+        [UsedImplicitly]
         private static void Bind<TEvent>(object baseObj, EventManager events, MethodInfo eventHandler, ParameterInfo[] parameters, EventPriority priority) where TEvent : Event
         {
             EventHandler<TEvent> handler;

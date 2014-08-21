@@ -1,15 +1,16 @@
 ﻿using System;
 using CupCake.Core.Events;
+using JetBrains.Annotations;
 
 namespace CupCake.Core
 {
     /// <summary>
     /// Indicates that a function is a handler for a specific event.
     /// </summary>
-    [AttributeUsage(AttributeTargets.Method)]
+    [AttributeUsage(AttributeTargets.Method), MeansImplicitUse]
     public sealed class EventListenerAttribute : Attribute
     {
-        private EventPriority _priority;
+        private readonly EventPriority _priority;
 
         /// <summary>
         /// Gets the priority of this event handler.
