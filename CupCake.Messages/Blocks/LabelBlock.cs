@@ -1,8 +1,9 @@
 namespace CupCake.Messages.Blocks
 {
-    public enum LabelBlock
+    public class LabelBlock
     {
-        DecorationLabel = Block.DecorLabel,
-        DecorationSign = Block.DecorSign
+        public const int
+        DecorationLabel = BlockIDs.Decorations.Label.Label,
+        DecorationSign = BlockIDs.Action.Sign.Sign;
     }
 }

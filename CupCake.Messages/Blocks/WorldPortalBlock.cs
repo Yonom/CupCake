@@ -1,7 +1,7 @@
 namespace CupCake.Messages.Blocks
 {
-    public enum WorldPortalBlock
+    public class WorldPortalBlock
     {
-        BlockWorldPortal = Block.WorldPortal
+        public const int BlockWorldPortal = BlockIDs.Portals.World;
     }
 }

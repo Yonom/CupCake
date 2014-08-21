@@ -1,8 +1,9 @@
 namespace CupCake.Messages.Blocks
 {
-    public enum SciFiStraightRotation
+    public class SciFiStraightRotation
     {
+        public const int
         Horizontal = 0,
-        Vertical = 1
+        Vertical = 1;
     }
 }

@@ -1,8 +1,9 @@
 namespace CupCake.Messages.Blocks
 {
-    public enum CoinDoorBlock
+    public class CoinDoorBlock
     {
-        BlockDoorCoinDoor = Block.CoinDoor,
-        BlockGateCoinGate = Block.CoinGate
+        public const int
+        BlockDoorCoinDoor = BlockIDs.Action.Doors.Coin,
+        BlockGateCoinGate = BlockIDs.Action.Gates.Coin;
     }
 }

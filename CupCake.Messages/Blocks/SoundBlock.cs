@@ -1,8 +1,9 @@
 namespace CupCake.Messages.Blocks
 {
-    public enum SoundBlock
+    public class SoundBlock
     {
-        BlockMusicPiano = Block.MusicPiano,
-        BlockMusicDrum = Block.MusicDrum
+        public const int
+        BlockMusicPiano = BlockIDs.Music.Piano,
+        BlockMusicDrum = BlockIDs.Music.Drum;
     }
 }

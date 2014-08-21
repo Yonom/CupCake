@@ -1,10 +1,11 @@
 namespace CupCake.Messages.Blocks
 {
-    public enum SciFiSlopeRotation
+    public class SciFiSlopeRotation
     {
+        public const int
         InSouthEastPart = 0,
         InSouthWestPart = 1,
         InNorthWestPart = 2,
-        InNorthEastPart = 3
+        InNorthEastPart = 3;
     }
 }

@@ -1,8 +1,9 @@
 namespace CupCake.Messages.Blocks
 {
-    public enum PortalBlock
+    public class PortalBlock
     {
-        BlockPortal = Block.Portal,
-        BlockInvisiblePortal = Block.InvisiblePortal
+        public const int
+        BlockPortal = BlockIDs.Action.Portals.Normal,
+        BlockInvisiblePortal = BlockIDs.Action.Portals.Invisible;
     }
 }

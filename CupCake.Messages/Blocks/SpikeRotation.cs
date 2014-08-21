@@ -1,10 +1,11 @@
 namespace CupCake.Messages.Blocks
 {
-    public enum SpikeRotation
+    public class SpikeRotation
     {
+        public const int
         Left = 0,
         Up = 1,
         Right = 2,
-        Down = 3
+        Down = 3;
     }
 }
