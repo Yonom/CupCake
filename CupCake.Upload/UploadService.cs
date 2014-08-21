@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Threading;
 using CupCake.Core;
 using CupCake.Core.Events;
-using CupCake.Core.Log;
 using CupCake.Messages.Blocks;
 using CupCake.Messages.Receive;
 using CupCake.Messages.Send;
@@ -142,7 +140,7 @@ namespace CupCake.Upload
 
             lock (this._checkQueue)
             {
-                if (!this._uploaded[(int)e.Layer, e.X, e.Y] && request.SendTries < 5)
+                if (!this._uploaded[(int)e.Layer, e.X, e.Y] && request.SendTries < 50)
                 {
                     this._uploaded[(int)e.Layer, e.X, e.Y] = true;
 
