@@ -1,4 +1,7 @@
-﻿namespace CupCake.Core.Log
+﻿using System;
+using JetBrains.Annotations;
+
+namespace CupCake.Core.Log
 {
     public class Logger
     {
@@ -28,6 +31,31 @@
         public void Log(LogPriority priority, string message)
         {
             this.LogPlatform.Log(this.Name, priority, message);
+        }
+
+        /// <summary>
+        /// Logs the specified message.
+        /// </summary>
+        /// <param name="message">The message.</param>
+        /// <param name="args">The object array that contains zero or more items to format.</param>
+        [StringFormatMethod("message")]
+        public void Log(string message, params object[] args)
+        {
+            // ReSharper disable once RedundantStringFormatCall
+            this.Log(String.Format(message, args));
+        }
+
+        /// <summary>
+        /// Logs the specified message.
+        /// </summary>
+        /// <param name="priority">The priority.</param>
+        /// <param name="message">The message.</param>
+        /// <param name="args">The object array that contains zero or more items to format.</param>
+        [StringFormatMethod("message")]
+        public void Log(LogPriority priority, string message, params object[] args)
+        {
+            // ReSharper disable once RedundantStringFormatCall
+            this.Log(priority, String.Format(message, args));
         }
     }
 }
