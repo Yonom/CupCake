@@ -11,11 +11,9 @@ using CupCake.Host;
 using CupCake.HostAPI.IO;
 using CupCake.HostAPI.Status;
 using CupCake.HostAPI.Title;
-using CupCake.Protocol;
 using CupCake.Server.SyntaxProviders;
 using PlayerIOClient;
 using Rabbit;
-using Rabbit.Auth;
 
 namespace CupCake.Server
 {
@@ -24,8 +22,8 @@ namespace CupCake.Server
         public const string GameId = "everybody-edits-su9rn58o40itdbnw69plyw";
         private CupCakeClient _client;
         private EventsPlatform _eventsPlatform;
-        private SynchronizePlatform _synchronizePlatform;
         private IStorageProvider _storage;
+        private SynchronizePlatform _synchronizePlatform;
 
         public event Action<string> Output;
 
@@ -53,10 +51,8 @@ namespace CupCake.Server
 
         public void Input(string input)
         {
-            this._synchronizePlatform.DoSynchronously(() =>
-            {
-                this._eventsPlatform.Event<InputEvent>().Raise(this, new InputEvent(input));
-            });
+            this._synchronizePlatform.DoSynchronously(
+                () => { this._eventsPlatform.Event<InputEvent>().Raise(this, new InputEvent(input)); });
         }
 
         private void PlatformLoader_EnableComplete(object sender, EventArgs e)

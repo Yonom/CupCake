@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Reflection;
 using CupCake.Core;
 using CupCake.Core.Events;
 using CupCake.Core.Metadata;
@@ -14,7 +15,8 @@ namespace CupCake.Players
     public sealed class Player : MetadataServicePart<JoinArgs>
     {
         [Obsolete("Use the Get<T> and Set<T> methods instead.")]
-        public MetadataStore Metadata {
+        public MetadataStore Metadata
+        {
             get { return this.MetadataStore; }
         }
 
@@ -151,8 +153,8 @@ namespace CupCake.Players
                     {
                         callback(sender, e);
                         var instance = (TPlayer)Activator.CreateInstance(typeof(TPlayer),
-                            System.Reflection.BindingFlags.NonPublic |
-                            System.Reflection.BindingFlags.Instance,
+                            BindingFlags.NonPublic |
+                            BindingFlags.Instance,
                             null, new object[] {this, e}, null);
 
                         this.SynchronizePlatform.Do(() =>
@@ -360,7 +362,7 @@ namespace CupCake.Players
                 this.PosY = location.Y;
                 this.SpawnX = location.X;
                 this.SpawnY = location.Y;
-                
+
                 this.IsDead = false;
 
                 if (e.ResetCoins)

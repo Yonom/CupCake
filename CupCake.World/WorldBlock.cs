@@ -1,8 +1,5 @@
 using System;
-using System.CodeDom;
 using System.Diagnostics;
-using System.Reflection.Emit;
-using CupCake.Core;
 using CupCake.Core.Metadata;
 using CupCake.Messages;
 using CupCake.Messages.Blocks;
@@ -34,7 +31,7 @@ namespace CupCake.World
         public int Y { get; private set; }
         public virtual BlockType BlockType { get; private set; }
         public Block Block { get; private set; }
-        
+
         [Obsolete("Use the Get<T> and Set<T> methods instead.")]
         public MetadataStore Metadata
         {
@@ -273,17 +270,21 @@ namespace CupCake.World
                 case BlockType.Normal:
                     return new BlockPlaceSendEvent(this.Layer, this.X, this.Y, this.Block);
                 case BlockType.CoinDoor:
-                    return new CoinDoorPlaceSendEvent(this.Layer, this.X, this.Y, (CoinDoorBlock)this.Block, this.CoinsToCollect);
+                    return new CoinDoorPlaceSendEvent(this.Layer, this.X, this.Y, (CoinDoorBlock)this.Block,
+                        this.CoinsToCollect);
                 case BlockType.Portal:
-                    return new PortalPlaceSendEvent(this.Layer, this.X, this.Y, (PortalBlock)this.Block, this.PortalId, this.PortalTarget, this.PortalRotation);
+                    return new PortalPlaceSendEvent(this.Layer, this.X, this.Y, (PortalBlock)this.Block, this.PortalId,
+                        this.PortalTarget, this.PortalRotation);
                 case BlockType.Sound:
                     return new SoundPlaceSendEvent(this.Layer, this.X, this.Y, (SoundBlock)this.Block, this.SoundId);
                 case BlockType.Label:
                     return new LabelPlaceSendEvent(this.Layer, this.X, this.Y, (LabelBlock)this.Block, this.Text);
                 case BlockType.Rotatable:
-                    return new RotatablePlaceSendEvent(this.Layer, this.X, this.Y, (RotatableBlock)this.Block, this.Rotation);
+                    return new RotatablePlaceSendEvent(this.Layer, this.X, this.Y, (RotatableBlock)this.Block,
+                        this.Rotation);
                 case BlockType.WorldPortal:
-                    return new WorldPortalPlaceSendEvent(this.Layer, this.X, this.Y, (WorldPortalBlock)this.Block, this.WorldPortalTarget);
+                    return new WorldPortalPlaceSendEvent(this.Layer, this.X, this.Y, (WorldPortalBlock)this.Block,
+                        this.WorldPortalTarget);
                 default:
                     throw new NotSupportedException("The given send message is not supported.");
             }

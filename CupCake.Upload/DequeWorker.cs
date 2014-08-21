@@ -106,7 +106,7 @@ namespace CupCake.Upload
                 // Wait for an action to arrive
                 this._resetEvent.WaitOne();
 
-                if (_deque.Count > 0)
+                if (this._deque.Count > 0)
                 {
                     Action task;
                     lock (this._deque)

@@ -41,10 +41,6 @@
     <Reference Include="MuffinFramework.NET">
       <HintPath>..\Lib\MuffinFramework.NET.dll</HintPath>
     </Reference>
-    <Reference Include="Nito.Async, Version=1.4.0.0, Culture=neutral, PublicKeyToken=3206e950277c1912, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Lib\Nito.Async.dll</HintPath>
-    </Reference>
     <Reference Include="PlayerIOClient">
       <HintPath>..\Lib\PlayerIOClient.dll</HintPath>
     </Reference>

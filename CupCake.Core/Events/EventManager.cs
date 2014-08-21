@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -7,8 +6,8 @@ namespace CupCake.Core.Events
 {
     public class EventManager : IDisposable
     {
-        private readonly object _lockObj = new object();
         private readonly List<IBinding> _bindings = new List<IBinding>();
+        private readonly object _lockObj = new object();
         private readonly object _sender;
 
         public EventManager(EventsPlatform eventsPlatform, object sender)
@@ -57,7 +56,7 @@ namespace CupCake.Core.Events
             lock (this._lockObj)
             {
                 foreach (IBinding b in 
-                    this._bindings.Where(b => 
+                    this._bindings.Where(b =>
                         typeof(T) == b.Type &&
                         b.GetCallback() == (Delegate)callback))
                 {

@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using System.Runtime.InteropServices;
-using System.Timers;
 using CupCake.Actions;
 using CupCake.Chat;
 using CupCake.Command;
@@ -28,7 +26,7 @@ using MuffinFramework.Muffins;
 namespace CupCake
 {
     /// <summary>
-    /// Class CupCakeMuffinPart.
+    ///     Class CupCakeMuffinPart.
     /// </summary>
     /// <typeparam name="TProtocol">The type of the protocol.</typeparam>
     public abstract class CupCakeMuffinPart<TProtocol> : MuffinPart<TProtocol>
@@ -36,12 +34,14 @@ namespace CupCake
         private readonly Lazy<ActionService> _actionService;
         private readonly Lazy<Chatter> _chatter;
         private readonly Lazy<CommandService> _commandService;
+        private readonly List<RelayCommand> _commands = new List<RelayCommand>();
         private readonly Lazy<ConnectionPlatform> _connectionPlatform;
         private readonly Lazy<EventManager> _events;
         private readonly Lazy<IOService> _ioService;
         private readonly Lazy<KeyService> _keyService;
         private readonly Lazy<Logger> _logger;
         private readonly Lazy<MessageService> _messageService;
+        private readonly Lazy<MetadataPlatform> _metadataPlatform;
         private readonly Lazy<string> _name;
         private readonly Lazy<PermissionService> _permissionService;
         private readonly Lazy<PlayerService> _playerService;
@@ -50,13 +50,11 @@ namespace CupCake
         private readonly Lazy<StatusService> _statusService;
         private readonly Lazy<StoragePlatform> _storagePlatform;
         private readonly Lazy<SynchronizePlatform> _synchronizePlatform;
-        private readonly List<RelayCommand> _commands = new List<RelayCommand>();
         private readonly Lazy<UploadService> _uploadService;
         private readonly Lazy<WorldService> _worldService;
-        private readonly Lazy<MetadataPlatform> _metadataPlatform;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="CupCakeMuffinPart{TProtocol}"/> class.
+        ///     Initializes a new instance of the <see cref="CupCakeMuffinPart{TProtocol}" /> class.
         /// </summary>
         protected CupCakeMuffinPart()
         {
@@ -102,24 +100,196 @@ namespace CupCake
         }
 
         /// <summary>
-        /// Enables the specified arguments.
+        ///     Gets the events manager.
+        /// </summary>
+        /// <value>The events manager.</value>
+        protected EventManager Events
+        {
+            get { return this._events.Value; }
+        }
+
+        /// <summary>
+        ///     Gets the connection platform.
+        /// </summary>
+        /// <value>The connection platform.</value>
+        protected ConnectionPlatform ConnectionPlatform
+        {
+            get { return this._connectionPlatform.Value; }
+        }
+
+        /// <summary>
+        ///     Gets the synchronize platform.
+        /// </summary>
+        /// <value>The synchronize platform.</value>
+        protected SynchronizePlatform SynchronizePlatform
+        {
+            get { return this._synchronizePlatform.Value; }
+        }
+
+        /// <summary>
+        ///     Gets the logger.
+        /// </summary>
+        /// <value>The logger.</value>
+        protected Logger Logger
+        {
+            get { return this._logger.Value; }
+        }
+
+        /// <summary>
+        ///     Gets the chatter.
+        /// </summary>
+        /// <value>The chatter.</value>
+        protected Chatter Chatter
+        {
+            get { return this._chatter.Value; }
+        }
+
+        /// <summary>
+        ///     Gets the world service.
+        /// </summary>
+        /// <value>The world service.</value>
+        protected WorldService WorldService
+        {
+            get { return this._worldService.Value; }
+        }
+
+        /// <summary>
+        ///     Gets the room service.
+        /// </summary>
+        /// <value>The room service.</value>
+        protected RoomService RoomService
+        {
+            get { return this._roomService.Value; }
+        }
+
+        /// <summary>
+        ///     Gets the player service.
+        /// </summary>
+        /// <value>The player service.</value>
+        protected PlayerService PlayerService
+        {
+            get { return this._playerService.Value; }
+        }
+
+        /// <summary>
+        ///     Gets the key service.
+        /// </summary>
+        /// <value>The key service.</value>
+        protected KeyService KeyService
+        {
+            get { return this._keyService.Value; }
+        }
+
+        /// <summary>
+        ///     Gets the upload service.
+        /// </summary>
+        /// <value>The upload service.</value>
+        protected UploadService UploadService
+        {
+            get { return this._uploadService.Value; }
+        }
+
+        /// <summary>
+        ///     Gets the potion service.
+        /// </summary>
+        /// <value>The potion service.</value>
+        protected PotionService PotionService
+        {
+            get { return this._potionService.Value; }
+        }
+
+        /// <summary>
+        ///     Gets the action service.
+        /// </summary>
+        /// <value>The action service.</value>
+        protected ActionService ActionService
+        {
+            get { return this._actionService.Value; }
+        }
+
+        /// <summary>
+        ///     Gets the message service.
+        /// </summary>
+        /// <value>The message service.</value>
+        protected MessageService MessageService
+        {
+            get { return this._messageService.Value; }
+        }
+
+        /// <summary>
+        ///     Gets the command service.
+        /// </summary>
+        /// <value>The command service.</value>
+        protected CommandService CommandService
+        {
+            get { return this._commandService.Value; }
+        }
+
+        /// <summary>
+        ///     Gets the io service.
+        /// </summary>
+        /// <value>The io service.</value>
+        protected IOService IOService
+        {
+            get { return this._ioService.Value; }
+        }
+
+        /// <summary>
+        ///     Gets the status service.
+        /// </summary>
+        /// <value>The status service.</value>
+        protected StatusService StatusService
+        {
+            get { return this._statusService.Value; }
+        }
+
+        /// <summary>
+        ///     Gets the permission service.
+        /// </summary>
+        /// <value>The permission service.</value>
+        protected PermissionService PermissionService
+        {
+            get { return this._permissionService.Value; }
+        }
+
+        /// <summary>
+        ///     Gets the storage platform.
+        /// </summary>
+        /// <value>The storage platform.</value>
+        protected StoragePlatform StoragePlatform
+        {
+            get { return this._storagePlatform.Value; }
+        }
+
+        /// <summary>
+        ///     Gets the metadata platform
+        /// </summary>
+        /// <value>The metadata platform.</value>
+        protected MetadataPlatform MetadataPlatform
+        {
+            get { return this._metadataPlatform.Value; }
+        }
+
+        /// <summary>
+        ///     Enables the specified arguments.
         /// </summary>
         /// <param name="args">The arguments.</param>
         public override sealed void Enable(MuffinArgs args)
         {
             base.Enable(args);
 
-            var methods = this.GetType().GetMethods(BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Instance);
+            MethodInfo[] methods =
+                this.GetType().GetMethods(BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Instance);
             LayerHelper.LoadEventhandlers(this, this.Events, methods);
             this.LoadCommands(methods);
         }
 
         private void LoadCommands(IEnumerable<MethodInfo> methods)
         {
-            var eventHandlers = methods.Where(prop => prop.IsDefined(typeof(CommandAttribute), true));
-            foreach (var eventHandler in eventHandlers)
+            IEnumerable<MethodInfo> eventHandlers = methods.Where(prop => prop.IsDefined(typeof(CommandAttribute), true));
+            foreach (MethodInfo eventHandler in eventHandlers)
             {
-                var parameters = eventHandler.GetParameters();
+                ParameterInfo[] parameters = eventHandler.GetParameters();
                 if (parameters.Length != 2)
                     throw this.GetCommandEx(eventHandler.Name,
                         "Too few or too many parameters. Command handlers must have exactly two parameters.");
@@ -138,181 +308,12 @@ namespace CupCake
                 this._commands.Add(cmd);
             }
         }
-        
+
         private Exception GetCommandEx(string name, string reason)
         {
-            return new TypeLoadException(String.Format("Unable to assign the method {0}.{1} to a command handler. {2}", this.GetType().FullName, name, reason));
-        }
-
-        /// <summary>
-        /// Gets the events manager.
-        /// </summary>
-        /// <value>The events manager.</value>
-        protected EventManager Events
-        {
-            get { return this._events.Value; }
-        }
-
-        /// <summary>
-        /// Gets the connection platform.
-        /// </summary>
-        /// <value>The connection platform.</value>
-        protected ConnectionPlatform ConnectionPlatform
-        {
-            get { return this._connectionPlatform.Value; }
-        }
-
-        /// <summary>
-        /// Gets the synchronize platform.
-        /// </summary>
-        /// <value>The synchronize platform.</value>
-        protected SynchronizePlatform SynchronizePlatform
-        {
-            get { return this._synchronizePlatform.Value; }
-        }
-
-        /// <summary>
-        /// Gets the logger.
-        /// </summary>
-        /// <value>The logger.</value>
-        protected Logger Logger
-        {
-            get { return this._logger.Value; }
-        }
-
-        /// <summary>
-        /// Gets the chatter.
-        /// </summary>
-        /// <value>The chatter.</value>
-        protected Chatter Chatter
-        {
-            get { return this._chatter.Value; }
-        }
-
-        /// <summary>
-        /// Gets the world service.
-        /// </summary>
-        /// <value>The world service.</value>
-        protected WorldService WorldService
-        {
-            get { return this._worldService.Value; }
-        }
-
-        /// <summary>
-        /// Gets the room service.
-        /// </summary>
-        /// <value>The room service.</value>
-        protected RoomService RoomService
-        {
-            get { return this._roomService.Value; }
-        }
-
-        /// <summary>
-        /// Gets the player service.
-        /// </summary>
-        /// <value>The player service.</value>
-        protected PlayerService PlayerService
-        {
-            get { return this._playerService.Value; }
-        }
-
-        /// <summary>
-        /// Gets the key service.
-        /// </summary>
-        /// <value>The key service.</value>
-        protected KeyService KeyService
-        {
-            get { return this._keyService.Value; }
-        }
-
-        /// <summary>
-        /// Gets the upload service.
-        /// </summary>
-        /// <value>The upload service.</value>
-        protected UploadService UploadService
-        {
-            get { return this._uploadService.Value; }
-        }
-
-        /// <summary>
-        /// Gets the potion service.
-        /// </summary>
-        /// <value>The potion service.</value>
-        protected PotionService PotionService
-        {
-            get { return this._potionService.Value; }
-        }
-
-        /// <summary>
-        /// Gets the action service.
-        /// </summary>
-        /// <value>The action service.</value>
-        protected ActionService ActionService
-        {
-            get { return this._actionService.Value; }
-        }
-
-        /// <summary>
-        /// Gets the message service.
-        /// </summary>
-        /// <value>The message service.</value>
-        protected MessageService MessageService
-        {
-            get { return this._messageService.Value; }
-        }
-
-        /// <summary>
-        /// Gets the command service.
-        /// </summary>
-        /// <value>The command service.</value>
-        protected CommandService CommandService
-        {
-            get { return this._commandService.Value; }
-        }
-
-        /// <summary>
-        /// Gets the io service.
-        /// </summary>
-        /// <value>The io service.</value>
-        protected IOService IOService
-        {
-            get { return this._ioService.Value; }
-        }
-
-        /// <summary>
-        /// Gets the status service.
-        /// </summary>
-        /// <value>The status service.</value>
-        protected StatusService StatusService
-        {
-            get { return this._statusService.Value; }
-        }
-
-        /// <summary>
-        /// Gets the permission service.
-        /// </summary>
-        /// <value>The permission service.</value>
-        protected PermissionService PermissionService
-        {
-            get { return this._permissionService.Value; }
-        }
-
-        /// <summary>
-        /// Gets the storage platform.
-        /// </summary>
-        /// <value>The storage platform.</value>
-        protected StoragePlatform StoragePlatform
-        {
-            get { return this._storagePlatform.Value; }
-        }
-
-        /// <summary>
-        /// Gets the metadata platform
-        /// </summary>
-        /// <value>The metadata platform.</value>
-        protected MetadataPlatform MetadataPlatform
-        {
-            get { return this._metadataPlatform.Value; }
+            return
+                new TypeLoadException(String.Format("Unable to assign the method {0}.{1} to a command handler. {2}",
+                    this.GetType().FullName, name, reason));
         }
 
         private string FindName()
@@ -330,7 +331,7 @@ namespace CupCake
         }
 
         /// <summary>
-        /// Gets the name displayed in chat and log messages.
+        ///     Gets the name displayed in chat and log messages.
         /// </summary>
         /// <returns>This plugin's name.</returns>
         protected virtual string GetName()
@@ -339,9 +340,12 @@ namespace CupCake
         }
 
         /// <summary>
-        /// Releases unmanaged and - optionally - managed resources.
+        ///     Releases unmanaged and - optionally - managed resources.
         /// </summary>
-        /// <param name="disposing"><c>true</c> to release both managed and unmanaged resources; <c>false</c> to release only unmanaged resources.</param>
+        /// <param name="disposing">
+        ///     <c>true</c> to release both managed and unmanaged resources; <c>false</c> to release only
+        ///     unmanaged resources.
+        /// </param>
         protected override void Dispose(bool disposing)
         {
             if (disposing)
@@ -351,7 +355,7 @@ namespace CupCake
                     this._events.Value.Dispose();
                 }
 
-                foreach (var command in this._commands)
+                foreach (RelayCommand command in this._commands)
                 {
                     command.Dispose();
                 }

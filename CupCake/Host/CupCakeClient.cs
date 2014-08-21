@@ -1,7 +1,6 @@
 ﻿using System;
 using System.ComponentModel.Composition.Hosting;
 using System.ComponentModel.Composition.Primitives;
-using System.Reflection;
 using CupCake.Core;
 using MuffinFramework;
 using PlayerIOClient;
@@ -9,16 +8,16 @@ using PlayerIOClient;
 namespace CupCake.Host
 {
     /// <summary>
-    /// Class CupCakeClient.
-    /// Use this client to host CupCake in your own application.
+    ///     Class CupCakeClient.
+    ///     Use this client to host CupCake in your own application.
     /// </summary>
     public class CupCakeClient : MuffinClient
     {
         private Connection _connection;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="CupCakeClient"/> class.
-        /// Automatically adds the current assembly and every assembly with the format "CupCake.*.dll".
+        ///     Initializes a new instance of the <see cref="CupCakeClient" /> class.
+        ///     Automatically adds the current assembly and every assembly with the format "CupCake.*.dll".
         /// </summary>
         /// <param name="catalog">The ComposablePartCatalog array that contains zero or more items to add to the catalog.</param>
         public CupCakeClient(params ComposablePartCatalog[] catalog)
@@ -29,7 +28,7 @@ namespace CupCake.Host
         }
 
         /// <summary>
-        /// Starts CupCake and sets the connection to the given one.
+        ///     Starts CupCake and sets the connection to the given one.
         /// </summary>
         /// <param name="connection">The connection.</param>
         /// <exception cref="System.ArgumentNullException">connection</exception>
@@ -42,8 +41,8 @@ namespace CupCake.Host
         }
 
         /// <summary>
-        /// Starts the client.
-        /// Obsolete. Use the overload with Connection parameter.
+        ///     Starts the client.
+        ///     Obsolete. Use the overload with Connection parameter.
         /// </summary>
         /// <exception cref="System.NotSupportedException">Please provide the connection parameter</exception>
         [Obsolete("Use the overload with Connection parameter.", true)]

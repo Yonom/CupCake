@@ -2,7 +2,6 @@ using System;
 using System.Diagnostics;
 using CupCake.Core;
 using CupCake.Core.Events;
-using CupCake.Core.Metadata;
 using CupCake.Messages.Blocks;
 using CupCake.Messages.Receive;
 using CupCake.Players;
@@ -40,7 +39,7 @@ namespace CupCake.World
             }
 
             // Generate an empty world
-            WorldBlock[,,] worldArray = GetEmptyWorld(sizeX, sizeY, Block.GravityNothing, Block.GravityNothing);
+            WorldBlock[,,] worldArray = this.GetEmptyWorld(sizeX, sizeY, Block.GravityNothing, Block.GravityNothing);
 
             // Parse the world data
             uint pointer = start;
@@ -156,7 +155,7 @@ namespace CupCake.World
             return worldArray;
         }
 
-        private WorldBlock[, ,] GetEmptyWorld(int sizeX, int sizeY, Block fillBlock, Block borderBlock)
+        private WorldBlock[,,] GetEmptyWorld(int sizeX, int sizeY, Block fillBlock, Block borderBlock)
         {
             var blockArray = new WorldBlock[2, sizeX, sizeY];
 
@@ -167,7 +166,7 @@ namespace CupCake.World
             for (var l = Layer.Background; l >= Layer.Foreground; l += -1)
                 for (int x = 0; x <= maxX; x++)
                     for (int y = 0; y <= maxY; y++)
-                        NewBlock(blockArray, l, x, y, fillBlock);
+                        this.NewBlock(blockArray, l, x, y, fillBlock);
 
             // Border drawing
             for (int y = 0; y <= maxY; y++)
@@ -231,7 +230,7 @@ namespace CupCake.World
             this.RoomWidth = e.RoomWidth;
             this.RoomHeight = e.RoomHeight;
             this.Events.Raise(new ResizeWorldEvent(e.RoomWidth, e.RoomHeight));
-            this._blocks = ParseWorld(e.PlayerIOMessage, e.RoomWidth, e.RoomHeight, InitOffset);
+            this._blocks = this.ParseWorld(e.PlayerIOMessage, e.RoomWidth, e.RoomHeight, InitOffset);
         }
 
         private void OnBlockPlace(object sender, BlockPlaceReceiveEvent e)
@@ -308,7 +307,7 @@ namespace CupCake.World
 
         private void OnReset(object sender, ResetReceiveEvent e)
         {
-            this._blocks = ParseWorld(e.PlayerIOMessage, this.RoomWidth, this.RoomHeight, 0);
+            this._blocks = this.ParseWorld(e.PlayerIOMessage, this.RoomWidth, this.RoomHeight, 0);
         }
 
         private void OnClear(object sender, ClearReceiveEvent e)
@@ -317,7 +316,7 @@ namespace CupCake.World
             this.RoomHeight = e.RoomHeight;
             this.Events.Raise(new ResizeWorldEvent(e.RoomHeight, e.RoomWidth));
 
-            this._blocks = GetEmptyWorld(this.RoomWidth, this.RoomHeight, e.FillBlock, e.BorderBlock);
+            this._blocks = this.GetEmptyWorld(this.RoomWidth, this.RoomHeight, e.FillBlock, e.BorderBlock);
         }
     }
 }

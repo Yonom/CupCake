@@ -41,7 +41,7 @@
             if (ReferenceEquals(null, obj)) return false;
             if (ReferenceEquals(this, obj)) return true;
             if (obj.GetType() != this.GetType()) return false;
-            return Equals((Rectangle)obj);
+            return this.Equals((Rectangle)obj);
         }
 
         public static bool operator ==(Rectangle left, Rectangle right)

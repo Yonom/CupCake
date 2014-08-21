@@ -1,6 +1,4 @@
-﻿using CupCake.Protocol;
-
-namespace CupCake.Client.Settings
+﻿namespace CupCake.Client.Settings
 {
     public class Account : IConfig
     {

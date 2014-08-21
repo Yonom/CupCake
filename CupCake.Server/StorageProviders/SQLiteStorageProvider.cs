@@ -51,10 +51,10 @@ namespace CupCake.Server.StorageProviders
                         cmd.Parameters.AddWithValue("@id", id);
                         cmd.Parameters.AddWithValue("@key", key);
 
-                        
+
                         conn.Open();
 
-                        var result = cmd.ExecuteScalar();
+                        object result = cmd.ExecuteScalar();
                         if (result is DBNull)
                             return null;
 

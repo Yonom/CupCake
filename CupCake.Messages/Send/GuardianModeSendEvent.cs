@@ -2,7 +2,7 @@
 
 namespace CupCake.Messages.Send
 {
-    public class GuardianModeSendEvent  : SendEvent
+    public class GuardianModeSendEvent : SendEvent
     {
         public GuardianModeSendEvent(bool guardianModeEnabled)
         {

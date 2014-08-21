@@ -14,7 +14,7 @@ namespace CupCake.DefaultCommands.Commands.Owner
         {
             this.RequireOwner();
 
-            var name = message.GetTrail(0);
+            string name = message.GetTrail(0);
             this.RoomService.SetName(name);
             source.Reply("Name changed to: {0}", name);
         }

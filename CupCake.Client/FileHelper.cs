@@ -1,4 +1,5 @@
-﻿using System.Runtime.InteropServices;
+﻿using System.IO;
+using System.Runtime.InteropServices;
 
 namespace CupCake.Client
 {
@@ -10,8 +11,8 @@ namespace CupCake.Client
 
         public static void UnblockPath(string path)
         {
-            string[] files = System.IO.Directory.GetFiles(path);
-            string[] dirs = System.IO.Directory.GetDirectories(path);
+            string[] files = Directory.GetFiles(path);
+            string[] dirs = Directory.GetDirectories(path);
 
             foreach (string file in files)
             {
@@ -22,7 +23,6 @@ namespace CupCake.Client
             {
                 UnblockPath(dir);
             }
-
         }
 
         public static bool UnblockFile(string fileName)

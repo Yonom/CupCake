@@ -38,7 +38,7 @@ namespace CupCake.DefaultCommands
         private void OnChangedPermission(object sender, ChangedPermissionEvent e)
         {
             if (e.NewPermission == Group.Banned)
-            {                
+            {
                 // Save ban parameters
                 if (e.Player.GetRankLoaded())
                 {

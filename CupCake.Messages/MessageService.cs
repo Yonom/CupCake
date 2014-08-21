@@ -1,4 +1,5 @@
-﻿using CupCake.Core;
+﻿using System;
+using CupCake.Core;
 using CupCake.Core.Events;
 using CupCake.Core.Log;
 using CupCake.Messages.Receive;
@@ -13,9 +14,9 @@ namespace CupCake.Messages
         public MessageManager MessageManager { get; private set; }
 
         protected override void Enable()
-        {            
+        {
             // Bind EnableComplete
-            this.ServiceLoader.EnableComplete += ServiceLoader_EnableComplete;
+            this.ServiceLoader.EnableComplete += this.ServiceLoader_EnableComplete;
 
             // Init MessageManager
             this.MessageManager = new MessageManager(this.Events);
@@ -68,7 +69,7 @@ namespace CupCake.Messages
             this.ConnectionPlatform.Connection.OnMessage += this.Connection_OnMessage;
         }
 
-        private void ServiceLoader_EnableComplete(object sender, System.EventArgs e)
+        private void ServiceLoader_EnableComplete(object sender, EventArgs e)
         {
             // Send the init message
             this.Events.Raise(new InitSendEvent());
@@ -123,7 +124,7 @@ namespace CupCake.Messages
             this.MessageManager.RegisterMessage<GiveWitchReceiveEvent>("givewitch");
             this.MessageManager.RegisterMessage<GiveGrinchReceiveEvent>("givegrinch");
             this.MessageManager.RegisterMessage<RefreshShopReceiveEvent>("refreshshop");
-            
+
             // Send the init2 message
             this.Events.Raise(new Init2SendEvent());
         }

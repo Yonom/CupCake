@@ -5,8 +5,8 @@ namespace CupCake.Messages
 {
     public class Point3D : Point
     {
-
-        public Point3D(Layer layer,  int x, int y) : base(x, y)
+        public Point3D(Layer layer, int x, int y)
+            : base(x, y)
         {
             this.Layer = layer;
         }

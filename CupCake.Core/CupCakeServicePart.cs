@@ -1,13 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
-using System.Timers;
 using CupCake.Core.Events;
 using CupCake.Core.Log;
 using CupCake.Core.Metadata;
 using CupCake.Core.Storage;
-using MuffinFramework.Muffins;
 using MuffinFramework.Services;
 
 namespace CupCake.Core
@@ -17,10 +13,10 @@ namespace CupCake.Core
         private readonly Lazy<ConnectionPlatform> _connectionPlatform;
         private readonly Lazy<EventManager> _events;
         private readonly Lazy<Logger> _logger;
+        private readonly Lazy<MetadataPlatform> _metadataPlatform;
         private readonly Lazy<string> _name;
         private readonly Lazy<StoragePlatform> _storagePlatform;
         private readonly Lazy<SynchronizePlatform> _synchronizePlatofrm;
-        private readonly Lazy<MetadataPlatform> _metadataPlatform;
 
         protected CupCakeServicePart()
         {
@@ -44,18 +40,6 @@ namespace CupCake.Core
                 var eventsPlatform = this.PlatformLoader.Get<EventsPlatform>();
                 return new EventManager(eventsPlatform, this);
             });
-        }
-
-        /// <summary>
-        /// Enables the specified arguments.
-        /// </summary>
-        /// <param name="args">The arguments.</param>
-        public override sealed void Enable(ServiceArgs args)
-        {
-            base.Enable(args);
-
-            var methods = this.GetType().GetMethods(BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Instance);
-            LayerHelper.LoadEventhandlers(this, this.Events, methods);
         }
 
         protected Logger Logger
@@ -86,6 +70,19 @@ namespace CupCake.Core
         protected MetadataPlatform MetadataPlatform
         {
             get { return this._metadataPlatform.Value; }
+        }
+
+        /// <summary>
+        ///     Enables the specified arguments.
+        /// </summary>
+        /// <param name="args">The arguments.</param>
+        public override sealed void Enable(ServiceArgs args)
+        {
+            base.Enable(args);
+
+            MethodInfo[] methods =
+                this.GetType().GetMethods(BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Instance);
+            LayerHelper.LoadEventhandlers(this, this.Events, methods);
         }
 
         protected virtual string GetName()

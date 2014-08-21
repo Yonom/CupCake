@@ -5,7 +5,7 @@ namespace CupCake.Command
     [AttributeUsage(AttributeTargets.Method)]
     public class LabelAttribute : Attribute
     {
-        private string[] _labels;
+        private readonly string[] _labels;
 
         public LabelAttribute(params string[] labels)
         {

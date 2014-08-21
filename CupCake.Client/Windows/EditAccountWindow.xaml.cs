@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Windows;
-using System.Windows.Input;
 using CupCake.Client.Settings;
-using CupCake.Protocol;
 
 namespace CupCake.Client.Windows
 {

@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using System.Text;
 using CupCake.Core.Events;
 using JetBrains.Annotations;
 
@@ -12,40 +11,42 @@ namespace CupCake.Core
     {
         public static void LoadEventhandlers(object baseObj, EventManager events, IEnumerable<MethodInfo> methods)
         {
-            var eventHandlers = methods.Where(prop => prop.IsDefined(typeof(EventListenerAttribute), true));
-            foreach (var eventHandler in eventHandlers)
+            IEnumerable<MethodInfo> eventHandlers =
+                methods.Where(prop => prop.IsDefined(typeof(EventListenerAttribute), true));
+            foreach (MethodInfo eventHandler in eventHandlers)
             {
                 if (eventHandler.ReturnType != typeof(void))
                     throw GetEventEx(baseObj, eventHandler.Name, "Event listeners must have the return type void.");
-                var parameters = eventHandler.GetParameters();
+                ParameterInfo[] parameters = eventHandler.GetParameters();
                 if (parameters.Length < 1)
                     throw GetEventEx(baseObj, eventHandler.Name, "Too few arguments.");
                 if (parameters.Length > 2)
                     throw GetEventEx(baseObj, eventHandler.Name, "Too many arguments.");
 
-                var e = parameters.Last();
+                ParameterInfo e = parameters.Last();
                 if (!typeof(Event).IsAssignableFrom(e.ParameterType))
                     throw GetEventEx(baseObj, eventHandler.Name, "Last argument must be an event.");
-                var eType = e.ParameterType;
+                Type eType = e.ParameterType;
 
-                var bindMethod =
+                MethodInfo bindMethod =
                     typeof(LayerHelper).GetMethod("Bind", BindingFlags.NonPublic | BindingFlags.Static)
                         .MakeGenericMethod(eType);
                 var attribute =
                     (EventListenerAttribute)
                         eventHandler.GetCustomAttributes(typeof(EventListenerAttribute), false).First();
-                bindMethod.Invoke(null, new object[] {baseObj, events, eventHandler, parameters, attribute.Priority});
+                bindMethod.Invoke(null, new[] {baseObj, events, eventHandler, parameters, attribute.Priority});
             }
         }
 
 
         [UsedImplicitly]
-        private static void Bind<TEvent>(object baseObj, EventManager events, MethodInfo eventHandler, ParameterInfo[] parameters, EventPriority priority) where TEvent : Event
+        private static void Bind<TEvent>(object baseObj, EventManager events, MethodInfo eventHandler,
+            ParameterInfo[] parameters, EventPriority priority) where TEvent : Event
         {
             EventHandler<TEvent> handler;
             if (parameters.Length == 2)
             {
-                var sender = parameters.First();
+                ParameterInfo sender = parameters.First();
 
                 if (sender.ParameterType == typeof(object))
                     throw GetEventEx(baseObj, eventHandler.Name, "First argument must be an object.");

@@ -65,7 +65,7 @@ namespace CupCake.Server
             _clientEx.Status += OnStatus;
 
             var p = new OptionSet
-            {                
+            {
                 {
                     "settings=",
                     v => { _settings = XmlSerialize.Deserialize<CupCakeServerSettings>(v); }
@@ -80,10 +80,7 @@ namespace CupCake.Server
                 },
                 {
                     "envpath=",
-                    v =>
-                    {
-                        Environment.CurrentDirectory = v;
-                    }
+                    v => { Environment.CurrentDirectory = v; }
                 },
                 {
                     "port=",
@@ -103,7 +100,7 @@ namespace CupCake.Server
                 },
                 {
                     "w|world=",
-                    v => {_settings. World = v; }
+                    v => { _settings.World = v; }
                 },
                 {
                     "d|dir=",
@@ -115,7 +112,7 @@ namespace CupCake.Server
                 },
                 {
                     "cs|connectionstring|connectionstr|connstr=",
-                    v => {_settings. ConnectionString = v; }
+                    v => { _settings.ConnectionString = v; }
                 }
             };
             try

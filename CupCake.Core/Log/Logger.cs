@@ -15,7 +15,7 @@ namespace CupCake.Core.Log
         public string Name { get; set; }
 
         /// <summary>
-        /// Logs the specified message.
+        ///     Logs the specified message.
         /// </summary>
         /// <param name="message">The message.</param>
         public void Log(string message)
@@ -24,7 +24,7 @@ namespace CupCake.Core.Log
         }
 
         /// <summary>
-        /// Logs the specified message.
+        ///     Logs the specified message.
         /// </summary>
         /// <param name="priority">The priority.</param>
         /// <param name="message">The message.</param>
@@ -34,7 +34,7 @@ namespace CupCake.Core.Log
         }
 
         /// <summary>
-        /// Logs the specified message.
+        ///     Logs the specified message.
         /// </summary>
         /// <param name="message">The message.</param>
         /// <param name="args">The object array that contains zero or more items to format.</param>
@@ -46,7 +46,7 @@ namespace CupCake.Core.Log
         }
 
         /// <summary>
-        /// Logs the specified message.
+        ///     Logs the specified message.
         /// </summary>
         /// <param name="priority">The priority.</param>
         /// <param name="message">The message.</param>

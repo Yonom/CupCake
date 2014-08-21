@@ -6,13 +6,13 @@ using JetBrains.Annotations;
 namespace CupCake
 {
     /// <summary>
-    /// Class Chatter.
-    /// Wraps a ChatService class and outputs customized messages with the given prefix.
+    ///     Class Chatter.
+    ///     Wraps a ChatService class and outputs customized messages with the given prefix.
     /// </summary>
     public class Chatter
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="Chatter"/> class.
+        ///     Initializes a new instance of the <see cref="Chatter" /> class.
         /// </summary>
         /// <param name="chatService">The chat service being wrapped.</param>
         /// <param name="name">The prefix used for sending messages.</param>
@@ -23,18 +23,19 @@ namespace CupCake
         }
 
         /// <summary>
-        /// Gets the chat service.
+        ///     Gets the chat service.
         /// </summary>
         /// <value>The chat service.</value>
         public ChatService ChatService { get; private set; }
+
         /// <summary>
-        /// Gets or sets the name.
+        ///     Gets or sets the name.
         /// </summary>
         /// <value>The name.</value>
         public string Name { get; set; }
 
         /// <summary>
-        /// Sends the specified chat message with the current chat style.
+        ///     Sends the specified chat message with the current chat style.
         /// </summary>
         /// <param name="msg">The chat message.</param>
         public void Chat(string msg)
@@ -43,7 +44,7 @@ namespace CupCake
         }
 
         /// <summary>
-        /// Sends the specified chat message with the current chat style.
+        ///     Sends the specified chat message with the current chat style.
         /// </summary>
         /// <param name="msg">The chat message.</param>
         /// <param name="args">The object array that contains zero or more items to format.</param>
@@ -54,7 +55,7 @@ namespace CupCake
         }
 
         /// <summary>
-        /// Sends the specified chat message without formatting.
+        ///     Sends the specified chat message without formatting.
         /// </summary>
         /// <param name="msg">The chat message.</param>
         public void Send(string msg)
@@ -63,7 +64,7 @@ namespace CupCake
         }
 
         /// <summary>
-        /// Sends the specified chat message without formatting.
+        ///     Sends the specified chat message without formatting.
         /// </summary>
         /// <param name="msg">The chat message.</param>
         /// <param name="args">The object array that contains zero or more items to format.</param>
@@ -74,7 +75,7 @@ namespace CupCake
         }
 
         /// <summary>
-        /// Sends a message with reply formatting, targeting the specified username.
+        ///     Sends a message with reply formatting, targeting the specified username.
         /// </summary>
         /// <param name="username">The username.</param>
         /// <param name="msg">The chat message.</param>
@@ -84,7 +85,7 @@ namespace CupCake
         }
 
         /// <summary>
-        /// Sends a message with reply formatting, targeting the specified username.
+        ///     Sends a message with reply formatting, targeting the specified username.
         /// </summary>
         /// <param name="username">The username.</param>
         /// <param name="msg">The chat message.</param>
@@ -96,7 +97,7 @@ namespace CupCake
         }
 
         /// <summary>
-        /// Gives edit to the specified username.
+        ///     Gives edit to the specified username.
         /// </summary>
         /// <param name="username">The username.</param>
         public void GiveEdit(string username)
@@ -105,7 +106,7 @@ namespace CupCake
         }
 
         /// <summary>
-        /// Removes edit from the specified username.
+        ///     Removes edit from the specified username.
         /// </summary>
         /// <param name="username">The username.</param>
         public void RemoveEdit(string username)
@@ -114,7 +115,7 @@ namespace CupCake
         }
 
         /// <summary>
-        /// Teleports the specified username to the bot's location. (/teleport &lt;username&gt;).
+        ///     Teleports the specified username to the bot's location. (/teleport &lt;username&gt;).
         /// </summary>
         /// <param name="username">The username.</param>
         public void Teleport(string username)
@@ -123,7 +124,7 @@ namespace CupCake
         }
 
         /// <summary>
-        /// Teleports the specified username. (/teleport &lt;username&gt; &lt;x&gt; &lt;y&gt;).
+        ///     Teleports the specified username. (/teleport &lt;username&gt; &lt;x&gt; &lt;y&gt;).
         /// </summary>
         /// <param name="username">The username.</param>
         /// <param name="x">The x.</param>
@@ -134,7 +135,7 @@ namespace CupCake
         }
 
         /// <summary>
-        /// Kicks the specified username. (/kick &lt;username&gt;).
+        ///     Kicks the specified username. (/kick &lt;username&gt;).
         /// </summary>
         /// <param name="username">The username.</param>
         public void Kick(string username)
@@ -143,7 +144,7 @@ namespace CupCake
         }
 
         /// <summary>
-        /// Kicks the specified username. (/kick &lt;username&gt; &lt;reason&gt;).
+        ///     Kicks the specified username. (/kick &lt;username&gt; &lt;reason&gt;).
         /// </summary>
         /// <param name="username">The username.</param>
         /// <param name="reason">The kick reason.</param>
@@ -153,7 +154,7 @@ namespace CupCake
         }
 
         /// <summary>
-        /// Kicks the specified username. (/kick &lt;username&gt; &lt;reason&gt;).
+        ///     Kicks the specified username. (/kick &lt;username&gt; &lt;reason&gt;).
         /// </summary>
         /// <param name="username">The username.</param>
         /// <param name="reason">The kick reason.</param>
@@ -165,7 +166,7 @@ namespace CupCake
         }
 
         /// <summary>
-        /// Silently kicks all guests (/kickguests).
+        ///     Silently kicks all guests (/kickguests).
         /// </summary>
         public void KickGuests()
         {
@@ -173,7 +174,7 @@ namespace CupCake
         }
 
         /// <summary>
-        /// Kills the specified username. (/kill &lt;username&gt;).
+        ///     Kills the specified username. (/kill &lt;username&gt;).
         /// </summary>
         /// <param name="username">The username.</param>
         public void Kill(string username)
@@ -182,7 +183,7 @@ namespace CupCake
         }
 
         /// <summary>
-        /// Mutes the specified username. (/mute &lt;username&gt;).
+        ///     Mutes the specified username. (/mute &lt;username&gt;).
         /// </summary>
         /// <param name="username">The username.</param>
         public void Mute(string username)
@@ -191,7 +192,7 @@ namespace CupCake
         }
 
         /// <summary>
-        /// Unmutes the specified username. (/unmute &lt;username&gt;).
+        ///     Unmutes the specified username. (/unmute &lt;username&gt;).
         /// </summary>
         /// <param name="username">The username.</param>
         public void Unmute(string username)
@@ -200,7 +201,7 @@ namespace CupCake
         }
 
         /// <summary>
-        /// Reports the specified user with the given reason (/reportabuse &lt;username&gt; &lt;reason&gt;).
+        ///     Reports the specified user with the given reason (/reportabuse &lt;username&gt; &lt;reason&gt;).
         /// </summary>
         /// <param name="username">The username.</param>
         /// <param name="reason">The reason.</param>
@@ -210,7 +211,7 @@ namespace CupCake
         }
 
         /// <summary>
-        /// Kills all the users in the world (/killemall).
+        ///     Kills all the users in the world (/killemall).
         /// </summary>
         public void KillAll()
         {
@@ -218,7 +219,7 @@ namespace CupCake
         }
 
         /// <summary>
-        /// Resets all the users' positions (/reset).
+        ///     Resets all the users' positions (/reset).
         /// </summary>
         public void Reset()
         {
@@ -226,7 +227,7 @@ namespace CupCake
         }
 
         /// <summary>
-        /// Respawns the bot (/respawn).
+        ///     Respawns the bot (/respawn).
         /// </summary>
         public void Respawn()
         {
@@ -234,7 +235,7 @@ namespace CupCake
         }
 
         /// <summary>
-        /// Respawns all users in the world (/respawnall).
+        ///     Respawns all users in the world (/respawnall).
         /// </summary>
         public void RespawnAll()
         {
@@ -242,7 +243,7 @@ namespace CupCake
         }
 
         /// <summary>
-        /// Enables the given potions (/potionson &lt;potion1&gt; &lt;potion2&gt; ...).
+        ///     Enables the given potions (/potionson &lt;potion1&gt; &lt;potion2&gt; ...).
         /// </summary>
         /// <param name="potions">The potions.</param>
         public void PotionsOn(params string[] potions)
@@ -251,7 +252,7 @@ namespace CupCake
         }
 
         /// <summary>
-        /// Enables the given potions (/potionson &lt;potion1&gt; &lt;potion2&gt; ...).
+        ///     Enables the given potions (/potionson &lt;potion1&gt; &lt;potion2&gt; ...).
         /// </summary>
         /// <param name="potions">The potions.</param>
         public void PotionsOn(params int[] potions)
@@ -260,7 +261,7 @@ namespace CupCake
         }
 
         /// <summary>
-        /// Enables the given potions (/potionson &lt;potion1&gt; &lt;potion2&gt; ...).
+        ///     Enables the given potions (/potionson &lt;potion1&gt; &lt;potion2&gt; ...).
         /// </summary>
         /// <param name="potions">The potions.</param>
         public void PotionsOn(params Potion[] potions)
@@ -269,7 +270,7 @@ namespace CupCake
         }
 
         /// <summary>
-        /// Disables the given potions (/potionsoff &lt;potion1&gt; &lt;potion2&gt; ...).
+        ///     Disables the given potions (/potionsoff &lt;potion1&gt; &lt;potion2&gt; ...).
         /// </summary>
         /// <param name="potions">The potions.</param>
         public void PotionsOff(params string[] potions)
@@ -278,7 +279,7 @@ namespace CupCake
         }
 
         /// <summary>
-        /// Disables the given potions (/potionsoff &lt;potion1&gt; &lt;potion2&gt; ...).
+        ///     Disables the given potions (/potionsoff &lt;potion1&gt; &lt;potion2&gt; ...).
         /// </summary>
         /// <param name="potions">The potions.</param>
         public void PotionsOff(params int[] potions)
@@ -287,7 +288,7 @@ namespace CupCake
         }
 
         /// <summary>
-        /// Disables the given potions (/potionsoff &lt;potion1&gt; &lt;potion2&gt; ...).
+        ///     Disables the given potions (/potionsoff &lt;potion1&gt; &lt;potion2&gt; ...).
         /// </summary>
         /// <param name="potions">The potions.</param>
         public void PotionsOff(params Potion[] potions)
@@ -296,7 +297,7 @@ namespace CupCake
         }
 
         /// <summary>
-        /// Changes the visibility of the room (/visible &lt;visible&gt;).
+        ///     Changes the visibility of the room (/visible &lt;visible&gt;).
         /// </summary>
         /// <param name="visible">if set to <c>true</c> [visible].</param>
         public void ChangeVisibility(bool visible)
@@ -305,7 +306,7 @@ namespace CupCake
         }
 
         /// <summary>
-        /// Loads the level to the most recent saved version (/loadlevel).
+        ///     Loads the level to the most recent saved version (/loadlevel).
         /// </summary>
         public void LoadLevel()
         {

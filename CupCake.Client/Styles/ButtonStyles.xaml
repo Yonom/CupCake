@@ -20,7 +20,7 @@
             </Trigger>
         </Style.Triggers>
     </Style>
-    
+
     <Style x:Key="CloseButton" TargetType="Button" BasedOn="{StaticResource RecentButton}">
         <Setter Property="Foreground" Value="{StaticResource CloseButtonForeground}" />
         <Style.Triggers>

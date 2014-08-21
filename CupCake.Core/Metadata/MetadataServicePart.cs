@@ -4,26 +4,26 @@ namespace CupCake.Core.Metadata
 {
     public abstract class MetadataServicePart<T> : CupCakeServicePart<T>
     {
-        protected abstract object MetadataKey { get; }
         private readonly Lazy<MetadataStore> _metadataStore;
-
-        public event EventHandler<MetadataChangedEventArgs> MetadataChanged;
-
-        // TODO: Remove this once deprecated properties get removed.
-        protected MetadataStore MetadataStore
-        {
-            get { return this._metadataStore.Value; }
-        }
 
         protected MetadataServicePart()
         {
             this._metadataStore = new Lazy<MetadataStore>(() =>
             {
-                var value = this.MetadataPlatform[this.MetadataKey];
+                MetadataStore value = this.MetadataPlatform[this.MetadataKey];
                 value.MetadataChanged += this.MetadataChanged;
                 return value;
             });
         }
+
+        protected abstract object MetadataKey { get; }
+
+        protected MetadataStore MetadataStore
+        {
+            get { return this._metadataStore.Value; }
+        }
+
+        public event EventHandler<MetadataChangedEventArgs> MetadataChanged;
 
         protected override void Dispose(bool disposing)
         {

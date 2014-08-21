@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Cryptography.X509Certificates;
-using System.Text;
 using JetBrains.Annotations;
 
 namespace CupCake.Command.Source
@@ -18,8 +14,8 @@ namespace CupCake.Command.Source
             return playerSource;
         }
 
-            /// <summary>
-        /// Replies the specified chat message to the invoke source.
+        /// <summary>
+        ///     Replies the specified chat message to the invoke source.
         /// </summary>
         /// <param name="invokeSource">The invoke source.</param>
         /// <param name="message">The chat message.</param>
