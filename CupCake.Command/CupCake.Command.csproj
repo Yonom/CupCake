@@ -56,6 +56,8 @@
     <Compile Include="HelpRequest.cs" />
     <Compile Include="CommandUtils.cs" />
     <Compile Include="Source\ConsoleInvokeSource.cs" />
+    <Compile Include="Source\InvalidInvokeSourceCommandException.cs" />
+    <Compile Include="Source\InvokeSourceExtensions.cs" />
     <Compile Include="Source\InvokeSourceBase.cs" />
     <Compile Include="Source\PlayerInvokeSource.cs" />
     <Compile Include="SyntaxException.cs" />

@@ -14,8 +14,8 @@ namespace CupCake.Messages
 
         protected override void Enable()
         {            
-            // Bind OnMessage
-            this.ConnectionPlatform.Connection.OnMessage += this.Connection_OnMessage;
+            // Bind EnableComplete
+            this.ServiceLoader.EnableComplete += ServiceLoader_EnableComplete;
 
             // Init MessageManager
             this.MessageManager = new MessageManager(this.Events);
@@ -63,7 +63,13 @@ namespace CupCake.Messages
             this.Events.Bind<CheckpointSendEvent>(this.OnAnySendEvent, EventPriority.Lowest);
             this.Events.Bind<TouchUserSendEvent>(this.OnAnySendEvent, EventPriority.Lowest);
             this.Events.Bind<ShowPurpleSendEvent>(this.OnAnySendEvent, EventPriority.Lowest);
-            
+
+            // Bind OnMessage
+            this.ConnectionPlatform.Connection.OnMessage += this.Connection_OnMessage;
+        }
+
+        private void ServiceLoader_EnableComplete(object sender, System.EventArgs e)
+        {
             // Send the init message
             this.Events.Raise(new InitSendEvent());
         }

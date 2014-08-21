@@ -2,11 +2,11 @@
 
 namespace CupCake.Command.Source
 {
-    public class InvokeSourceBase : IInvokeSource
+    public abstract class InvokeSourceBase : IInvokeSource
     {
         private readonly ReplyCallback _onReply;
 
-        public InvokeSourceBase(object sender, Group @group, string name, ReplyCallback onReply)
+        protected InvokeSourceBase(object sender, Group @group, string name, ReplyCallback onReply)
         {
             this.PluginName = "Bot";
 

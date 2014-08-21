@@ -5,11 +5,16 @@ namespace CupCake.Command
     [AttributeUsage(AttributeTargets.Method)]
     public class LabelAttribute : Attribute
     {
+        private string[] _labels;
+
         public LabelAttribute(params string[] labels)
         {
-            this.Labels = labels;
+            this._labels = labels;
         }
 
-        public string[] Labels { get; private set; }
+        public string[] Labels
+        {
+            get { return this._labels; }
+        }
     }
 }
