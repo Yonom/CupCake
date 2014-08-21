@@ -128,7 +128,13 @@ namespace CupCake.Server
 
             StartServer();
 
-            Thread.Sleep(Timeout.Infinite);
+            while (true)
+            {
+                var input = Console.ReadLine();
+
+                if (_clientEx != null)
+                    _clientEx.Input(input);
+            }
         }
 
         private static void Program_Output(string output)

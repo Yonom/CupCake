@@ -51,8 +51,9 @@ namespace CupCake.Server
 
         public void Input(string input)
         {
-            this._synchronizePlatform.DoSynchronously(
-                () => { this._eventsPlatform.Event<InputEvent>().Raise(this, new InputEvent(input)); });
+            if (this._synchronizePlatform != null)
+                this._synchronizePlatform.DoSynchronously(
+                    () => { this._eventsPlatform.Event<InputEvent>().Raise(this, new InputEvent(input)); });
         }
 
         private void PlatformLoader_EnableComplete(object sender, EventArgs e)
