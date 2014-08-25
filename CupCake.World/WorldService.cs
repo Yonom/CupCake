@@ -1,7 +1,10 @@
 using System;
+using System.Collections.Concurrent;
+using System.Collections.Generic;
 using System.Diagnostics;
 using CupCake.Core;
 using CupCake.Core.Events;
+using CupCake.Messages;
 using CupCake.Messages.Blocks;
 using CupCake.Messages.Receive;
 using CupCake.Players;
@@ -31,7 +34,8 @@ namespace CupCake.World
             uint start = 0;
             for (uint i = offset; i <= m.Count - 1; i++)
             {
-                if (m[i] as string != null && m.GetString(i) == "ws")
+                string strValue;
+                if ((strValue = m[i] as string) != null && strValue == "ws")
                 {
                     start = i + 1;
                     break;
@@ -39,123 +43,82 @@ namespace CupCake.World
             }
 
             // Generate an empty world
-            WorldBlock[,,] worldArray = this.GetEmptyWorld(sizeX, sizeY, Block.GravityNothing, Block.GravityNothing);
+            WorldBlock[,,] worldArray = this.GetEmptyWorld(sizeX, sizeY);
 
             // Parse the world data
             uint pointer = start;
-            do
+            string strValue2;
+            while ((strValue2 = m[pointer] as string) != null && strValue2 == "we")
             {
-                // Exit once we reached the end
-                if (m[pointer] as string != null && m.GetString(pointer) == "we")
-                    break;
-
                 var block = (Block)m.GetInteger(pointer++);
                 int l = m.GetInteger(pointer++);
                 byte[] byteArrayX = m.GetByteArray(pointer++);
                 byte[] byteArrayY = m.GetByteArray(pointer++);
+                var wblocks = this.GetBlocks(l, byteArrayX, byteArrayY, worldArray);
 
-                switch (block)
+
+                if (BlockUtils.IsCoinDoor(block))
                 {
-                    case Block.CoinDoor:
-                    case Block.CoinGate:
-                        uint coinsToCollect = m.GetUInt(pointer++);
-
-                        for (int i = 0; i <= byteArrayX.Length - 1; i += 2)
-                        {
-                            int x = byteArrayX[i] * 256 + byteArrayX[i + 1];
-                            int y = byteArrayY[i] * 256 + byteArrayY[i + 1];
-                            worldArray[l, x, y].SetCoinDoor((CoinDoorBlock)block, coinsToCollect);
-                        }
-
-
-                        break;
-                    case Block.MusicPiano:
-                    case Block.MusicDrum:
-                        uint soundId = m.GetUInt(pointer++);
-
-                        for (int i = 0; i <= byteArrayX.Length - 1; i += 2)
-                        {
-                            int x = byteArrayX[i] * 256 + byteArrayX[i + 1];
-                            int y = byteArrayY[i] * 256 + byteArrayY[i + 1];
-                            worldArray[l, x, y].SetSound((SoundBlock)block, soundId);
-                        }
-
-
-                        break;
-                    case Block.HazardSpike:
-                    case Block.DecorSciFi2013BlueSlope:
-                    case Block.DecorSciFi2013BlueStraight:
-                    case Block.DecorSciFi2013YellowSlope:
-                    case Block.DecorSciFi2013YellowStraight:
-                    case Block.DecorSciFi2013GreenSlope:
-                    case Block.DecorSciFi2013GreenStraight:
-                        uint rotation = m.GetUInt(pointer++);
-
-                        for (int i = 0; i <= byteArrayX.Length - 1; i += 2)
-                        {
-                            int x = byteArrayX[i] * 256 + byteArrayX[i + 1];
-                            int y = byteArrayY[i] * 256 + byteArrayY[i + 1];
-                            worldArray[l, x, y].SetRotatable((RotatableBlock)block, rotation);
-                        }
-
-
-                        break;
-                    case Block.Portal:
-                    case Block.InvisiblePortal:
-                        var portalRotation = (PortalRotation)m.GetUInt(pointer++);
-                        uint portalId = m.GetUInt(pointer++);
-                        uint portalTarget = m.GetUInt(pointer++);
-
-                        for (int i = 0; i <= byteArrayX.Length - 1; i += 2)
-                        {
-                            int x = byteArrayX[i] * 256 + byteArrayX[i + 1];
-                            int y = byteArrayY[i] * 256 + byteArrayY[i + 1];
-                            worldArray[l, x, y].SetPortal((PortalBlock)block, portalId, portalTarget, portalRotation);
-                        }
-
-
-                        break;
-                    case Block.WorldPortal:
-                        string worldPortalTarget = m.GetString(pointer++);
-
-                        for (int i = 0; i <= byteArrayX.Length - 1; i += 2)
-                        {
-                            int x = byteArrayX[i] * 256 + byteArrayX[i + 1];
-                            int y = byteArrayY[i] * 256 + byteArrayY[i + 1];
-                            worldArray[l, x, y].SetWorldPortal((WorldPortalBlock)block, worldPortalTarget);
-                        }
-
-
-                        break;
-                    case Block.DecorSign:
-                    case Block.DecorLabel:
-                        string text = m.GetString(pointer++);
-
-                        for (int i = 0; i <= byteArrayX.Length - 1; i += 2)
-                        {
-                            int x = byteArrayX[i] * 256 + byteArrayX[i + 1];
-                            int y = byteArrayY[i] * 256 + byteArrayY[i + 1];
-                            worldArray[l, x, y].SetLabel((LabelBlock)block, text);
-                        }
-
-
-                        break;
-                    default:
-                        for (int i = 0; i <= byteArrayX.Length - 1; i += 2)
-                        {
-                            int x = byteArrayX[i] * 256 + byteArrayX[i + 1];
-                            int y = byteArrayY[i] * 256 + byteArrayY[i + 1];
-                            worldArray[l, x, y].SetBlock(block);
-                        }
-
-                        break;
+                    uint coinsToCollect = m.GetUInt(pointer++);
+                    foreach (var wblock in wblocks)
+                        wblock.SetCoinDoor((CoinDoorBlock)block, coinsToCollect);
                 }
-            } while (true);
+                else if (BlockUtils.IsSound(block))
+                {
+                    uint soundId = m.GetUInt(pointer++);                    
+                    foreach (var wblock in wblocks)
+                        wblock.SetSound((SoundBlock)block, soundId);
+                }
+                else if (BlockUtils.IsRotatable(block))
+                {
+                    uint rotation = m.GetUInt(pointer++);
+                    foreach (var wblock in wblocks)
+                        wblock.SetRotatable((RotatableBlock)block, rotation);
+
+                }
+                else if (BlockUtils.IsPortal(block))
+                {
+                    var portalRotation = (PortalRotation)m.GetUInt(pointer++);
+                    uint portalId = m.GetUInt(pointer++);
+                    uint portalTarget = m.GetUInt(pointer++);
+                    foreach (var wblock in wblocks)
+                        wblock.SetPortal((PortalBlock)block, portalId, portalTarget, portalRotation);
+                }
+                else if (BlockUtils.IsWorldPortal(block))
+                {
+                    string worldPortalTarget = m.GetString(pointer++);
+                    foreach (var wblock in wblocks)
+                        wblock.SetWorldPortal((WorldPortalBlock)block, worldPortalTarget);
+                    
+                }
+                else if (BlockUtils.IsLabel(block))
+                {
+                    string text = m.GetString(pointer++);
+                    foreach (var wblock in wblocks)
+                        wblock.SetLabel((LabelBlock)block, text);
+                }
+                else
+                {
+                    foreach (var wblock in wblocks)
+                        wblock.SetBlock(block);
+                }
+            }
 
             return worldArray;
         }
 
-        private WorldBlock[,,] GetEmptyWorld(int sizeX, int sizeY, Block fillBlock, Block borderBlock)
+        private IEnumerable<WorldBlock> GetBlocks(int l, byte[] byteArrayX, byte[] byteArrayY, WorldBlock[,,] worldArray)
+        {
+            for (int i = 0; i <= byteArrayX.Length - 1; i += 2)
+            {
+                int x = byteArrayX[i] * 256 + byteArrayX[i + 1];
+                int y = byteArrayY[i] * 256 + byteArrayY[i + 1];
+
+                yield return worldArray[l, x, y];
+            }
+        }
+
+        private WorldBlock[, ,] GetEmptyWorld(int sizeX, int sizeY, Block fillBlock = Block.GravityNothing, Block borderBlock = Block.GravityNothing)
         {
             var blockArray = new WorldBlock[2, sizeX, sizeY];
 
