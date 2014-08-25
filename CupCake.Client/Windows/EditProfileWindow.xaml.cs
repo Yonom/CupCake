@@ -119,7 +119,7 @@ namespace CupCake.Client.Windows
             if (this.DatabaseComboBox.SelectedItem != null)
             {
                 var database = (Database)((TextBlock)this.DatabaseComboBox.SelectedItem).Tag;
-                new EditDatabaseWindow(database, false).ShowDialog();
+                new EditDatabaseWindow(database, false) {Owner = this}.ShowDialog();
             }
         }
     }

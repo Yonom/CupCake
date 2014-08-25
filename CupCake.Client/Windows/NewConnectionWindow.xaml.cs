@@ -133,13 +133,13 @@ namespace CupCake.Client.Windows
         private void EditProfileButton_Click(object sender, RoutedEventArgs e)
         {
             var profile = (Profile)((TextBlock)this.ProfileComboBox.SelectedItem).Tag;
-            new EditProfileWindow(profile, false).ShowDialog();
+            new EditProfileWindow(profile, false) {Owner = this}.ShowDialog();
         }
 
         private void EditAccountButton_Click(object sender, RoutedEventArgs e)
         {
             var account = (Account)((TextBlock)this.AccountComboBox.SelectedItem).Tag;
-            new EditAccountWindow(account, false).ShowDialog();
+            new EditAccountWindow(account, false) {Owner = this}.ShowDialog();
         }
     }
 }
