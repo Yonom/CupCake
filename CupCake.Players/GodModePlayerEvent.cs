@@ -4,8 +4,8 @@ namespace CupCake.Players
 {
     public class GodModePlayerEvent : PlayerEvent<GodModeReceiveEvent>
     {
-        internal GodModePlayerEvent(Player player, GodModeReceiveEvent innerEvent)
-            : base(player, innerEvent)
+        internal GodModePlayerEvent(Player oldPlayer, Player player, GodModeReceiveEvent innerEvent)
+            : base(oldPlayer, player, innerEvent)
         {
         }
     }

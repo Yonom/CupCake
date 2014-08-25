@@ -4,8 +4,8 @@ namespace CupCake.Players
 {
     public class CrownPlayerEvent : PlayerEvent<CrownReceiveEvent>
     {
-        internal CrownPlayerEvent(Player player, CrownReceiveEvent innerEvent)
-            : base(player, innerEvent)
+        internal CrownPlayerEvent(Player oldPlayer, Player player, CrownReceiveEvent innerEvent)
+            : base(oldPlayer, player, innerEvent)
         {
         }
     }

@@ -4,8 +4,8 @@ namespace CupCake.Players
 {
     public class TeleportPlayerEvent : PlayerEvent<Point>
     {
-        internal TeleportPlayerEvent(Player player, Point innerEvent)
-            : base(player, innerEvent)
+        internal TeleportPlayerEvent(Player oldPlayer, Player player, Point innerEvent)
+            : base(oldPlayer, player, innerEvent)
         {
         }
     }

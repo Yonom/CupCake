@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Concurrent;
 using System.Linq;
+using System.Net.Sockets;
 using CupCake.Core;
 using CupCake.Core.Events;
 using CupCake.Core.Log;
@@ -49,7 +50,7 @@ namespace CupCake.Players
             this.AddPlayer(new AddJoinArgs(this, e), e,
                 player =>
                     // Raise the add event for this player
-                    this.Events.Raise(new AddPlayerEvent(player, e)),
+                    player.RaisePlayerEvent<AddReceiveEvent, AddPlayerEvent>(e),
                 () =>
                     this.Logger.Log(LogPriority.Warning, "Received Add with existing UserId. Name: " + e.Username));
         }
@@ -63,7 +64,7 @@ namespace CupCake.Players
                 if (successCallback != null)
                     successCallback(player);
 
-                this.Events.Raise(new JoinPlayerEvent(player, e));
+                player.RaisePlayerEvent<IUserPosReceiveEvent, JoinPlayerEvent>(e);
             }
             else
             {

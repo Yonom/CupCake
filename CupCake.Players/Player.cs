@@ -152,15 +152,24 @@ namespace CupCake.Players
                     if (e.UserId == this.UserId)
                     {
                         callback(sender, e);
-                        var instance = (TPlayer)Activator.CreateInstance(typeof(TPlayer),
-                            BindingFlags.NonPublic |
-                            BindingFlags.Instance,
-                            null, new object[] {this, e}, null);
 
-                        this.SynchronizePlatform.Do(() =>
-                            this.Events.Raise(instance));
+                        this.RaisePlayerEvent<T, TPlayer>(e);
                     }
                 }, EventPriority.High);
+        }
+
+
+        internal void RaisePlayerEvent<T, TPlayer>(T e) where TPlayer : PlayerEvent<T>
+        {
+            var copy = this.MemberwiseClone();
+
+            var instance = (TPlayer)Activator.CreateInstance(typeof(TPlayer),
+                BindingFlags.NonPublic |
+                BindingFlags.Instance,
+                null, new object[] {copy, this, e}, null);
+
+            this.SynchronizePlatform.Do(() =>
+                this.Events.Raise(instance));
         }
 
         private void ExtractHostData()
@@ -348,8 +357,7 @@ namespace CupCake.Players
                 this.IsDead = false;
 
                 var point = new Point(this.PosX, this.PosY);
-                this.SynchronizePlatform.Do(() =>
-                    this.Events.Raise(new TeleportPlayerEvent(this, point)));
+                this.RaisePlayerEvent<Point, TeleportPlayerEvent>(point);
             }
         }
 
@@ -371,8 +379,7 @@ namespace CupCake.Players
                 }
 
                 var point = new Point(this.PosX, this.PosY);
-                this.SynchronizePlatform.Do(() =>
-                    this.Events.Raise(new TeleportPlayerEvent(this, point)));
+                this.RaisePlayerEvent<Point, TeleportPlayerEvent>(point);
             }
         }
     }

@@ -4,8 +4,8 @@ namespace CupCake.Players
 {
     public class MagicPlayerEvent : PlayerEvent<MagicReceiveEvent>
     {
-        internal MagicPlayerEvent(Player player, MagicReceiveEvent innerEvent)
-            : base(player, innerEvent)
+        internal MagicPlayerEvent(Player oldPlayer, Player player, MagicReceiveEvent innerEvent)
+            : base(oldPlayer, player, innerEvent)
         {
         }
     }

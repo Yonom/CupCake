@@ -4,8 +4,8 @@ namespace CupCake.Players
 {
     public class LeftPlayerEvent : PlayerEvent<LeftReceiveEvent>
     {
-        internal LeftPlayerEvent(Player player, LeftReceiveEvent innerEvent)
-            : base(player, innerEvent)
+        internal LeftPlayerEvent(Player oldPlayer, Player player, LeftReceiveEvent innerEvent)
+            : base(oldPlayer, player, innerEvent)
         {
         }
     }

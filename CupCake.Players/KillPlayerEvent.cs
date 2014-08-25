@@ -4,8 +4,8 @@ namespace CupCake.Players
 {
     public class KillPlayerEvent : PlayerEvent<KillReceiveEvent>
     {
-        internal KillPlayerEvent(Player player, KillReceiveEvent innerEvent)
-            : base(player, innerEvent)
+        internal KillPlayerEvent(Player oldPlayer, Player player, KillReceiveEvent innerEvent)
+            : base(oldPlayer, player, innerEvent)
         {
         }
     }

@@ -4,8 +4,8 @@ namespace CupCake.Players
 {
     public class AutoTextPlayerEvent : PlayerEvent<AutoTextReceiveEvent>
     {
-        internal AutoTextPlayerEvent(Player player, AutoTextReceiveEvent innerEvent)
-            : base(player, innerEvent)
+        internal AutoTextPlayerEvent(Player oldPlayer, Player player, AutoTextReceiveEvent innerEvent)
+            : base(oldPlayer, player, innerEvent)
         {
         }
     }

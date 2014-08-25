@@ -4,8 +4,8 @@ namespace CupCake.Players
 {
     public class JoinPlayerEvent : PlayerEvent<IUserPosReceiveEvent>
     {
-        internal JoinPlayerEvent(Player player, IUserPosReceiveEvent innerEvent)
-            : base(player, innerEvent)
+        internal JoinPlayerEvent(Player oldPlayer, Player player, IUserPosReceiveEvent innerEvent)
+            : base(oldPlayer, player, innerEvent)
         {
         }
     }
