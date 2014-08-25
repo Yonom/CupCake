@@ -303,7 +303,7 @@ namespace CupCake
                     (Action<IInvokeSource, ParsedCommand>)
                         Delegate.CreateDelegate(typeof(Action<IInvokeSource, ParsedCommand>), this, eventHandler);
 
-                var cmd = new RelayCommand(handler);
+                var cmd = new RelayCommand(handler, this.GetName());
                 cmd.Enable(null, new MuffinArgs(this.PlatformLoader, this.ServiceLoader, this.MuffinLoader));
                 this._commands.Add(cmd);
             }
