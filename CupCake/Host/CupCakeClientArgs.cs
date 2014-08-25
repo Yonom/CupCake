@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using JetBrains.Annotations;
+using PlayerIOClient;
 
 namespace CupCake.Host
 {
@@ -11,6 +13,14 @@ namespace CupCake.Host
     public class CupCakeClientArgs
     {
         /// <summary>
+        /// Gets or sets the connection.
+        /// </summary>
+        /// <value>
+        /// The connection.
+        /// </value>
+        public Connection Connection { get; set; }
+
+        /// <summary>
         /// Gets the world identifier.
         /// </summary>
         /// <value>
@@ -19,19 +29,25 @@ namespace CupCake.Host
         public string WorldId { get; private set; }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="CupCakeClientArgs"/> class.
+        /// Initializes a new instance of the <see cref="CupCakeClientArgs" /> class.
         /// </summary>
-        public CupCakeClientArgs()
+        /// <param name="connection">The connection.</param>
+        public CupCakeClientArgs(Connection connection) : this(connection, null)
         {
-            
+            this.Connection = connection;
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="CupCakeClientArgs"/> class.
+        /// Initializes a new instance of the <see cref="CupCakeClientArgs" /> class.
         /// </summary>
+        /// <param name="connection">The connection.</param>
         /// <param name="worldId">The world identifier.</param>
-        public CupCakeClientArgs(string worldId)
+        public CupCakeClientArgs([NotNull]Connection connection, string worldId)
         {
+            if (connection == null)
+                throw new ArgumentNullException("connection");
+
+            this.Connection = connection;
             this.WorldId = worldId;
         }
     }

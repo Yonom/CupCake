@@ -7,6 +7,8 @@ namespace CupCake.Core
     {
         public Connection Connection { get; set; }
 
+        public string WorldId { get; set; }
+
         protected override void Enable()
         {
         }

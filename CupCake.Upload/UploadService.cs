@@ -292,9 +292,9 @@ namespace CupCake.Upload
             this.Events.Raise(this.GetPortal(x, y, block, id, target, rotation));
         }
 
-        public void UploadWorldPortal(int x, int y, WorldPortalBlock block, string roomId)
+        public void UploadWorldPortal(int x, int y, WorldPortalBlock block, string worldId)
         {
-            this.Events.Raise(this.GetWorldPortal(x, y, block, roomId));
+            this.Events.Raise(this.GetWorldPortal(x, y, block, worldId));
         }
 
         public void UploadSound(int x, int y, SoundBlock block, uint soundId)
@@ -332,9 +332,9 @@ namespace CupCake.Upload
             return new UploadRequestEvent(e);
         }
 
-        public UploadRequestEvent GetWorldPortal(int x, int y, WorldPortalBlock block, string roomId)
+        public UploadRequestEvent GetWorldPortal(int x, int y, WorldPortalBlock block, string worldId)
         {
-            var e = new WorldPortalPlaceSendEvent(Layer.Foreground, x, y, block, roomId);
+            var e = new WorldPortalPlaceSendEvent(Layer.Foreground, x, y, block, worldId);
             return new UploadRequestEvent(e);
         }
 

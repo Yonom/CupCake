@@ -104,7 +104,7 @@ namespace CupCake.Server
             this.OnOutput(String.Format("*** {0}", str));
         }
 
-        public void Start(string email, string password, string roomId, string[] directories,
+        public void Start(string email, string password, string worldId, string[] directories,
             IStorageProvider storage)
         {
             this._storage = storage;
@@ -128,11 +128,11 @@ namespace CupCake.Server
             // Get room version
             this.LogMessage("Joining room...");
             // Connect to playerIO and join room
-            Connection connection = new RabbitAuth().LogIn(email, roomId, password);
+            Connection connection = new RabbitAuth().LogIn(email, worldId, password);
 
             // Start
             this.LogMessage("Starting plugins...");
-            this._client.Start(connection);
+            this._client.Start(new CupCakeClientArgs(connection,  worldId));
 
             // Handle disconnect, if we are already too late, disconnect
             connection.OnDisconnect += this.connection_OnDisconnect;
