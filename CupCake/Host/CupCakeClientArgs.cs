@@ -32,8 +32,11 @@ namespace CupCake.Host
         /// Initializes a new instance of the <see cref="CupCakeClientArgs" /> class.
         /// </summary>
         /// <param name="connection">The connection.</param>
-        public CupCakeClientArgs(Connection connection) : this(connection, null)
+        internal CupCakeClientArgs(Connection connection)
         {
+            if (connection == null)
+                throw new ArgumentNullException("connection");
+
             this.Connection = connection;
         }
 
@@ -42,12 +45,12 @@ namespace CupCake.Host
         /// </summary>
         /// <param name="connection">The connection.</param>
         /// <param name="worldId">The world identifier.</param>
-        public CupCakeClientArgs([NotNull]Connection connection, string worldId)
+        public CupCakeClientArgs([NotNull]Connection connection, [NotNull]string worldId)
+            : this(connection)
         {
-            if (connection == null)
-                throw new ArgumentNullException("connection");
+            if (worldId == null)
+                throw new ArgumentNullException("worldId");
 
-            this.Connection = connection;
             this.WorldId = worldId;
         }
     }
