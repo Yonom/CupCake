@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Linq;
-using CupCake.HostAPI.Status;
 
-namespace CupCake.Server.SyntaxProviders
+namespace CupCake.HostAPI.Status
 {
     public class CupCakeStatusSyntaxProvider : IStatusSyntaxProvider
     {

@@ -3,7 +3,6 @@ using System.ComponentModel.Composition.Hosting;
 using System.IO;
 using System.Linq;
 using System.Reflection;
-using CupCake.Chat;
 using CupCake.Core;
 using CupCake.Core.Events;
 using CupCake.Core.Storage;
@@ -11,7 +10,6 @@ using CupCake.Host;
 using CupCake.HostAPI.IO;
 using CupCake.HostAPI.Status;
 using CupCake.HostAPI.Title;
-using CupCake.Server.SyntaxProviders;
 using PlayerIOClient;
 using Rabbit;
 
@@ -65,20 +63,13 @@ namespace CupCake.Server
                 storagePlatform.StorageProvider = this._storage;
             }
 
-            // Listen to HostAPI events
             this._synchronizePlatform = this._client.PlatformLoader.Get<SynchronizePlatform>();
+
+            // Listen to HostAPI events
             this._eventsPlatform = this._client.PlatformLoader.Get<EventsPlatform>();
             this._eventsPlatform.Event<OutputEvent>().Bind(this.OnOutput, EventPriority.Lowest);
             this._eventsPlatform.Event<ChangeTitleEvent>().Bind(this.OnChangeTitle, EventPriority.Lowest);
             this._eventsPlatform.Event<ChangeStatusEvent>().Bind(this.OnChangeStatus, EventPriority.Lowest);
-        }
-
-        private void ServiceLoader_EnableComplete(object sender, EventArgs e)
-        {
-            // Change the default chat, io and status formats
-            this._client.ServiceLoader.Get<ChatService>().SyntaxProvider = new CupCakeChatSyntaxProvider();
-            this._client.ServiceLoader.Get<IOService>().SyntaxProvider = new CupCakeIOSyntaxProvider();
-            this._client.ServiceLoader.Get<StatusService>().SyntaxProvider = new CupCakeStatusSyntaxProvider();
         }
 
         private void OnOutput(object sender, OutputEvent e)
@@ -123,7 +114,6 @@ namespace CupCake.Server
             // Create the client
             this._client = new CupCakeClient(new AssemblyCatalog(Assembly.GetExecutingAssembly()));
             this._client.PlatformLoader.EnableComplete += this.PlatformLoader_EnableComplete;
-            this._client.ServiceLoader.EnableComplete += this.ServiceLoader_EnableComplete;
 
             // Load plugins
             this.LogMessage("Loading plugin dlls...");

@@ -1,8 +1,7 @@
 ﻿using System;
 using CupCake.Core.Log;
-using CupCake.HostAPI.IO;
 
-namespace CupCake.Server.SyntaxProviders
+namespace CupCake.HostAPI.IO
 {
     public class CupCakeIOSyntaxProvider : IIOSyntaxProvider
     {

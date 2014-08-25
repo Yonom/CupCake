@@ -19,11 +19,10 @@ namespace CupCake.Chat
 
         protected override void Enable()
         {
-            this.SyntaxProvider = new BasicChatSyntaxProvider();
+            this.SyntaxProvider = new CupCakeChatSyntaxProvider();
 
             this._mySendTimer = new Timer(700);
             this._mySendTimer.Elapsed += this.SendTimer_Elapsed;
-            this._mySendTimer.Start();
         }
 
         private void SendTimer_Elapsed(object sender, ElapsedEventArgs elapsedEventArgs)

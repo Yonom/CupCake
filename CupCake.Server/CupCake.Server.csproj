@@ -97,10 +97,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="StorageProviders\MySqlStorageProvider.cs" />
     <Compile Include="StorageProviders\SQLiteStorageProvider.cs" />
-    <Compile Include="SyntaxProviders\CupCakeChatSyntaxProvider.cs" />
-    <Compile Include="SyntaxProviders\CupCakeIOSyntaxProvider.cs" />
     <Compile Include="Muffins\TitleMuffin.cs" />
-    <Compile Include="SyntaxProviders\CupCakeStatusSyntaxProvider.cs" />
     <Compile Include="XmlSerialize.cs" />
   </ItemGroup>
   <ItemGroup>

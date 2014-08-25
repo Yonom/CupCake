@@ -12,7 +12,7 @@ namespace CupCake.HostAPI.IO
 
         protected override void Enable()
         {
-            this.SyntaxProvider = new BasicIOSyntaxProvider();
+            this.SyntaxProvider = new CupCakeIOSyntaxProvider();
 
             if (Debugger.IsAttached)
                 this.MinPriority = LogPriority.Debug;

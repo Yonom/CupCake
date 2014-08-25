@@ -10,6 +10,12 @@ namespace CupCake.Host
     /// </summary>
     public class CupCakeClientArgs
     {
+        /// <summary>
+        /// Gets the world identifier.
+        /// </summary>
+        /// <value>
+        /// The world identifier.
+        /// </value>
         public string WorldId { get; private set; }
 
         /// <summary>

@@ -18,7 +18,7 @@ namespace CupCake.HostAPI.Status
 
         protected override void Enable()
         {
-            this.SyntaxProvider = new BasicStatusSyntaxProvider();
+            this.SyntaxProvider = new CupCakeStatusSyntaxProvider();
         }
 
         public void Add(StatusItem item)
