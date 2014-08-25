@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using CupCake.Core;
 using CupCake.Core.Events;
+using CupCake.Core.Log;
 using CupCake.Messages;
 using CupCake.Messages.Blocks;
 using CupCake.Messages.Receive;
@@ -49,58 +50,66 @@ namespace CupCake.World
             uint pointer = start;
             string strValue2;
             while ((strValue2 = m[pointer] as string) != null && strValue2 == "we")
-            {
+            {                    
                 var block = (Block)m.GetInteger(pointer++);
                 int l = m.GetInteger(pointer++);
-                byte[] byteArrayX = m.GetByteArray(pointer++);
-                byte[] byteArrayY = m.GetByteArray(pointer++);
-                var wblocks = this.GetBlocks(l, byteArrayX, byteArrayY, worldArray);
+                
+                try
+                {                
+                    byte[] byteArrayX = m.GetByteArray(pointer++);
+                    byte[] byteArrayY = m.GetByteArray(pointer++);
+                    var wblocks = this.GetBlocks(l, byteArrayX, byteArrayY, worldArray);
 
+                    if (BlockUtils.IsCoinDoor(block))
+                    {
+                        uint coinsToCollect = m.GetUInt(pointer++);
+                        foreach (var wblock in wblocks)
+                            wblock.SetCoinDoor((CoinDoorBlock)block, coinsToCollect);
+                    }
+                    else if (BlockUtils.IsSound(block))
+                    {
+                        uint soundId = m.GetUInt(pointer++);
+                        foreach (var wblock in wblocks)
+                            wblock.SetSound((SoundBlock)block, soundId);
+                    }
+                    else if (BlockUtils.IsRotatable(block))
+                    {
+                        uint rotation = m.GetUInt(pointer++);
+                        foreach (var wblock in wblocks)
+                            wblock.SetRotatable((RotatableBlock)block, rotation);
 
-                if (BlockUtils.IsCoinDoor(block))
-                {
-                    uint coinsToCollect = m.GetUInt(pointer++);
-                    foreach (var wblock in wblocks)
-                        wblock.SetCoinDoor((CoinDoorBlock)block, coinsToCollect);
-                }
-                else if (BlockUtils.IsSound(block))
-                {
-                    uint soundId = m.GetUInt(pointer++);                    
-                    foreach (var wblock in wblocks)
-                        wblock.SetSound((SoundBlock)block, soundId);
-                }
-                else if (BlockUtils.IsRotatable(block))
-                {
-                    uint rotation = m.GetUInt(pointer++);
-                    foreach (var wblock in wblocks)
-                        wblock.SetRotatable((RotatableBlock)block, rotation);
+                    }
+                    else if (BlockUtils.IsPortal(block))
+                    {
+                        var portalRotation = (PortalRotation)m.GetUInt(pointer++);
+                        uint portalId = m.GetUInt(pointer++);
+                        uint portalTarget = m.GetUInt(pointer++);
+                        foreach (var wblock in wblocks)
+                            wblock.SetPortal((PortalBlock)block, portalId, portalTarget, portalRotation);
+                    }
+                    else if (BlockUtils.IsWorldPortal(block))
+                    {
+                        string worldPortalTarget = m.GetString(pointer++);
+                        foreach (var wblock in wblocks)
+                            wblock.SetWorldPortal((WorldPortalBlock)block, worldPortalTarget);
 
+                    }
+                    else if (BlockUtils.IsLabel(block))
+                    {
+                        string text = m.GetString(pointer++);
+                        foreach (var wblock in wblocks)
+                            wblock.SetLabel((LabelBlock)block, text);
+                    }
+                    else
+                    {
+                        foreach (var wblock in wblocks)
+                            wblock.SetBlock(block);
+                    }
                 }
-                else if (BlockUtils.IsPortal(block))
+                catch (Exception ex)
                 {
-                    var portalRotation = (PortalRotation)m.GetUInt(pointer++);
-                    uint portalId = m.GetUInt(pointer++);
-                    uint portalTarget = m.GetUInt(pointer++);
-                    foreach (var wblock in wblocks)
-                        wblock.SetPortal((PortalBlock)block, portalId, portalTarget, portalRotation);
-                }
-                else if (BlockUtils.IsWorldPortal(block))
-                {
-                    string worldPortalTarget = m.GetString(pointer++);
-                    foreach (var wblock in wblocks)
-                        wblock.SetWorldPortal((WorldPortalBlock)block, worldPortalTarget);
-                    
-                }
-                else if (BlockUtils.IsLabel(block))
-                {
-                    string text = m.GetString(pointer++);
-                    foreach (var wblock in wblocks)
-                        wblock.SetLabel((LabelBlock)block, text);
-                }
-                else
-                {
-                    foreach (var wblock in wblocks)
-                        wblock.SetBlock(block);
+                    this.Logger.Log(LogPriority.Error,
+                        "Exception when parsing block {0} on layer {1}. The error was: {2}", block, l, ex.Message);
                 }
             }
 
