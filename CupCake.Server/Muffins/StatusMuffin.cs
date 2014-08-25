@@ -1,4 +1,5 @@
 ﻿using System;
+using CupCake.Core;
 using CupCake.HostAPI.Status;
 using CupCake.Messages.Receive;
 using CupCake.Players;
@@ -14,24 +15,22 @@ namespace CupCake.Server.Muffins
 
         protected override void Enable()
         {
-            this.Events.Bind<InitReceiveEvent>(this.OnInit);
-            this.Events.Bind<InitReceiveEvent>(this.OnInitComplete);
-            this.Events.Bind<UpdateMetaReceiveEvent>(this.OnUpdateMeta);
-            this.Events.Bind<JoinPlayerEvent>(this.OnJoin);
-            this.Events.Bind<LeftPlayerEvent>(this.OnLeft);
         }
 
-        private void OnJoin(object sender, JoinPlayerEvent e)
+        [EventListener]
+        private void OnJoin(JoinPlayerEvent e)
         {
             this.UpdateOnline();
         }
 
-        private void OnLeft(object sender, LeftPlayerEvent e)
+        [EventListener]
+        private void OnLeft(LeftPlayerEvent e)
         {
             this.UpdateOnline();
         }
 
-        private void OnInitComplete(object sender, InitReceiveEvent e)
+        [EventListener]
+        private void OnInitComplete(InitReceiveEvent e)
         {
             this.StatusService.Add(this._onlinePlayers);
             this.StatusService.Add(this._plays);
@@ -39,12 +38,14 @@ namespace CupCake.Server.Muffins
             this.StatusService.Add(this._totalWoots);
         }
 
-        private void OnInit(object sender, InitReceiveEvent e)
+        [EventListener]
+        private void OnInit(InitReceiveEvent e)
         {
             this.UpdateMeta(e);
         }
 
-        private void OnUpdateMeta(object sender, UpdateMetaReceiveEvent e)
+        [EventListener]
+        private void OnUpdateMeta(UpdateMetaReceiveEvent e)
         {
             this.UpdateMeta(e);
         }

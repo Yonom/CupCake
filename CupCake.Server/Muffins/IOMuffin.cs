@@ -1,4 +1,5 @@
 ﻿using CupCake.Command;
+using CupCake.Core;
 using CupCake.HostAPI.IO;
 
 namespace CupCake.Server.Muffins
@@ -7,10 +8,10 @@ namespace CupCake.Server.Muffins
     {
         protected override void Enable()
         {
-            this.Events.Bind<InputEvent>(this.OnInput);
         }
 
-        private void OnInput(object sender, InputEvent e)
+        [EventListener]
+        private void OnInput(InputEvent e)
         {
             this.CommandService.InvokeFromConsole(new ParsedCommand(e.Input));
         }

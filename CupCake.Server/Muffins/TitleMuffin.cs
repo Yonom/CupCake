@@ -1,4 +1,5 @@
-﻿using CupCake.HostAPI.Title;
+﻿using CupCake.Core;
+using CupCake.HostAPI.Title;
 using CupCake.Messages.Receive;
 
 namespace CupCake.Server.Muffins
@@ -7,16 +8,16 @@ namespace CupCake.Server.Muffins
     {
         protected override void Enable()
         {
-            this.Events.Bind<InitReceiveEvent>(this.OnInit);
-            this.Events.Bind<UpdateMetaReceiveEvent>(this.OnUpdateMeta);
         }
 
-        private void OnUpdateMeta(object sender, UpdateMetaReceiveEvent e)
+        [EventListener]
+        private void OnUpdateMeta(UpdateMetaReceiveEvent e)
         {
             this.Events.Raise(new ChangeTitleEvent(e.WorldName));
         }
 
-        private void OnInit(object sender, InitReceiveEvent e)
+        [EventListener]
+        private void OnInit(InitReceiveEvent e)
         {
             this.Events.Raise(new ChangeTitleEvent(e.WorldName));
         }
