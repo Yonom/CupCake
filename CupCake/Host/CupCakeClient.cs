@@ -23,6 +23,7 @@ namespace CupCake.Host
         public CupCakeClient(params ComposablePartCatalog[] catalog)
             : base(catalog)
         {
+            
             this.AggregateCatalog.Catalogs.Add(new DirectoryCatalog(Environment.CurrentDirectory, "CupCake.*.dll"));
             this.PlatformLoader.EnableComplete += this.PlatformLoader_EnableComplete;
         }
@@ -33,6 +34,20 @@ namespace CupCake.Host
         /// <param name="connection">The connection.</param>
         /// <exception cref="System.ArgumentNullException">connection</exception>
         public void Start(Connection connection)
+        {
+            if (connection == null)
+                throw new ArgumentNullException("connection");
+            this._connection = connection;
+            base.Start();
+        }
+
+        /// <summary>
+        ///     Starts CupCake and sets the connection to the given one.
+        /// </summary>
+        /// <param name="connection">The connection.</param>
+        /// <param name="args">The arguments.</param>
+        /// <exception cref="System.ArgumentNullException">connection</exception>
+        public void Start(Connection connection, CupCakeClientArgs args)
         {
             if (connection == null)
                 throw new ArgumentNullException("connection");
