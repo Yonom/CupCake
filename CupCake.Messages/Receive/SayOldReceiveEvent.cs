@@ -3,7 +3,7 @@ using PlayerIOClient;
 namespace CupCake.Messages.Receive
 {
     /// <summary>
-    /// Occurs when initially joining a world; are the messages that were sent before entered world.
+    /// Occurs when an old message is received. Happens when initially joining a world for the messages that were sent before joining the world.
     /// </summary>
     public class SayOldReceiveEvent : ReceiveEvent
     {

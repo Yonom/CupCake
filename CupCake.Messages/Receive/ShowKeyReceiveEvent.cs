@@ -5,7 +5,7 @@ using PlayerIOClient;
 namespace CupCake.Messages.Receive
 {
     /// <summary>
-    /// Occurs when the keys are visible.
+    /// Occurs when a key becomes visible. (not pressed state)
     /// </summary>
     public class ShowKeyReceiveEvent : ReceiveEvent
     {

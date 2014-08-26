@@ -3,7 +3,7 @@ using PlayerIOClient;
 namespace CupCake.Messages.Receive
 {
     /// <summary>
-    /// Occurs when the "reset" event is recieved.
+    /// Occurs when the level is reset, usually by using "/loadlevel" command.
     /// </summary>
     public class ResetReceiveEvent : ReceiveEvent
     {

@@ -5,7 +5,7 @@ using PlayerIOClient;
 namespace CupCake.Messages.Receive
 {
     /// <summary>
-    /// Occurs when this block is rotatable.
+    /// Occurs when a rotatable block is placed.
     /// </summary>
     public class RotatablePlaceReceiveEvent : ReceiveEvent, IBlockPlaceReceiveEvent
     {
