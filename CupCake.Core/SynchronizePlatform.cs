@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Threading;
 using MuffinFramework.Platforms;
 using Nito.Async;
 
@@ -52,7 +53,8 @@ namespace CupCake.Core
         {
             if (disposing)
             {
-                this._thread.Dispose();
+                ThreadPool.QueueUserWorkItem(o => 
+                    this._thread.Dispose());
             }
 
             base.Dispose(disposing);

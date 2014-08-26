@@ -131,7 +131,7 @@ namespace CupCake.Server
                 Console.WriteLine(e.Message);
                 return;
             }
-
+            
             StartServer();
 
             while (true)
@@ -172,6 +172,7 @@ namespace CupCake.Server
         private static void StartServer()
         {
             var listener = new ServerListener(IPAddress.Any, _settings.Port, OnConnection);
+            OnOutput("^^^ Started server on " + listener.EndPoint);
 
             if (!_settings.Standalone)
             {
@@ -186,7 +187,7 @@ namespace CupCake.Server
                             _clientEx.Dispose();
                             Environment.Exit(0);
                         };
-
+                        
                         if (!_settings.Autoconnect)
                         {
                             h.DoSendRequestData(_settings.Debug);
@@ -208,7 +209,12 @@ namespace CupCake.Server
 
         private static void OnConnection(ClientHandle h)
         {
-            bool authenticated = String.IsNullOrEmpty(_settings.Pin);
+            bool authenticated = false;
+            if (String.IsNullOrEmpty(_settings.Pin))
+            {
+                authenticated = true;
+                SendBuffer(h);
+            }
 
             Output += s =>
             {
@@ -236,13 +242,7 @@ namespace CupCake.Server
                 if (_settings.Pin == authentication.Pin || authenticated)
                 {
                     authenticated = true;
-                    h.DoSendTitle(_title);
-                    h.DoSendStatus(_status);
-
-                    foreach (string output in _outputs.Skip(_outputs.Count - 200))
-                    {
-                        h.DoSendOutput(output);
-                    }
+                    SendBuffer(h);
                 }
                 else
                 {
@@ -273,6 +273,18 @@ namespace CupCake.Server
                 Start();
             };
         }
+
+        private static void SendBuffer(ClientHandle h)
+        {
+            h.DoSendTitle(_title);
+            h.DoSendStatus(_status);
+
+            foreach (string output in _outputs.Skip(_outputs.Count - 200))
+            {
+                h.DoSendOutput(output);
+            }
+        }
+
 
         private static void Start()
         {
@@ -309,12 +321,13 @@ namespace CupCake.Server
                 @"--pass " + _settings.Password,
                 @"--world " + _settings.World,
                 @"--port " + _settings.Port,
-                @"--pin " + _settings.Pin,
                 @"--dbtype " + _settings.DatabaseType,
-                @"--cs " + _settings.ConnectionString
+                @"--cs """ + _settings.ConnectionString + @""""
             };
             if (_settings.Standalone)
                 args.Add(@"--standalone");
+            if (!String.IsNullOrEmpty(_settings.Pin))
+                args.Add(@"--pin " + _settings.Pin);
 
             args.AddRange(_settings.Dirs.Select(d => @"--dir """ + d + @""""));
 
@@ -326,13 +339,11 @@ namespace CupCake.Server
                     Arguments = String.Join(" ", args)
                 }
             };
-
             if (!HasMainWindow())
             {
                 p.StartInfo.UseShellExecute = false;
                 p.StartInfo.CreateNoWindow = true;
             }
-
             p.Start();
         }
 

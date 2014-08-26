@@ -8,6 +8,9 @@ namespace CupCake.Protocol
 {
     public class ServerListener
     {
+        public EndPoint EndPoint {
+            get { return _listener.EndPoint; }
+        }
         public const int ServerPort = 4570;
         private readonly CupCakeListener _listener;
 
