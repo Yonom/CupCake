@@ -313,6 +313,9 @@ namespace CupCake.Server
                 @"--dbtype " + _settings.DatabaseType,
                 @"--cs " + _settings.ConnectionString
             };
+            if (_settings.Standalone)
+                args.Add(@"--standalone");
+
             args.AddRange(_settings.Dirs.Select(d => @"--dir """ + d + @""""));
 
             var p = new Process
