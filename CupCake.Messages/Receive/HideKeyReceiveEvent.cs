@@ -4,8 +4,15 @@ using PlayerIOClient;
 
 namespace CupCake.Messages.Receive
 {
+    /// <summary>
+    /// Occurs when a key is hidden.
+    /// </summary>
     public class HideKeyReceiveEvent : ReceiveEvent
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="HideKeyReceiveEvent"/> class.
+        /// </summary>
+        /// <param name="message">The message.</param>
         public HideKeyReceiveEvent(Message message)
             : base(message)
         {
@@ -16,6 +23,10 @@ namespace CupCake.Messages.Receive
             }
         }
 
+        /// <summary>
+        /// Gets or sets the keys.
+        /// </summary>
+        /// <value>The keys.</value>
         public Key[] Keys { get; set; }
     }
 }

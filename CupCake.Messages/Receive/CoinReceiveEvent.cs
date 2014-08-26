@@ -2,8 +2,15 @@ using PlayerIOClient;
 
 namespace CupCake.Messages.Receive
 {
+    /// <summary>
+    /// Class Coin Receive Event.
+    /// </summary>
     public class CoinReceiveEvent : ReceiveEvent, IUserReceiveEvent
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="CoinReceiveEvent"/> class.
+        /// </summary>
+        /// <param name="message">The message.</param>
         public CoinReceiveEvent(Message message)
             : base(message)
         {
@@ -11,7 +18,15 @@ namespace CupCake.Messages.Receive
             this.Coins = message.GetInteger(1);
         }
 
+        /// <summary>
+        /// Gets or sets the coins of the player.
+        /// </summary>
+        /// <value>The coins.</value>
         public int Coins { get; set; }
+        /// <summary>
+        /// Gets or sets the user identifier.
+        /// </summary>
+        /// <value>The user identifier.</value>
         public int UserId { get; set; }
     }
 }
