@@ -48,6 +48,8 @@
     <Compile Include="Commands\Ban\TempBanCommand.cs" />
     <Compile Include="Commands\EditCommandBase.cs" />
     <Compile Include="Commands\Utility\GuardianModeCommand.cs" />
+    <Compile Include="Commands\Utility\ShutdownCommand.cs" />
+    <Compile Include="Commands\Utility\RestartCommand.cs" />
     <Compile Include="EditCommandsMuffin.cs" />
     <Compile Include="Commands\Edit\GodModeCommand.cs" />
     <Compile Include="Commands\OwnerCommandBase.cs" />
@@ -124,6 +126,10 @@
     <ProjectReference Include="..\CupCake.Core\CupCake.Core.csproj">
       <Project>{598d616c-4886-482b-af57-7bc7daa56cce}</Project>
       <Name>CupCake.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CupCake.HostAPI\CupCake.HostAPI.csproj">
+      <Project>{CB00B556-E597-4C9B-AF9B-D9C98A378A48}</Project>
+      <Name>CupCake.HostAPI</Name>
     </ProjectReference>
     <ProjectReference Include="..\CupCake.Keys\CupCake.Keys.csproj">
       <Project>{445870A4-3ECA-4411-9A28-85BEE51F27C6}</Project>

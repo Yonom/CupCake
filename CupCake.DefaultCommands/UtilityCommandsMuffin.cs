@@ -22,6 +22,8 @@ namespace CupCake.DefaultCommands
         public RedCommand RedCommand { get; private set; }
         public SetSmileyCommand SetSmileyCommand { get; private set; }
         public UsePotionCommand UsePotionCommand { get; private set; }
+        public ShutdownCommand ShutdownCommand { get; private set; }
+        public RestartCommand RestartCommand { get; private set; }
 
         protected override void Enable()
         {
@@ -43,6 +45,8 @@ namespace CupCake.DefaultCommands
             this.RedCommand = this.EnablePart<RedCommand>();
             this.SetSmileyCommand = this.EnablePart<SetSmileyCommand>();
             this.UsePotionCommand = this.EnablePart<UsePotionCommand>();
+            this.ShutdownCommand = this.EnablePart<ShutdownCommand>();
+            this.RestartCommand = this.EnablePart<RestartCommand>();
         }
     }
 }
