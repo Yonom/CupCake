@@ -442,7 +442,8 @@ namespace CupCake.Client.Windows
             {
                 StartInfo =
                 {
-                    FileName = "CupCake.Server.exe"
+                    FileName = "CupCake.Server.exe",
+                    Arguments = "--localonly"
                 }
             };
 
@@ -454,7 +455,7 @@ namespace CupCake.Client.Windows
 
             if (isDebug)
             {
-                p.StartInfo.Arguments = "--debug";
+                p.StartInfo.Arguments += " --debug";
             }
 
             p.Start();

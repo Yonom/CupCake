@@ -16,6 +16,7 @@ namespace CupCake.Server
         public bool Standalone { get; set; }
         public string World { get; set; }
         public bool Autoconnect { get; set; }
+        public bool LocalOnly { get; set; }
 
         private List<string> _dirs;
 

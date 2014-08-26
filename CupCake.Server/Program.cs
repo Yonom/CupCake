@@ -69,6 +69,10 @@ namespace CupCake.Server
             var p = new OptionSet
             {
                 {
+                    "localonly",
+                    v => { _settings.LocalOnly = v != null; }
+                },
+                {
                     "settings=",
                     v => { _settings = XmlSerialize.Deserialize<CupCakeServerSettings>(v); }
                 },
@@ -171,7 +175,10 @@ namespace CupCake.Server
 
         private static void StartServer()
         {
-            var listener = new ServerListener(IPAddress.Any, _settings.Port, OnConnection);
+            var ipAddress = _settings.LocalOnly
+                ? IPAddress.Loopback
+                : IPAddress.Any;
+            var listener = new ServerListener(ipAddress, _settings.Port, OnConnection);
             OnOutput("^^^ Started server on " + listener.EndPoint);
 
             if (!_settings.Standalone)
@@ -326,6 +333,8 @@ namespace CupCake.Server
             };
             if (_settings.Standalone)
                 args.Add(@"--standalone");
+            if (_settings.LocalOnly)
+                args.Add(@"--localonly");
             if (!String.IsNullOrEmpty(_settings.Pin))
                 args.Add(@"--pin " + _settings.Pin);
 
