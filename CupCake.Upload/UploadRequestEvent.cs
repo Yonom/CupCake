@@ -23,7 +23,7 @@ namespace CupCake.Upload
         public bool IsUrgent { get; set; }
 
         /// <summary>
-        ///     The number of times this message was attempted to be sent
+        ///     Gets the number of times this message was attempted to be sent.
         /// </summary>
         public int SendTries
         {
@@ -36,7 +36,7 @@ namespace CupCake.Upload
         }
 
         /// <summary>
-        ///     Gets whether this message has been successfully sent (after confirm)
+        ///     Gets whether this message has been successfully sent.
         /// </summary>
         public bool Verified
         {
@@ -49,6 +49,10 @@ namespace CupCake.Upload
             }
         }
 
+        /// <summary>
+        /// Occurs when this request is attempted to be sent. 
+        /// Can be called multiple times on the same block if the send fails.
+        /// </summary>
         public event EventHandler TryingSend;
 
         protected virtual void OnTryingSend()
@@ -57,6 +61,9 @@ namespace CupCake.Upload
             if (handler != null) handler(this, Empty);
         }
 
+        /// <summary>
+        /// Occurs when verification on this request completes.
+        /// </summary>
         public event EventHandler VerifyComplete;
 
         protected virtual void OnVerifyComplete()

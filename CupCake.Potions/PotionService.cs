@@ -39,16 +39,16 @@ namespace CupCake.Potions
             }
         }
 
-        public void UsePotion(Potion pot)
+        public void UsePotion(Potion potion)
         {
             if (!this.AllowPotions)
                 throw new InvalidOperationException("Potions have been disabled in this world!");
-            if (this.DisabledPotions.Contains(pot))
+            if (this.DisabledPotions.Contains(potion))
                 throw new InvalidOperationException("That potion has been disabled in this world!");
-            if (this.GetCount(pot) == 0)
+            if (this.GetCount(potion) == 0)
                 throw new InvalidOperationException("Bot does not own any potions of that type!");
 
-            this.Events.Raise(new PotionSendEvent(pot));
+            this.Events.Raise(new PotionSendEvent(potion));
         }
 
         protected override void Enable()
