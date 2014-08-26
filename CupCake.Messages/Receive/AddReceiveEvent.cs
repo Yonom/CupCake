@@ -72,7 +72,7 @@ namespace CupCake.Messages.Receive
         /// <value><c>true</c> if this player is my friend; otherwise, <c>false</c>.</value>
         public bool IsMyFriend { get; set; }
         /// <summary>
-        /// Gets or sets a value indicating whether this instance is purple.?
+        /// Gets or sets whether the player has toggled a purple switch.
         /// </summary>
         /// <value><c>true</c> if this instance is purple; otherwise, <c>false</c>.</value>
         public bool IsPurple { get; set; }
