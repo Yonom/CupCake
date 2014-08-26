@@ -7,6 +7,9 @@ using CupCake.Messages.Send;
 
 namespace CupCake.World
 {
+    /// <summary>
+    /// Represents a block in the world.
+    /// </summary>
     [DebuggerDisplay("Block = {Block}, Data = {DebuggerData()}")]
     public class WorldBlock : MetadataProvider
     {
@@ -21,23 +24,76 @@ namespace CupCake.World
             this.SetBlock(block);
         }
 
+        /// <summary>
+        /// Gets the metadata key.
+        /// </summary>
+        /// <value>
+        /// The metadata key.
+        /// </value>
         protected override object MetadataKey
         {
             get { return new Point3D(this.Layer, this.X, this.Y); }
         }
 
+        /// <summary>
+        /// Gets the layer.
+        /// </summary>
+        /// <value>
+        /// The layer.
+        /// </value>
         public Layer Layer { get; private set; }
+
+        /// <summary>
+        /// Gets the x coordinate of this block.
+        /// </summary>
+        /// <value>
+        /// The x coordinate of this block.
+        /// </value>
         public int X { get; private set; }
+
+        /// <summary>
+        /// Gets the y coordinate of this block.
+        /// </summary>
+        /// <value>
+        /// The y coordinate of this block.
+        /// </value>
         public int Y { get; private set; }
+
+        /// <summary>
+        /// Gets the type of the block.
+        /// </summary>
+        /// <value>
+        /// The type of the block.
+        /// </value>
         public virtual BlockType BlockType { get; private set; }
+
+        /// <summary>
+        /// Gets the block.
+        /// </summary>
+        /// <value>
+        /// The block.
+        /// </value>
         public Block Block { get; private set; }
 
+        /// <summary>
+        /// Gets the metadata.
+        /// </summary>
+        /// <value>
+        /// The metadata.
+        /// </value>
         [Obsolete("Use the Get<T> and Set<T> methods instead.")]
         public MetadataStore Metadata
         {
             get { return this.MetadataStore; }
         }
 
+        /// <summary>
+        /// Gets the Text. (Only on label blocks)
+        /// </summary>
+        /// <value>
+        /// The text.
+        /// </value>
+        /// <exception cref="System.InvalidOperationException">This property can only be accessed on Label blocks.</exception>
         public string Text
         {
             get
@@ -49,6 +105,13 @@ namespace CupCake.World
             }
         }
 
+        /// <summary>
+        /// Gets the world portal target. (Only on world portal blocks)
+        /// </summary>
+        /// <value>
+        /// The world portal target.
+        /// </value>
+        /// <exception cref="System.InvalidOperationException">This property can only be accessed on WorldPortal blocks.</exception>
         public string WorldPortalTarget
         {
             get
@@ -60,6 +123,13 @@ namespace CupCake.World
             }
         }
 
+        /// <summary>
+        /// Gets the coins to collect. (Only on coin doors)
+        /// </summary>
+        /// <value>
+        /// The coins to collect.
+        /// </value>
+        /// <exception cref="System.InvalidOperationException">This property can only be accessed on CoinDoor blocks.</exception>
         public uint CoinsToCollect
         {
             get
@@ -71,6 +141,13 @@ namespace CupCake.World
             }
         }
 
+        /// <summary>
+        /// Gets the portal identifier.  (Only on portal blocks)
+        /// </summary>
+        /// <value>
+        /// The portal identifier.
+        /// </value>
+        /// <exception cref="System.InvalidOperationException">This property can only be accessed on Portal blocks.</exception>
         public uint PortalId
         {
             get
@@ -82,6 +159,13 @@ namespace CupCake.World
             }
         }
 
+        /// <summary>
+        /// Gets the portal target.  (Only on portal blocks)
+        /// </summary>
+        /// <value>
+        /// The portal target.
+        /// </value>
+        /// <exception cref="System.InvalidOperationException">This property can only be accessed on Portal blocks.</exception>
         public uint PortalTarget
         {
             get
@@ -93,6 +177,13 @@ namespace CupCake.World
             }
         }
 
+        /// <summary>
+        /// Gets the portal rotation. (Only on portal blocks)
+        /// </summary>
+        /// <value>
+        /// The portal rotation.
+        /// </value>
+        /// <exception cref="System.InvalidOperationException">This property can only be accessed on Portal blocks.</exception>
         public PortalRotation PortalRotation
         {
             get
@@ -104,6 +195,13 @@ namespace CupCake.World
             }
         }
 
+        /// <summary>
+        /// Gets the sound identifier. (Only on sound blocks)
+        /// </summary>
+        /// <value>
+        /// The sound identifier.
+        /// </value>
+        /// <exception cref="System.InvalidOperationException">This property can only be accessed on Sound blocks.</exception>
         public uint SoundId
         {
             get
@@ -115,6 +213,13 @@ namespace CupCake.World
             }
         }
 
+        /// <summary>
+        /// Gets the rotation. (Only on rotatable blocks)
+        /// </summary>
+        /// <value>
+        /// The rotation.
+        /// </value>
+        /// <exception cref="System.InvalidOperationException">This property can only be accessed on Rotatable blocks.</exception>
         public uint Rotation
         {
             get
@@ -201,6 +306,12 @@ namespace CupCake.World
             };
         }
 
+        /// <summary>
+        /// Determines whether the IBlockPlaceSendEvent has the same values as this block.
+        /// </summary>
+        /// <param name="other">The IBlockPlaceSendEvent to evaluate.</param>
+        /// <returns></returns>
+        /// <exception cref="System.NotSupportedException">The given send message is not supported.</exception>
         public bool IsSame(IBlockPlaceSendEvent other)
         {
             if (other == null)
@@ -263,6 +374,11 @@ namespace CupCake.World
             throw new NotSupportedException("The given send message is not supported.");
         }
 
+        /// <summary>
+        /// Creates an <see cref="IBlockPlaceSendEvent"/> object with this block's data.
+        /// </summary>
+        /// <returns></returns>
+        /// <exception cref="System.NotSupportedException">The given send message is not supported.</exception>
         public IBlockPlaceSendEvent ToEvent()
         {
             switch (this.BlockType)
@@ -315,6 +431,10 @@ namespace CupCake.World
             }
         }
 
+        /// <summary>
+        /// Clones this instance.
+        /// </summary>
+        /// <returns></returns>
         public WorldBlock Clone()
         {
             return new WorldBlock(this.MetadataPlatform, this.Layer, this.X, this.Y, this.Block)

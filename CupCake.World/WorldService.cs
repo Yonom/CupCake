@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Diagnostics;
 using CupCake.Core;
@@ -13,6 +12,10 @@ using PlayerIOClient;
 
 namespace CupCake.World
 {
+    /// <summary>
+    /// Class WorldService.
+    /// Stores all the blocks inside a room. 
+    /// </summary>
     [DebuggerDisplay("RoomWidth = {RoomWidth}, RoomHeight = {RoomHeight}")]
     public sealed class WorldService : CupCakeService
     {
@@ -21,9 +24,32 @@ namespace CupCake.World
         private WorldBlock[,,] _blocks;
         private PlayerService _playerService;
 
+        /// <summary>
+        /// Gets the width of the room.
+        /// </summary>
+        /// <value>
+        /// The width of the room.
+        /// </value>
         public int RoomWidth { get; private set; }
+
+        /// <summary>
+        /// Gets the height of the room.
+        /// </summary>
+        /// <value>
+        /// The height of the room.
+        /// </value>
         public int RoomHeight { get; private set; }
 
+        /// <summary>
+        /// Gets the <see cref="WorldBlock"/> at the specified location.
+        /// </summary>
+        /// <value>
+        /// The <see cref="WorldBlock"/>.
+        /// </value>
+        /// <param name="layer">The layer.</param>
+        /// <param name="x">The x.</param>
+        /// <param name="y">The y.</param>
+        /// <returns></returns>
         public WorldBlock this[Layer layer, int x, int y]
         {
             get { return this._blocks[(int)layer, x, y]; }
@@ -161,6 +187,9 @@ namespace CupCake.World
             blockArray[(int)layer, x, y] = new WorldBlock(this.MetadataPlatform, layer, x, y, block);
         }
 
+        /// <summary>
+        /// Enables this instance.
+        /// </summary>
         protected override void Enable()
         {
             this.Events.Bind<InitReceiveEvent>(this.OnInit, EventPriority.High);
@@ -177,6 +206,10 @@ namespace CupCake.World
             this.ServiceLoader.EnableComplete += this.ServiceLoader_EnableComplete;
         }
 
+        /// <summary>
+        /// Releases unmanaged and - optionally - managed resources.
+        /// </summary>
+        /// <param name="disposing"><c>true</c> to release both managed and unmanaged resources; <c>false</c> to release only unmanaged resources.</param>
         protected override void Dispose(bool disposing)
         {
             if (disposing)
