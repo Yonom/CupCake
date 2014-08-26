@@ -49,7 +49,7 @@ namespace CupCake.World
             // Parse the world data
             uint pointer = start;
             string strValue2;
-            while ((strValue2 = m[pointer] as string) != null && strValue2 == "we")
+            while ((strValue2 = m[pointer] as string) == null || strValue2 != "we")
             {                    
                 var block = (Block)m.GetInteger(pointer++);
                 int l = m.GetInteger(pointer++);
