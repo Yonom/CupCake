@@ -11,6 +11,7 @@ using CupCake.Core.Events;
 using CupCake.Core.Log;
 using CupCake.Core.Metadata;
 using CupCake.Core.Storage;
+using CupCake.HostAPI;
 using CupCake.HostAPI.IO;
 using CupCake.HostAPI.Status;
 using CupCake.Keys;
@@ -52,6 +53,7 @@ namespace CupCake
         private readonly Lazy<SynchronizePlatform> _synchronizePlatform;
         private readonly Lazy<UploadService> _uploadService;
         private readonly Lazy<WorldService> _worldService;
+        private readonly Lazy<HostService> _hostService;
 
         /// <summary>
         ///     Initializes a new instance of the <see cref="CupCakeMuffinPart{TProtocol}" /> class.
@@ -97,6 +99,7 @@ namespace CupCake
             this._ioService = new Lazy<IOService>(() => this.ServiceLoader.Get<IOService>());
             this._statusService = new Lazy<StatusService>(() => this.ServiceLoader.Get<StatusService>());
             this._permissionService = new Lazy<PermissionService>(() => this.ServiceLoader.Get<PermissionService>());
+            this._hostService = new Lazy<HostService>(() => this.ServiceLoader.Get<HostService>());
         }
 
         /// <summary>
@@ -268,6 +271,17 @@ namespace CupCake
         protected MetadataPlatform MetadataPlatform
         {
             get { return this._metadataPlatform.Value; }
+        }
+
+        /// <summary>
+        /// Gets the host service.
+        /// </summary>
+        /// <value>
+        /// The host service.
+        /// </value>
+        protected HostService HostService
+        {
+            get { return this._hostService .Value; }
         }
 
         /// <summary>

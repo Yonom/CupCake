@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Net;
 using System.Net.Sockets;
+using System.Reflection;
 using System.Threading;
 using CupCake.Core.Storage;
 using CupCake.DefaultCommands.Commands;
@@ -12,11 +14,11 @@ using NDesk.Options;
 
 namespace CupCake.Server
 {
-    internal class Program
+    internal static class Program
     {
         // This UserCommandsMuffin DefaultCommands to be included in CupCake.Client's output directory
 #pragma warning disable 169
-        private CommandBase<object> _uselessVariable;
+        private static CommandBase<object> _uselessVariable;
 #pragma warning restore 169
 
         private static CupCakeServerSettings _settings = new CupCakeServerSettings();
@@ -79,6 +81,10 @@ namespace CupCake.Server
                     v => { _settings.Standalone = v != null; }
                 },
                 {
+                    "autoconnect",
+                    v => { _settings.Autoconnect = v != null; }
+                },
+                {
                     "envpath=",
                     v => { Environment.CurrentDirectory = v; }
                 },
@@ -95,7 +101,7 @@ namespace CupCake.Server
                     v => { _settings.Email = v; }
                 },
                 {
-                    "p|password=",
+                    "p|pass|password=",
                     v => { _settings.Password = v; }
                 },
                 {
@@ -167,7 +173,6 @@ namespace CupCake.Server
         {
             var listener = new ServerListener(IPAddress.Any, _settings.Port, OnConnection);
 
-            // Connect to server if not standalone
             if (!_settings.Standalone)
             {
                 try
@@ -182,7 +187,10 @@ namespace CupCake.Server
                             Environment.Exit(0);
                         };
 
-                        h.DoSendRequestData(_settings.Debug);
+                        if (!_settings.Autoconnect)
+                        {
+                            h.DoSendRequestData(_settings.Debug);
+                        }
                     });
                 }
                 catch (SocketException)
@@ -191,7 +199,8 @@ namespace CupCake.Server
                     Environment.Exit(1);
                 }
             }
-            else
+
+            if (_settings.Standalone || _settings.Autoconnect)
             {
                 Start();
             }
@@ -287,6 +296,46 @@ namespace CupCake.Server
             }
 
             _clientEx.Start(_settings.Email, _settings.Password, _settings.World, _settings.Dirs.ToArray(), storage);
+        }
+
+        internal static void Restart()
+        {
+            var args = new List<string>
+            {
+                @"--env """ + Environment.CurrentDirectory + @"""",
+                @"--autoconnect",
+                @"--debug " + _settings.Debug,
+                @"--email " + _settings.Email,
+                @"--pass " + _settings.Password,
+                @"--world " + _settings.World,
+                @"--port " + _settings.Port,
+                @"--pin " + _settings.Pin,
+                @"--dbtype " + _settings.DatabaseType,
+                @"--cs " + _settings.ConnectionString
+            };
+            args.AddRange(_settings.Dirs.Select(d => @"--dir """ + d + @""""));
+
+            var p = new Process
+            {
+                StartInfo =
+                {
+                    FileName = Assembly.GetExecutingAssembly().Location,
+                    Arguments = String.Join(" ", args)
+                }
+            };
+
+            if (!HasMainWindow())
+            {
+                p.StartInfo.UseShellExecute = false;
+                p.StartInfo.CreateNoWindow = true;
+            }
+
+            p.Start();
+        }
+
+        public static bool HasMainWindow()
+        {
+            return (Process.GetCurrentProcess().MainWindowHandle != IntPtr.Zero);
         }
     }
 }

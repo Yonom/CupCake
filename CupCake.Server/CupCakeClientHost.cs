@@ -1,12 +1,16 @@
 ﻿using System;
 using System.ComponentModel.Composition.Hosting;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Net.Mime;
 using System.Reflection;
+using System.Threading;
 using CupCake.Core;
 using CupCake.Core.Events;
 using CupCake.Core.Storage;
 using CupCake.Host;
+using CupCake.HostAPI;
 using CupCake.HostAPI.IO;
 using CupCake.HostAPI.Status;
 using CupCake.HostAPI.Title;
@@ -70,6 +74,19 @@ namespace CupCake.Server
             this._eventsPlatform.Event<OutputEvent>().Bind(this.OnOutput, EventPriority.Lowest);
             this._eventsPlatform.Event<ChangeTitleEvent>().Bind(this.OnChangeTitle, EventPriority.Lowest);
             this._eventsPlatform.Event<ChangeStatusEvent>().Bind(this.OnChangeStatus, EventPriority.Lowest);
+            this._eventsPlatform.Event<ShutdownRequestEvent>().Bind(this.OnShutdownRequest, EventPriority.Lowest);
+        }
+
+        private void OnShutdownRequest(object sender, ShutdownRequestEvent e)
+        {
+            if (e.IsRestarting)
+            {
+                Program.Restart();
+            }
+
+            this.Shutdown(e.IsRestarting 
+                ? 2 
+                : 0);
         }
 
         private void OnOutput(object sender, OutputEvent e)
@@ -95,8 +112,14 @@ namespace CupCake.Server
         private void Disconnected()
         {
             this.LogMessage("Disconnected from Everybody Edits");
+            Thread.Sleep(500); // Wait for all EE messages to arrive
+            this.Shutdown(1);
+        }
+
+        private void Shutdown(int reason)
+        {
             this.Dispose();
-            Environment.Exit(1);
+            Environment.Exit(reason);
         }
 
         private void LogMessage(string str)
@@ -150,6 +173,7 @@ namespace CupCake.Server
 
             if (attribute != null)
                 return attribute.InformationalVersion;
+
             return "Unknown!";
         }
 

@@ -7,14 +7,15 @@ namespace CupCake.Server
     public class CupCakeServerSettings
     {
         public string ConnectionString;
-        public DatabaseType DatabaseType;
-        public bool Debug;
-        public string Email;
-        public string Password;
-        public string Pin;
-        public int Port;
-        public bool Standalone;
-        public string World;
+        public DatabaseType DatabaseType { get; set; }
+        public bool Debug { get; set; }
+        public string Email { get; set; }
+        public string Password { get; set; }
+        public string Pin { get; set; }
+        public int Port { get; set; }
+        public bool Standalone { get; set; }
+        public string World { get; set; }
+        public bool Autoconnect { get; set; }
 
         private List<string> _dirs;
 

@@ -47,7 +47,7 @@ namespace CupCake.HostAPI.Status
             return result;
         }
 
-        public void UpdateStatus()
+        private void UpdateStatus()
         {
             StatusItem[] statusItems;
             lock (this._statuses)
