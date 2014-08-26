@@ -5,7 +5,7 @@ using PlayerIOClient;
 namespace CupCake.Messages.Receive
 {
     /// <summary>
-    /// Occurs when everybody is teleported to the same location.
+    /// Occurs when mutliple players are teleported. This event gets raised for respawns of any kind, including death.
     /// </summary>
     public class TeleportEveryoneReceiveEvent : ReceiveEvent
     {

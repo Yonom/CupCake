@@ -3,7 +3,7 @@ using PlayerIOClient;
 namespace CupCake.Messages.Receive
 {
     /// <summary>
-    /// Occurs when a player writes on a sign in the world.
+    /// Occurs when a non-player message is received. (System messages, etc.)
     /// </summary>
     public class WriteReceiveEvent : ReceiveEvent
     {
