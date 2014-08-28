@@ -58,8 +58,21 @@
 <Filter entryType="Namespace" fullName="CupCake.Server.StorageProviders" isExposed="False" />
 <Filter entryType="Namespace" fullName="CupCake.Tests.Core" isExposed="False" />
 <Filter entryType="Namespace" fullName="JetBrains.Annotations" isExposed="False" /></ApiFilter>
-    <VisibleItems>InheritedMembers, InheritedFrameworkMembers, Protected, ProtectedInternalAsProtected</VisibleItems>
+    <VisibleItems>InheritedMembers, Protected, ProtectedInternalAsProtected</VisibleItems>
     <MissingTags>Summary, Parameter, Returns, Value, AutoDocumentCtors, Namespace, TypeParameter, AutoDocumentDispose</MissingTags>
+    <MaximumGroupParts>6</MaximumGroupParts>
+    <NamespaceGrouping>True</NamespaceGrouping>
+    <SyntaxFilters>Standard</SyntaxFilters>
+    <SdkLinkTarget>Blank</SdkLinkTarget>
+    <RootNamespaceContainer>True</RootNamespaceContainer>
+    <PresentationStyle>VS2013</PresentationStyle>
+    <Preliminary>False</Preliminary>
+    <NamingMethod>MemberName</NamingMethod>
+    <HelpTitle>CupCake Documentation</HelpTitle>
+    <ContentPlacement>AboveNamespaces</ContentPlacement>
+    <RootNamespaceTitle>API</RootNamespaceTitle>
+    <FooterText>BAI</FooterText>
+    <HeaderText>HAI</HeaderText>
   </PropertyGroup>
   <!-- There are no properties for these groups.  AnyCPU needs to appear in order for Visual Studio to perform
 			 the build.  The others are optional common platform types that may appear. -->
