@@ -1,8 +1,7 @@
 ﻿using System;
-using CupCake.Command;
 using JetBrains.Annotations;
 
-namespace CupCake
+namespace CupCake.Command
 {
     /// <summary>
     ///     Indicates that a method handles a command.

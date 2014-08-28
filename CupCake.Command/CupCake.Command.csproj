@@ -43,6 +43,7 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CommandAttribute.cs" />
     <Compile Include="CorrectUsageAttribute.cs" />
     <Compile Include="HighPriorityAttribute.cs" />
     <Compile Include="LabelAttribute.cs" />
