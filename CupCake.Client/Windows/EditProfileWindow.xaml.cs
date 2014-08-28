@@ -116,11 +116,7 @@ namespace CupCake.Client.Windows
 
         private void EditDatabaseButton_Click(object sender, RoutedEventArgs e)
         {
-            if (this.DatabaseComboBox.SelectedItem != null)
-            {
-                var database = (Database)((TextBlock)this.DatabaseComboBox.SelectedItem).Tag;
-                new EditDatabaseWindow(database, false) {Owner = this}.ShowDialog();
-            }
+            new EditListWindow(EditListType.Database) {Owner = this}.ShowDialog();
         }
     }
 }

@@ -64,7 +64,7 @@ namespace CupCake.Client.Windows
             });
         }
 
-        private void ConnectButton_Click(object sender, RoutedEventArgs e)
+        private void CreateButton_Click(object sender, RoutedEventArgs e)
         {
             int pId;
             string pFolder;
@@ -132,14 +132,12 @@ namespace CupCake.Client.Windows
 
         private void EditProfileButton_Click(object sender, RoutedEventArgs e)
         {
-            var profile = (Profile)((TextBlock)this.ProfileComboBox.SelectedItem).Tag;
-            new EditProfileWindow(profile, false) {Owner = this}.ShowDialog();
+            new EditListWindow(EditListType.Profile) {Owner = this}.ShowDialog();
         }
 
         private void EditAccountButton_Click(object sender, RoutedEventArgs e)
         {
-            var account = (Account)((TextBlock)this.AccountComboBox.SelectedItem).Tag;
-            new EditAccountWindow(account, false) {Owner = this}.ShowDialog();
+            new EditListWindow(EditListType.Account) { Owner = this }.ShowDialog();
         }
     }
 }
