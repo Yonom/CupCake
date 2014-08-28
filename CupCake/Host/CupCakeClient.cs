@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.Composition.Hosting;
 using System.ComponentModel.Composition.Primitives;
 using CupCake.Core;
@@ -24,8 +25,26 @@ namespace CupCake.Host
         public CupCakeClient(params ComposablePartCatalog[] catalog)
             : base(catalog)
         {
-            
             this.AggregateCatalog.Catalogs.Add(new DirectoryCatalog(Environment.CurrentDirectory, "CupCake.*.dll"));
+            this.PlatformLoader.EnableComplete += this.PlatformLoader_EnableComplete;
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="CupCakeClient"/> class.
+        /// Automatically loads CupCake.Core.dll and every other specified dll.
+        /// </summary>
+        /// <param name="components">The components.</param>
+        /// <param name="catalog">The catalog.</param>
+        public CupCakeClient(CupCakeComponents components, params ComposablePartCatalog[] catalog)
+            : base(catalog)
+        {
+            this.AggregateCatalog.Catalogs.Add(new DirectoryCatalog(Environment.CurrentDirectory, "CupCake.Core.dll"));
+            IEnumerable<CupCakeComponents> componentsList = components.GetIndividualValues<CupCakeComponents>();
+            foreach (CupCakeComponents component in componentsList)
+            {
+                string componentName = String.Format("CupCake.{0}.dll", component);
+                this.AggregateCatalog.Catalogs.Add(new DirectoryCatalog(Environment.CurrentDirectory, componentName));
+            }
             this.PlatformLoader.EnableComplete += this.PlatformLoader_EnableComplete;
         }
 
