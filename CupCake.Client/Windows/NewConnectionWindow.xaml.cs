@@ -64,7 +64,7 @@ namespace CupCake.Client.Windows
             });
         }
 
-        private void CreateButton_Click(object sender, RoutedEventArgs e)
+        private void ConnectButton_Click(object sender, RoutedEventArgs e)
         {
             int pId;
             string pFolder;

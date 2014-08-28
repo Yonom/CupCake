@@ -57,9 +57,7 @@
         <TextBox Name="CsTextBox" FontSize="16" Grid.Column="1" Grid.ColumnSpan="3" Grid.Row="2" Padding="2"
                  TextWrapping="Wrap" />
 
-        <Button Content="Cancel" Grid.Row="3" Grid.Column="1" Height="30" Click="CancelButton_Click" Margin="0,5,0,0"
-                Grid.RowSpan="2" />
-        <Button Content="Save" Grid.Row="3" Grid.Column="3" Height="30" Click="OkButton_Click" Margin="0,5,0,0"
-                Grid.RowSpan="2" />
+        <Button Content="Cancel" Grid.Row="4" Grid.Column="3" Height="30" Click="CancelButton_Click" />
+        <Button Content="Save" Grid.Row="4" Height="30" Click="OkButton_Click" Grid.Column="1" />
     </Grid>
 </controls:MetroWindow>

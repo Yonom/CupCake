@@ -54,8 +54,8 @@
         </TextBlock>
         <TextBox Name="WorldIdTextBox" FontSize="16" Grid.Row="3" Foreground="{StaticResource Foreground}"
                  Grid.Column="1" Padding="2" VerticalAlignment="Center" />
-        <Button Name="CreateButton" Content="Create" Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="4"
-                Click="CreateButton_Click" />
+        <Button Name="ConnectButton" Content="Connect" Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="4"
+                Click="ConnectButton_Click" />
 
     </Grid>
 </controls:MetroWindow>
