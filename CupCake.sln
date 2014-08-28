@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
-VisualStudioVersion = 12.0.21005.1
+VisualStudioVersion = 12.0.30723.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CupCake.Core", "CupCake.Core\CupCake.Core.csproj", "{598D616C-4886-482B-AF57-7BC7DAA56CCE}"
 EndProject
@@ -54,6 +54,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CupCake.HostAPI", "CupCake.HostAPI\CupCake.HostAPI.csproj", "{CB00B556-E597-4C9B-AF9B-D9C98A378A48}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CupCake.Tests", "CupCake.Tests\CupCake.Tests.csproj", "{F5A9FC2A-862C-42CD-9453-A83926EA49CA}"
+EndProject
+Project("{7CF6DF6D-3B04-46F8-A40B-537D21BCA0B4}") = "CupCake.Docs", "CupCake.Docs\CupCake.Docs.shfbproj", "{B525FB04-3260-4998-83D2-29DFE629D9B1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -141,6 +143,10 @@ Global
 		{F5A9FC2A-862C-42CD-9453-A83926EA49CA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F5A9FC2A-862C-42CD-9453-A83926EA49CA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F5A9FC2A-862C-42CD-9453-A83926EA49CA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B525FB04-3260-4998-83D2-29DFE629D9B1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B525FB04-3260-4998-83D2-29DFE629D9B1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B525FB04-3260-4998-83D2-29DFE629D9B1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B525FB04-3260-4998-83D2-29DFE629D9B1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
