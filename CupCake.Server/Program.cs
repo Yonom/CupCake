@@ -5,7 +5,6 @@ using System.Linq;
 using System.Net;
 using System.Net.Sockets;
 using System.Reflection;
-using System.Threading;
 using CupCake.Core.Storage;
 using CupCake.DefaultCommands.Commands;
 using CupCake.Protocol;
@@ -26,7 +25,7 @@ namespace CupCake.Server
         private static bool _started;
         private static readonly CupCakeClientHost _clientEx = new CupCakeClientHost();
 
-        private static string _title;
+        private static string _title = "<Unnamed>";
         private static string _status;
         private static readonly List<string> _outputs = new List<string>();
 
@@ -323,7 +322,6 @@ namespace CupCake.Server
             {
                 @"--env """ + Environment.CurrentDirectory + @"""",
                 @"--autoconnect",
-                @"--debug " + _settings.Debug,
                 @"--email " + _settings.Email,
                 @"--pass " + _settings.Password,
                 @"--world " + _settings.World,
@@ -331,6 +329,8 @@ namespace CupCake.Server
                 @"--dbtype " + _settings.DatabaseType,
                 @"--cs """ + _settings.ConnectionString + @""""
             };
+            if (_settings.Debug)
+                args.Add(@"--debug");
             if (_settings.Standalone)
                 args.Add(@"--standalone");
             if (_settings.LocalOnly)
