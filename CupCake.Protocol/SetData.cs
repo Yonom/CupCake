@@ -22,5 +22,8 @@ namespace CupCake.Protocol
 
         [ProtoMember(7)]
         public string ConnectionString { get; set; }
+
+        [ProtoMember(8)]
+        public string Settings { get; set; }
     }
 }

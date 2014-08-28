@@ -9,6 +9,7 @@ using CupCake.Core.Storage;
 using CupCake.DefaultCommands.Commands;
 using CupCake.Protocol;
 using CupCake.Server.StorageProviders;
+using JetBrains.Annotations;
 using NDesk.Options;
 
 namespace CupCake.Server
@@ -268,13 +269,22 @@ namespace CupCake.Server
             {
                 if (!authenticated) return;
 
-                _settings.Email = data.Email;
-                _settings.Password = data.Password;
-                _settings.World = data.World;
+                if (data.Settings != null)
+                    _settings = XmlSerialize.Deserialize<CupCakeServerSettings>(data.Settings);
+
+                if (_settings.Email == null)
+                    _settings.Email = data.Email;
+                if (_settings.Password == null)
+                    _settings.Password = data.Password;
+                if (_settings.World == null)
+                    _settings.World = data.World;
+                if (_settings.ConnectionString == null)
+                    _settings.DatabaseType = data.DatabaseType;
+                if (_settings.ConnectionString == null)
+                    _settings.ConnectionString = data.ConnectionString;
+
                 if (data.Directories != null)
                     _settings.Dirs.InsertRange(0, data.Directories);
-                _settings.DatabaseType = data.DatabaseType;
-                _settings.ConnectionString = data.ConnectionString;
 
                 Start();
             };

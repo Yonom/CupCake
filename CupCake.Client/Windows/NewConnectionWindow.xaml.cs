@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
@@ -64,7 +65,7 @@ namespace CupCake.Client.Windows
             });
         }
 
-        private void CreateButton_Click(object sender, RoutedEventArgs e)
+        private void ConnectButton_Click(object sender, RoutedEventArgs e)
         {
             int pId;
             string pFolder;
@@ -120,8 +121,12 @@ namespace CupCake.Client.Windows
 
             if (this._isDebug)
                 folders.Add(SettingsManager.DebugPath);
+            
+            var settings = Path.Combine(pFolder, "ServerSettings.xml");
+            if (!File.Exists(settings))
+                settings = null;
 
-            this._handle.DoSendSetData(aEmail, aPass, worldId, folders.ToArray(), dbType, dbCs);
+            this._handle.DoSendSetData(aEmail, aPass, worldId, folders.ToArray(), dbType, dbCs, settings);
 
             this._recentWorld.Account = aId;
             this._recentWorld.Profile = pId;

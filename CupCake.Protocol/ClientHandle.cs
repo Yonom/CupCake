@@ -156,7 +156,7 @@ namespace CupCake.Protocol
         }
 
         public void DoSendSetData(string email, string password, string worldId,
-            string[] directories, DatabaseType dbType, string cs)
+            string[] directories, DatabaseType dbType, string cs, string settings)
         {
             this.OnSendSetData(new SetData
             {
@@ -165,7 +165,8 @@ namespace CupCake.Protocol
                 World = worldId,
                 Directories = directories,
                 DatabaseType = dbType,
-                ConnectionString = cs
+                ConnectionString = cs,
+                Settings = settings
             });
         }
 
