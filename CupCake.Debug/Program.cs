@@ -48,7 +48,7 @@ namespace CupCake.Debug
 
             string debugProfilePath = profilesPath + "\\Debug";
             if (Directory.Exists(debugProfilePath))
-                DeleteDirectory(debugProfilePath);
+                DeleteFiles(debugProfilePath);
 
             Directory.CreateDirectory(debugProfilePath);
 
@@ -67,28 +67,11 @@ namespace CupCake.Debug
             }
         }
 
-        /// <summary>
-        ///     Depth-first recursive delete, with handling for descendant
-        ///     directories open in Windows Explorer.
-        /// </summary>
-        public static void DeleteDirectory(string path)
+        public static void DeleteFiles(string path)
         {
-            foreach (string directory in Directory.GetDirectories(path))
+            foreach (var file in new DirectoryInfo(path).GetFiles())
             {
-                DeleteDirectory(directory);
-            }
-
-            try
-            {
-                Directory.Delete(path, true);
-            }
-            catch (IOException)
-            {
-                Directory.Delete(path, true);
-            }
-            catch (UnauthorizedAccessException)
-            {
-                Directory.Delete(path, true);
+                file.Delete();
             }
         }
 
