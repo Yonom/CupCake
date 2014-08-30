@@ -6,7 +6,7 @@ using System.Net.Sockets;
 
 namespace CupCake.Protocol
 {
-    public class ServerListener
+    public class ServerListener : IDisposable
     {
         public EndPoint EndPoint {
             get { return _listener.EndPoint; }
@@ -166,6 +166,11 @@ namespace CupCake.Protocol
                     Debug.WriteLine("Error while writing: " + ex.Message);
                 }
             }
+        }
+
+        public void Dispose()
+        {
+            this._listener.Dispose();
         }
     }
 }

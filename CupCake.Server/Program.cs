@@ -9,7 +9,6 @@ using CupCake.Core.Storage;
 using CupCake.DefaultCommands.Commands;
 using CupCake.Protocol;
 using CupCake.Server.StorageProviders;
-using JetBrains.Annotations;
 using NDesk.Options;
 
 namespace CupCake.Server
@@ -26,6 +25,7 @@ namespace CupCake.Server
         private static bool _started;
         private static readonly CupCakeClientHost _clientEx = new CupCakeClientHost();
 
+        private static ServerListener _listener;
         private static string _title = "<Unnamed>";
         private static string _status;
         private static readonly List<string> _outputs = new List<string>();
@@ -178,14 +178,14 @@ namespace CupCake.Server
             var ipAddress = _settings.LocalOnly
                 ? IPAddress.Loopback
                 : IPAddress.Any;
-            var listener = new ServerListener(ipAddress, _settings.Port, OnConnection);
-            OnOutput("^^^ Started server on " + listener.EndPoint);
+            _listener = new ServerListener(ipAddress, _settings.Port, OnConnection);
+            OnOutput("^^^ Started server on " + _listener.EndPoint);
 
             if (!_settings.Standalone)
             {
                 try
                 {
-                    listener.Connect(new IPEndPoint(IPAddress.Loopback, ServerListener.ServerPort), h =>
+                    _listener.Connect(new IPEndPoint(IPAddress.Loopback, ServerListener.ServerPort), h =>
                     {
                         OnConnection(h);
 
@@ -328,6 +328,8 @@ namespace CupCake.Server
 
         internal static void Restart()
         {
+            _listener.Dispose();
+
             var args = new List<string>
             {
                 @"--env """ + Environment.CurrentDirectory + @"""",

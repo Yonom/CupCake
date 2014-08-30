@@ -8,20 +8,22 @@ using ProtoBuf;
 
 namespace CupCake.Protocol
 {
-    public class CupCakeListener
+    public class CupCakeListener : IDisposable
     {
+        private readonly TcpListener _server;
+
         public CupCakeListener(IPAddress ipAddress, int port, Action<TcpClient, NetworkStream> callback)
         {
-            var server = new TcpListener(ipAddress, port);
-            server.Start();
+            this._server = new TcpListener(ipAddress, port);
+            this._server.Start();
 
-            this.EndPoint = server.Server.LocalEndPoint;
+            this.EndPoint = this._server.Server.LocalEndPoint;
 
             new Thread(() =>
             {
                 while (true)
                 {
-                    TcpClient client = server.AcceptTcpClient();
+                    TcpClient client = this._server.AcceptTcpClient();
                     this.HandleConnectionNewThread(client, callback);
                 }
             }) {IsBackground = true}.Start();
@@ -118,6 +120,11 @@ namespace CupCake.Protocol
         public void Send<T>(NetworkStream stream, T messageObj)
         {
             Serializer.SerializeWithLengthPrefix(stream, messageObj, PrefixStyle.Base128);
+        }
+
+        public void Dispose()
+        {
+            _server.Stop();
         }
     }
 }
