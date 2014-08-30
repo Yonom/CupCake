@@ -354,7 +354,7 @@ namespace CupCake.Server
             {
                 StartInfo =
                 {
-                    FileName = Assembly.GetExecutingAssembly().Location,
+                    FileName = GetFileName(),
                     Arguments = String.Join(" ", args)
                 }
             };
@@ -366,7 +366,20 @@ namespace CupCake.Server
             p.Start();
         }
 
-        public static bool HasMainWindow()
+        private static string GetFileName()
+        {
+            var value = Assembly.GetExecutingAssembly().Location;
+            if (IsRunningOnMono())
+                value = "mono " + value;
+            return value;
+        }
+
+        public static bool IsRunningOnMono()
+        {
+            return Type.GetType("Mono.Runtime") != null;
+        }
+
+        private static bool HasMainWindow()
         {
             return (Process.GetCurrentProcess().MainWindowHandle != IntPtr.Zero);
         }
