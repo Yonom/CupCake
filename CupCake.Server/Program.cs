@@ -350,11 +350,22 @@ namespace CupCake.Server
 
             args.AddRange(_settings.Dirs.Select(d => @"--dir """ + d + @""""));
 
+            string fileName;
+            if (IsRunningOnMono())
+            {
+                fileName = "mono";
+                args.Insert(0, GetFileName());
+            }
+            else
+            {
+                fileName = GetFileName();
+            }
+
             var p = new Process
             {
                 StartInfo =
                 {
-                    FileName = GetFileName(),
+                    FileName = fileName,
                     Arguments = String.Join(" ", args)
                 }
             };
@@ -368,10 +379,7 @@ namespace CupCake.Server
 
         private static string GetFileName()
         {
-            var value = Assembly.GetExecutingAssembly().Location;
-            if (IsRunningOnMono())
-                value = "mono " + value;
-            return value;
+            return Assembly.GetExecutingAssembly().Location;
         }
 
         public static bool IsRunningOnMono()
