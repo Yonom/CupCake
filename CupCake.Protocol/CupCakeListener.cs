@@ -21,11 +21,19 @@ namespace CupCake.Protocol
 
             new Thread(() =>
             {
-                while (true)
+                try
                 {
-                    TcpClient client = this._server.AcceptTcpClient();
-                    this.HandleConnectionNewThread(client, callback);
+                    while (true)
+                    {
+                        TcpClient client = this._server.AcceptTcpClient();
+                        this.HandleConnectionNewThread(client, callback);
+                    }
                 }
+                catch (SocketException ex)
+                {
+                    Debug.WriteLine(ex.ToString());
+                }
+
             }) {IsBackground = true}.Start();
         }
 
