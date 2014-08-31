@@ -2,18 +2,11 @@
                       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                       xmlns:controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
-                      TitleCaps="False"
+                      Style="{StaticResource CupCakeWindow}"
                       ResizeMode="NoResize"
                       Width="400"
                       SizeToContent="Height"
-                      Icon="/Resources/CupCake.ico"
-                      ShowIconOnTitleBar="False"
-                      NonActiveGlowBrush="#3E3E40"
-                      GlowBrush="{DynamicResource BackgroundSelected}"
-                      Background="{StaticResource LightBackground}"
-                      WindowStartupLocation="CenterOwner"
-                      SnapsToDevicePixels="True"
-                      WindowTransitionsEnabled="False">
+                      WindowStartupLocation="CenterOwner">
 
     <Grid Margin="15">
         <Grid.ColumnDefinitions>
