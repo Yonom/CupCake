@@ -1,8 +1,15 @@
+using System;
+
 namespace CupCake.Messages.Blocks
 {
     public enum CoinDoorBlock
     {
+        [Obsolete("Use CoinDoorBlock.CoinDoor instead.")]
         BlockDoorCoinDoor = Block.CoinDoor,
-        BlockGateCoinGate = Block.CoinGate
+        [Obsolete("Use CoinDoorBlock.CoinGate instead.")]
+        BlockGateCoinGate = Block.CoinGate,
+
+        CoinDoor = Block.CoinDoor,
+        CoinGate = Block.CoinGate
     }
 }

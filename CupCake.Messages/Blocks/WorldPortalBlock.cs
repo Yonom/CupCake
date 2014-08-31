@@ -1,7 +1,13 @@
+using System;
+
 namespace CupCake.Messages.Blocks
 {
     public enum WorldPortalBlock
     {
-        BlockWorldPortal = Block.WorldPortal
+        [Obsolete("Use WorldPortalBlock.WorldPortal instead.")]
+        BlockWorldPortal = Block.WorldPortal,
+
+
+        WorldPortal = Block.WorldPortal
     }
 }
