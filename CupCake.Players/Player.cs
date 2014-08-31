@@ -27,93 +27,438 @@ namespace CupCake.Players
             get { return this.UserId; }
         }
 
+        /// <summary>
+        /// Gets the player's username.
+        /// </summary>
+        /// <value>
+        /// The player's username.
+        /// </value>
         public string Username { get; private set; }
+
+        /// <summary>
+        /// Gets the player's user identifier.
+        /// </summary>
+        /// <value>
+        /// The player's user identifier.
+        /// </value>
         public int UserId { get; private set; }
 
+        /// <summary>
+        /// Gets a value indicating whether this player has god mode enabled.
+        /// </summary>
+        /// <value>
+        ///   <c>true</c> if this this player has god mode enabled; otherwise, <c>false</c>.
+        /// </value>
         public bool IsGod { get; private set; }
+
+        /// <summary>
+        /// Gets a value indicating whether this player has guardian mode enabled.
+        /// </summary>
+        /// <value>
+        /// <c>true</c> if this player has guardian mode enabled; otherwise, <c>false</c>.
+        /// </value>
         public bool IsGuardian { get; private set; }
+
+        /// <summary>
+        /// Gets a value indicating whether this player has moderator mode enabled.
+        /// </summary>
+        /// <value>
+        ///   <c>true</c> if this player has moderator mode enabled; otherwise, <c>false</c>.
+        /// </value>
         public bool IsMod { get; private set; }
 
+        /// <summary>
+        /// Gets a value indicating whether this player is dead.
+        /// </summary>
+        /// <value>
+        ///   <c>true</c> if this player is dead; otherwise, <c>false</c>.
+        /// </value>
         public bool IsDead { get; private set; }
+
+        /// <summary>
+        /// Gets a value indicating whether this player is the bot user's friend.
+        /// </summary>
+        /// <value>
+        /// <c>true</c> if this player is the bot user's friend; otherwise, <c>false</c>.
+        /// </value>
         public bool IsMyFriend { get; private set; }
+
+        /// <summary>
+        /// Gets a value indicating whether this player is a Builder's Club member.
+        /// </summary>
+        /// <value>
+        /// <c>true</c> if this player is a Builder's Club member; otherwise, <c>false</c>.
+        /// </value>
         public bool IsClubMember { get; private set; }
+
+        /// <summary>
+        /// Gets a value indicating whether this player is disconnected.
+        /// </summary>
+        /// <value>
+        /// <c>true</c> if this player is disconnected; otherwise, <c>false</c>.
+        /// </value>
         public bool IsDisconnected { get; private set; }
 
+        /// <summary>
+        /// Gets a value indicating whether this player has chat access.
+        /// </summary>
+        /// <value>
+        ///   <c>true</c> if this player has chat access; otherwise, <c>false</c>.
+        /// </value>
         public bool HasChat { get; private set; }
+
+        /// <summary>
+        /// Gets the player's magic class.
+        /// </summary>
+        /// <value>
+        /// The player's magic class.
+        /// </value>
         public MagicClass MagicClass { get; private set; }
+
+        /// <summary>
+        /// Gets the player's smiley.
+        /// </summary>
+        /// <value>
+        /// The player's smiley.
+        /// </value>
         public Smiley Smiley { get; private set; }
 
+        /// <summary>
+        /// Gets the player's number of coins.
+        /// </summary>
+        /// <value>
+        /// The player's number of coins.
+        /// </value>
         public int Coins { get; private set; }
+
+        /// <summary>
+        /// Gets a value indicating whether the player has opened a switch.
+        /// </summary>
+        /// <value>
+        ///   <c>true</c> if the player has opened a switch; otherwise, <c>false</c>.
+        /// </value>
         public bool SwitchOpened { get; private set; }
 
+        /// <summary>
+        /// Gets the x-coordinate of the player's spawn.
+        /// </summary>
+        /// <value>
+        /// The x-coordinate of the player's spawn.
+        /// </value>
         public int SpawnX { get; private set; }
+
+        /// <summary>
+        /// Gets the y-coordinate of the player's spawn.
+        /// </summary>
+        /// <value>
+        /// The y-coordinate of the player's spawn.
+        /// </value>
         public int SpawnY { get; private set; }
+
+        /// <summary>
+        /// Gets the x-coordinate of the player's current position.
+        /// </summary>
+        /// <value>
+        /// The x-coordinate of the player's current position.
+        /// </value>
         public int PosX { get; private set; }
+
+        /// <summary>
+        /// Gets the y-coordinate of the player's current position.
+        /// </summary>
+        /// <value>
+        /// The y-coordinate of the player's current position.
+        /// </value>
         public int PosY { get; private set; }
 
+        /// <summary>
+        /// Gets the player's horizontal speed.
+        /// </summary>
+        /// <value>
+        /// The player's horizontal speed.
+        /// </value>
         public double SpeedX { get; private set; }
+
+        /// <summary>
+        /// Gets the player's vertical speed.
+        /// </summary>
+        /// <value>
+        /// The player's vertical speed
+        /// </value>
         public double SpeedY { get; private set; }
+
+        /// <summary>
+        /// Gets the player's horizontal speed modifier.
+        /// </summary>
+        /// <value>
+        /// The player's horizontal speed modifier.
+        /// </value>
         public double ModifierX { get; private set; }
+
+        /// <summary>
+        /// Gets the player's vertical speed modifier.
+        /// </summary>
+        /// <value>
+        /// The player's vertical speed modifier.
+        /// </value>
         public double ModifierY { get; private set; }
+
+        /// <summary>
+        /// Gets the player's horizontal speed direction.
+        /// </summary>
+        /// <value>
+        /// The player's horizontal speed direction.
+        /// </value>
+        public double Horizontal { get; private set; }
+
+        /// <summary>
+        /// Gets the player's vertical speed direction.
+        /// </summary>
+        /// <value>
+        /// The player's vertical speed direction.
+        /// </value>
         public double Vertical { get; private set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether the player is pressing spacebar.
+        /// </summary>
+        /// <value>
+        ///   <c>true</c> if the player is pressing spacebar; otherwise, <c>false</c>.
+        /// </value>
         public bool SpaceDown { get; set; }
 
-        public double Horizontal { get; private set; }
+        /// <summary>
+        /// Gets the player's latest regular chat message.
+        /// </summary>
+        /// <value>
+        /// The player's latest regular chat message.
+        /// </value>
         public string Say { get; private set; }
 
+        /// <summary>
+        /// Gets the player's latest AutoText chat message.
+        /// </summary>
+        /// <value>
+        /// The player's latest AutoText chat message.
+        /// </value>
         public string AutoText { get; private set; }
 
+        /// <summary>
+        /// Gets a value indicating whether this player has a silver crown.
+        /// </summary>
+        /// <value>
+        /// <c>true</c> if this player has a silver crown; otherwise, <c>false</c>.
+        /// </value>
         public bool HasSilverCrown { get; private set; }
+
+        /// <summary>
+        /// Gets a value indicating whether this player has wooted the level.
+        /// </summary>
+        /// <value>
+        /// <c>true</c> if this player has wooted the level; otherwise, <c>false</c>.
+        /// </value>
         public bool HasWooted { get; private set; }
 
+        /// <summary>
+        /// Gets a value indicating whether the player is using a red aura potion.
+        /// </summary>
+        /// <value>
+        ///   <c>true</c> if the player is using a red aura potion; otherwise, <c>false</c>.
+        /// </value>
         public bool RedAuraPotion { get; private set; }
+
+        /// <summary>
+        /// Gets a value indicating whether the player is using a blue aura potion.
+        /// </summary>
+        /// <value>
+        ///   <c>true</c> if the player is using a blue aura potion; otherwise, <c>false</c>.
+        /// </value>
         public bool BlueAuraPotion { get; private set; }
+
+        /// <summary>
+        /// Gets a value indicating whether the player is using a yellow aura potion.
+        /// </summary>
+        /// <value>
+        ///   <c>true</c> if the player is using a yellow aura potion; otherwise, <c>false</c>.
+        /// </value>
         public bool YellowAuraPotion { get; private set; }
+
+        /// <summary>
+        /// Gets a value indicating whether the player is using a green aura potion.
+        /// </summary>
+        /// <value>
+        ///   <c>true</c> if the player is using a green aura potion; otherwise, <c>false</c>.
+        /// </value>
         public bool GreenAuraPotion { get; private set; }
+
+        /// <summary>
+        /// Gets a value indicating whether the player is using a jump potion.
+        /// </summary>
+        /// <value>
+        ///   <c>true</c> if the player is using a jump potion; otherwise, <c>false</c>.
+        /// </value>
         public bool JumpPotion { get; private set; }
+
+        /// <summary>
+        /// Gets a value indicating whether the player is using a fire potion.
+        /// </summary>
+        /// <value>
+        ///   <c>true</c> if the player is using a fire potion; otherwise, <c>false</c>.
+        /// </value>
         public bool FirePotion { get; private set; }
+
+        /// <summary>
+        /// Gets a value indicating whether the player is using a curse potion.
+        /// </summary>
+        /// <value>
+        ///   <c>true</c> if the player is using a curse potion; otherwise, <c>false</c>.
+        /// </value>
         public bool CursePotion { get; private set; }
+
+        /// <summary>
+        /// Gets a value indicating whether the player is using a protection potion.
+        /// </summary>
+        /// <value>
+        ///   <c>true</c> if the player is using a protection potion; otherwise, <c>false</c>.
+        /// </value>
         public bool ProtectionPotion { get; private set; }
+
+        /// <summary>
+        /// Gets a value indicating whether the player is using a zombie potion.
+        /// </summary>
+        /// <value>
+        ///   <c>true</c> if the player is using a zombie potion; otherwise, <c>false</c>.
+        /// </value>
         public bool ZombiePotion { get; private set; }
+
+        /// <summary>
+        /// Gets a value indicating whether the player is using a respawn potion.
+        /// </summary>
+        /// <value>
+        ///   <c>true</c> if the player is using a respawn potion; otherwise, <c>false</c>.
+        /// </value>
         public bool RespawnPotion { get; private set; }
+
+        /// <summary>
+        /// Gets a value indicating whether the player is using a levitation potion.
+        /// </summary>
+        /// <value>
+        ///   <c>true</c> if the player is using a levitation potion; otherwise, <c>false</c>.
+        /// </value>
         public bool LevitationPotion { get; private set; }
+
+        /// <summary>
+        /// Gets a value indicating whether the player is using a flaunt potion.
+        /// </summary>
+        /// <value>
+        ///   <c>true</c> if the player is using a flaunt potion; otherwise, <c>false</c>.
+        /// </value>
         public bool FlauntPotion { get; private set; }
 
+        /// <summary>
+        /// Gets a value indicating whether the player is using a solitude potion.
+        /// </summary>
+        /// <value>
+        ///   <c>true</c> if the player is using a solitude potion; otherwise, <c>false</c>.
+        /// </value>
         public bool SolitudePotion { get; private set; }
+
+        /// <summary>
+        /// Gets the player's last used potion.
+        /// </summary>
+        /// <value>
+        /// The player's last used potion.
+        /// </value>
         public Potion LastPotion { get; private set; }
+
+        /// <summary>
+        /// Gets a value indicating whether the player's last potion was enabled.
+        /// </summary>
+        /// <value>
+        ///   <c>true</c> if the player's last potion was enabled; otherwise, <c>false</c>.
+        /// </value>
         public bool LastPotionEnabled { get; private set; }
+
+        /// <summary>
+        /// Gets the timeout for the player's last potion.
+        /// </summary>
+        /// <value>
+        /// The timeout for the player's last potion.
+        /// </value>
         public int LastPotionTimeout { get; private set; }
 
+        /// <summary>
+        /// Gets a value indicating whether this player has a crown.
+        /// </summary>
+        /// <value>
+        ///   <c>true</c> if this player has a crown; otherwise, <c>false</c>.
+        /// </value>
         public bool HasCrown
         {
             get { return this.Host.PlayerService.CrownPlayer == this; }
         }
 
+        /// <summary>
+        /// Gets a value indicating whether this player is flying using god mode, guardian mode or moderator mode.
+        /// </summary>
+        /// <value>
+        ///   <c>true</c> if this player is flying using god mode, guardian mode or moderator mode; otherwise, <c>false</c>.
+        /// </value>
         public bool IsFlying
         {
             get { return this.IsGod || this.IsGuardian || this.IsMod; }
         }
 
+        /// <summary>
+        /// Gets a value indicating whether this player is a guest.
+        /// </summary>
+        /// <value>
+        ///   <c>true</c> if this player is a guest; otherwise, <c>false</c>.
+        /// </value>
         public bool IsGuest
         {
             get { return PlayerUtils.IsGuest(this.Username); }
         }
 
+        /// <summary>
+        /// Gets the player's storage name.
+        /// </summary>
+        /// <value>
+        /// The player's storage name.
+        /// </value>
         public string StorageName
         {
             get { return PlayerUtils.GetStorageName(this.Username); }
         }
 
+        /// <summary>
+        /// Gets the player's chat name.
+        /// </summary>
+        /// <value>
+        /// The player's chat name.
+        /// </value>
         public string ChatName
         {
             get { return PlayerUtils.GetChatName(this.Username); }
         }
 
+        /// <summary>
+        /// Gets the x-coordinate of the block that the player is located on.
+        /// </summary>
+        /// <value>
+        /// The x-coordinate of the block that the player is located on.
+        /// </value>
         public int BlockX
         {
             get { return BlockUtils.PosToBlock(this.PosX); }
         }
 
+        /// <summary>
+        /// Gets the y-coordinate of the block that the player is located on.
+        /// </summary>
+        /// <value>
+        /// The y-coordinate of the block that the player is located on.
+        /// </value>
         public int BlockY
         {
             get { return BlockUtils.PosToBlock(this.PosY); }
@@ -128,7 +473,7 @@ namespace CupCake.Players
             this.BindPlayerEvent<FaceReceiveEvent, FacePlayerEvent>(this.OnFace);
             this.BindPlayerEvent<MoveReceiveEvent, MovePlayerEvent>(this.OnMove);
             this.BindPlayerEvent<GodModeReceiveEvent, GodModePlayerEvent>(this.OnGodMode);
-            this.BindPlayerEvent<GuardianModeReceiveEvent, GuardianModePlayerEvent>(this.OnGruadianMode);
+            this.BindPlayerEvent<GuardianModeReceiveEvent, GuardianModePlayerEvent>(this.OnGuardianMode);
             this.BindPlayerEvent<ModModeReceiveEvent, ModModePlayerEvent>(this.OnModMode);
             this.BindPlayerEvent<SilverCrownReceiveEvent, SilverCrownPlayerEvent>(this.OnSilverCrown);
             this.BindPlayerEvent<LeftReceiveEvent, LeftPlayerEvent>(this.OnLeft);
@@ -248,7 +593,7 @@ namespace CupCake.Players
             this.IsGod = e.IsGod;
         }
 
-        private void OnGruadianMode(object sender, GuardianModeReceiveEvent e)
+        private void OnGuardianMode(object sender, GuardianModeReceiveEvent e)
         {
             this.IsGuardian = e.IsGuardian;
         }
