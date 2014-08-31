@@ -18,10 +18,12 @@ namespace CupCake.Messages
         }
 
         /// <summary>
-        /// Checks if the specified block is a coin door or coin gate
+        /// Checks if the specified block is a coin door or coin gate.
         /// </summary>
-        /// <param name="id">The block to check</param>
-        /// <returns><c>true</c> if the specified block is a coin door or coin gate, <c>false</c> otherwise</returns>
+        /// <param name="id">The block to check</param>.
+        /// <returns>
+        ///   <c>true</c> if the specified block is a coin door or coin gate; otherwise, <c>false</c>.
+        /// </returns>
         public static bool IsCoinDoor(Block id)
         {
             return id == Block.CoinDoor || id == Block.CoinGate;
@@ -31,7 +33,9 @@ namespace CupCake.Messages
         /// Checks if the specified block is a rotatable block
         /// </summary>
         /// <param name="id">The block to check</param>
-        /// <returns><c>true</c> if the specified block is a rotatable block, <c>false</c> otherwise</returns>
+        /// <returns>
+        ///   <c>true</c> if the specified block is a rotatable block; otherwise, <c>false</c>.
+        /// </returns>
         public static bool IsRotatable(Block id)
         {
             return id == Block.HazardSpike || id == Block.DecorSciFi2013BlueSlope ||
@@ -44,7 +48,9 @@ namespace CupCake.Messages
         /// Checks if the specified block is a music block
         /// </summary>
         /// <param name="id">The block to check</param>
-        /// <returns><c>true</c> if the specified block is a music block, <c>false</c> otherwise</returns>
+        /// <returns>
+        ///   <c>true</c> if the specified block is a music block; otherwise, <c>false</c>.
+        /// </returns>
         public static bool IsSound(Block id)
         {
             return id == Block.MusicPiano || id == Block.MusicDrum;
@@ -54,7 +60,9 @@ namespace CupCake.Messages
         /// Checks if the specified block is a portal
         /// </summary>
         /// <param name="id">The block to check</param>
-        /// <returns><c>true</c> if the specified block is a portal, <c>false</c> otherwise</returns>
+        /// <returns>
+        ///   <c>true</c> if the specified block is a portal; otherwise, <c>false</c>.
+        /// </returns>
         public static bool IsPortal(Block id)
         {
             return id == Block.Portal || id == Block.InvisiblePortal;
@@ -64,7 +72,9 @@ namespace CupCake.Messages
         /// Checks if the specified block is a world portal
         /// </summary>
         /// <param name="id">The block to check</param>
-        /// <returns><c>true</c> if the specified block is a world portal, <c>false</c> otherwise</returns>
+        /// <returns>
+        ///   <c>true</c> if the specified block is a world portal; otherwise, <c>false</c>.
+        /// </returns>
         public static bool IsWorldPortal(Block id)
         {
             return id == Block.WorldPortal;
@@ -74,7 +84,9 @@ namespace CupCake.Messages
         /// Checks if the specified block is a sign or a label
         /// </summary>
         /// <param name="id">The block to check</param>
-        /// <returns><c>true</c> if the specified block is a sign or a label, <c>false</c> otherwise</returns>
+        /// <returns>
+        ///   <c>true</c> if the specified block is a sign or a label; otherwise, <c>false</c>.
+        /// </returns>
         public static bool IsLabel(Block id)
         {
             return id == Block.DecorSign || id == Block.DecorLabel;
