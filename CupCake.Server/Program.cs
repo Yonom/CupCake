@@ -381,7 +381,7 @@ namespace CupCake.Server
 
         private static string GetFileName()
         {
-            return Assembly.GetExecutingAssembly().Location;
+            return Assembly.GetEntryAssembly().GetName().CodeBase;
         }
 
         public static bool IsRunningOnMono()
