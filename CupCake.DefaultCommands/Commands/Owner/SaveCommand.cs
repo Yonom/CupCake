@@ -13,7 +13,7 @@ namespace CupCake.DefaultCommands.Commands.Owner
         {
             this.RequireOwner();
             if (message.Count == 0 || message.Args[0] != "SAVE")
-                throw new CommandException("To user clear, type !clear SAVE");
+                throw new CommandException("To use save, type !save SAVE");
 
             this.RoomService.Save();
             source.Reply("Saved.");

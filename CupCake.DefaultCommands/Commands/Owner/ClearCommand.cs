@@ -14,7 +14,7 @@ namespace CupCake.DefaultCommands.Commands.Owner
             this.RequireOwner();
 
             if (message.Count == 0 || message.Args[0] != "CLEAR")
-                throw new CommandException("To user clear, type !clear CLEAR");
+                throw new CommandException("To use clear, type !clear CLEAR");
 
             this.RoomService.Clear();
             source.Reply("Cleared level.");
