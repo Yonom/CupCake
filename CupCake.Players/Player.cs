@@ -152,22 +152,21 @@ namespace CupCake.Players
                 {
                     if (e.UserId == this.UserId)
                     {
-                        callback(sender, e);
+                        var copy = (Player)this.MemberwiseClone();
 
-                        this.RaisePlayerEvent<T, TPlayer>(e);
+                        callback(sender, e);
+                        this.RaisePlayerEvent<T, TPlayer>(copy, e);
                     }
                 }, EventPriority.High);
         }
 
 
-        internal void RaisePlayerEvent<T, TPlayer>(T e) where TPlayer : PlayerEvent<T>
+        internal void RaisePlayerEvent<T, TPlayer>(Player old, T e) where TPlayer : PlayerEvent<T>
         {
-            var copy = this.MemberwiseClone();
-
             var instance = (TPlayer)Activator.CreateInstance(typeof(TPlayer),
                 BindingFlags.NonPublic |
                 BindingFlags.Instance,
-                null, new object[] {copy, this, e}, null);
+                null, new object[] { old, this, e }, null);
 
             this.SynchronizePlatform.Do(() =>
                 this.Events.Raise(instance));
@@ -353,12 +352,14 @@ namespace CupCake.Players
         {
             if (this.UserId == e.UserId)
             {
+                var copy = (Player)this.MemberwiseClone();
+
                 this.PosX = e.UserPosX;
                 this.PosY = e.UserPosY;
                 this.IsDead = false;
 
                 var point = new Point(this.PosX, this.PosY);
-                this.RaisePlayerEvent<Point, TeleportPlayerEvent>(point);
+                this.RaisePlayerEvent<Point, TeleportPlayerEvent>(copy, point);
             }
         }
 
@@ -366,6 +367,8 @@ namespace CupCake.Players
         {
             if (e.Coordinates.ContainsKey(this.UserId))
             {
+                var copy = (Player)this.MemberwiseClone();
+
                 Point location = e.Coordinates[this.UserId];
                 this.PosX = location.X;
                 this.PosY = location.Y;
@@ -380,7 +383,7 @@ namespace CupCake.Players
                 }
 
                 var point = new Point(this.PosX, this.PosY);
-                this.RaisePlayerEvent<Point, TeleportPlayerEvent>(point);
+                this.RaisePlayerEvent<Point, TeleportPlayerEvent>(copy, point);
             }
         }
     }

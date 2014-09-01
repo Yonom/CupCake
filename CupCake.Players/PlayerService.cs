@@ -50,7 +50,7 @@ namespace CupCake.Players
             this.AddPlayer(new AddJoinArgs(this, e), e,
                 player =>
                     // Raise the add event for this player
-                    player.RaisePlayerEvent<AddReceiveEvent, AddPlayerEvent>(e),
+                    player.RaisePlayerEvent<AddReceiveEvent, AddPlayerEvent>(null, e),
                 () =>
                     this.Logger.Log(LogPriority.Warning, "Received Add with existing UserId. Name: " + e.Username));
         }
@@ -64,7 +64,7 @@ namespace CupCake.Players
                 if (successCallback != null)
                     successCallback(player);
 
-                player.RaisePlayerEvent<IUserPosReceiveEvent, JoinPlayerEvent>(e);
+                player.RaisePlayerEvent<IUserPosReceiveEvent, JoinPlayerEvent>(null, e);
             }
             else
             {
