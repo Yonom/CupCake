@@ -5,6 +5,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Sockets;
 using System.Reflection;
+using System.Threading;
 using CupCake.Core.Storage;
 using CupCake.DefaultCommands.Commands;
 using CupCake.Protocol;
@@ -29,6 +30,8 @@ namespace CupCake.Server
         private static string _title = "<Unnamed>";
         private static string _status;
         private static readonly List<string> _outputs = new List<string>();
+        private static int _shutdownReason;
+        private static readonly ManualResetEvent _shutdownEvent = new ManualResetEvent(false);
 
         private static event Action<string> Output;
 
@@ -54,7 +57,7 @@ namespace CupCake.Server
             if (handler != null) handler(status);
         }
 
-        private static void Main(string[] args)
+        private static int Main(string[] args)
         {
             AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
 
@@ -133,18 +136,23 @@ namespace CupCake.Server
             {
                 Console.Write("CupCake.Server: ");
                 Console.WriteLine(e.Message);
-                return;
+                return 0;
             }
             
             StartServer();
 
-            while (true)
+            new Thread(() =>
             {
-                var input = Console.ReadLine();
+                while (true)
+                {
+                    var input = Console.ReadLine();
 
-                if (_clientEx != null)
-                    _clientEx.Input(input);
-            }
+                    if (_clientEx != null && input != null)
+                        _clientEx.Input(input);
+                }
+            }) {IsBackground = true}.Start();
+            _shutdownEvent.WaitOne(); // TODO lock
+            return _shutdownReason;
         }
 
         private static void Program_Output(string output)
@@ -191,8 +199,7 @@ namespace CupCake.Server
 
                         h.ReceiveClose += () =>
                         {
-                            _clientEx.Dispose();
-                            Environment.Exit(0);
+                            Shutdown(0);
                         };
                         
                         if (!_settings.Autoconnect)
@@ -204,7 +211,7 @@ namespace CupCake.Server
                 catch (SocketException)
                 {
                     Console.WriteLine("Trouble connecting to server. Make sure CupCake Client is running.");
-                    Environment.Exit(1);
+                    Shutdown(1);
                 }
             }
 
@@ -324,6 +331,13 @@ namespace CupCake.Server
             }
 
             _clientEx.Start(_settings.Email, _settings.Password, _settings.World, _settings.Dirs.ToArray(), storage);
+        }
+
+        internal static void Shutdown(int reason)
+        {
+            _clientEx.Dispose();
+            _shutdownReason = reason;
+            _shutdownEvent.Set();
         }
 
         internal static void Restart()

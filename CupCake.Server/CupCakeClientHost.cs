@@ -118,8 +118,7 @@ namespace CupCake.Server
 
         private void Shutdown(int reason)
         {
-            this.Dispose();
-            Environment.Exit(reason);
+            Program.Shutdown(reason);
         }
 
         private void LogMessage(string str)

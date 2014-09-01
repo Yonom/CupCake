@@ -1,14 +1,18 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Linq;
+using JetBrains.Annotations;
 
 namespace CupCake.Command
 {
     [DebuggerDisplay("Source = {Source}")]
     public class ParsedCommand
     {
-        public ParsedCommand(string source)
+        public ParsedCommand([NotNull]string source)
         {
+            if (source == null)
+                throw new ArgumentNullException("source");
+
             this.Source = source;
             string[] parts = source.Split(' ');
             this.Type = parts[0];

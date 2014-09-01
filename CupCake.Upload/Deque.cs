@@ -1,4 +1,5 @@
-﻿using System;
+﻿using JetBrains.Annotations;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -189,7 +190,7 @@ namespace CupCake.Upload
         /// -or-
         /// The number of elements in the source <see cref="T:System.Collections.Generic.ICollection`1"/> is greater than the available space from <paramref name="arrayIndex"/> to the end of the destination <paramref name="array"/>.
         /// </exception>
-        void ICollection<T>.CopyTo(T[] array, int arrayIndex)
+        void ICollection<T>.CopyTo([NotNull]T[] array, int arrayIndex)
         {
             if (array == null)
                 throw new ArgumentNullException("array", "Array is null");
@@ -338,7 +339,7 @@ namespace CupCake.Upload
             }
         }
 
-        void System.Collections.ICollection.CopyTo(Array array, int index)
+        void System.Collections.ICollection.CopyTo([NotNull]Array array, int index)
         {
             if (array == null)
                 throw new ArgumentNullException("array", "Destination array cannot be null.");

@@ -32,7 +32,7 @@ namespace CupCake.Host
         /// Initializes a new instance of the <see cref="CupCakeClientArgs" /> class.
         /// </summary>
         /// <param name="connection">The connection.</param>
-        internal CupCakeClientArgs(Connection connection)
+        internal CupCakeClientArgs([NotNull]Connection connection)
         {
             if (connection == null)
                 throw new ArgumentNullException("connection");
