@@ -51,6 +51,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CodeAnnotations.cs" />
+    <Compile Include="CupCakeManualService.cs" />
     <Compile Include="EventListenerAttribute.cs" />
     <Compile Include="Events\Event.cs" />
     <Compile Include="Events\EventHandle.cs" />

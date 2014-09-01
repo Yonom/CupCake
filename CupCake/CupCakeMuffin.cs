@@ -15,7 +15,7 @@ namespace CupCake
     /// </summary>
     /// <typeparam name="TProtocol">The type of the protocol.</typeparam>
     [InheritedExport(typeof(IMuffin))]
-    public abstract class CupCakeMuffin<TProtocol> : CupCakeMuffinPart<TProtocol>, IMuffin
+    public abstract class CupCakeMuffin<TProtocol> : CupCakeManualMuffin<TProtocol>
     {
     }
 }

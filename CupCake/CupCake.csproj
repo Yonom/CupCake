@@ -50,10 +50,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Chatter.cs" />
+    <Compile Include="CupCakeMuffin.cs" />
     <Compile Include="Host\CupCakeComponents.cs" />
     <Compile Include="Host\CupCakeClient.cs" />
     <Compile Include="Command.cs" />
-    <Compile Include="CupCakeMuffin.cs" />
+    <Compile Include="CupCakeManualMuffin.cs" />
     <Compile Include="CupCakeMuffinPart.cs" />
     <Compile Include="Host\CupCakeClientArgs.cs" />
     <Compile Include="Host\EnumHelper.cs" />
