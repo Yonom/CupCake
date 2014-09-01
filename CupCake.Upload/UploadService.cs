@@ -307,6 +307,21 @@ namespace CupCake.Upload
             this.Events.Raise(this.GetRotatable(x, y, block, rotation));
         }
 
+        public void UploadRotatable(int x, int y, RotatableBlock block, SpikeRotation rotation)
+        {
+            this.Events.Raise(this.GetRotatable(x, y, block, rotation));
+        }
+
+        public void UploadRotatable(int x, int y, RotatableBlock block, SciFiSlopeRotation rotation)
+        {
+            this.Events.Raise(this.GetRotatable(x, y, block, rotation));
+        }
+
+        public void UploadRotatable(int x, int y, RotatableBlock block, SciFiStraightRotation rotation)
+        {
+            this.Events.Raise(this.GetRotatable(x, y, block, rotation));
+        }
+
         public UploadRequestEvent GetBlock(Layer layer, int x, int y, Block block)
         {
             var e = new BlockPlaceSendEvent(layer, x, y, block);
@@ -348,6 +363,21 @@ namespace CupCake.Upload
         {
             var e = new RotatablePlaceSendEvent(Layer.Foreground, x, y, block, rotation);
             return new UploadRequestEvent(e);
+        }
+
+        public UploadRequestEvent GetRotatable(int x, int y, RotatableBlock block, SpikeRotation rotation)
+        {
+            return GetRotatable(x, y, block, (uint)rotation);
+        }
+
+        public UploadRequestEvent GetRotatable(int x, int y, RotatableBlock block, SciFiSlopeRotation rotation)
+        {
+            return GetRotatable(x, y, block, (uint)rotation);
+        }
+
+        public UploadRequestEvent GetRotatable(int x, int y, RotatableBlock block, SciFiStraightRotation rotation)
+        {
+            return GetRotatable(x, y, block, (uint)rotation);
         }
 
         protected override void Dispose(bool disposing)
