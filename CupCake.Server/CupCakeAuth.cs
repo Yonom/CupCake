@@ -9,7 +9,7 @@ namespace CupCake.Server
 {
     internal class CupCakeAuth
     {
-        private const int EEVersion = 178;
+        private const int EEVersion = 180;
 
         public Connection Connect(string email, string password, string worldId)
         {
