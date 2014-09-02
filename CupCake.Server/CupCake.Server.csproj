@@ -88,6 +88,7 @@
     <Reference Include="System.XML" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CupCakeAuth.cs" />
     <Compile Include="CupCakeClientHost.cs" />
     <Compile Include="CupCakeServerSettings.cs" />
     <Compile Include="Muffins\IOMuffin.cs" />
