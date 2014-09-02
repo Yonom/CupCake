@@ -302,6 +302,16 @@ namespace CupCake.Upload
             this.Events.Raise(this.GetSound(x, y, block, soundId));
         }
 
+        public void UploadSound(int x, int y, SoundBlock block, PianoId soundId)
+        {
+            this.Events.Raise(this.GetSound(x, y, block, soundId));
+        }
+
+        public void UploadSound(int x, int y, SoundBlock block, PercussionId soundId)
+        {
+            this.Events.Raise(this.GetSound(x, y, block, soundId));
+        }
+
         public void UploadRotatable(int x, int y, RotatableBlock block, uint rotation)
         {
             this.Events.Raise(this.GetRotatable(x, y, block, rotation));
@@ -357,6 +367,16 @@ namespace CupCake.Upload
         {
             var e = new SoundPlaceSendEvent(Layer.Foreground, x, y, block, soundId);
             return new UploadRequestEvent(e);
+        }
+
+        public UploadRequestEvent GetSound(int x, int y, SoundBlock block, PianoId soundId)
+        {
+            return this.GetSound(x, y, block, (uint)soundId);
+        }
+
+        public UploadRequestEvent GetSound(int x, int y, SoundBlock block, PercussionId soundId)
+        {
+            return this.GetSound(x, y, block, (uint)soundId);
         }
 
         public UploadRequestEvent GetRotatable(int x, int y, RotatableBlock block, uint rotation)

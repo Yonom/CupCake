@@ -1,6 +1,4 @@
-﻿using CupCake.Messages.Blocks;
-
-namespace CupCake.Messages
+﻿namespace CupCake.Messages.Blocks
 {
     public class BlockUtils
     {
@@ -27,6 +25,25 @@ namespace CupCake.Messages
             return id == Block.HazardSpike || id == Block.DecorSciFi2013BlueSlope ||
                    id == Block.DecorSciFi2013BlueStraight || id == Block.DecorSciFi2013YellowSlope ||
                    id == Block.DecorSciFi2013YellowStraight || id == Block.DecorSciFi2013GreenSlope ||
+                   id == Block.DecorSciFi2013GreenStraight;
+        }
+
+        public static bool IsSpike(Block id)
+        {
+            return id == Block.HazardSpike;
+        }
+
+        public static bool IsSciFiSlope(Block id)
+        {
+            return id == Block.DecorSciFi2013BlueSlope ||
+                   id == Block.DecorSciFi2013YellowSlope ||
+                   id == Block.DecorSciFi2013GreenSlope;
+        }
+
+        public static bool IsSciFiStraight(Block id)
+        {
+            return id == Block.DecorSciFi2013BlueStraight ||
+                   id == Block.DecorSciFi2013YellowStraight ||
                    id == Block.DecorSciFi2013GreenStraight;
         }
 

@@ -213,6 +213,28 @@ namespace CupCake.World
             }
         }
 
+        public PianoId PianoId
+        {
+            get
+            {
+                if (this.BlockType != BlockType.Sound)
+                    throw new InvalidOperationException("This property can only be accessed on Sound blocks.");
+
+                return this.SoundId;
+            }
+        }
+
+        public PercussionId PercussionId
+        {
+            get
+            {
+                if (BlockUtils.is)
+                    throw new InvalidOperationException("This property can only be accessed on Sound blocks.");
+
+                return this.SoundId;
+            }
+        }
+
         /// <summary>
         /// Gets the rotation. (Only on rotatable blocks)
         /// </summary>
@@ -228,6 +250,61 @@ namespace CupCake.World
                     throw new InvalidOperationException("This property can only be accessed on Rotatable blocks.");
 
                 return this._data.Rotation;
+            }
+        }
+
+        /// <summary>
+        /// Gets the spike rotation. (Only on spike blocks)
+        /// </summary>
+        /// <value>
+        /// The spike rotation.
+        /// </value>
+        /// <exception cref="System.InvalidOperationException">This property can only be accessed on Spike blocks.</exception>
+        public SpikeRotation SpikeRotation
+        {
+            get
+            {
+                if (BlockUtils.IsSpike(this.Block))
+                    throw new InvalidOperationException("This property can only be accessed on Spike blocks.");
+
+                return (SpikeRotation)this.Rotation;
+            }
+        }
+
+        /// <summary>
+        /// Gets the scifi straight rotation. (Only on scifi straight blocks)
+        /// </summary>
+        /// <value>
+        /// The scifi straight rotation.
+        /// </value>
+        /// <exception cref="System.InvalidOperationException">This property can only be accessed on SciFiStraight blocks.</exception>
+        public SciFiStraightRotation SciFiStraightRotation
+        {
+            get
+            {
+                if (BlockUtils.IsSciFiStraight(this.Block))
+                    throw new InvalidOperationException("This property can only be accessed on SciFiStraight blocks.");
+
+                return (SciFiStraightRotation)this.Rotation;
+            }
+        }
+
+
+        /// <summary>
+        /// Gets the scifi slope rotation. (Only on scifi slope blocks)
+        /// </summary>
+        /// <value>
+        /// The scifi slope rotation.
+        /// </value>
+        /// <exception cref="System.InvalidOperationException">This property can only be accessed on SciFiSlope blocks.</exception>
+        public SciFiSlopeRotation SciFiSlopeRotation
+        {
+            get
+            {
+                if (BlockUtils.IsSciFiSlope(this.Block))
+                    throw new InvalidOperationException("This property can only be accessed on SciFiSlope blocks.");
+
+                return (SciFiSlopeRotation)this.Rotation;
             }
         }
 

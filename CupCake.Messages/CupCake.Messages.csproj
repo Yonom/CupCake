@@ -50,7 +50,9 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BlockUtils.cs" />
+    <Compile Include="Blocks\PercussionId.cs" />
+    <Compile Include="Blocks\PianoId.cs" />
+    <Compile Include="Blocks\BlockUtils.cs" />
     <Compile Include="Point3D.cs" />
     <Compile Include="Receive\GuardianModeReceiveEvent.cs" />
     <Compile Include="Receive\IBlockPlaceReceiveEvent.cs" />
