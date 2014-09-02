@@ -213,25 +213,39 @@ namespace CupCake.World
             }
         }
 
+        /// <summary>
+        /// Gets the piano identifier. (Only on piano blocks)
+        /// </summary>
+        /// <value>
+        /// The piano identifier.
+        /// </value>
+        /// <exception cref="System.InvalidOperationException">This property can only be accessed on Piano blocks.</exception>
         public PianoId PianoId
         {
             get
             {
-                if (this.BlockType != BlockType.Sound)
-                    throw new InvalidOperationException("This property can only be accessed on Sound blocks.");
+                if (!BlockUtils.IsPiano(this.Block))
+                    throw new InvalidOperationException("This property can only be accessed on Piano blocks.");
 
-                return this.SoundId;
+                return (PianoId)this.SoundId;
             }
         }
 
+        /// <summary>
+        /// Gets the percussion identifier. (Only on drum blocks)
+        /// </summary>
+        /// <value>
+        /// The percussion identifier.
+        /// </value>
+        /// <exception cref="System.InvalidOperationException">This property can only be accessed on Drum blocks.</exception>
         public PercussionId PercussionId
         {
             get
             {
-                if (BlockUtils.is)
-                    throw new InvalidOperationException("This property can only be accessed on Sound blocks.");
+                if (!BlockUtils.IsDrum(this.Block))
+                    throw new InvalidOperationException("This property can only be accessed on Drum blocks.");
 
-                return this.SoundId;
+                return (PercussionId)this.SoundId;
             }
         }
 
@@ -264,7 +278,7 @@ namespace CupCake.World
         {
             get
             {
-                if (BlockUtils.IsSpike(this.Block))
+                if (!BlockUtils.IsSpike(this.Block))
                     throw new InvalidOperationException("This property can only be accessed on Spike blocks.");
 
                 return (SpikeRotation)this.Rotation;
@@ -282,7 +296,7 @@ namespace CupCake.World
         {
             get
             {
-                if (BlockUtils.IsSciFiStraight(this.Block))
+                if (!BlockUtils.IsSciFiStraight(this.Block))
                     throw new InvalidOperationException("This property can only be accessed on SciFiStraight blocks.");
 
                 return (SciFiStraightRotation)this.Rotation;
@@ -301,7 +315,7 @@ namespace CupCake.World
         {
             get
             {
-                if (BlockUtils.IsSciFiSlope(this.Block))
+                if (!BlockUtils.IsSciFiSlope(this.Block))
                     throw new InvalidOperationException("This property can only be accessed on SciFiSlope blocks.");
 
                 return (SciFiSlopeRotation)this.Rotation;

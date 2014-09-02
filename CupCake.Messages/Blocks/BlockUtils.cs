@@ -47,6 +47,16 @@
                    id == Block.DecorSciFi2013GreenStraight;
         }
 
+        public static bool IsPiano(Block id)
+        {
+            return id == Block.MusicPiano;
+        }
+
+        public static bool IsDrum(Block id)
+        {
+            return id == Block.MusicDrum;
+        }
+
         public static bool IsSound(Block id)
         {
             return id == Block.MusicPiano || id == Block.MusicDrum;
