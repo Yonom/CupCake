@@ -31,11 +31,11 @@ namespace CupCake
         }
 
         /// <summary>
-        /// Registers the specified callback.
+        /// Registers the specified command.
         /// </summary>
-        /// <param name="callback">The callback.</param>
+        /// <param name="callback">The command.</param>
         /// <exception cref="System.ArgumentException">Callback has already been added.</exception>
-        public void Register(Action<IInvokeSource, ParsedCommand> callback)
+        public void Add(Action<IInvokeSource, ParsedCommand> callback)
         {
             lock (this._lockObj)
             {
@@ -75,11 +75,26 @@ namespace CupCake
         /// <returns></returns>
         public bool Remove(Action<IInvokeSource, ParsedCommand> callback)
         {
-            ICommand oldCommand;
-            if (this.TryGetCommand(callback, out oldCommand))
+            ICommand command;
+            if (this.TryGetCommand(callback, out command))
             {
-                oldCommand.Dispose();
-                return this._commands.Remove(oldCommand);
+                return this.Remove(command);
+            }
+
+            return false;
+        }
+
+        /// <summary>
+        /// Removes the specified callback.
+        /// </summary>
+        /// <param name="callback">The callback.</param>
+        /// <returns></returns>
+        public bool Remove(ICommand callback)
+        {
+            if (this._commands.Remove(callback))
+            {
+                callback.Dispose();
+                return true;
             }
 
             return false;
@@ -115,7 +130,7 @@ namespace CupCake
         {
             foreach (var command in this._commands)
             {
-                command.Dispose();
+                this.Remove(command);
             }
         }
     }

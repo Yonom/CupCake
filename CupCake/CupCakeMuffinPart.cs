@@ -334,7 +334,7 @@ namespace CupCake
                     (Action<IInvokeSource, ParsedCommand>)
                         Delegate.CreateDelegate(typeof(Action<IInvokeSource, ParsedCommand>), this, eventHandler);
 
-                this.Commands.Register(handler);
+                this.Commands.Add(handler);
             }
         }
 
