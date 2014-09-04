@@ -37,7 +37,11 @@ namespace CupCake.Command
             {
                 if (e.Player.Say.StartsWith(this.CommandPrefix))
                 {
-                    this.InvokeFromPlayer(e.Player, new ParsedCommand(e.Player.Say.Substring(this.CommandPrefix.Length)));
+                    var command = e.Player.Say.Substring(this.CommandPrefix.Length);
+                    if (String.IsNullOrEmpty(command))
+                        return;
+
+                    this.InvokeFromPlayer(e.Player, new ParsedCommand(command));
                 }
             });
         }
