@@ -8,9 +8,9 @@ namespace CupCake.DefaultCommands.Commands.Utility
     public class AccessCommand : UtilityCommandBase
     {
         [MinGroup(Group.Moderator)]
-        [Label("access")]
+        [Command("access")]
         [CorrectUsage("[key]")]
-        protected override void Run(IInvokeSource source, ParsedCommand message)
+        private void Run(IInvokeSource source, ParsedCommand message)
         {
             string key = String.Empty;
 

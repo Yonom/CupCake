@@ -7,9 +7,9 @@ namespace CupCake.DefaultCommands.Commands.Owner
     public sealed class ResetCommand : OwnerCommandBase
     {
         [MinGroup(Group.Moderator)]
-        [Label("reset")]
+        [Command("reset")]
         [CorrectUsage("")]
-        protected override void Run(IInvokeSource source, ParsedCommand message)
+        private void Run(IInvokeSource source, ParsedCommand message)
         {
             this.RequireOwner();
             this.Chatter.Reset();

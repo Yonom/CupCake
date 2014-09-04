@@ -8,11 +8,11 @@ namespace CupCake.DefaultCommands.Commands.Permissions
     {
         [MinArgs(1)]
         [MinGroup(Group.Operator)]
-        [Label("user", "userplayer",
+        [Command("user", "userplayer",
             "unban", "unlimit", "untrust", "unmod", "unop", "unadmin",
             "unbanplayer", "unlimitplayer", "untrustplayer", "unmodplayer", "unopplayer", "unadminplayer")]
         [CorrectUsage("player")]
-        protected override void Run(IInvokeSource source, ParsedCommand message)
+        private void Run(IInvokeSource source, ParsedCommand message)
         {
             this.RunPermissionCommand(source, message, Group.User);
         }

@@ -8,9 +8,9 @@ namespace CupCake.DefaultCommands.Commands.Ban
     {
         [MinArgs(1)]
         [MinGroup(Group.Operator)]
-        [Label("ban", "banplayer")]
+        [Command("ban", "banplayer")]
         [CorrectUsage("player [reason]")]
-        protected override void Run(IInvokeSource source, ParsedCommand message)
+        private void Run(IInvokeSource source, ParsedCommand message)
         {
             if (message.Count >= 2)
             {

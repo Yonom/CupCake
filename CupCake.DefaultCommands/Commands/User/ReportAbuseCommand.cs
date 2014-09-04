@@ -9,9 +9,9 @@ namespace CupCake.DefaultCommands.Commands.User
     {
         [MinArgs(2)]
         [MinGroup(Group.Host)]
-        [Label("reportabuse", "reportabuseplayer")]
+        [Command("reportabuse", "reportabuseplayer")]
         [CorrectUsage("player reason")]
-        protected override void Run(IInvokeSource source, ParsedCommand message)
+        private void Run(IInvokeSource source, ParsedCommand message)
         {
             Player player = this.PlayerService.MatchPlayer(message.Args[0]);
 

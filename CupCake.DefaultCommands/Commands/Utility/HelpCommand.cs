@@ -8,9 +8,9 @@ namespace CupCake.DefaultCommands.Commands.Utility
     {
         [MinArgs(1)]
         [MinGroup(Group.Moderator)]
-        [Label("help")]
+        [Command("help")]
         [CorrectUsage("command")]
-        protected override void Run(IInvokeSource source, ParsedCommand message)
+        private void Run(IInvokeSource source, ParsedCommand message)
         {
             this.CommandService.Invoke(source, new HelpRequest(message.Args[0]));
         }

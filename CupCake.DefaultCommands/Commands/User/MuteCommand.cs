@@ -9,9 +9,9 @@ namespace CupCake.DefaultCommands.Commands.User
     {
         [MinArgs(1)]
         [MinGroup(Group.Host)]
-        [Label("mute", "muteplayer")]
+        [Command("mute", "muteplayer")]
         [CorrectUsage("player")]
-        protected override void Run(IInvokeSource source, ParsedCommand message)
+        private void Run(IInvokeSource source, ParsedCommand message)
         {
             Player player = this.PlayerService.MatchPlayer(message.Args[0]);
 

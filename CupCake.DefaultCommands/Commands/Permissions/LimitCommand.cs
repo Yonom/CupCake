@@ -8,9 +8,9 @@ namespace CupCake.DefaultCommands.Commands.Permissions
     {
         [MinArgs(1)]
         [MinGroup(Group.Operator)]
-        [Label("limit", "limitplayer")]
+        [Command("limit", "limitplayer")]
         [CorrectUsage("player")]
-        protected override void Run(IInvokeSource source, ParsedCommand message)
+        private void Run(IInvokeSource source, ParsedCommand message)
         {
             this.RunPermissionCommand(source, message, Group.Limited);
         }

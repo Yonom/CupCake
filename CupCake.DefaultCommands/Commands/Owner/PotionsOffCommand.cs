@@ -8,9 +8,9 @@ namespace CupCake.DefaultCommands.Commands.Owner
     {
         [MinArgs(1)]
         [MinGroup(Group.Moderator)]
-        [Label("potionsoff")]
+        [Command("potionsoff")]
         [CorrectUsage("potion1 [potion2 [...]]")]
-        protected override void Run(IInvokeSource source, ParsedCommand message)
+        private void Run(IInvokeSource source, ParsedCommand message)
         {
             this.RequireOwner();
             this.Chatter.PotionsOff(message.Args);

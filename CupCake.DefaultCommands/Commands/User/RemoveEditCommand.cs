@@ -8,9 +8,9 @@ namespace CupCake.DefaultCommands.Commands.User
     public sealed class RemoveEditCommand : UserCommandBase
     {
         [MinGroup(Group.Moderator)]
-        [Label("removeedit", "removeeditplayer")]
+        [Command("removeedit", "removeeditplayer")]
         [CorrectUsage("[player]")]
-        protected override void Run(IInvokeSource source, ParsedCommand message)
+        private void Run(IInvokeSource source, ParsedCommand message)
         {
             this.RequireOwner();
             Player player = this.GetPlayerOrSelf(source, message);

@@ -9,9 +9,9 @@ namespace CupCake.DefaultCommands.Commands.User
     {
         [MinArgs(1)]
         [MinGroup(Group.Trusted)]
-        [Label("kick", "kickplayer")]
+        [Command("kick", "kickplayer")]
         [CorrectUsage("player [reason]")]
-        protected override void Run(IInvokeSource source, ParsedCommand message)
+        private void Run(IInvokeSource source, ParsedCommand message)
         {
             this.RequireOwner();
             Player player = this.GetPlayerOrSelf(source, message);

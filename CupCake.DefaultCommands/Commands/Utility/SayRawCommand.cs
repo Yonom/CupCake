@@ -9,9 +9,9 @@ namespace CupCake.DefaultCommands.Commands.Utility
         [MinArgs(1)]
         // Leave this to Admin, otherwise people can use !sayraw to gain access to higher ranks
         [MinGroup(Group.Admin)]
-        [Label("sayraw")]
+        [Command("sayraw")]
         [CorrectUsage("text")]
-        protected override void Run(IInvokeSource source, ParsedCommand message)
+        private void Run(IInvokeSource source, ParsedCommand message)
         {
             this.Chatter.ChatService.Send(message.GetTrail(0));
         }

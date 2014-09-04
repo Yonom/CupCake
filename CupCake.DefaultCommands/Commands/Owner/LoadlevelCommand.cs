@@ -7,9 +7,9 @@ namespace CupCake.DefaultCommands.Commands.Owner
     public sealed class LoadlevelCommand : OwnerCommandBase
     {
         [MinGroup(Group.Moderator)]
-        [Label("loadlevel")]
+        [Command("loadlevel")]
         [CorrectUsage("")]
-        protected override void Run(IInvokeSource source, ParsedCommand message)
+        private void Run(IInvokeSource source, ParsedCommand message)
         {
             this.RequireOwner();
             this.Chatter.LoadLevel();

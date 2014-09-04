@@ -8,9 +8,9 @@ namespace CupCake.DefaultCommands.Commands.Permissions
     public sealed class GetRankCommand : PermissionCommandBase
     {
         [MinGroup(Group.Moderator)]
-        [Label("getrank", "getplayerrank")]
+        [Command("getrank", "getplayerrank")]
         [CorrectUsage("[player]")]
-        protected override void Run(IInvokeSource source, ParsedCommand message)
+        private void Run(IInvokeSource source, ParsedCommand message)
         {
             if (message.Count >= 1)
             {

@@ -7,9 +7,9 @@ namespace CupCake.DefaultCommands.Commands.Utility
     public class CompleteLevelCommand : UtilityCommandBase
     {
         [MinGroup(Group.Moderator)]
-        [Label("completelevel")]
+        [Command("completelevel")]
         [CorrectUsage("")]
-        protected override void Run(IInvokeSource source, ParsedCommand message)
+        private void Run(IInvokeSource source, ParsedCommand message)
         {
             if (this.PlayerService.OwnPlayer.HasSilverCrown)
                 throw new CommandException("Bot already has crown!");

@@ -10,9 +10,9 @@ namespace CupCake.DefaultCommands.Commands.Utility
     {
         [MinArgs(1)]
         [MinGroup(Group.Moderator)]
-        [Label("autosay")]
+        [Command("autosay")]
         [CorrectUsage("text")]
-        protected override void Run(IInvokeSource source, ParsedCommand message)
+        private void Run(IInvokeSource source, ParsedCommand message)
         {
             AutoText text;
             try

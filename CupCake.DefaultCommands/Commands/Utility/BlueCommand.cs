@@ -8,9 +8,9 @@ namespace CupCake.DefaultCommands.Commands.Utility
     public class BlueCommand : UtilityCommandBase
     {
         [MinGroup(Group.Moderator)]
-        [Label("blue")]
+        [Command("blue")]
         [CorrectUsage("")]
-        protected override void Run(IInvokeSource source, ParsedCommand message)
+        private void Run(IInvokeSource source, ParsedCommand message)
         {
             this.KeyService.PressKey(Key.Blue);
             source.Reply("Pressed blue key.");

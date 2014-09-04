@@ -7,9 +7,9 @@ namespace CupCake.DefaultCommands.Commands.Utility
     public class GiveWootCommand : UtilityCommandBase
     {
         [MinGroup(Group.Moderator)]
-        [Label("givewoot", "wootup")]
+        [Command("givewoot", "wootup")]
         [CorrectUsage("")]
-        protected override void Run(IInvokeSource source, ParsedCommand message)
+        private void Run(IInvokeSource source, ParsedCommand message)
         {
             this.ActionService.WootUp();
         }

@@ -7,9 +7,9 @@ namespace CupCake.DefaultCommands.Commands.Utility
     public class DieCommand : UtilityCommandBase
     {
         [MinGroup(Group.Moderator)]
-        [Label("die")]
+        [Command("die")]
         [CorrectUsage("")]
-        protected override void Run(IInvokeSource source, ParsedCommand message)
+        private void Run(IInvokeSource source, ParsedCommand message)
         {
             this.ActionService.Die();
             source.Reply("Died.");

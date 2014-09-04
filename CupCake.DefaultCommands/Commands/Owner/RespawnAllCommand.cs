@@ -7,9 +7,9 @@ namespace CupCake.DefaultCommands.Commands.Owner
     public sealed class RespawnAllCommand : OwnerCommandBase
     {
         [MinGroup(Group.Moderator)]
-        [Label("respawnall")]
+        [Command("respawnall")]
         [CorrectUsage("")]
-        protected override void Run(IInvokeSource source, ParsedCommand message)
+        private void Run(IInvokeSource source, ParsedCommand message)
         {
             this.RequireOwner();
             this.Chatter.RespawnAll();

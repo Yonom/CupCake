@@ -8,9 +8,9 @@ namespace CupCake.DefaultCommands.Commands.Edit
     public sealed class GodModeCommand : EditCommandBase
     {
         [MinGroup(Group.Moderator)]
-        [Label("godmode")]
+        [Command("godmode")]
         [CorrectUsage("[enabled]")]
-        protected override void Run(IInvokeSource source, ParsedCommand message)
+        private void Run(IInvokeSource source, ParsedCommand message)
         {
             this.RequireEdit();
 

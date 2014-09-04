@@ -7,9 +7,9 @@ namespace CupCake.DefaultCommands.Commands.Owner
     public sealed class ClearCommand : OwnerCommandBase
     {
         [MinGroup(Group.Moderator)]
-        [Label("clear")]
+        [Command("clear")]
         [CorrectUsage("CLEAR")]
-        protected override void Run(IInvokeSource source, ParsedCommand message)
+        private void Run(IInvokeSource source, ParsedCommand message)
         {
             this.RequireOwner();
 

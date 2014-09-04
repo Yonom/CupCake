@@ -8,9 +8,9 @@ namespace CupCake.DefaultCommands.Commands.Utility
     public class GuardianModeCommand : UtilityCommandBase
     {
         [MinGroup(Group.Moderator)]
-        [Label("guardianmode")]
+        [Command("guardianmode")]
         [CorrectUsage("[enabled]")]
-        protected override void Run(IInvokeSource source, ParsedCommand message)
+        private void Run(IInvokeSource source, ParsedCommand message)
         {
             bool enabled;
 

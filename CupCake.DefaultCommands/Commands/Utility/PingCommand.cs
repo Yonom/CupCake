@@ -7,9 +7,9 @@ namespace CupCake.DefaultCommands.Commands.Utility
     public class PingCommand : UtilityCommandBase
     {
         [MinGroup(Group.Moderator)]
-        [Label("ping")]
+        [Command("ping")]
         [CorrectUsage("")]
-        protected override void Run(IInvokeSource source, ParsedCommand message)
+        private void Run(IInvokeSource source, ParsedCommand message)
         {
             source.Reply("Pong.");
         }

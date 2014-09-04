@@ -7,9 +7,9 @@ namespace CupCake.DefaultCommands.Commands.Utility
     public class GetCrownCommand : UtilityCommandBase
     {
         [MinGroup(Group.Moderator)]
-        [Label("getcrown")]
+        [Command("getcrown")]
         [CorrectUsage("")]
-        protected override void Run(IInvokeSource source, ParsedCommand message)
+        private void Run(IInvokeSource source, ParsedCommand message)
         {
             this.ActionService.GetCrown();
             source.Reply("Got crown.");

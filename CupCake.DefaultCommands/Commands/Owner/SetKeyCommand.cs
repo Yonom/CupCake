@@ -8,9 +8,9 @@ namespace CupCake.DefaultCommands.Commands.Owner
     {
         [MinArgs(1)]
         [MinGroup(Group.Host)]
-        [Label("setkey")]
+        [Command("setkey")]
         [CorrectUsage("key")]
-        protected override void Run(IInvokeSource source, ParsedCommand message)
+        private void Run(IInvokeSource source, ParsedCommand message)
         {
             this.RequireOwner();
             string key = message.GetTrail(0);

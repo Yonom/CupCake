@@ -7,9 +7,9 @@ namespace CupCake.DefaultCommands.Commands.Utility
     public class ModModeCommand : UtilityCommandBase
     {
         [MinGroup(Group.Moderator)]
-        [Label("modmode")]
+        [Command("modmode")]
         [CorrectUsage("")]
-        protected override void Run(IInvokeSource source, ParsedCommand message)
+        private void Run(IInvokeSource source, ParsedCommand message)
         {
             this.ActionService.ModMode();
             source.Reply("Entered mod mode.");

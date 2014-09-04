@@ -8,9 +8,9 @@ namespace CupCake.DefaultCommands.Commands.User
     public sealed class KillCommand : UserCommandBase
     {
         [MinGroup(Group.Moderator)]
-        [Label("kill", "killplayer")]
+        [Command("kill", "killplayer")]
         [CorrectUsage("[player]")]
-        protected override void Run(IInvokeSource source, ParsedCommand message)
+        private void Run(IInvokeSource source, ParsedCommand message)
         {
             this.RequireOwner();
             Player player = this.GetPlayerOrSelf(source, message);

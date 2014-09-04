@@ -8,9 +8,9 @@ namespace CupCake.DefaultCommands.Commands.Owner
     {
         [MinArgs(1)]
         [MinGroup(Group.Moderator)]
-        [Label("name")]
+        [Command("name")]
         [CorrectUsage("newName")]
-        protected override void Run(IInvokeSource source, ParsedCommand message)
+        private void Run(IInvokeSource source, ParsedCommand message)
         {
             this.RequireOwner();
 

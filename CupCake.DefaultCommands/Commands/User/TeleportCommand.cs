@@ -9,10 +9,10 @@ namespace CupCake.DefaultCommands.Commands.User
     {
         [MinArgs(1)]
         [MinGroup(Group.Moderator)]
-        [Label("tele", "teleplayer", "teleport", "teleportplayer")]
+        [Command("tele", "teleplayer", "teleport", "teleportplayer")]
         [CorrectUsage("player [target]")]
         [CorrectUsage("player x y")]
-        protected override void Run(IInvokeSource source, ParsedCommand message)
+        private void Run(IInvokeSource source, ParsedCommand message)
         {
             this.RequireOwner();
             Player player = this.PlayerService.MatchPlayer(message.Args[0]);

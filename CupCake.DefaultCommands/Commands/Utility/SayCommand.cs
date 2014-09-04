@@ -8,9 +8,9 @@ namespace CupCake.DefaultCommands.Commands.Utility
     {
         [MinArgs(1)]
         [MinGroup(Group.Moderator)]
-        [Label("say")]
+        [Command("say")]
         [CorrectUsage("text")]
-        protected override void Run(IInvokeSource source, ParsedCommand message)
+        private void Run(IInvokeSource source, ParsedCommand message)
         {
             this.Chatter.ChatService.Chat(message.GetTrail(0), source.Name);
         }

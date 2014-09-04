@@ -7,9 +7,9 @@ namespace CupCake.DefaultCommands.Commands.Owner
     public sealed class SaveCommand : OwnerCommandBase
     {
         [MinGroup(Group.Operator)]
-        [Label("save")]
+        [Command("save")]
         [CorrectUsage("SAVE")]
-        protected override void Run(IInvokeSource source, ParsedCommand message)
+        private void Run(IInvokeSource source, ParsedCommand message)
         {
             this.RequireOwner();
             if (message.Count == 0 || message.Args[0] != "SAVE")

@@ -7,9 +7,9 @@ namespace CupCake.DefaultCommands.Commands.Owner
     public sealed class KillAllCommand : OwnerCommandBase
     {
         [MinGroup(Group.Moderator)]
-        [Label("killall", "killemall")]
+        [Command("killall", "killemall")]
         [CorrectUsage("")]
-        protected override void Run(IInvokeSource source, ParsedCommand message)
+        private void Run(IInvokeSource source, ParsedCommand message)
         {
             this.RequireOwner();
             this.Chatter.KillAll();

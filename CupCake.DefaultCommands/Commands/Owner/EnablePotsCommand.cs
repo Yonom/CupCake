@@ -9,9 +9,9 @@ namespace CupCake.DefaultCommands.Commands.Owner
     {
         [MinArgs(1)]
         [MinGroup(Group.Moderator)]
-        [Label("enablepots")]
+        [Command("enablepots")]
         [CorrectUsage("isAllowed")]
-        protected override void Run(IInvokeSource source, ParsedCommand message)
+        private void Run(IInvokeSource source, ParsedCommand message)
         {
             this.RequireOwner();
 

@@ -7,9 +7,9 @@ namespace CupCake.DefaultCommands.Commands.Utility
     public class KillRoomCommand : UtilityCommandBase
     {
         [MinGroup(Group.Operator)]
-        [Label("killroom")]
+        [Command("killroom")]
         [CorrectUsage("")]
-        protected override void Run(IInvokeSource source, ParsedCommand message)
+        private void Run(IInvokeSource source, ParsedCommand message)
         {
             this.RoomService.KillRoom();
         }

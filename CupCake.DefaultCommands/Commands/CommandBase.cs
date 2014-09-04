@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using CupCake.Command;
 using CupCake.Command.Source;
 using CupCake.Messages.User;
@@ -7,11 +8,15 @@ using CupCake.Players;
 
 namespace CupCake.DefaultCommands.Commands
 {
-    public abstract class CommandBase<T> : Command<T>
+    public abstract class CommandBase<T> : CupCakeMuffinPart<T>
     {
+        protected override void Enable()
+        {
+        }
+
         internal virtual string CommandName
         {
-            get { return this.Labels[0]; }
+            get { return this.Commands.First().Labels[0]; }
         }
 
         internal virtual void RequireOwner()

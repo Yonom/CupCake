@@ -9,9 +9,9 @@ namespace CupCake.DefaultCommands.Commands.Ban
     {
         [MinArgs(2)]
         [MinGroup(Group.Operator)]
-        [Label("tempban", "tempbanplayer")]
+        [Command("tempban", "tempbanplayer")]
         [CorrectUsage("player duration [reason]")]
-        protected override void Run(IInvokeSource source, ParsedCommand message)
+        private void Run(IInvokeSource source, ParsedCommand message)
         {
             DateTime timeout;
             try

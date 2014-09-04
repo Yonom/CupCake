@@ -10,9 +10,9 @@ namespace CupCake.DefaultCommands.Commands.Utility
     {
         [MinArgs(1)]
         [MinGroup(Group.Operator)]
-        [Label("usepotion", "usepot")]
+        [Command("usepotion", "usepot")]
         [CorrectUsage("potion")]
-        protected override void Run(IInvokeSource source, ParsedCommand message)
+        private void Run(IInvokeSource source, ParsedCommand message)
         {
             Potion pot;
             try

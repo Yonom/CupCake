@@ -7,9 +7,9 @@ namespace CupCake.DefaultCommands.Commands.Utility
     public class RestartCommand : UtilityCommandBase
     {
         [MinGroup(Group.Admin)]
-        [Label("restart")]
+        [Command("restart")]
         [CorrectUsage("")]
-        protected override void Run(IInvokeSource source, ParsedCommand message)
+        private void Run(IInvokeSource source, ParsedCommand message)
         {
             source.Reply("Restarting...");
 
