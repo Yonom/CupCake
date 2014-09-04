@@ -101,6 +101,11 @@ namespace CupCake.Client.Windows
         {
             this.Close();
         }
+        
+        private void NoConnectionButtonNew_Click(object sender, RoutedEventArgs e)
+        {
+            this.NewConnection(false);
+        }
 
         private void ButtonNew_OnClick(object sender, RoutedEventArgs e)
         {
