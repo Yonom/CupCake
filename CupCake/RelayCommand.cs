@@ -4,16 +4,16 @@ using CupCake.Command.Source;
 
 namespace CupCake
 {
-    internal class RelayCommand : Command<object>
+    internal class RelayCommand : Command<object>, ICommand
     {
-        private readonly Action<IInvokeSource, ParsedCommand> _innerCommand;
+        public Action<IInvokeSource, ParsedCommand> Callback { get; private set; }
         private readonly string _name;
 
-        public RelayCommand(Action<IInvokeSource, ParsedCommand> innerCommand, string name)
+        public RelayCommand(Action<IInvokeSource, ParsedCommand> callback, string name)
         {
-            this._innerCommand = innerCommand;
+            this.Callback = callback;
             this._name = name;
-            this.Method = innerCommand.Method;
+            this.Method = callback.Method;
         }
 
         protected override string GetName()
@@ -23,8 +23,7 @@ namespace CupCake
 
         protected override void Run(IInvokeSource source, ParsedCommand message)
         {
-            Action<IInvokeSource, ParsedCommand> handle = this._innerCommand;
-            if (handle != null) handle(source, message);
+            this.Callback(source, message);
         }
     }
 }

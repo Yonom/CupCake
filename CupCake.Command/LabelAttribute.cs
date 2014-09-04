@@ -3,7 +3,6 @@
 namespace CupCake.Command
 {
     [AttributeUsage(AttributeTargets.Method)]
-    [Obsolete("Use CommandAttribute instead.")]
     public class LabelAttribute : Attribute
     {
         private readonly string[] _labels;

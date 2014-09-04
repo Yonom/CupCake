@@ -35,9 +35,9 @@ namespace CupCake
         private readonly Lazy<ActionService> _actionService;
         private readonly Lazy<Chatter> _chatter;
         private readonly Lazy<CommandService> _commandService;
-        private readonly List<RelayCommand> _commands = new List<RelayCommand>();
         private readonly Lazy<ConnectionPlatform> _connectionPlatform;
         private readonly Lazy<EventManager> _events;
+        private readonly Lazy<CommandManager> _commands;
         private readonly Lazy<IOService> _ioService;
         private readonly Lazy<KeyService> _keyService;
         private readonly Lazy<Logger> _logger;
@@ -72,6 +72,12 @@ namespace CupCake
             {
                 var eventsPlatform = this.PlatformLoader.Get<EventsPlatform>();
                 return new EventManager(eventsPlatform, this);
+            });
+            this._commands = new Lazy<CommandManager>(() =>
+            {
+                var args = new MuffinArgs(this.PlatformLoader, this.ServiceLoader, this.MuffinLoader);
+                string name = this.GetName();
+                return new CommandManager(args, name);
             });
             this._logger = new Lazy<Logger>(() =>
             {
@@ -285,6 +291,17 @@ namespace CupCake
         }
 
         /// <summary>
+        /// Gets command service.
+        /// </summary>
+        /// <value>
+        /// The command service.
+        /// </value>
+        protected CommandManager Commands
+        {
+            get { return this._commands.Value; }
+        }
+
+        /// <summary>
         ///     Enables the specified arguments.
         /// </summary>
         /// <param name="args">The arguments.</param>
@@ -317,9 +334,7 @@ namespace CupCake
                     (Action<IInvokeSource, ParsedCommand>)
                         Delegate.CreateDelegate(typeof(Action<IInvokeSource, ParsedCommand>), this, eventHandler);
 
-                var cmd = new RelayCommand(handler, this.GetName());
-                cmd.Enable(null, new MuffinArgs(this.PlatformLoader, this.ServiceLoader, this.MuffinLoader));
-                this._commands.Add(cmd);
+                this.Commands.Register(handler);
             }
         }
 
@@ -368,10 +383,9 @@ namespace CupCake
                 {
                     this._events.Value.Dispose();
                 }
-
-                foreach (RelayCommand command in this._commands)
+                if (this._commands.IsValueCreated)
                 {
-                    command.Dispose();
+                    this._commands.Value.Dispose();
                 }
             }
 

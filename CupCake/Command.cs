@@ -15,6 +15,7 @@ namespace CupCake
     ///     Represents a CupCake command.
     /// </summary>
     /// <typeparam name="TProtocol">The type of the protocol.</typeparam>
+    // TODO: Remove in 1.8
     [Obsolete("Use CupCakeMuffinPart<> instead.")]
     public abstract class Command<TProtocol> : CupCakeMuffinPart<TProtocol>
     {
