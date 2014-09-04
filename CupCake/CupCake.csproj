@@ -116,7 +116,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="CupCake.nuspec" />
     <None Include="Key.snk" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

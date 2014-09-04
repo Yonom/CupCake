@@ -61,7 +61,7 @@
                 <Label FontSize="16" HorizontalContentAlignment="Center" Content="There are no bots running. Want to start a new one?" VerticalAlignment="Top" />
                 <Button Content="New Connection" Margin="100,45,100,0" Click="NoConnectionButtonNew_Click" />
             </Grid>
-            <TabControl Name="ConnectionsTabControl" Visibility="Hidden"/>
+            <TabControl Name="ConnectionsTabControl" Visibility="Collapsed"/>
             <StackPanel Grid.Column="1" Margin="40,25,25,0">
                 <TextBlock Margin="0,10,0,10" FontSize="18" Foreground="{StaticResource Foreground}" Text="Actions" />
                 <Separator Background="#11FFFFFF" />
