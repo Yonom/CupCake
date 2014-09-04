@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Target Name="AfterBuild" Condition="'$(ConfigurationName)' == 'Debug' and '$(OS)' != 'Unix'">
+  <Target Name="AfterBuild" Condition="'$(ConfigurationName)' == 'Debug'">
       <Exec Command="&quot;$(MSBuildProjectDirectory)\CupCake.Debug.exe&quot; Deploy $(TargetDir)" />
   </Target>
 </Project>
