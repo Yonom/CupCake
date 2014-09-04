@@ -15,13 +15,6 @@ namespace CupCake.Players
     [DebuggerDisplay("Username = {Username}, Smiley = {Smiley}")]
     public sealed class Player : MetadataServicePart<JoinArgs>
     {
-        // TODO: Remove in 1.8
-        [Obsolete("Use the Get<T> and Set<T> methods instead.")]
-        public MetadataStore Metadata
-        {
-            get { return this.MetadataStore; }
-        }
-
         protected override object MetadataKey
         {
             get { return this.UserId; }

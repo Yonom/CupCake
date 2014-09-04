@@ -48,21 +48,6 @@ namespace CupCake.Host
             this.PlatformLoader.EnableComplete += this.PlatformLoader_EnableComplete;
         }
 
-        // TODO: Remove in v1.8
-        /// <summary>
-        ///     Starts CupCake and sets the connection to the given one.
-        /// </summary>
-        /// <param name="connection">The connection.</param>
-        /// <exception cref="System.ArgumentNullException">connection</exception>
-        [Obsolete("Use the overload with CupCakeClientArgs parameter.")]
-        public void Start([NotNull]Connection connection)
-        {
-            if (connection == null)
-                throw new ArgumentNullException("connection");
-            this._args = new CupCakeClientArgs(connection);
-            base.Start();
-        }
-
         /// <summary>
         /// Starts CupCake and sets the connection to the given one.
         /// </summary>

@@ -13,23 +13,11 @@ namespace CupCake
     /// <summary>
     /// Class CommandManager.
     /// </summary>
-    public class CommandManager : IEnumerable<ICommand>, IDisposable
+    public sealed class CommandManager : CupCakeMuffinPart<string>, IEnumerable<ICommand>, IDisposable
     {
-        private readonly MuffinArgs _args;
-        private readonly string _chatName;
+        private string _chatName;
         private readonly List<ICommand> _commands = new List<ICommand>();
         private readonly object _lockObj = new object();
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="CommandManager" /> class.
-        /// </summary>
-        /// <param name="args">The arguments.</param>
-        /// <param name="chatName">The name used in chat output.</param>
-        public CommandManager(MuffinArgs args, string chatName)
-        {
-            this._args = args;
-            this._chatName = chatName;
-        }
 
         /// <summary>
         /// Registers the specified command.
@@ -45,8 +33,8 @@ namespace CupCake
                     throw new ArgumentException("Callback has already been added.");
                 }
 
-                var command = new RelayCommand(callback, this._chatName);
-                command.Enable(this._args);
+                var command = this.EnablePart<CommandHandle>();
+                command.Activate(callback, this._chatName);
                 this._commands.Add(command);
             }
         }
@@ -128,7 +116,7 @@ namespace CupCake
         /// Releases unmanaged and - optionally - managed resources.
         /// </summary>
         /// <param name="disposing"><c>true</c> to release both managed and unmanaged resources; <c>false</c> to release only unmanaged resources.</param>
-        protected virtual void Dispose(bool disposing)
+        protected override void Dispose(bool disposing)
         {
             if (disposing)
             {
@@ -143,14 +131,11 @@ namespace CupCake
         }
 
         /// <summary>
-        /// Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
+        /// Returns an enumerator that iterates through the collection.
         /// </summary>
-        public void Dispose()
-        {
-            this.Dispose(true);
-            GC.SuppressFinalize(this);
-        }
-
+        /// <returns>
+        /// A <see cref="T:System.Collections.Generic.IEnumerator`1" /> that can be used to iterate through the collection.
+        /// </returns>
         public IEnumerator<ICommand> GetEnumerator()
         {
             lock (this._lockObj)
@@ -159,9 +144,24 @@ namespace CupCake
             }
         }
 
+        /// <summary>
+        /// Returns an enumerator that iterates through a collection.
+        /// </summary>
+        /// <returns>
+        /// An <see cref="T:System.Collections.IEnumerator" /> object that can be used to iterate through the collection.
+        /// </returns>
         IEnumerator IEnumerable.GetEnumerator()
         {
             return this.GetEnumerator();
+        }
+
+        /// <summary>
+        /// Enables this instance.
+        /// </summary>
+        /// <exception cref="System.NotImplementedException"></exception>
+        protected override void Enable()
+        {
+            this._chatName = this.Host;
         }
     }
 }

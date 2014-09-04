@@ -75,9 +75,8 @@ namespace CupCake
             });
             this._commands = new Lazy<CommandManager>(() =>
             {
-                var args = new MuffinArgs(this.PlatformLoader, this.ServiceLoader, this.MuffinLoader);
                 string name = this.GetName();
-                return new CommandManager(args, name);
+                return this.EnablePart<CommandManager, string>(name);
             });
             this._logger = new Lazy<Logger>(() =>
             {
