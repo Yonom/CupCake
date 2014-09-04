@@ -1,10 +1,11 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
 namespace CupCake.Core.Events
 {
-    public class EventManager : IDisposable
+    public class EventManager : IEnumerable<EventManager.IBinding>, IDisposable
     {
         private readonly List<IBinding> _bindings = new List<IBinding>();
         private readonly object _lockObj = new object();
@@ -134,6 +135,19 @@ namespace CupCake.Core.Events
             Delegate GetCallback();
             void Subscribe();
             void Unsubscribe();
+        }
+
+        public IEnumerator<IBinding> GetEnumerator()
+        {
+            lock (this._lockObj)
+            {
+                return this._bindings.ToArray().AsEnumerable().GetEnumerator();
+            }
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return this.GetEnumerator();
         }
     }
 }

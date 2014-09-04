@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,7 +13,7 @@ namespace CupCake
     /// <summary>
     /// Class CommandManager.
     /// </summary>
-    public class CommandManager : IDisposable
+    public class CommandManager : IEnumerable<ICommand>, IDisposable
     {
         private readonly MuffinArgs _args;
         private readonly string _chatName;
@@ -124,14 +125,43 @@ namespace CupCake
         }
 
         /// <summary>
+        /// Releases unmanaged and - optionally - managed resources.
+        /// </summary>
+        /// <param name="disposing"><c>true</c> to release both managed and unmanaged resources; <c>false</c> to release only unmanaged resources.</param>
+        protected virtual void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                lock (this._lockObj)
+                {
+                    foreach (var command in this._commands)
+                    {
+                        this.Remove(command);
+                    }
+                }
+            }
+        }
+
+        /// <summary>
         /// Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
         /// </summary>
         public void Dispose()
         {
-            foreach (var command in this._commands)
+            this.Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        public IEnumerator<ICommand> GetEnumerator()
+        {
+            lock (this._lockObj)
             {
-                this.Remove(command);
+                return this._commands.ToArray().AsEnumerable().GetEnumerator();
             }
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return this.GetEnumerator();
         }
     }
 }
