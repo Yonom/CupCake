@@ -151,7 +151,7 @@ namespace CupCake.Server
                         _clientEx.Input(input);
                 }
             }) {IsBackground = true}.Start();
-            _shutdownEvent.WaitOne(); // TODO lock
+            _shutdownEvent.WaitOne();
             return _shutdownReason;
         }
 

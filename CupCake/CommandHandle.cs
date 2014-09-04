@@ -10,76 +10,29 @@ using CupCake.Permissions;
 
 namespace CupCake
 {
-    /// <summary>
-    ///     Class Command.
-    ///     Represents a CupCake command.
-    /// </summary>
-    /// <typeparam name="TProtocol">The type of the protocol.</typeparam>
-    // TODO: Remove in 1.8
-    [Obsolete("Use CupCakeMuffinPart<> instead.")]
-    public abstract class Command<TProtocol> : CupCakeMuffinPart<TProtocol>
+    internal class CommandHandle : CupCakeMuffinPart<object>, ICommand
     {
-        /// <summary>
-        ///     Initializes a new instance of the <see cref="Command{TProtocol}" /> class.
-        /// </summary>
-        protected Command()
-        {
-            this.Method = this.GetType().GetMethod("Run", BindingFlags.Instance | BindingFlags.NonPublic);
-        }
-
-        /// <summary>
-        ///     Gets or sets the method that is called when this command is invoked.
-        /// </summary>
-        /// <value>
-        ///     The method that is called when this command is invoked.
-        /// </value>
         public MethodBase Method { get; set; }
 
-        /// <summary>
-        ///     Gets the labels list set for this command.
-        ///     Usually set through the <see cref="LabelAttribute" />.
-        /// </summary>
-        /// <value>The labels.</value>
         public List<string> Labels { get; private set; }
 
-        /// <summary>
-        ///     Gets the usages strings set for this command.
-        ///     Usually set through the <see cref="CorrectUsageAttribute" />.
-        /// </summary>
-        /// <value>The usages.</value>
         public List<string> Usages { get; private set; }
 
-        /// <summary>
-        ///     Gets or sets the minimum arguments.
-        ///     Usually set through the <see cref="MinArgsAttribute" />.
-        /// </summary>
-        /// <value>The minimum arguments.</value>
         public int MinArgs { get; set; }
 
-        /// <summary>
-        ///     Gets or sets the minimum permission required to execute this command.
-        ///     Usually set through the <see cref="MinGroupAttribute" />.
-        /// </summary>
-        /// <value>The minimum group.</value>
         public Group MinGroup { get; set; }
 
-        /// <summary>
-        ///     Gets or sets a value indicating whether this command is executed with a higher priority.´
-        ///     Can only be set through the <see cref="HighPriorityAttribute" /> or the constructor, changing this value later has
-        ///     no effect.
-        /// </summary>
-        /// <value><c>true</c> if [high priority]; otherwise, <c>false</c>.</value>
         public bool HighPriority { get; set; }
 
-        /// <summary>
-        ///     Enables this instance.
-        ///     Obsolete. You should not call Enable() on a command.
-        /// </summary>
-        [Obsolete("You should not call Enable() on a command.", true)]
-#pragma warning disable 809
-        protected override sealed void Enable()
-#pragma warning restore 809
+        public Action<IInvokeSource, ParsedCommand> Callback { get; private set; }
+        private string _name;
+
+        public void Activate(Action<IInvokeSource, ParsedCommand> callback, string name)
         {
+            this.Callback = callback;
+            this._name = name;
+            this.Method = callback.Method;
+
             this.Labels = new List<string>();
             this.Usages = new List<string>();
 
@@ -147,21 +100,12 @@ namespace CupCake
             }
         }
 
-        /// <summary>
-        ///     Determines whether this instance can handle the specified message.
-        /// </summary>
-        /// <param name="message">The message.</param>
-        /// <returns><c>true</c> if this instance can handle the specified message; otherwise, <c>false</c>.</returns>
-        protected virtual bool CanHandle(ParsedCommand message)
+       protected virtual bool CanHandle(ParsedCommand message)
         {
             return this.Labels.Any(l => l.Equals(message.Type, StringComparison.OrdinalIgnoreCase));
         }
 
-        /// <summary>
-        ///     Executes the command.
-        /// </summary>
-        /// <param name="source">The message source.</param>
-        /// <param name="message">The parsed message.</param>
+       
         protected void ExecuteCommand(IInvokeSource source, ParsedCommand message)
         {
             try
@@ -203,11 +147,18 @@ namespace CupCake
                 : "<unavailable>";
         }
 
-        /// <summary>
-        ///     This method is called whenever the command should be executed.
-        /// </summary>
-        /// <param name="source">The command source.</param>
-        /// <param name="message">The parsed message.</param>
-        protected abstract void Run(IInvokeSource source, ParsedCommand message);
+        protected void Run(IInvokeSource source, ParsedCommand message)
+        {
+            this.Callback(source, message);
+        }
+
+        protected override void Enable()
+        {
+        }
+
+        protected override string GetName()
+        {
+            return this._name;
+        }
     }
 }
