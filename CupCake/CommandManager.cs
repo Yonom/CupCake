@@ -33,7 +33,7 @@ namespace CupCake
                     throw new ArgumentException("Callback has already been added.");
                 }
 
-                var command = this.EnablePart<CommandHandle>();
+                var command = this.EnablePart<CommandHandle>(null);
                 command.Activate(callback, this._chatName);
                 this._commands.Add(command);
             }
