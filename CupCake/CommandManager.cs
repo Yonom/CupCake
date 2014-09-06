@@ -7,6 +7,7 @@ using CupCake.Command;
 using CupCake.Command.Source;
 using CupCake.Core.Events;
 using MuffinFramework.Muffins;
+using PlayerIOClient;
 
 namespace CupCake
 {
@@ -122,7 +123,7 @@ namespace CupCake
             {
                 lock (this._lockObj)
                 {
-                    foreach (var command in this._commands)
+                    foreach (var command in this._commands.ToArray())
                     {
                         this.Remove(command);
                     }
