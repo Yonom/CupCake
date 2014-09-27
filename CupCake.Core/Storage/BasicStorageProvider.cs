@@ -20,5 +20,9 @@ namespace CupCake.Core.Storage
 
             return null;
         }
+
+        public void Dispose()
+        {
+        }
     }
 }
