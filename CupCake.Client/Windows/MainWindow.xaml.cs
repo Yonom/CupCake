@@ -287,7 +287,7 @@ namespace CupCake.Client.Windows
             catch (SocketException ex)
             {
                 MessageBoxHelper.Show(this, "Unable to open TCP Listener",
-                    "Could not listen on port 4577. " + ex.Message);
+                    "It looks like something else is using port 4577. " + ex.Message);
                 this.Close();
             }
         }

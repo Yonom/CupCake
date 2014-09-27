@@ -79,6 +79,11 @@ namespace CupCake.Upload
 
         private void OnUploadRequest(object sender, UploadRequestEvent e)
         {
+            if (e.SendEvent.Layer > Layer.Background || 
+                e.SendEvent.X >= this._world.RoomWidth || 
+                e.SendEvent.Y >= this._world.RoomHeight)
+                throw new IndexOutOfRangeException("The given block is not inside the boundaries of the room!");
+
             Action task = () =>
             {
                 if (this.Send(e))
@@ -241,7 +246,15 @@ namespace CupCake.Upload
 
         private bool IsUploaded(IBlockPlaceSendEvent e)
         {
-            return (this._world[e.Layer, e.X, e.Y].IsSame(e));
+            try
+            {
+                return (this._world[e.Layer, e.X, e.Y].IsSame(e));
+            }
+            catch (Exception ex)
+            {
+                this.Logger.Log("Uploading block at Layer: {0}, X: {1}, Y: {2}, Block: {3} failed! {4}", e.Layer, e.X, e.Y, e.Block, ex.Message);
+                return false;
+            }
         }
 
         public void ClearQueue()
