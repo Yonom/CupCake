@@ -24,7 +24,7 @@ namespace CupCake.Messages.Receive
             this.IsMod = message.GetBoolean(6);
             this.HasChat = message.GetBoolean(7);
             this.Coins = message.GetInteger(8);
-            this.Coins = message.GetInteger(9);
+            this.BlueCoins = message.GetInteger(9);
             this.IsMyFriend = message.GetBoolean(10);
             this.IsPurple = message.GetBoolean(11);
             this.MagicClass = (MagicClass)message.GetInteger(12);
