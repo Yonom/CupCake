@@ -53,7 +53,7 @@ namespace CupCake.Core
         {
             if (disposing)
             {
-                ThreadPool.QueueUserWorkItem(o => 
+                ThreadPool.QueueUserWorkItem(o =>
                     this._thread.Dispose());
             }
 

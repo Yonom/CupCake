@@ -3,12 +3,12 @@ using PlayerIOClient;
 namespace CupCake.Messages.Send
 {
     /// <summary>
-    /// Class Say Send Event
+    ///     Class Say Send Event
     /// </summary>
     public class SaySendEvent : SendEvent
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="SaySendEvent"/> class.
+        ///     Initializes a new instance of the <see cref="SaySendEvent" /> class.
         /// </summary>
         /// <param name="text">The text.</param>
         public SaySendEvent(string text)
@@ -17,15 +17,15 @@ namespace CupCake.Messages.Send
         }
 
         /// <summary>
-        /// Gets or sets the text.
+        ///     Gets or sets the text.
         /// </summary>
         /// <value>
-        /// The text.
+        ///     The text.
         /// </value>
         public string Text { get; set; }
 
         /// <summary>
-        /// Gets the PlayerIO message representing the data in this <see cref="SendEvent" />.
+        ///     Gets the PlayerIO message representing the data in this <see cref="SendEvent" />.
         /// </summary>
         /// <returns></returns>
         public override Message GetMessage()

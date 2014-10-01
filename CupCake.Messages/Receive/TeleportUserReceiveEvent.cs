@@ -3,12 +3,12 @@ using PlayerIOClient;
 namespace CupCake.Messages.Receive
 {
     /// <summary>
-    /// Occurs when a player is teleported to another location.
+    ///     Occurs when a player is teleported to another location.
     /// </summary>
     public class TeleportUserReceiveEvent : ReceiveEvent, IUserPosReceiveEvent
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="ReceiveEvent" /> class.
+        ///     Initializes a new instance of the <see cref="ReceiveEvent" /> class.
         /// </summary>
         /// <param name="message">The message.</param>
         public TeleportUserReceiveEvent(Message message)
@@ -20,7 +20,7 @@ namespace CupCake.Messages.Receive
         }
 
         /// <summary>
-        /// Gets the block x.
+        ///     Gets the block x.
         /// </summary>
         /// <value>The block x.</value>
         public int BlockX
@@ -29,7 +29,7 @@ namespace CupCake.Messages.Receive
         }
 
         /// <summary>
-        /// Gets the block y.
+        ///     Gets the block y.
         /// </summary>
         /// <value>The block y.</value>
         public int BlockY
@@ -38,17 +38,19 @@ namespace CupCake.Messages.Receive
         }
 
         /// <summary>
-        /// Gets or sets the user coordinate x.
+        ///     Gets or sets the user coordinate x.
         /// </summary>
         /// <value>The user position x.</value>
         public int UserPosX { get; set; }
+
         /// <summary>
-        /// Gets or sets the user coordinate y.
+        ///     Gets or sets the user coordinate y.
         /// </summary>
         /// <value>The user position y.</value>
         public int UserPosY { get; set; }
+
         /// <summary>
-        /// Gets or sets the user identifier.
+        ///     Gets or sets the user identifier.
         /// </summary>
         /// <value>The user identifier.</value>
         public int UserId { get; set; }

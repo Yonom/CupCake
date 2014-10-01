@@ -4,12 +4,12 @@ using PlayerIOClient;
 namespace CupCake.Messages.Receive
 {
     /// <summary>
-    /// Class Face Receive Event.
+    ///     Class Face Receive Event.
     /// </summary>
     public class FaceReceiveEvent : ReceiveEvent, IUserReceiveEvent
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="FaceReceiveEvent"/> class.
+        ///     Initializes a new instance of the <see cref="FaceReceiveEvent" /> class.
         /// </summary>
         /// <param name="message">The EE message.</param>
         public FaceReceiveEvent(Message message)
@@ -20,12 +20,13 @@ namespace CupCake.Messages.Receive
         }
 
         /// <summary>
-        /// Gets or sets the face.
+        ///     Gets or sets the face.
         /// </summary>
         /// <value>The face.</value>
         public Smiley Face { get; set; }
+
         /// <summary>
-        /// Gets or sets the user identifier.
+        ///     Gets or sets the user identifier.
         /// </summary>
         /// <value>The user identifier.</value>
         public int UserId { get; set; }

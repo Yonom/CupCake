@@ -3,36 +3,42 @@ using CupCake.Messages.Blocks;
 namespace CupCake.World
 {
     /// <summary>
-    /// Represents the types a <see cref="Block"/> can be.
+    ///     Represents the types a <see cref="Block" /> can be.
     /// </summary>
     public enum BlockType
     {
         /// <summary>
-        /// A normal block
+        ///     A normal block
         /// </summary>
         Normal,
+
         /// <summary>
-        /// A rotatable block
+        ///     A rotatable block
         /// </summary>
         Rotatable,
+
         /// <summary>
-        /// A coin door block
+        ///     A coin door block
         /// </summary>
         CoinDoor,
+
         /// <summary>
-        /// A portal block
+        ///     A portal block
         /// </summary>
         Portal,
+
         /// <summary>
-        /// A sound block
+        ///     A sound block
         /// </summary>
         Sound,
+
         /// <summary>
-        /// A label block
+        ///     A label block
         /// </summary>
         Label,
+
         /// <summary>
-        /// A world portal block
+        ///     A world portal block
         /// </summary>
         WorldPortal
     }

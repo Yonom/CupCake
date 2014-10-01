@@ -8,7 +8,7 @@ using CupCake.Messages.Send;
 namespace CupCake.World
 {
     /// <summary>
-    /// Represents a block in the world.
+    ///     Represents a block in the world.
     /// </summary>
     [DebuggerDisplay("Block = {Block}, Data = {DebuggerData()}")]
     public class WorldBlock : MetadataProvider
@@ -25,10 +25,10 @@ namespace CupCake.World
         }
 
         /// <summary>
-        /// Gets the metadata key.
+        ///     Gets the metadata key.
         /// </summary>
         /// <value>
-        /// The metadata key.
+        ///     The metadata key.
         /// </value>
         protected override object MetadataKey
         {
@@ -36,50 +36,50 @@ namespace CupCake.World
         }
 
         /// <summary>
-        /// Gets the layer.
+        ///     Gets the layer.
         /// </summary>
         /// <value>
-        /// The layer.
+        ///     The layer.
         /// </value>
         public Layer Layer { get; private set; }
 
         /// <summary>
-        /// Gets the x coordinate of this block.
+        ///     Gets the x coordinate of this block.
         /// </summary>
         /// <value>
-        /// The x coordinate of this block.
+        ///     The x coordinate of this block.
         /// </value>
         public int X { get; private set; }
 
         /// <summary>
-        /// Gets the y coordinate of this block.
+        ///     Gets the y coordinate of this block.
         /// </summary>
         /// <value>
-        /// The y coordinate of this block.
+        ///     The y coordinate of this block.
         /// </value>
         public int Y { get; private set; }
 
         /// <summary>
-        /// Gets the type of the block.
+        ///     Gets the type of the block.
         /// </summary>
         /// <value>
-        /// The type of the block.
+        ///     The type of the block.
         /// </value>
         public virtual BlockType BlockType { get; private set; }
 
         /// <summary>
-        /// Gets the block.
+        ///     Gets the block.
         /// </summary>
         /// <value>
-        /// The block.
+        ///     The block.
         /// </value>
         public Block Block { get; private set; }
 
         /// <summary>
-        /// Gets the metadata.
+        ///     Gets the metadata.
         /// </summary>
         /// <value>
-        /// The metadata.
+        ///     The metadata.
         /// </value>
         [Obsolete("Use the Get<T> and Set<T> methods instead.")]
         public MetadataStore Metadata
@@ -88,10 +88,10 @@ namespace CupCake.World
         }
 
         /// <summary>
-        /// Gets the Text. (Only on label blocks)
+        ///     Gets the Text. (Only on label blocks)
         /// </summary>
         /// <value>
-        /// The text.
+        ///     The text.
         /// </value>
         /// <exception cref="System.InvalidOperationException">This property can only be accessed on Label blocks.</exception>
         public string Text
@@ -106,10 +106,10 @@ namespace CupCake.World
         }
 
         /// <summary>
-        /// Gets the world portal target. (Only on world portal blocks)
+        ///     Gets the world portal target. (Only on world portal blocks)
         /// </summary>
         /// <value>
-        /// The world portal target.
+        ///     The world portal target.
         /// </value>
         /// <exception cref="System.InvalidOperationException">This property can only be accessed on WorldPortal blocks.</exception>
         public string WorldPortalTarget
@@ -124,10 +124,10 @@ namespace CupCake.World
         }
 
         /// <summary>
-        /// Gets the coins to collect. (Only on coin doors)
+        ///     Gets the coins to collect. (Only on coin doors)
         /// </summary>
         /// <value>
-        /// The coins to collect.
+        ///     The coins to collect.
         /// </value>
         /// <exception cref="System.InvalidOperationException">This property can only be accessed on CoinDoor blocks.</exception>
         public uint CoinsToCollect
@@ -142,10 +142,10 @@ namespace CupCake.World
         }
 
         /// <summary>
-        /// Gets the portal identifier.  (Only on portal blocks)
+        ///     Gets the portal identifier.  (Only on portal blocks)
         /// </summary>
         /// <value>
-        /// The portal identifier.
+        ///     The portal identifier.
         /// </value>
         /// <exception cref="System.InvalidOperationException">This property can only be accessed on Portal blocks.</exception>
         public uint PortalId
@@ -160,10 +160,10 @@ namespace CupCake.World
         }
 
         /// <summary>
-        /// Gets the portal target.  (Only on portal blocks)
+        ///     Gets the portal target.  (Only on portal blocks)
         /// </summary>
         /// <value>
-        /// The portal target.
+        ///     The portal target.
         /// </value>
         /// <exception cref="System.InvalidOperationException">This property can only be accessed on Portal blocks.</exception>
         public uint PortalTarget
@@ -178,10 +178,10 @@ namespace CupCake.World
         }
 
         /// <summary>
-        /// Gets the portal rotation. (Only on portal blocks)
+        ///     Gets the portal rotation. (Only on portal blocks)
         /// </summary>
         /// <value>
-        /// The portal rotation.
+        ///     The portal rotation.
         /// </value>
         /// <exception cref="System.InvalidOperationException">This property can only be accessed on Portal blocks.</exception>
         public PortalRotation PortalRotation
@@ -196,10 +196,10 @@ namespace CupCake.World
         }
 
         /// <summary>
-        /// Gets the sound identifier. (Only on sound blocks)
+        ///     Gets the sound identifier. (Only on sound blocks)
         /// </summary>
         /// <value>
-        /// The sound identifier.
+        ///     The sound identifier.
         /// </value>
         /// <exception cref="System.InvalidOperationException">This property can only be accessed on Sound blocks.</exception>
         public uint SoundId
@@ -214,10 +214,10 @@ namespace CupCake.World
         }
 
         /// <summary>
-        /// Gets the piano identifier. (Only on piano blocks)
+        ///     Gets the piano identifier. (Only on piano blocks)
         /// </summary>
         /// <value>
-        /// The piano identifier.
+        ///     The piano identifier.
         /// </value>
         /// <exception cref="System.InvalidOperationException">This property can only be accessed on Piano blocks.</exception>
         public PianoId PianoId
@@ -232,10 +232,10 @@ namespace CupCake.World
         }
 
         /// <summary>
-        /// Gets the percussion identifier. (Only on drum blocks)
+        ///     Gets the percussion identifier. (Only on drum blocks)
         /// </summary>
         /// <value>
-        /// The percussion identifier.
+        ///     The percussion identifier.
         /// </value>
         /// <exception cref="System.InvalidOperationException">This property can only be accessed on Drum blocks.</exception>
         public PercussionId PercussionId
@@ -250,10 +250,10 @@ namespace CupCake.World
         }
 
         /// <summary>
-        /// Gets the rotation. (Only on rotatable blocks)
+        ///     Gets the rotation. (Only on rotatable blocks)
         /// </summary>
         /// <value>
-        /// The rotation.
+        ///     The rotation.
         /// </value>
         /// <exception cref="System.InvalidOperationException">This property can only be accessed on Rotatable blocks.</exception>
         public uint Rotation
@@ -268,10 +268,10 @@ namespace CupCake.World
         }
 
         /// <summary>
-        /// Gets the spike rotation. (Only on spike blocks)
+        ///     Gets the spike rotation. (Only on spike blocks)
         /// </summary>
         /// <value>
-        /// The spike rotation.
+        ///     The spike rotation.
         /// </value>
         /// <exception cref="System.InvalidOperationException">This property can only be accessed on Spike blocks.</exception>
         public SpikeRotation SpikeRotation
@@ -286,10 +286,10 @@ namespace CupCake.World
         }
 
         /// <summary>
-        /// Gets the scifi straight rotation. (Only on scifi straight blocks)
+        ///     Gets the scifi straight rotation. (Only on scifi straight blocks)
         /// </summary>
         /// <value>
-        /// The scifi straight rotation.
+        ///     The scifi straight rotation.
         /// </value>
         /// <exception cref="System.InvalidOperationException">This property can only be accessed on SciFiStraight blocks.</exception>
         public SciFiStraightRotation SciFiStraightRotation
@@ -305,10 +305,10 @@ namespace CupCake.World
 
 
         /// <summary>
-        /// Gets the scifi slope rotation. (Only on scifi slope blocks)
+        ///     Gets the scifi slope rotation. (Only on scifi slope blocks)
         /// </summary>
         /// <value>
-        /// The scifi slope rotation.
+        ///     The scifi slope rotation.
         /// </value>
         /// <exception cref="System.InvalidOperationException">This property can only be accessed on SciFiSlope blocks.</exception>
         public SciFiSlopeRotation SciFiSlopeRotation
@@ -398,7 +398,7 @@ namespace CupCake.World
         }
 
         /// <summary>
-        /// Determines whether the IBlockPlaceSendEvent has the same values as this block.
+        ///     Determines whether the IBlockPlaceSendEvent has the same values as this block.
         /// </summary>
         /// <param name="other">The IBlockPlaceSendEvent to evaluate.</param>
         /// <returns></returns>
@@ -466,7 +466,7 @@ namespace CupCake.World
         }
 
         /// <summary>
-        /// Creates an <see cref="IBlockPlaceSendEvent"/> object with this block's data.
+        ///     Creates an <see cref="IBlockPlaceSendEvent" /> object with this block's data.
         /// </summary>
         /// <returns></returns>
         /// <exception cref="System.NotSupportedException">The given send message is not supported.</exception>
@@ -523,7 +523,7 @@ namespace CupCake.World
         }
 
         /// <summary>
-        /// Clones this instance.
+        ///     Clones this instance.
         /// </summary>
         /// <returns></returns>
         public WorldBlock Clone()

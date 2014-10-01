@@ -50,8 +50,8 @@ namespace CupCake.Upload
         }
 
         /// <summary>
-        /// Occurs when this request is attempted to be sent. 
-        /// Can be called multiple times on the same block if the send fails.
+        ///     Occurs when this request is attempted to be sent.
+        ///     Can be called multiple times on the same block if the send fails.
         /// </summary>
         public event EventHandler TryingSend;
 
@@ -62,7 +62,7 @@ namespace CupCake.Upload
         }
 
         /// <summary>
-        /// Occurs when verification on this request completes.
+        ///     Occurs when verification on this request completes.
         /// </summary>
         public event EventHandler VerifyComplete;
 

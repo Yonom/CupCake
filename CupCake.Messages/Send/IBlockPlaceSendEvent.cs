@@ -3,39 +3,39 @@
 namespace CupCake.Messages.Send
 {
     /// <summary>
-    /// Interface Block Place Send Event
+    ///     Interface Block Place Send Event
     /// </summary>
     public interface IBlockPlaceSendEvent : IEncryptedSendEvent
     {
         /// <summary>
-        /// Gets or sets the layer.
+        ///     Gets or sets the layer.
         /// </summary>
         /// <value>
-        /// The layer.
+        ///     The layer.
         /// </value>
         Layer Layer { get; set; }
 
         /// <summary>
-        /// Gets or sets the x-coordinate.
+        ///     Gets or sets the x-coordinate.
         /// </summary>
         /// <value>
-        /// The x-coordinate.
+        ///     The x-coordinate.
         /// </value>
         int X { get; set; }
 
         /// <summary>
-        /// Gets or sets the y-coordinate.
+        ///     Gets or sets the y-coordinate.
         /// </summary>
         /// <value>
-        /// The y-coordinate.
+        ///     The y-coordinate.
         /// </value>
         int Y { get; set; }
 
         /// <summary>
-        /// Gets or sets the block.
+        ///     Gets or sets the block.
         /// </summary>
         /// <value>
-        /// The block.
+        ///     The block.
         /// </value>
         Block Block { get; set; }
     }

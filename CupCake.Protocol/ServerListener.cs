@@ -8,9 +8,6 @@ namespace CupCake.Protocol
 {
     public class ServerListener : IDisposable
     {
-        public EndPoint EndPoint {
-            get { return _listener.EndPoint; }
-        }
         public const int ServerPort = 4570;
         private readonly CupCakeListener _listener;
 
@@ -18,6 +15,16 @@ namespace CupCake.Protocol
         {
             this._listener = new CupCakeListener(ipAddress, port, (c, s) => this.Handleconnection(c, s, onConnection));
             this._listener.PathRequest += this.OnPathRequest;
+        }
+
+        public EndPoint EndPoint
+        {
+            get { return this._listener.EndPoint; }
+        }
+
+        public void Dispose()
+        {
+            this._listener.Dispose();
         }
 
         public event Action<Stream> PathRequest;
@@ -166,11 +173,6 @@ namespace CupCake.Protocol
                     Debug.WriteLine("Error while writing: " + ex.Message);
                 }
             }
-        }
-
-        public void Dispose()
-        {
-            this._listener.Dispose();
         }
     }
 }

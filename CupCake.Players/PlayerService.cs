@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Concurrent;
 using System.Linq;
-using System.Net.Sockets;
 using CupCake.Core;
 using CupCake.Core.Events;
 using CupCake.Core.Log;

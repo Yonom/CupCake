@@ -13,13 +13,13 @@ namespace CupCake.Server
 
         public Connection Connect(string email, string password, string worldId)
         {
-            var client = this.Login(email, password);
-            return Connect(client, worldId);
+            Client client = this.Login(email, password);
+            return this.Connect(client, worldId);
         }
 
         public Client Login(string email, string password)
         {
-            var authenticationType = RabbitAuth.GetAuthType(email, password);
+            AuthenticationType authenticationType = RabbitAuth.GetAuthType(email, password);
             switch (authenticationType)
             {
                 case AuthenticationType.Facebook:
@@ -44,7 +44,7 @@ namespace CupCake.Server
 
         public Connection Connect(Client client, string worldId)
         {
-            var roomPrefix = worldId.StartsWith("BW", StringComparison.OrdinalIgnoreCase)
+            string roomPrefix = worldId.StartsWith("BW", StringComparison.OrdinalIgnoreCase)
                 ? "Beta"
                 : "Everybodyedits";
 
@@ -55,20 +55,17 @@ namespace CupCake.Server
         {
             try
             {
-                var roomType = roomPrefix + roomVersion;
+                string roomType = roomPrefix + roomVersion;
                 return client.Multiplayer.CreateJoinRoom(worldId, roomType, true, null, null);
             }
             catch (PlayerIOError ex)
             {
                 if (ex.ErrorCode == ErrorCode.UnknownRoomType)
                 {
-                    var version = this.GetVersion(roomPrefix, ex.Message);
+                    int version = this.GetVersion(roomPrefix, ex.Message);
                     return this.ConnectInternal(client, worldId, roomPrefix, version);
                 }
-                else
-                {
-                    throw;
-                }
+                throw;
             }
         }
 
@@ -76,7 +73,7 @@ namespace CupCake.Server
         {
             try
             {
-                var results = new Regex(roomPrefix + @"([0-9]+)[,\]]").Matches(message);
+                MatchCollection results = new Regex(roomPrefix + @"([0-9]+)[,\]]").Matches(message);
                 return results.Cast<Match>().Max(m => Int32.Parse(m.Groups[1].Value));
             }
             catch (Exception ex)

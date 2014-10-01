@@ -4,12 +4,12 @@ using PlayerIOClient;
 namespace CupCake.Messages.Receive
 {
     /// <summary>
-    /// Class Clear Receive Event.
+    ///     Class Clear Receive Event.
     /// </summary>
     public class ClearReceiveEvent : ReceiveEvent
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="ClearReceiveEvent"/> class.
+        ///     Initializes a new instance of the <see cref="ClearReceiveEvent" /> class.
         /// </summary>
         /// <param name="message">The message.</param>
         public ClearReceiveEvent(Message message)
@@ -22,23 +22,25 @@ namespace CupCake.Messages.Receive
         }
 
         /// <summary>
-        /// Gets or sets the fill block.
+        ///     Gets or sets the fill block.
         /// </summary>
         /// <value>The fill block.</value>
         public Block FillBlock { get; set; }
+
         /// <summary>
-        /// Gets or sets the border block.
+        ///     Gets or sets the border block.
         /// </summary>
         /// <value>The border block.</value>
         public Block BorderBlock { get; set; }
 
         /// <summary>
-        /// Gets or sets the height of the room.
+        ///     Gets or sets the height of the room.
         /// </summary>
         /// <value>The height of the room.</value>
         public int RoomHeight { get; set; }
+
         /// <summary>
-        /// Gets or sets the width of the room.
+        ///     Gets or sets the width of the room.
         /// </summary>
         /// <value>The width of the room.</value>
         public int RoomWidth { get; set; }

@@ -35,9 +35,10 @@ namespace CupCake
         private readonly Lazy<ActionService> _actionService;
         private readonly Lazy<Chatter> _chatter;
         private readonly Lazy<CommandService> _commandService;
+        private readonly Lazy<CommandManager> _commands;
         private readonly Lazy<ConnectionPlatform> _connectionPlatform;
         private readonly Lazy<EventManager> _events;
-        private readonly Lazy<CommandManager> _commands;
+        private readonly Lazy<HostService> _hostService;
         private readonly Lazy<IOService> _ioService;
         private readonly Lazy<KeyService> _keyService;
         private readonly Lazy<Logger> _logger;
@@ -53,7 +54,6 @@ namespace CupCake
         private readonly Lazy<SynchronizePlatform> _synchronizePlatform;
         private readonly Lazy<UploadService> _uploadService;
         private readonly Lazy<WorldService> _worldService;
-        private readonly Lazy<HostService> _hostService;
 
         /// <summary>
         ///     Initializes a new instance of the <see cref="CupCakeMuffinPart{TProtocol}" /> class.
@@ -279,21 +279,21 @@ namespace CupCake
         }
 
         /// <summary>
-        /// Gets the host service.
+        ///     Gets the host service.
         /// </summary>
         /// <value>
-        /// The host service.
+        ///     The host service.
         /// </value>
         protected HostService HostService
         {
-            get { return this._hostService .Value; }
+            get { return this._hostService.Value; }
         }
 
         /// <summary>
-        /// Gets command service.
+        ///     Gets command service.
         /// </summary>
         /// <value>
-        /// The command service.
+        ///     The command service.
         /// </value>
         protected CommandManager Commands
         {

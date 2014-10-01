@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
-using System.Text;
 using CupCake.Command;
 using CupCake.Command.Source;
 using CupCake.Permissions;
@@ -10,10 +8,10 @@ using CupCake.Permissions;
 namespace CupCake
 {
     /// <summary>
-    /// Interface ICommand.
+    ///     Interface ICommand.
     /// </summary>
     public interface ICommand : IDisposable
-    {        
+    {
         /// <summary>
         ///     Gets or sets the method that is called when this command is invoked.
         /// </summary>
@@ -57,7 +55,7 @@ namespace CupCake
         bool HighPriority { get; }
 
         /// <summary>
-        /// Gets the callback that is called when this command is run.
+        ///     Gets the callback that is called when this command is run.
         /// </summary>
         Action<IInvokeSource, ParsedCommand> Callback { get; }
     }

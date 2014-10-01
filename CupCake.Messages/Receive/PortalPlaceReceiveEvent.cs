@@ -5,12 +5,12 @@ using PlayerIOClient;
 namespace CupCake.Messages.Receive
 {
     /// <summary>
-    /// Occurs when a portal is placed in the world.
+    ///     Occurs when a portal is placed in the world.
     /// </summary>
     public class PortalPlaceReceiveEvent : ReceiveEvent, IBlockPlaceReceiveEvent
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="PortalPlaceReceiveEvent"/> class.
+        ///     Initializes a new instance of the <see cref="PortalPlaceReceiveEvent" /> class.
         /// </summary>
         /// <param name="message">The EE message.</param>
         public PortalPlaceReceiveEvent(Message message)
@@ -25,7 +25,7 @@ namespace CupCake.Messages.Receive
         }
 
         /// <summary>
-        /// Gets or sets the layer.
+        ///     Gets or sets the layer.
         /// </summary>
         /// <value>The layer.</value>
         public Layer Layer
@@ -34,38 +34,43 @@ namespace CupCake.Messages.Receive
         }
 
         /// <summary>
-        /// Gets or sets the block.
+        ///     Gets or sets the block.
         /// </summary>
         /// <value>The block.</value>
         public PortalBlock Block { get; set; }
+
         /// <summary>
-        /// Gets or sets the portal identifier.
+        ///     Gets or sets the portal identifier.
         /// </summary>
         /// <value>The portal identifier.</value>
         public uint PortalId { get; set; }
+
         /// <summary>
-        /// Gets or sets the portal rotation.
+        ///     Gets or sets the portal rotation.
         /// </summary>
         /// <value>The portal rotation.</value>
         public PortalRotation PortalRotation { get; set; }
+
         /// <summary>
-        /// Gets or sets the portal target.
+        ///     Gets or sets the portal target.
         /// </summary>
         /// <value>The portal target.</value>
         public uint PortalTarget { get; set; }
+
         /// <summary>
-        /// Gets or sets the position x.
+        ///     Gets or sets the position x.
         /// </summary>
         /// <value>The position x.</value>
         public int PosX { get; set; }
+
         /// <summary>
-        /// Gets or sets the position y.
+        ///     Gets or sets the position y.
         /// </summary>
         /// <value>The position y.</value>
         public int PosY { get; set; }
 
         /// <summary>
-        /// Gets or sets the layer.
+        ///     Gets or sets the layer.
         /// </summary>
         /// <value>The layer.</value>
         /// <exception cref="System.NotSupportedException">Can not set Layer on this kind of block</exception>
@@ -76,7 +81,7 @@ namespace CupCake.Messages.Receive
         }
 
         /// <summary>
-        /// Gets or sets the block.
+        ///     Gets or sets the block.
         /// </summary>
         /// <value>The block.</value>
         Block IBlockPlaceReceiveEvent.Block

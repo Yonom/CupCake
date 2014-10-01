@@ -8,7 +8,7 @@ namespace CupCake.Command
     [DebuggerDisplay("Source = {Source}")]
     public class ParsedCommand
     {
-        public ParsedCommand([NotNull]string source)
+        public ParsedCommand([NotNull] string source)
         {
             if (source == null)
                 throw new ArgumentNullException("source");

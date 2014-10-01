@@ -3,7 +3,7 @@
     public static class PlayerUtils
     {
         /// <summary>
-        /// Determines whether the player with the specified username is a guest.
+        ///     Determines whether the player with the specified username is a guest.
         /// </summary>
         /// <param name="username">The player's username.</param>
         /// <returns></returns>
@@ -14,7 +14,7 @@
         }
 
         /// <summary>
-        /// Gets the storage name of the specified player.
+        ///     Gets the storage name of the specified player.
         /// </summary>
         /// <param name="username">The player's username.</param>
         /// <returns></returns>
@@ -26,7 +26,7 @@
         }
 
         /// <summary>
-        /// Gets the chat name of the specified player.
+        ///     Gets the chat name of the specified player.
         /// </summary>
         /// <param name="username">The player's username.</param>
         /// <returns></returns>

@@ -3,10 +3,10 @@
 namespace CupCake.Players
 {
     /// <summary>
-    /// Occurs when a silver crown has been received.
+    ///     Occurs when a silver crown has been received.
     /// </summary>
     /// <remarks>
-    /// This event is raised after a <see cref="SilverCrownReceiveEvent"/> has been raised.
+    ///     This event is raised after a <see cref="SilverCrownReceiveEvent" /> has been raised.
     /// </remarks>
     public class SilverCrownPlayerEvent : PlayerEvent<SilverCrownReceiveEvent>
     {

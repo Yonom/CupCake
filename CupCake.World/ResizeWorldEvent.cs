@@ -3,7 +3,7 @@
 namespace CupCake.World
 {
     /// <summary>
-    /// Occurs when the world size changes.
+    ///     Occurs when the world size changes.
     /// </summary>
     public class ResizeWorldEvent : Event
     {
@@ -14,18 +14,18 @@ namespace CupCake.World
         }
 
         /// <summary>
-        /// Gets the new height.
+        ///     Gets the new height.
         /// </summary>
         /// <value>
-        /// The new height.
+        ///     The new height.
         /// </value>
         public int NewHeight { get; private set; }
 
         /// <summary>
-        /// Gets the new width.
+        ///     Gets the new width.
         /// </summary>
         /// <value>
-        /// The new width.
+        ///     The new width.
         /// </value>
         public int NewWidth { get; private set; }
     }

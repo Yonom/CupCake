@@ -79,8 +79,8 @@ namespace CupCake.Upload
 
         private void OnUploadRequest(object sender, UploadRequestEvent e)
         {
-            if (e.SendEvent.Layer > Layer.Background || 
-                e.SendEvent.X >= this._world.RoomWidth || 
+            if (e.SendEvent.Layer > Layer.Background ||
+                e.SendEvent.X >= this._world.RoomWidth ||
                 e.SendEvent.Y >= this._world.RoomHeight)
                 throw new IndexOutOfRangeException("The given block is not inside the boundaries of the room!");
 
@@ -252,7 +252,8 @@ namespace CupCake.Upload
             }
             catch (Exception ex)
             {
-                this.Logger.Log("Uploading block at Layer: {0}, X: {1}, Y: {2}, Block: {3} failed! {4}", e.Layer, e.X, e.Y, e.Block, ex.Message);
+                this.Logger.Log("Uploading block at Layer: {0}, X: {1}, Y: {2}, Block: {3} failed! {4}", e.Layer, e.X,
+                    e.Y, e.Block, ex.Message);
                 return false;
             }
         }
@@ -400,17 +401,17 @@ namespace CupCake.Upload
 
         public UploadRequestEvent GetRotatable(int x, int y, RotatableBlock block, SpikeRotation rotation)
         {
-            return GetRotatable(x, y, block, (uint)rotation);
+            return this.GetRotatable(x, y, block, (uint)rotation);
         }
 
         public UploadRequestEvent GetRotatable(int x, int y, RotatableBlock block, SciFiSlopeRotation rotation)
         {
-            return GetRotatable(x, y, block, (uint)rotation);
+            return this.GetRotatable(x, y, block, (uint)rotation);
         }
 
         public UploadRequestEvent GetRotatable(int x, int y, RotatableBlock block, SciFiStraightRotation rotation)
         {
-            return GetRotatable(x, y, block, (uint)rotation);
+            return this.GetRotatable(x, y, block, (uint)rotation);
         }
 
         protected override void Dispose(bool disposing)

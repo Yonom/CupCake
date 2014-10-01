@@ -10,13 +10,13 @@ namespace CupCake.DefaultCommands.Commands
 {
     public abstract class CommandBase<T> : CupCakeMuffinPart<T>
     {
-        protected override void Enable()
-        {
-        }
-
         internal virtual string CommandName
         {
             get { return this.Commands.First().Labels[0]; }
+        }
+
+        protected override void Enable()
+        {
         }
 
         internal virtual void RequireOwner()

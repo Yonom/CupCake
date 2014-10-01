@@ -5,7 +5,6 @@ using System.ComponentModel.Composition.Primitives;
 using CupCake.Core;
 using JetBrains.Annotations;
 using MuffinFramework;
-using PlayerIOClient;
 
 namespace CupCake.Host
 {
@@ -30,8 +29,8 @@ namespace CupCake.Host
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="CupCakeClient"/> class.
-        /// Automatically loads CupCake.Core.dll and every other specified dll.
+        ///     Initializes a new instance of the <see cref="CupCakeClient" /> class.
+        ///     Automatically loads CupCake.Core.dll and every other specified dll.
         /// </summary>
         /// <param name="components">The components.</param>
         /// <param name="catalog">The catalog.</param>
@@ -49,11 +48,11 @@ namespace CupCake.Host
         }
 
         /// <summary>
-        /// Starts CupCake and sets the connection to the given one.
+        ///     Starts CupCake and sets the connection to the given one.
         /// </summary>
         /// <param name="args">The arguments.</param>
         /// <exception cref="System.ArgumentNullException">connection</exception>
-        public void Start([NotNull]CupCakeClientArgs args)
+        public void Start([NotNull] CupCakeClientArgs args)
         {
             if (args == null)
                 throw new ArgumentNullException("args");

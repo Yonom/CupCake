@@ -3,10 +3,10 @@
 namespace CupCake.Players
 {
     /// <summary>
-    /// Occurs when a player gives the world a woot.
+    ///     Occurs when a player gives the world a woot.
     /// </summary>
     /// <remarks>
-    /// This event is raised after a <see cref="WootUpReceiveEvent"/> has been raised.
+    ///     This event is raised after a <see cref="WootUpReceiveEvent" /> has been raised.
     /// </remarks>
     public class WootUpPlayerEvent : PlayerEvent<WootUpReceiveEvent>
     {

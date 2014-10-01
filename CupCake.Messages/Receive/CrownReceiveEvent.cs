@@ -3,12 +3,12 @@ using PlayerIOClient;
 namespace CupCake.Messages.Receive
 {
     /// <summary>
-    /// Class Crown Receive Event.
+    ///     Class Crown Receive Event.
     /// </summary>
     public class CrownReceiveEvent : ReceiveEvent, IUserReceiveEvent
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="CrownReceiveEvent"/> class.
+        ///     Initializes a new instance of the <see cref="CrownReceiveEvent" /> class.
         /// </summary>
         /// <param name="message">The message.</param>
         public CrownReceiveEvent(Message message)
@@ -18,7 +18,7 @@ namespace CupCake.Messages.Receive
         }
 
         /// <summary>
-        /// Gets or sets the user identifier.
+        ///     Gets or sets the user identifier.
         /// </summary>
         /// <value>The user identifier.</value>
         public int UserId { get; set; }

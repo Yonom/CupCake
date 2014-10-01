@@ -69,7 +69,7 @@ namespace CupCake.Debug
 
         public static void DeleteFiles(string path)
         {
-            foreach (var file in new DirectoryInfo(path).GetFiles())
+            foreach (FileInfo file in new DirectoryInfo(path).GetFiles())
             {
                 file.Delete();
             }

@@ -3,10 +3,10 @@
 namespace CupCake.Players
 {
     /// <summary>
-    /// Occurs when a potion has been consumed by a player.
+    ///     Occurs when a potion has been consumed by a player.
     /// </summary>
     /// <remarks>
-    /// This event is raised after a <see cref="PotionReceiveEvent"/> has been raised.
+    ///     This event is raised after a <see cref="PotionReceiveEvent" /> has been raised.
     /// </remarks>
     public class PotionPlayerEvent : PlayerEvent<PotionReceiveEvent>
     {

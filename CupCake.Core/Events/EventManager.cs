@@ -25,6 +25,19 @@ namespace CupCake.Core.Events
             GC.SuppressFinalize(this);
         }
 
+        public IEnumerator<IBinding> GetEnumerator()
+        {
+            lock (this._lockObj)
+            {
+                return this._bindings.ToArray().AsEnumerable().GetEnumerator();
+            }
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return this.GetEnumerator();
+        }
+
         public void Bind<T>(EventHandler<T> callback, EventPriority priority = EventPriority.Normal) where T : Event
         {
             if (this.Contains(callback))
@@ -135,19 +148,6 @@ namespace CupCake.Core.Events
             Delegate GetCallback();
             void Subscribe();
             void Unsubscribe();
-        }
-
-        public IEnumerator<IBinding> GetEnumerator()
-        {
-            lock (this._lockObj)
-            {
-                return this._bindings.ToArray().AsEnumerable().GetEnumerator();
-            }
-        }
-
-        IEnumerator IEnumerable.GetEnumerator()
-        {
-            return this.GetEnumerator();
         }
     }
 }

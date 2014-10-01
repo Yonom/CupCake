@@ -4,7 +4,7 @@ using CupCake.Players;
 namespace CupCake.World
 {
     /// <summary>
-    /// Occurs when a block is placed.
+    ///     Occurs when a block is placed.
     /// </summary>
     public class PlaceWorldEvent : Event
     {
@@ -16,26 +16,26 @@ namespace CupCake.World
         }
 
         /// <summary>
-        /// Gets the world block.
+        ///     Gets the world block.
         /// </summary>
         /// <value>
-        /// The world block.
+        ///     The world block.
         /// </value>
         public WorldBlock WorldBlock { get; private set; }
 
         /// <summary>
-        /// Gets the old world block.
+        ///     Gets the old world block.
         /// </summary>
         /// <value>
-        /// The old world block.
+        ///     The old world block.
         /// </value>
         public WorldBlock OldWorldBlock { get; private set; }
 
         /// <summary>
-        /// Gets the player that placed this block.
+        ///     Gets the player that placed this block.
         /// </summary>
         /// <value>
-        /// The player that placed this block.
+        ///     The player that placed this block.
         /// </value>
         public Player Player { get; private set; }
     }

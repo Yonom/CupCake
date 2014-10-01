@@ -7,6 +7,7 @@ namespace CupCake.Server
     public class CupCakeServerSettings
     {
         public string ConnectionString;
+        private List<string> _dirs;
         public DatabaseType DatabaseType { get; set; }
         public bool Debug { get; set; }
         public string Email { get; set; }
@@ -17,8 +18,6 @@ namespace CupCake.Server
         public string World { get; set; }
         public bool Autoconnect { get; set; }
         public bool LocalOnly { get; set; }
-
-        private List<string> _dirs;
 
         [XmlElement("Directory")]
         public List<string> Dirs

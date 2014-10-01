@@ -121,8 +121,8 @@ namespace CupCake.Client.Windows
 
             if (this._isDebug)
                 folders.Add(SettingsManager.DebugPath);
-            
-            var settings = Path.Combine(pFolder, "ServerSettings.xml");
+
+            string settings = Path.Combine(pFolder, "ServerSettings.xml");
             if (!File.Exists(settings))
                 settings = null;
 
@@ -142,7 +142,7 @@ namespace CupCake.Client.Windows
 
         private void EditAccountButton_Click(object sender, RoutedEventArgs e)
         {
-            new EditListWindow(EditListType.Account) { Owner = this }.ShowDialog();
+            new EditListWindow(EditListType.Account) {Owner = this}.ShowDialog();
         }
     }
 }

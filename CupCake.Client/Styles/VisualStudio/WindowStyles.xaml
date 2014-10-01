@@ -2,21 +2,21 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls">
     <ResourceDictionary.MergedDictionaries>
-        <ResourceDictionary Source="Resources.xaml"/>
+        <ResourceDictionary Source="Resources.xaml" />
     </ResourceDictionary.MergedDictionaries>
     <Style TargetType="Window" x:Key="StandardWindow">
-        <Setter Property="Background" Value="{StaticResource LightBackground}"/>
+        <Setter Property="Background" Value="{StaticResource LightBackground}" />
     </Style>
 
     <Style TargetType="controls:MetroWindow" x:Key="CupCakeWindow">
-        <Setter Property="NonActiveWindowTitleBrush" Value="Transparent"/>
-        <Setter Property="SnapsToDevicePixels" Value="True"/>
-        <Setter Property="WindowTransitionsEnabled" Value="False"/>
-        <Setter Property="Icon" Value="/Resources/CupCake.ico"/>
-        <Setter Property="ShowIconOnTitleBar" Value="False"/>
-        <Setter Property="NonActiveGlowBrush" Value="#3E3E40"/>
-        <Setter Property="GlowBrush" Value="{DynamicResource BackgroundSelected}"/>
-        <Setter Property="Background" Value="{StaticResource LightBackground}"/>
-        <Setter Property="TitleCaps" Value="False"/>
+        <Setter Property="NonActiveWindowTitleBrush" Value="Transparent" />
+        <Setter Property="SnapsToDevicePixels" Value="True" />
+        <Setter Property="WindowTransitionsEnabled" Value="False" />
+        <Setter Property="Icon" Value="/Resources/CupCake.ico" />
+        <Setter Property="ShowIconOnTitleBar" Value="False" />
+        <Setter Property="NonActiveGlowBrush" Value="#3E3E40" />
+        <Setter Property="GlowBrush" Value="{DynamicResource BackgroundSelected}" />
+        <Setter Property="Background" Value="{StaticResource LightBackground}" />
+        <Setter Property="TitleCaps" Value="False" />
     </Style>
 </ResourceDictionary>

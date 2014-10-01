@@ -4,12 +4,12 @@ using PlayerIOClient;
 namespace CupCake.Messages.Send
 {
     /// <summary>
-    /// Class Auto Say Send Event
+    ///     Class Auto Say Send Event
     /// </summary>
     public class AutoSaySendEvent : SendEvent
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="AutoSaySendEvent"/> class.
+        ///     Initializes a new instance of the <see cref="AutoSaySendEvent" /> class.
         /// </summary>
         /// <param name="text">The text.</param>
         public AutoSaySendEvent(AutoText text)
@@ -18,15 +18,15 @@ namespace CupCake.Messages.Send
         }
 
         /// <summary>
-        /// Gets or sets the text.
+        ///     Gets or sets the text.
         /// </summary>
         /// <value>
-        /// The text.
+        ///     The text.
         /// </value>
         public AutoText Text { get; set; }
 
         /// <summary>
-        /// Gets the PlayerIO message representing the data in this <see cref="SendEvent" />.
+        ///     Gets the PlayerIO message representing the data in this <see cref="SendEvent" />.
         /// </summary>
         /// <returns></returns>
         public override Message GetMessage()

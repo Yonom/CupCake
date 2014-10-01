@@ -1,4 +1,3 @@
-using System.ComponentModel.Composition;
 using MuffinFramework.Services;
 
 namespace CupCake.Core

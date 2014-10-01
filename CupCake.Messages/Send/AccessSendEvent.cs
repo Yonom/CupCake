@@ -3,7 +3,7 @@ using PlayerIOClient;
 namespace CupCake.Messages.Send
 {
     /// <summary>
-    /// Class Access Send Event.
+    ///     Class Access Send Event.
     /// </summary>
     public class AccessSendEvent : SendEvent
     {
@@ -13,15 +13,15 @@ namespace CupCake.Messages.Send
         }
 
         /// <summary>
-        /// Gets or sets the edit key.
+        ///     Gets or sets the edit key.
         /// </summary>
         /// <value>
-        /// The edit key.
+        ///     The edit key.
         /// </value>
         public string EditKey { get; set; }
 
         /// <summary>
-        /// Gets the PlayerIO message representing the data in this <see cref="SendEvent" />.
+        ///     Gets the PlayerIO message representing the data in this <see cref="SendEvent" />.
         /// </summary>
         /// <returns></returns>
         public override Message GetMessage()

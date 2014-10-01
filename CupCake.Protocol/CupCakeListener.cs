@@ -33,11 +33,15 @@ namespace CupCake.Protocol
                 {
                     Debug.WriteLine(ex.ToString());
                 }
-
             }) {IsBackground = true}.Start();
         }
 
         public EndPoint EndPoint { get; private set; }
+
+        public void Dispose()
+        {
+            this._server.Stop();
+        }
 
         public event Action<Stream> PathRequest;
 
@@ -128,11 +132,6 @@ namespace CupCake.Protocol
         public void Send<T>(NetworkStream stream, T messageObj)
         {
             Serializer.SerializeWithLengthPrefix(stream, messageObj, PrefixStyle.Base128);
-        }
-
-        public void Dispose()
-        {
-            _server.Stop();
         }
     }
 }

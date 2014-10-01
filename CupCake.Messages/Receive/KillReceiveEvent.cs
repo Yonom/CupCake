@@ -3,12 +3,12 @@ using PlayerIOClient;
 namespace CupCake.Messages.Receive
 {
     /// <summary>
-    /// Occurs when the player is killed.
+    ///     Occurs when the player is killed.
     /// </summary>
     public class KillReceiveEvent : ReceiveEvent, IUserReceiveEvent
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="KillReceiveEvent"/> class.
+        ///     Initializes a new instance of the <see cref="KillReceiveEvent" /> class.
         /// </summary>
         /// <param name="message">The message.</param>
         public KillReceiveEvent(Message message)
@@ -18,7 +18,7 @@ namespace CupCake.Messages.Receive
         }
 
         /// <summary>
-        /// Gets or sets the user identifier.
+        ///     Gets or sets the user identifier.
         /// </summary>
         /// <value>The user identifier.</value>
         public int UserId { get; set; }

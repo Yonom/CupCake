@@ -138,14 +138,14 @@ namespace CupCake.Server
                 Console.WriteLine(e.Message);
                 return 0;
             }
-            
+
             StartServer();
 
             new Thread(() =>
             {
                 while (true)
                 {
-                    var input = Console.ReadLine();
+                    string input = Console.ReadLine();
 
                     if (_clientEx != null && input != null)
                         _clientEx.Input(input);
@@ -183,7 +183,7 @@ namespace CupCake.Server
 
         private static void StartServer()
         {
-            var ipAddress = _settings.LocalOnly
+            IPAddress ipAddress = _settings.LocalOnly
                 ? IPAddress.Loopback
                 : IPAddress.Any;
             _listener = new ServerListener(ipAddress, _settings.Port, OnConnection);
@@ -197,11 +197,8 @@ namespace CupCake.Server
                     {
                         OnConnection(h);
 
-                        h.ReceiveClose += () =>
-                        {
-                            Shutdown(0);
-                        };
-                        
+                        h.ReceiveClose += () => { Shutdown(0); };
+
                         if (!_settings.Autoconnect)
                         {
                             h.DoSendRequestData(_settings.Debug);

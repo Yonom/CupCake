@@ -2,26 +2,47 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using CupCake.Command;
 using CupCake.Command.Source;
-using CupCake.Core.Events;
-using MuffinFramework.Muffins;
-using PlayerIOClient;
 
 namespace CupCake
 {
     /// <summary>
-    /// Class CommandManager.
+    ///     Class CommandManager.
     /// </summary>
     public sealed class CommandManager : CupCakeMuffinPart<string>, IEnumerable<ICommand>, IDisposable
     {
-        private string _chatName;
         private readonly List<ICommand> _commands = new List<ICommand>();
         private readonly object _lockObj = new object();
+        private string _chatName;
 
         /// <summary>
-        /// Registers the specified command.
+        ///     Returns an enumerator that iterates through the collection.
+        /// </summary>
+        /// <returns>
+        ///     A <see cref="T:System.Collections.Generic.IEnumerator`1" /> that can be used to iterate through the collection.
+        /// </returns>
+        public IEnumerator<ICommand> GetEnumerator()
+        {
+            lock (this._lockObj)
+            {
+                return this._commands.ToArray().AsEnumerable().GetEnumerator();
+            }
+        }
+
+        /// <summary>
+        ///     Returns an enumerator that iterates through a collection.
+        /// </summary>
+        /// <returns>
+        ///     An <see cref="T:System.Collections.IEnumerator" /> object that can be used to iterate through the collection.
+        /// </returns>
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return this.GetEnumerator();
+        }
+
+        /// <summary>
+        ///     Registers the specified command.
         /// </summary>
         /// <param name="callback">The command.</param>
         /// <exception cref="System.ArgumentException">Callback has already been added.</exception>
@@ -41,7 +62,7 @@ namespace CupCake
         }
 
         /// <summary>
-        /// Determines whether the specified callback is registered in this <see cref="CommandManager"/> or not.
+        ///     Determines whether the specified callback is registered in this <see cref="CommandManager" /> or not.
         /// </summary>
         /// <param name="callback">The callback.</param>
         /// <returns></returns>
@@ -59,7 +80,7 @@ namespace CupCake
         }
 
         /// <summary>
-        /// Removes the specified callback.
+        ///     Removes the specified callback.
         /// </summary>
         /// <param name="callback">The callback.</param>
         /// <returns></returns>
@@ -75,7 +96,7 @@ namespace CupCake
         }
 
         /// <summary>
-        /// Removes the specified callback.
+        ///     Removes the specified callback.
         /// </summary>
         /// <param name="callback">The callback.</param>
         /// <returns></returns>
@@ -91,7 +112,7 @@ namespace CupCake
         }
 
         /// <summary>
-        /// Tries to get the command object linked with the specified handler.
+        ///     Tries to get the command object linked with the specified handler.
         /// </summary>
         /// <param name="callback">The callback.</param>
         /// <param name="command">The command.</param>
@@ -114,16 +135,19 @@ namespace CupCake
         }
 
         /// <summary>
-        /// Releases unmanaged and - optionally - managed resources.
+        ///     Releases unmanaged and - optionally - managed resources.
         /// </summary>
-        /// <param name="disposing"><c>true</c> to release both managed and unmanaged resources; <c>false</c> to release only unmanaged resources.</param>
+        /// <param name="disposing">
+        ///     <c>true</c> to release both managed and unmanaged resources; <c>false</c> to release only
+        ///     unmanaged resources.
+        /// </param>
         protected override void Dispose(bool disposing)
         {
             if (disposing)
             {
                 lock (this._lockObj)
                 {
-                    foreach (var command in this._commands.ToArray())
+                    foreach (ICommand command in this._commands.ToArray())
                     {
                         this.Remove(command);
                     }
@@ -132,32 +156,7 @@ namespace CupCake
         }
 
         /// <summary>
-        /// Returns an enumerator that iterates through the collection.
-        /// </summary>
-        /// <returns>
-        /// A <see cref="T:System.Collections.Generic.IEnumerator`1" /> that can be used to iterate through the collection.
-        /// </returns>
-        public IEnumerator<ICommand> GetEnumerator()
-        {
-            lock (this._lockObj)
-            {
-                return this._commands.ToArray().AsEnumerable().GetEnumerator();
-            }
-        }
-
-        /// <summary>
-        /// Returns an enumerator that iterates through a collection.
-        /// </summary>
-        /// <returns>
-        /// An <see cref="T:System.Collections.IEnumerator" /> object that can be used to iterate through the collection.
-        /// </returns>
-        IEnumerator IEnumerable.GetEnumerator()
-        {
-            return this.GetEnumerator();
-        }
-
-        /// <summary>
-        /// Enables this instance.
+        ///     Enables this instance.
         /// </summary>
         /// <exception cref="System.NotImplementedException"></exception>
         protected override void Enable()

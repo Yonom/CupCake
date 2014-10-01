@@ -1,9 +1,7 @@
 ﻿using System;
 using System.ComponentModel.Composition.Hosting;
-using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using System.Net.Mime;
 using System.Reflection;
 using System.Threading;
 using CupCake.Core;
@@ -15,7 +13,6 @@ using CupCake.HostAPI.IO;
 using CupCake.HostAPI.Status;
 using CupCake.HostAPI.Title;
 using PlayerIOClient;
-using Rabbit;
 
 namespace CupCake.Server
 {
@@ -84,8 +81,8 @@ namespace CupCake.Server
                 Program.Restart();
             }
 
-            this.Shutdown(e.IsRestarting 
-                ? 2 
+            this.Shutdown(e.IsRestarting
+                ? 2
                 : 0);
         }
 
@@ -154,7 +151,7 @@ namespace CupCake.Server
 
             // Start
             this.LogMessage("Starting plugins...");
-            this._client.Start(new CupCakeClientArgs(connection,  worldId));
+            this._client.Start(new CupCakeClientArgs(connection, worldId));
 
             // Handle disconnect, if we are already too late, disconnect
             connection.OnDisconnect += this.connection_OnDisconnect;

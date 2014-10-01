@@ -16,7 +16,7 @@ namespace CupCake.Server.Muffins
         {
             this.Logger.Log(LogPriority.Message, "The game has been updated.");
         }
-        
+
         [EventListener]
         private void OnInfo(InfoReceiveEvent e)
         {
