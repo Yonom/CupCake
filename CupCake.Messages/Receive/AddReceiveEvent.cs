@@ -24,11 +24,12 @@ namespace CupCake.Messages.Receive
             this.IsMod = message.GetBoolean(6);
             this.HasChat = message.GetBoolean(7);
             this.Coins = message.GetInteger(8);
-            this.IsMyFriend = message.GetBoolean(9);
-            this.IsPurple = message.GetBoolean(10);
-            this.MagicClass = (MagicClass)message.GetInteger(11);
-            this.IsClubMember = message.GetBoolean(12);
-            this.IsGuardian = message.GetBoolean(13);
+            this.Coins = message.GetInteger(9);
+            this.IsMyFriend = message.GetBoolean(10);
+            this.IsPurple = message.GetBoolean(11);
+            this.MagicClass = (MagicClass)message.GetInteger(12);
+            this.IsClubMember = message.GetBoolean(13);
+            this.IsGuardian = message.GetBoolean(14);
         }
 
         /// <summary>
@@ -37,10 +38,15 @@ namespace CupCake.Messages.Receive
         /// <value><c>true</c> if the player has activated guardian mode; otherwise, <c>false</c>.</value>
         public bool IsGuardian { get; set; }
         /// <summary>
-        /// Gets or sets the amount of coins the player has.
+        /// Gets or sets the amount of yellow coins the player has.
         /// </summary>
-        /// <value>The coins.</value>
+        /// <value>The yellow coins.</value>
         public int Coins { get; set; }
+        /// <summary>
+        /// Gets or sets the amount of blue coins the player has.
+        /// </summary>
+        /// <value>The blue coins.</value>
+        public int BlueCoins { get; set; }
         /// <summary>
         /// Gets or sets the smiley the player has.
         /// </summary>

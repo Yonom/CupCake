@@ -10,6 +10,8 @@ namespace CupCake.Messages.Blocks
         BlockGateCoinGate = Block.CoinGate,
 
         CoinDoor = Block.CoinDoor,
-        CoinGate = Block.CoinGate
+        BlueCoinDoor = Block.BlueCoinDoor,
+        CoinGate = Block.CoinGate,
+        BlueCoinGate = Block.BlueCoinGate
     }
 }

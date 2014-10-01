@@ -22,7 +22,8 @@
         /// <returns><c>true</c> if the specified block is a coin door or coin gate; otherwise, <c>false</c>.</returns>
         public static bool IsCoinDoor(Block id)
         {
-            return id == Block.CoinDoor || id == Block.CoinGate;
+            return id == Block.CoinDoor || id == Block.CoinGate ||
+                   id == Block.BlueCoinDoor || id == Block.BlueCoinGate;
         }
 
         /// <summary>

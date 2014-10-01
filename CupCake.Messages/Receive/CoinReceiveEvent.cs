@@ -16,13 +16,19 @@ namespace CupCake.Messages.Receive
         {
             this.UserId = message.GetInteger(0);
             this.Coins = message.GetInteger(1);
+            this.BlueCoins = message.GetInteger(2);
         }
 
         /// <summary>
         /// Gets or sets the coins of the player.
         /// </summary>
         /// <value>The coins.</value>
-        public int Coins { get; set; }
+        public int Coins { get; set; }        
+        /// <summary>
+        /// Gets or sets the blue coins of the player.
+        /// </summary>
+        /// <value>The blue coins.</value>
+        public int BlueCoins { get; set; }
         /// <summary>
         /// Gets or sets the user identifier.
         /// </summary>

@@ -35,9 +35,15 @@ namespace CupCake.Actions
             this.Events.Raise(new GetCrownSendEvent());
         }
 
+        public void GetCoin(int coins, int blueCoins, int x, int y)
+        {
+            this.Events.Raise(new CoinSendEvent(coins, blueCoins, x, y));
+        }
+
+        [Obsolete("Use the other constructor with blueCoins parameter", true)]
         public void GetCoin(int count, int x, int y)
         {
-            this.Events.Raise(new CoinSendEvent(count, x, y));
+            this.Events.Raise(new CoinSendEvent(count, 0, x, y));
         }
 
         public void TouchPlayer(int userId, Potion reason)
