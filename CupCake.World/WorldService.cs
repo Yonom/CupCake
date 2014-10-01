@@ -4,7 +4,6 @@ using System.Diagnostics;
 using CupCake.Core;
 using CupCake.Core.Events;
 using CupCake.Core.Log;
-using CupCake.Messages;
 using CupCake.Messages.Blocks;
 using CupCake.Messages.Receive;
 using CupCake.Players;
@@ -13,8 +12,8 @@ using PlayerIOClient;
 namespace CupCake.World
 {
     /// <summary>
-    /// Class WorldService.
-    /// Stores all the blocks inside a room. 
+    ///     Class WorldService.
+    ///     Stores all the blocks inside a room.
     /// </summary>
     [DebuggerDisplay("RoomWidth = {RoomWidth}, RoomHeight = {RoomHeight}")]
     public sealed class WorldService : CupCakeService
@@ -25,26 +24,26 @@ namespace CupCake.World
         private PlayerService _playerService;
 
         /// <summary>
-        /// Gets the width of the room.
+        ///     Gets the width of the room.
         /// </summary>
         /// <value>
-        /// The width of the room.
+        ///     The width of the room.
         /// </value>
         public int RoomWidth { get; private set; }
 
         /// <summary>
-        /// Gets the height of the room.
+        ///     Gets the height of the room.
         /// </summary>
         /// <value>
-        /// The height of the room.
+        ///     The height of the room.
         /// </value>
         public int RoomHeight { get; private set; }
 
         /// <summary>
-        /// Gets the <see cref="WorldBlock"/> at the specified location.
+        ///     Gets the <see cref="WorldBlock" /> at the specified location.
         /// </summary>
         /// <value>
-        /// The <see cref="WorldBlock"/>.
+        ///     The <see cref="WorldBlock" />.
         /// </value>
         /// <param name="layer">The layer.</param>
         /// <param name="x">The x.</param>
@@ -76,59 +75,57 @@ namespace CupCake.World
             uint pointer = start;
             string strValue2;
             while ((strValue2 = m[pointer] as string) == null || strValue2 != "we")
-            {                    
+            {
                 var block = (Block)m.GetInteger(pointer++);
                 int l = m.GetInteger(pointer++);
-                
+
                 try
-                {                
+                {
                     byte[] byteArrayX = m.GetByteArray(pointer++);
                     byte[] byteArrayY = m.GetByteArray(pointer++);
-                    var wblocks = this.GetBlocks(l, byteArrayX, byteArrayY, worldArray);
+                    IEnumerable<WorldBlock> wblocks = this.GetBlocks(l, byteArrayX, byteArrayY, worldArray);
 
                     if (BlockUtils.IsCoinDoor(block))
                     {
                         uint coinsToCollect = m.GetUInt(pointer++);
-                        foreach (var wblock in wblocks)
+                        foreach (WorldBlock wblock in wblocks)
                             wblock.SetCoinDoor((CoinDoorBlock)block, coinsToCollect);
                     }
                     else if (BlockUtils.IsSound(block))
                     {
                         uint soundId = m.GetUInt(pointer++);
-                        foreach (var wblock in wblocks)
+                        foreach (WorldBlock wblock in wblocks)
                             wblock.SetSound((SoundBlock)block, soundId);
                     }
                     else if (BlockUtils.IsRotatable(block))
                     {
                         uint rotation = m.GetUInt(pointer++);
-                        foreach (var wblock in wblocks)
+                        foreach (WorldBlock wblock in wblocks)
                             wblock.SetRotatable((RotatableBlock)block, rotation);
-
                     }
                     else if (BlockUtils.IsPortal(block))
                     {
                         var portalRotation = (PortalRotation)m.GetUInt(pointer++);
                         uint portalId = m.GetUInt(pointer++);
                         uint portalTarget = m.GetUInt(pointer++);
-                        foreach (var wblock in wblocks)
+                        foreach (WorldBlock wblock in wblocks)
                             wblock.SetPortal((PortalBlock)block, portalId, portalTarget, portalRotation);
                     }
                     else if (BlockUtils.IsWorldPortal(block))
                     {
                         string worldPortalTarget = m.GetString(pointer++);
-                        foreach (var wblock in wblocks)
+                        foreach (WorldBlock wblock in wblocks)
                             wblock.SetWorldPortal((WorldPortalBlock)block, worldPortalTarget);
-
                     }
                     else if (BlockUtils.IsLabel(block))
                     {
                         string text = m.GetString(pointer++);
-                        foreach (var wblock in wblocks)
+                        foreach (WorldBlock wblock in wblocks)
                             wblock.SetLabel((LabelBlock)block, text);
                     }
                     else
                     {
-                        foreach (var wblock in wblocks)
+                        foreach (WorldBlock wblock in wblocks)
                             wblock.SetBlock(block);
                     }
                 }
@@ -153,7 +150,8 @@ namespace CupCake.World
             }
         }
 
-        private WorldBlock[, ,] GetEmptyWorld(int sizeX, int sizeY, Block fillBlock = Block.GravityNothing, Block borderBlock = Block.GravityNothing)
+        private WorldBlock[,,] GetEmptyWorld(int sizeX, int sizeY, Block fillBlock = Block.GravityNothing,
+            Block borderBlock = Block.GravityNothing)
         {
             var blockArray = new WorldBlock[2, sizeX, sizeY];
 
@@ -188,7 +186,7 @@ namespace CupCake.World
         }
 
         /// <summary>
-        /// Enables this instance.
+        ///     Enables this instance.
         /// </summary>
         protected override void Enable()
         {
@@ -207,9 +205,12 @@ namespace CupCake.World
         }
 
         /// <summary>
-        /// Releases unmanaged and - optionally - managed resources.
+        ///     Releases unmanaged and - optionally - managed resources.
         /// </summary>
-        /// <param name="disposing"><c>true</c> to release both managed and unmanaged resources; <c>false</c> to release only unmanaged resources.</param>
+        /// <param name="disposing">
+        ///     <c>true</c> to release both managed and unmanaged resources; <c>false</c> to release only
+        ///     unmanaged resources.
+        /// </param>
         protected override void Dispose(bool disposing)
         {
             if (disposing)

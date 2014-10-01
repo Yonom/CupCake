@@ -6,12 +6,12 @@ using PlayerIOClient;
 namespace CupCake.Messages.Receive
 {
     /// <summary>
-    /// Class Allow Potions Receive Event.
+    ///     Class Allow Potions Receive Event.
     /// </summary>
     public class AllowPotionsReceiveEvent : ReceiveEvent
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="AllowPotionsReceiveEvent"/> class.
+        ///     Initializes a new instance of the <see cref="AllowPotionsReceiveEvent" /> class.
         /// </summary>
         /// <param name="message">The message.</param>
         public AllowPotionsReceiveEvent(Message message)
@@ -28,12 +28,13 @@ namespace CupCake.Messages.Receive
         }
 
         /// <summary>
-        /// Gets or sets a value indicating whether this <see cref="AllowPotionsReceiveEvent"/> potions are allowed.
+        ///     Gets or sets a value indicating whether this <see cref="AllowPotionsReceiveEvent" /> potions are allowed.
         /// </summary>
         /// <value><c>true</c> if potions are allowed; otherwise, <c>false</c>.</value>
         public bool Allowed { get; set; }
+
         /// <summary>
-        /// Gets or sets whether potions are disabled.
+        ///     Gets or sets whether potions are disabled.
         /// </summary>
         /// <value>The disabled potions.</value>
         public Potion[] DisabledPotions { get; set; }

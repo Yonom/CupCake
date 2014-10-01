@@ -16,7 +16,7 @@
         }
 
         /// <summary>
-        /// Checks if the specified block is a coin door or coin gate.
+        ///     Checks if the specified block is a coin door or coin gate.
         /// </summary>
         /// <param name="id">The block to check.</param>
         /// <returns><c>true</c> if the specified block is a coin door or coin gate; otherwise, <c>false</c>.</returns>
@@ -27,7 +27,7 @@
         }
 
         /// <summary>
-        /// Checks if the specified block is a rotatable block.
+        ///     Checks if the specified block is a rotatable block.
         /// </summary>
         /// <param name="id">The block to check.</param>
         /// <returns><c>true</c> if the specified block is a rotatable block; otherwise, <c>false</c>.</returns>
@@ -38,9 +38,9 @@
                    id == Block.DecorSciFi2013YellowStraight || id == Block.DecorSciFi2013GreenSlope ||
                    id == Block.DecorSciFi2013GreenStraight;
         }
-        
+
         /// <summary>
-        /// Checks if the specified block is a spike block.
+        ///     Checks if the specified block is a spike block.
         /// </summary>
         /// <param name="id">The block to check.</param>
         /// <returns><c>true</c> if the specified block is a spike block; otherwise, <c>false</c>.</returns>
@@ -48,9 +48,9 @@
         {
             return id == Block.HazardSpike;
         }
-        
+
         /// <summary>
-        /// Checks if the specified block is a SciFi sloped block.
+        ///     Checks if the specified block is a SciFi sloped block.
         /// </summary>
         /// <param name="id">The block to check.</param>
         /// <returns><c>true</c> if the specified block is a SciFi sloped block; otherwise, <c>false</c>.</returns>
@@ -60,9 +60,9 @@
                    id == Block.DecorSciFi2013YellowSlope ||
                    id == Block.DecorSciFi2013GreenSlope;
         }
-        
+
         /// <summary>
-        /// Checks if the specified block is a SciFi straight block.
+        ///     Checks if the specified block is a SciFi straight block.
         /// </summary>
         /// <param name="id">The block to check.</param>
         /// <returns><c>true</c> if the specified block is a SciFi straight block; otherwise, <c>false</c>.</returns>
@@ -74,7 +74,7 @@
         }
 
         /// <summary>
-        /// Determines whether the specified block is a piano block.
+        ///     Determines whether the specified block is a piano block.
         /// </summary>
         /// <param name="id">The block.</param>
         /// <returns><c>true</c> if the specified block is a piano block; otherwise, <c>false</c>.</returns>
@@ -84,7 +84,7 @@
         }
 
         /// <summary>
-        /// Determines whether the specified block is a drum block.
+        ///     Determines whether the specified block is a drum block.
         /// </summary>
         /// <param name="id">The block.</param>
         /// <returns><c>true</c> if the specified block is a drum block; otherwise, <c>false</c>.</returns>
@@ -94,7 +94,7 @@
         }
 
         /// <summary>
-        /// Checks if the specified block is a music block.
+        ///     Checks if the specified block is a music block.
         /// </summary>
         /// <param name="id">The block to check.</param>
         /// <returns><c>true</c> if the specified block is a music block; otherwise, <c>false</c>.</returns>
@@ -104,7 +104,7 @@
         }
 
         /// <summary>
-        /// Checks if the specified block is a portal.
+        ///     Checks if the specified block is a portal.
         /// </summary>
         /// <param name="id">The block to check.</param>
         /// <returns><c>true</c> if the specified block is a portal; otherwise, <c>false</c>.</returns>
@@ -114,7 +114,7 @@
         }
 
         /// <summary>
-        /// Checks if the specified block is a world portal.
+        ///     Checks if the specified block is a world portal.
         /// </summary>
         /// <param name="id">The block to check.</param>
         /// <returns><c>true</c> if the specified block is a world portal; otherwise, <c>false</c>.</returns>
@@ -124,7 +124,7 @@
         }
 
         /// <summary>
-        /// Checks if the specified block is a sign or a label.
+        ///     Checks if the specified block is a sign or a label.
         /// </summary>
         /// <param name="id">The block to check.</param>
         /// <returns><c>true</c> if the specified block is a sign or a label; otherwise, <c>false</c>.</returns>

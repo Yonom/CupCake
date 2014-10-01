@@ -12,6 +12,7 @@ namespace CupCake
 {
     internal class CommandHandle : CupCakeMuffinPart<object>, ICommand
     {
+        private string _name;
         public MethodBase Method { get; set; }
 
         public List<string> Labels { get; private set; }
@@ -25,7 +26,6 @@ namespace CupCake
         public bool HighPriority { get; set; }
 
         public Action<IInvokeSource, ParsedCommand> Callback { get; private set; }
-        private string _name;
 
         public void Activate(Action<IInvokeSource, ParsedCommand> callback, string name)
         {
@@ -100,12 +100,12 @@ namespace CupCake
             }
         }
 
-       protected virtual bool CanHandle(ParsedCommand message)
+        protected virtual bool CanHandle(ParsedCommand message)
         {
             return this.Labels.Any(l => l.Equals(message.Type, StringComparison.OrdinalIgnoreCase));
         }
 
-       
+
         protected void ExecuteCommand(IInvokeSource source, ParsedCommand message)
         {
             try
