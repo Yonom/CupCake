@@ -125,6 +125,14 @@ namespace CupCake.Players
         public int Coins { get; private set; }
 
         /// <summary>
+        /// Gets the player's number of blue coins.
+        /// </summary>
+        /// <value>
+        /// The player's number of blue coins.
+        /// </value>
+        public int BlueCoins { get; private set; }
+
+        /// <summary>
         /// Gets a value indicating whether the player has opened a switch.
         /// </summary>
         /// <value>
@@ -527,6 +535,7 @@ namespace CupCake.Players
                 this.IsMod = add.IsMod;
                 this.IsMyFriend = add.IsMyFriend;
                 this.Coins = add.Coins;
+                this.BlueCoins = add.BlueCoins;
                 this.PosX = add.UserPosX;
                 this.PosY = add.UserPosY;
                 this.SpawnX = add.UserPosX;
@@ -558,6 +567,7 @@ namespace CupCake.Players
         private void OnCoin(object sender, CoinReceiveEvent e)
         {
             this.Coins = e.Coins;
+            this.BlueCoins = e.BlueCoins;
         }
 
         private void OnFace(object sender, FaceReceiveEvent e)
