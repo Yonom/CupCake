@@ -17,6 +17,7 @@ using CupCake.HostAPI.Status;
 using CupCake.Keys;
 using CupCake.Messages;
 using CupCake.Permissions;
+using CupCake.Physics;
 using CupCake.Players;
 using CupCake.Potions;
 using CupCake.Room;
@@ -54,6 +55,7 @@ namespace CupCake
         private readonly Lazy<SynchronizePlatform> _synchronizePlatform;
         private readonly Lazy<UploadService> _uploadService;
         private readonly Lazy<WorldService> _worldService;
+        private readonly Lazy<PhysicsService> _physicsService;
 
         /// <summary>
         ///     Initializes a new instance of the <see cref="CupCakeMuffinPart{TProtocol}" /> class.
@@ -105,6 +107,7 @@ namespace CupCake
             this._statusService = new Lazy<StatusService>(() => this.ServiceLoader.Get<StatusService>());
             this._permissionService = new Lazy<PermissionService>(() => this.ServiceLoader.Get<PermissionService>());
             this._hostService = new Lazy<HostService>(() => this.ServiceLoader.Get<HostService>());
+            this._physicsService = new Lazy<PhysicsService>(() => this.ServiceLoader.Get<PhysicsService>());
         }
 
         /// <summary>
@@ -298,6 +301,17 @@ namespace CupCake
         protected CommandManager Commands
         {
             get { return this._commands.Value; }
+        }
+
+        /// <summary>
+        /// Gets the physics service.
+        /// </summary>
+        /// <value>
+        /// The physics service.
+        /// </value>
+        protected PhysicsService PhysicsService
+        {
+            get { return this._physicsService.Value; }
         }
 
         /// <summary>
