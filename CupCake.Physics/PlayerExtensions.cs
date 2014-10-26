@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using CupCake.Players;
+using EEPhysics;
 
 namespace CupCake.Physics
 {
@@ -15,7 +16,7 @@ namespace CupCake.Physics
             return physicsP;
         }
 
-        public static void SetPhysicsPlayer(this Player p, PhysicsPlayer physicsPlayer)
+        internal static void SetPhysicsPlayer(this Player p, PhysicsPlayer physicsPlayer)
         {
             p.Metadata.SetMetadata("PhysicsPlayer", physicsPlayer);
         }
