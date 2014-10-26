@@ -48,7 +48,7 @@ namespace CupCake.Core
             {
                 ParameterInfo sender = parameters.First();
 
-                if (sender.ParameterType == typeof(object))
+                if (sender.ParameterType != typeof(object))
                     throw GetEventEx(baseObj, eventHandler.Name, "First argument must be an object.");
 
                 handler =
