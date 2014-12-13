@@ -11,14 +11,12 @@ namespace CupCake.Physics
     {
         public static PhysicsPlayer GetPhysicsPlayer(this Player p)
         {
-            PhysicsPlayer physicsP;
-            p.Metadata.GetMetadata("PhysicsPlayer", out physicsP);
-            return physicsP;
+            return p.Get<PhysicsPlayer>("PhysicsPlayer");
         }
 
         internal static void SetPhysicsPlayer(this Player p, PhysicsPlayer physicsPlayer)
         {
-            p.Metadata.SetMetadata("PhysicsPlayer", physicsPlayer);
+            p.Set("PhysicsPlayer", physicsPlayer);
         }
     }
 }
