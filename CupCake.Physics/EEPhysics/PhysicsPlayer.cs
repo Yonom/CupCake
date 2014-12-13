@@ -1,10 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using PlayerIOClient;
 
-namespace EEPhysics
+namespace CupCake.Physics.EEPhysics
 {
     public class PhysicsPlayer
     {
@@ -49,7 +46,7 @@ namespace EEPhysics
         //public bool Zombie { get; internal set; }
         public bool HasChat { get; internal set; }
 
-        internal double GravityMultiplier { get { return HostWorld.WorldGravity; } }
+        internal double GravityMultiplier { get { return this.HostWorld.WorldGravity; } }
         internal double SpeedMultiplier
         {
             get
@@ -62,10 +59,10 @@ namespace EEPhysics
                 return 1;
             }
         }
-        public double SpeedX { get { return speedX * PhysicsConfig.VariableMultiplier; } internal set { speedX = value / PhysicsConfig.VariableMultiplier; } }
-        public double SpeedY { get { return speedY * PhysicsConfig.VariableMultiplier; } internal set { speedY = value / PhysicsConfig.VariableMultiplier; } }
-        public double ModifierX { get { return modifierX * PhysicsConfig.VariableMultiplier; } internal set { modifierX = value / PhysicsConfig.VariableMultiplier; } }
-        public double ModifierY { get { return modifierY * PhysicsConfig.VariableMultiplier; } internal set { modifierY = value / PhysicsConfig.VariableMultiplier; } }
+        public double SpeedX { get { return this.speedX * PhysicsConfig.VariableMultiplier; } internal set { this.speedX = value / PhysicsConfig.VariableMultiplier; } }
+        public double SpeedY { get { return this.speedY * PhysicsConfig.VariableMultiplier; } internal set { this.speedY = value / PhysicsConfig.VariableMultiplier; } }
+        public double ModifierX { get { return this.modifierX * PhysicsConfig.VariableMultiplier; } internal set { this.modifierX = value / PhysicsConfig.VariableMultiplier; } }
+        public double ModifierY { get { return this.modifierY * PhysicsConfig.VariableMultiplier; } internal set { this.modifierY = value / PhysicsConfig.VariableMultiplier; } }
 
         public int LastCheckpointX { get; private set; }
         public int LastCheckpointY { get; private set; }
@@ -131,11 +128,11 @@ namespace EEPhysics
 
         public PhysicsPlayer(int id, string name)
         {
-            ID = id;
-            Name = name;
-            X = 16;
-            Y = 16;
-            gravity = (int)PhysicsConfig.Gravity;
+            this.ID = id;
+            this.Name = name;
+            this.X = 16;
+            this.Y = 16;
+            this.gravity = (int)PhysicsConfig.Gravity;
         }
 
         internal void Tick()
@@ -152,51 +149,51 @@ namespace EEPhysics
             double oy;
             double ty;
 
-            int cx = ((int)(X + 8) >> 4);
-            int cy = ((int)(Y + 8) >> 4);
+            int cx = ((int)(this.X + 8) >> 4);
+            int cy = ((int)(this.Y + 8) >> 4);
 
-            current = HostWorld.GetBlock(0, cx, cy);
-            if (current == 4 || ItemId.isClimbable(current))
+            this.current = this.HostWorld.GetBlock(0, cx, cy);
+            if (this.current == 4 || ItemId.isClimbable(this.current))
             {
-                delayed = queue[1];
-                queue[0] = current;
+                this.delayed = this.queue[1];
+                this.queue[0] = this.current;
             }
             else
             {
-                delayed = queue[0];
-                queue[0] = queue[1];
+                this.delayed = this.queue[0];
+                this.queue[0] = this.queue[1];
             }
-            queue[1] = current;
+            this.queue[1] = this.current;
 
-            if (IsDead)
+            if (this.IsDead)
             {
-                Horizontal = 0;
-                Vertical = 0;
+                this.Horizontal = 0;
+                this.Vertical = 0;
             }
 
-            bool isGodMode = InGodMode;
-            if (InGodMode)
+            bool isGodMode = this.InGodMode;
+            if (this.InGodMode)
             {
-                morx = 0;
-                mory = 0;
-                mox = 0;
-                moy = 0;
+                this.morx = 0;
+                this.mory = 0;
+                this.mox = 0;
+                this.moy = 0;
             }
             else
             {
-                switch (current)
+                switch (this.current)
                 {
                     case 1:
-                        morx = -((int)gravity);
-                        mory = 0;
+                        this.morx = -((int)this.gravity);
+                        this.mory = 0;
                         break;
                     case 2:
-                        morx = 0;
-                        mory = -((int)gravity);
+                        this.morx = 0;
+                        this.mory = -((int)this.gravity);
                         break;
                     case 3:
-                        morx = (int)gravity;
-                        mory = 0;
+                        this.morx = (int)this.gravity;
+                        this.mory = 0;
                         break;
                     case ItemId.SpeedLeft:
                     case ItemId.SpeedRight:
@@ -207,44 +204,44 @@ namespace EEPhysics
                     case ItemId.WineH:
                     case ItemId.WineV:
                     case 4:
-                        morx = 0;
-                        mory = 0;
+                        this.morx = 0;
+                        this.mory = 0;
                         break;
                     case ItemId.Water:
-                        morx = 0;
-                        mory = (int)PhysicsConfig.WaterBuoyancy;
+                        this.morx = 0;
+                        this.mory = (int)PhysicsConfig.WaterBuoyancy;
                         break;
                     case ItemId.Mud:
-                        morx = 0;
-                        mory = (int)PhysicsConfig.MudBuoyancy;
+                        this.morx = 0;
+                        this.mory = (int)PhysicsConfig.MudBuoyancy;
                         break;
                     case ItemId.Fire:
                     case ItemId.Spike:
-                        if (!IsDead && !isInvulnerable)
+                        if (!this.IsDead && !this.isInvulnerable)
                         {
-                            KillPlayer();
-                            OnDie(new PlayerEventArgs() { Player = this, BlockX = cx, BlockY = cy });
+                            this.KillPlayer();
+                            this.OnDie(new PlayerEventArgs() { Player = this, BlockX = cx, BlockY = cy });
                         };
                         break;
                     default:
-                        morx = 0;
-                        mory = (int)gravity;
+                        this.morx = 0;
+                        this.mory = (int)this.gravity;
                         break;
                 }
 
-                switch (delayed)
+                switch (this.delayed)
                 {
                     case 1:
-                        mox = -gravity;
-                        moy = 0;
+                        this.mox = -this.gravity;
+                        this.moy = 0;
                         break;
                     case 2:
-                        mox = 0;
-                        moy = -gravity;
+                        this.mox = 0;
+                        this.moy = -this.gravity;
                         break;
                     case 3:
-                        mox = gravity;
-                        moy = 0;
+                        this.mox = this.gravity;
+                        this.moy = 0;
                         break;
                     case ItemId.SpeedLeft:
                     case ItemId.SpeedRight:
@@ -255,136 +252,136 @@ namespace EEPhysics
                     case ItemId.WineH:
                     case ItemId.WineV:
                     case 4:
-                        mox = 0;
-                        moy = 0;
+                        this.mox = 0;
+                        this.moy = 0;
                         break;
                     case ItemId.Water:
-                        mox = 0;
-                        moy = PhysicsConfig.WaterBuoyancy;
+                        this.mox = 0;
+                        this.moy = PhysicsConfig.WaterBuoyancy;
                         break;
                     case ItemId.Mud:
-                        mox = 0;
-                        moy = PhysicsConfig.MudBuoyancy;
+                        this.mox = 0;
+                        this.moy = PhysicsConfig.MudBuoyancy;
                         break;
                     default:
-                        mox = 0;
-                        moy = gravity;
+                        this.mox = 0;
+                        this.moy = this.gravity;
                         break;
                 }
             }
 
-            if (moy == PhysicsConfig.WaterBuoyancy || moy == PhysicsConfig.MudBuoyancy)
+            if (this.moy == PhysicsConfig.WaterBuoyancy || this.moy == PhysicsConfig.MudBuoyancy)
             {
-                mx = Horizontal;
-                my = Vertical;
+                this.mx = this.Horizontal;
+                this.my = this.Vertical;
             }
             else
             {
-                if (moy != 0)
+                if (this.moy != 0)
                 {
-                    mx = Horizontal;
-                    my = 0;
+                    this.mx = this.Horizontal;
+                    this.my = 0;
                 }
                 else
                 {
-                    if (mox != 0)
+                    if (this.mox != 0)
                     {
-                        mx = 0;
-                        my = Vertical;
+                        this.mx = 0;
+                        this.my = this.Vertical;
                     }
                     else
                     {
-                        mx = Horizontal;
-                        my = Vertical;
+                        this.mx = this.Horizontal;
+                        this.my = this.Vertical;
                     }
                 }
             }
-            mx *= SpeedMultiplier;
-            my *= SpeedMultiplier;
-            mox *= GravityMultiplier;
-            moy *= GravityMultiplier;
+            this.mx *= this.SpeedMultiplier;
+            this.my *= this.SpeedMultiplier;
+            this.mox *= this.GravityMultiplier;
+            this.moy *= this.GravityMultiplier;
 
-            ModifierX = (mox + mx);
-            ModifierY = (moy + my);
+            this.ModifierX = (this.mox + this.mx);
+            this.ModifierY = (this.moy + this.my);
 
-            if (!DoubleIsEqual(speedX, 0) || modifierX != 0)
+            if (!this.DoubleIsEqual(this.speedX, 0) || this.modifierX != 0)
             {
-                speedX = (speedX + modifierX);
-                speedX = (speedX * PhysicsConfig.BaseDrag);
-                if ((mx == 0 && moy != 0) || (speedX < 0 && mx > 0) || (speedX > 0 && mx < 0) || (ItemId.isClimbable(current) && !isGodMode))
+                this.speedX = (this.speedX + this.modifierX);
+                this.speedX = (this.speedX * PhysicsConfig.BaseDrag);
+                if ((this.mx == 0 && this.moy != 0) || (this.speedX < 0 && this.mx > 0) || (this.speedX > 0 && this.mx < 0) || (ItemId.isClimbable(this.current) && !isGodMode))
                 {
-                    speedX = (speedX * PhysicsConfig.NoModifierDrag);
+                    this.speedX = (this.speedX * PhysicsConfig.NoModifierDrag);
                 }
                 else
                 {
-                    if (current == ItemId.Water && !isGodMode)
+                    if (this.current == ItemId.Water && !isGodMode)
                     {
-                        speedX = (speedX * PhysicsConfig.WaterDrag);
+                        this.speedX = (this.speedX * PhysicsConfig.WaterDrag);
                     }
                     else
                     {
-                        if (current == ItemId.Mud && !isGodMode)
+                        if (this.current == ItemId.Mud && !isGodMode)
                         {
-                            speedX = (speedX * PhysicsConfig.MudDrag);
+                            this.speedX = (this.speedX * PhysicsConfig.MudDrag);
                         }
                     }
                 }
-                if (speedX > 16)
+                if (this.speedX > 16)
                 {
-                    speedX = 16;
+                    this.speedX = 16;
                 }
                 else
                 {
-                    if (speedX < -16)
+                    if (this.speedX < -16)
                     {
-                        speedX = -16;
+                        this.speedX = -16;
                     }
                     else
                     {
-                        if (speedX < 0.0001 && speedX > -0.0001)
+                        if (this.speedX < 0.0001 && this.speedX > -0.0001)
                         {
-                            speedX = 0;
+                            this.speedX = 0;
                         }
                     }
                 }
             }
-            if (!DoubleIsEqual(speedY, 0) || modifierY != 0)
+            if (!this.DoubleIsEqual(this.speedY, 0) || this.modifierY != 0)
             {
-                speedY = (speedY + modifierY);
-                speedY = (speedY * PhysicsConfig.BaseDrag);
-                if ((my == 0 && mox != 0) || (speedY < 0 && my > 0) || (speedY > 0 && my < 0) || (ItemId.isClimbable(current) && !isGodMode))
+                this.speedY = (this.speedY + this.modifierY);
+                this.speedY = (this.speedY * PhysicsConfig.BaseDrag);
+                if ((this.my == 0 && this.mox != 0) || (this.speedY < 0 && this.my > 0) || (this.speedY > 0 && this.my < 0) || (ItemId.isClimbable(this.current) && !isGodMode))
                 {
-                    speedY = (speedY * PhysicsConfig.NoModifierDrag);
+                    this.speedY = (this.speedY * PhysicsConfig.NoModifierDrag);
                 }
                 else
                 {
-                    if (current == ItemId.Water && !isGodMode)
+                    if (this.current == ItemId.Water && !isGodMode)
                     {
-                        speedY = (speedY * PhysicsConfig.WaterDrag);
+                        this.speedY = (this.speedY * PhysicsConfig.WaterDrag);
                     }
                     else
                     {
-                        if (current == ItemId.Mud && !isGodMode)
+                        if (this.current == ItemId.Mud && !isGodMode)
                         {
-                            speedY = (speedY * PhysicsConfig.MudDrag);
+                            this.speedY = (this.speedY * PhysicsConfig.MudDrag);
                         }
                     }
                 }
-                if (speedY > 16)
+                if (this.speedY > 16)
                 {
-                    speedY = 16;
+                    this.speedY = 16;
                 }
                 else
                 {
-                    if (speedY < -16)
+                    if (this.speedY < -16)
                     {
-                        speedY = -16;
+                        this.speedY = -16;
                     }
                     else
                     {
-                        if (speedY < 0.0001 && speedY > -0.0001)
+                        if (this.speedY < 0.0001 && this.speedY > -0.0001)
                         {
-                            speedY = 0;
+                            this.speedY = 0;
                         }
                     }
                 }
@@ -394,45 +391,45 @@ namespace EEPhysics
                 switch (this.current)
                 {
                     case ItemId.SpeedLeft:
-                        speedX = -PhysicsConfig.Boost;
+                        this.speedX = -PhysicsConfig.Boost;
                         break;
                     case ItemId.SpeedRight:
-                        speedX = PhysicsConfig.Boost;
+                        this.speedX = PhysicsConfig.Boost;
                         break;
                     case ItemId.SpeedUp:
-                        speedY = -PhysicsConfig.Boost;
+                        this.speedY = -PhysicsConfig.Boost;
                         break;
                     case ItemId.SpeedDown:
-                        speedY = PhysicsConfig.Boost;
+                        this.speedY = PhysicsConfig.Boost;
                         break;
                 }
             }
 
-            reminderX = X % 1;
-            currentSX = speedX;
-            reminderY = Y % 1;
-            currentSY = speedY;
-            donex = false;
-            doney = false;
+            reminderX = this.X % 1;
+            currentSX = this.speedX;
+            reminderY = this.Y % 1;
+            currentSY = this.speedY;
+            this.donex = false;
+            this.doney = false;
 
-            while ((currentSX != 0 && !donex) || (currentSY != 0 && !doney))
+            while ((currentSX != 0 && !this.donex) || (currentSY != 0 && !this.doney))
             {
                 #region processPortals()
-                current = HostWorld.GetBlock(cx, cy);
-                if (!isGodMode && (current == ItemId.Portal || current == ItemId.PortalInvisible))
+                this.current = this.HostWorld.GetBlock(cx, cy);
+                if (!isGodMode && (this.current == ItemId.Portal || this.current == ItemId.PortalInvisible))
                 {
-                    if (lastPortal == null)
+                    if (this.lastPortal == null)
                     {
-                        OnHitPortal(new PlayerEventArgs() { Player = this, BlockX = cx, BlockY = cy });
-                        lastPortal = new Point(cx, cy);
-                        int[] data = HostWorld.GetBlockData(cx, cy);
+                        this.OnHitPortal(new PlayerEventArgs() { Player = this, BlockX = cx, BlockY = cy });
+                        this.lastPortal = new Point(cx, cy);
+                        int[] data = this.HostWorld.GetBlockData(cx, cy);
                         if (data != null && data.Length == 3)
                         {
-                            Point portalPoint = HostWorld.GetPortalById(data[2]);
+                            Point portalPoint = this.HostWorld.GetPortalById(data[2]);
                             if (portalPoint != null)
                             {
-                                int rot1 = HostWorld.GetBlockData(lastPortal.x, lastPortal.y)[0];
-                                int rot2 = HostWorld.GetBlockData(portalPoint.x, portalPoint.y)[0];
+                                int rot1 = this.HostWorld.GetBlockData(this.lastPortal.x, this.lastPortal.y)[0];
+                                int rot2 = this.HostWorld.GetBlockData(portalPoint.x, portalPoint.y)[0];
                                 if (rot1 < rot2)
                                 {
                                     rot1 += 4;
@@ -440,47 +437,47 @@ namespace EEPhysics
                                 switch (rot1 - rot2)
                                 {
                                     case 1:
-                                        SpeedX = SpeedY * portalMultiplier;
-                                        SpeedY = -SpeedX * portalMultiplier;
-                                        ModifierX = ModifierY * portalMultiplier;
-                                        ModifierY = -ModifierX * portalMultiplier;
+                                        this.SpeedX = this.SpeedY * portalMultiplier;
+                                        this.SpeedY = -this.SpeedX * portalMultiplier;
+                                        this.ModifierX = this.ModifierY * portalMultiplier;
+                                        this.ModifierY = -this.ModifierX * portalMultiplier;
                                         reminderY = -reminderY;
                                         currentSY = -currentSY;
                                         break;
                                     case 2:
-                                        SpeedX = -SpeedX * portalMultiplier;
-                                        SpeedY = -SpeedY * portalMultiplier;
-                                        ModifierX = -ModifierX * portalMultiplier;
-                                        ModifierY = -ModifierY * portalMultiplier;
+                                        this.SpeedX = -this.SpeedX * portalMultiplier;
+                                        this.SpeedY = -this.SpeedY * portalMultiplier;
+                                        this.ModifierX = -this.ModifierX * portalMultiplier;
+                                        this.ModifierY = -this.ModifierY * portalMultiplier;
                                         reminderY = -reminderY;
                                         currentSY = -currentSY;
                                         reminderX = -reminderX;
                                         currentSX = -currentSX;
                                         break;
                                     case 3:
-                                        SpeedX = -SpeedY * portalMultiplier;
-                                        SpeedY = SpeedX * portalMultiplier;
-                                        ModifierX = -ModifierY * portalMultiplier;
-                                        ModifierY = ModifierX * portalMultiplier;
+                                        this.SpeedX = -this.SpeedY * portalMultiplier;
+                                        this.SpeedY = this.SpeedX * portalMultiplier;
+                                        this.ModifierX = -this.ModifierY * portalMultiplier;
+                                        this.ModifierY = this.ModifierX * portalMultiplier;
                                         reminderX = -reminderX;
                                         currentSX = -currentSX;
                                         break;
                                 }
-                                X = portalPoint.x * 16;
-                                Y = portalPoint.y * 16;
-                                lastPortal = portalPoint;
+                                this.X = portalPoint.x * 16;
+                                this.Y = portalPoint.y * 16;
+                                this.lastPortal = portalPoint;
                             }
                         }
                     }
                 }
                 else
                 {
-                    lastPortal = null;
+                    this.lastPortal = null;
                 }
                 #endregion
 
-                ox = X;
-                oy = Y;
+                ox = this.X;
+                oy = this.Y;
                 osx = currentSX;
                 osy = currentSY;
 
@@ -489,14 +486,14 @@ namespace EEPhysics
                 {
                     if ((currentSX + reminderX) >= 1)
                     {
-                        X += 1 - reminderX;
-                        X = Math.Floor(X);
+                        this.X += 1 - reminderX;
+                        this.X = Math.Floor(this.X);
                         currentSX -= 1 - reminderX;
                         reminderX = 0;
                     }
                     else
                     {
-                        X += currentSX;
+                        this.X += currentSX;
                         currentSX = 0;
                     }
                 }
@@ -504,26 +501,26 @@ namespace EEPhysics
                 {
                     if (currentSX < 0)
                     {
-                        if (!DoubleIsEqual(reminderX, 0) && (reminderX + currentSX) < 0)
+                        if (!this.DoubleIsEqual(reminderX, 0) && (reminderX + currentSX) < 0)
                         {
                             currentSX += reminderX;
-                            X -= reminderX;
-                            X = Math.Floor(X);
+                            this.X -= reminderX;
+                            this.X = Math.Floor(this.X);
                             reminderX = 1;
                         }
                         else
                         {
-                            X += currentSX;
+                            this.X += currentSX;
                             currentSX = 0;
                         }
                     }
                 }
-                if (HostWorld.Overlaps(this))
+                if (this.HostWorld.Overlaps(this))
                 {
-                    X = ox;
-                    speedX = 0;
+                    this.X = ox;
+                    this.speedX = 0;
                     currentSX = osx;
-                    donex = true;
+                    this.donex = true;
                 }
                 #endregion
 
@@ -532,14 +529,14 @@ namespace EEPhysics
                 {
                     if ((currentSY + reminderY) >= 1)
                     {
-                        Y += 1 - reminderY;
-                        Y = Math.Floor(Y);
+                        this.Y += 1 - reminderY;
+                        this.Y = Math.Floor(this.Y);
                         currentSY -= 1 - reminderY;
                         reminderY = 0;
                     }
                     else
                     {
-                        Y += currentSY;
+                        this.Y += currentSY;
                         currentSY = 0;
                     };
                 }
@@ -547,140 +544,140 @@ namespace EEPhysics
                 {
                     if (currentSY < 0)
                     {
-                        if (!DoubleIsEqual(reminderY, 0) && (reminderY + currentSY) < 0)
+                        if (!this.DoubleIsEqual(reminderY, 0) && (reminderY + currentSY) < 0)
                         {
-                            Y -= reminderY;
-                            Y = Math.Floor(Y);
+                            this.Y -= reminderY;
+                            this.Y = Math.Floor(this.Y);
                             currentSY += reminderY;
                             reminderY = 1;
                         }
                         else
                         {
-                            Y += currentSY;
+                            this.Y += currentSY;
                             currentSY = 0;
                         }
                     }
                 }
-                if (HostWorld.Overlaps(this))
+                if (this.HostWorld.Overlaps(this))
                 {
-                    Y = oy;
-                    speedY = 0;
+                    this.Y = oy;
+                    this.speedY = 0;
                     currentSY = osy;
-                    doney = true;
+                    this.doney = true;
                 }
                 #endregion
             }
 
-            if (!IsDead)
+            if (!this.IsDead)
             {
-                if (pastx != cx || pasty != cy)
+                if (this.pastx != cx || this.pasty != cy)
                 {
                     PlayerEvent e;
-                    if (blockIdEvents.Count != 0 && blockIdEvents.TryGetValue(current, out e))
+                    if (this.blockIdEvents.Count != 0 && this.blockIdEvents.TryGetValue(this.current, out e))
                     {
                         e(new PlayerEventArgs() { Player = this, BlockX = cx, BlockY = cy });
                     }
-                    if (bgblockIdEvents.Count != 0 && bgblockIdEvents.TryGetValue(HostWorld.GetBlock(1, cx, cy), out e)) {
+                    if (this.bgblockIdEvents.Count != 0 && this.bgblockIdEvents.TryGetValue(this.HostWorld.GetBlock(1, cx, cy), out e)) {
                         e(new PlayerEventArgs() { Player = this, BlockX = cx, BlockY = cy });
                     }
 
                     // Might remove specific events soon, because you can make them now with void AddBlockEvent. (except OnGetCoin and OnGetBlueCoin)
-                    switch (current)
+                    switch (this.current)
                     {
                         case 100:   //coin
-                            OnHitCoin(new PlayerEventArgs() { Player = this, BlockX = cx, BlockY = cy });
-                            for (int i = 0; i < gotCoins.Count; i++)
+                            this.OnHitCoin(new PlayerEventArgs() { Player = this, BlockX = cx, BlockY = cy });
+                            for (int i = 0; i < this.gotCoins.Count; i++)
                             {
-                                if (gotCoins[i].x == cx && gotCoins[i].y == cy)
+                                if (this.gotCoins[i].x == cx && this.gotCoins[i].y == cy)
                                 {
                                     goto found;
                                 }
                             }
-                            OnGetCoin(new PlayerEventArgs() { Player = this, BlockX = cx, BlockY = cy });
-                            gotCoins.Add(new Point(cx, cy));
+                            this.OnGetCoin(new PlayerEventArgs() { Player = this, BlockX = cx, BlockY = cy });
+                            this.gotCoins.Add(new Point(cx, cy));
                         found:
                             break;
                         case 101:   // bluecoin
-                            OnHitBlueCoin(new PlayerEventArgs() { Player = this, BlockX = cx, BlockY = cy });
-                            for (int i = 0; i < gotBlueCoins.Count; i++)
+                            this.OnHitBlueCoin(new PlayerEventArgs() { Player = this, BlockX = cx, BlockY = cy });
+                            for (int i = 0; i < this.gotBlueCoins.Count; i++)
                             {
-                                if (gotBlueCoins[i].x == cx && gotBlueCoins[i].y == cy)
+                                if (this.gotBlueCoins[i].x == cx && this.gotBlueCoins[i].y == cy)
                                 {
                                     goto found2;
                                 }
                             }
-                            OnGetBlueCoin(new PlayerEventArgs() { Player = this, BlockX = cx, BlockY = cy });
-                            gotBlueCoins.Add(new Point(cx, cy));
+                            this.OnGetBlueCoin(new PlayerEventArgs() { Player = this, BlockX = cx, BlockY = cy });
+                            this.gotBlueCoins.Add(new Point(cx, cy));
                         found2:
                             break;
                         case 5:
                             // crown
-                            OnHitCrown(new PlayerEventArgs() { Player = this, BlockX = cx, BlockY = cy });
+                            this.OnHitCrown(new PlayerEventArgs() { Player = this, BlockX = cx, BlockY = cy });
                             break;
                         case 6:
                             // red key
-                            OnHitRedKey(new PlayerEventArgs() { Player = this, BlockX = cx, BlockY = cy });
+                            this.OnHitRedKey(new PlayerEventArgs() { Player = this, BlockX = cx, BlockY = cy });
                             break;
                         case 7:
                             // green key
-                            OnHitGreenKey(new PlayerEventArgs() { Player = this, BlockX = cx, BlockY = cy });
+                            this.OnHitGreenKey(new PlayerEventArgs() { Player = this, BlockX = cx, BlockY = cy });
                             break;
                         case 8:
                             // blue key
-                            OnHitBlueKey(new PlayerEventArgs() { Player = this, BlockX = cx, BlockY = cy });
+                            this.OnHitBlueKey(new PlayerEventArgs() { Player = this, BlockX = cx, BlockY = cy });
                             break;
                         case ItemId.SwitchPurple:
-                            Purple = !Purple;
-                            OnHitSwitch(new PlayerEventArgs() { Player = this, BlockX = cx, BlockY = cy });
+                            this.Purple = !this.Purple;
+                            this.OnHitSwitch(new PlayerEventArgs() { Player = this, BlockX = cx, BlockY = cy });
                             break;
                         case ItemId.Piano:
-                            OnHitPiano(new PlayerEventArgs() { Player = this, BlockX = cx, BlockY = cy });
+                            this.OnHitPiano(new PlayerEventArgs() { Player = this, BlockX = cx, BlockY = cy });
                             break;
                         case ItemId.Drum:
-                            OnHitDrum(new PlayerEventArgs() { Player = this, BlockX = cx, BlockY = cy });
+                            this.OnHitDrum(new PlayerEventArgs() { Player = this, BlockX = cx, BlockY = cy });
                             break;
                         case ItemId.Diamond:
-                            OnHitDiamond(new PlayerEventArgs() { Player = this, BlockX = cx, BlockY = cy });
+                            this.OnHitDiamond(new PlayerEventArgs() { Player = this, BlockX = cx, BlockY = cy });
                             break;
                         case ItemId.Cake:
-                            OnHitCake(new PlayerEventArgs() { Player = this, BlockX = cx, BlockY = cy });
+                            this.OnHitCake(new PlayerEventArgs() { Player = this, BlockX = cx, BlockY = cy });
                             break;
                         case ItemId.Checkpoint:
                             if (!isGodMode)
                             {
-                                LastCheckpointX = cx;
-                                LastCheckpointY = cy;
-                                OnHitCheckpoint(new PlayerEventArgs() { Player = this, BlockX = cx, BlockY = cy });
+                                this.LastCheckpointX = cx;
+                                this.LastCheckpointY = cy;
+                                this.OnHitCheckpoint(new PlayerEventArgs() { Player = this, BlockX = cx, BlockY = cy });
                             }
                             break;
                         case ItemId.BrickComplete:
-                            OnHitCompleteLevelBrick(new PlayerEventArgs() { Player = this, BlockX = cx, BlockY = cy });
+                            this.OnHitCompleteLevelBrick(new PlayerEventArgs() { Player = this, BlockX = cx, BlockY = cy });
                             break;
                     }
-                    pastx = cx;
-                    pasty = cy;
+                    this.pastx = cx;
+                    this.pasty = cy;
                 }
             }
 
-            var imx = ((int)speedX << 8);
-            var imy = ((int)speedY << 8);
+            var imx = ((int)this.speedX << 8);
+            var imy = ((int)this.speedY << 8);
 
-            if (current != ItemId.Water && current != ItemId.Mud)
+            if (this.current != ItemId.Water && this.current != ItemId.Mud)
             {
                 if (imx == 0)
                 {
-                    if (modifierX < 0.1 && modifierX > -0.1)
+                    if (this.modifierX < 0.1 && this.modifierX > -0.1)
                     {
-                        tx = (X % 16);
+                        tx = (this.X % 16);
                         if (tx < 2)
                         {
                             if (tx < 0.2)
                             {
-                                X = Math.Floor(X);
+                                this.X = Math.Floor(this.X);
                             }
                             else
                             {
-                                X -= tx / 15;
+                                this.X -= tx / 15;
                             };
                         }
                         else
@@ -689,11 +686,11 @@ namespace EEPhysics
                             {
                                 if (tx > 15.8)
                                 {
-                                    X = Math.Ceiling(X);
+                                    this.X = Math.Ceiling(this.X);
                                 }
                                 else
                                 {
-                                    X += (tx - 14) / 15;
+                                    this.X += (tx - 14) / 15;
                                 }
                             }
                         }
@@ -702,18 +699,18 @@ namespace EEPhysics
 
                 if (imy == 0)
                 {
-                    if ((modifierY < 0.1) && (modifierY > -0.1))
+                    if ((this.modifierY < 0.1) && (this.modifierY > -0.1))
                     {
-                        ty = (Y % 16);
+                        ty = (this.Y % 16);
                         if (ty < 2)
                         {
                             if (ty < 0.2)
                             {
-                                Y = Math.Floor(Y);
+                                this.Y = Math.Floor(this.Y);
                             }
                             else
                             {
-                                Y -= ty / 15;
+                                this.Y -= ty / 15;
                             }
                         }
                         else
@@ -722,11 +719,11 @@ namespace EEPhysics
                             {
                                 if (ty > 15.8)
                                 {
-                                    Y = Math.Ceiling(Y);
+                                    this.Y = Math.Ceiling(this.Y);
                                 }
                                 else
                                 {
-                                    Y += (ty - 14) / 15;
+                                    this.Y += (ty - 14) / 15;
                                 }
                             }
                         }
@@ -744,17 +741,17 @@ namespace EEPhysics
         public void AddBlockEvent(int blockId, PlayerEvent e)
         {
             if (blockId < 500)
-                blockIdEvents[blockId] = e;
+                this.blockIdEvents[blockId] = e;
             else
-                bgblockIdEvents[blockId] = e;
+                this.bgblockIdEvents[blockId] = e;
         }
         /// <returns>Whether there's block event with specified blockId.</returns>
         public bool HasBlockEvent(int blockId)
         {
             if (blockId < 500)
-                return blockIdEvents.ContainsKey(blockId);
+                return this.blockIdEvents.ContainsKey(blockId);
             else
-                return bgblockIdEvents.ContainsKey(blockId);
+                return this.bgblockIdEvents.ContainsKey(blockId);
         }
         /// <summary>
         /// Removes block event added with AddBlockEvent with specified blockId.
@@ -762,9 +759,9 @@ namespace EEPhysics
         public void RemoveBlockEvent(int blockId)
         {
             if (blockId < 500)
-                blockIdEvents.Remove(blockId);
+                this.blockIdEvents.Remove(blockId);
             else
-                bgblockIdEvents.Remove(blockId);
+                this.bgblockIdEvents.Remove(blockId);
         }
 
         /// <returns>True if player overlaps block at x,y.</returns>
@@ -772,48 +769,44 @@ namespace EEPhysics
         {
             int xx = tx * 16;
             int yy = ty * 16;
-            return ((X > xx - 16 && X <= xx + 16) && (Y > yy - 16 && Y <= yy + 16));
+            return ((this.X > xx - 16 && this.X <= xx + 16) && (this.Y > yy - 16 && this.Y <= yy + 16));
         }
 
         internal void Respawn()
         {
-            modifierX = 0;
-            modifierY = 0;
-            ModifierX = 0;
-            ModifierY = 0;
-            speedX = 0;
-            speedY = 0;
-            SpeedX = 0;
-            SpeedY = 0;
-            IsDead = false;
+            this.ModifierX = 0;
+            this.ModifierY = 0;
+            this.SpeedX = 0;
+            this.SpeedY = 0;
+            this.IsDead = false;
         }
         internal void KillPlayer()
         {
-            IsDead = true;
+            this.IsDead = true;
         }
         internal void ResetCoins()
         {
-            gotCoins.Clear();
-            gotBlueCoins.Clear();
+            this.gotCoins.Clear();
+            this.gotBlueCoins.Clear();
         }
         internal void RemoveCoin(int xx, int yy)
         {
-            for (int i = 0; i < gotCoins.Count; i++)
+            for (int i = 0; i < this.gotCoins.Count; i++)
             {
-                if (gotCoins[i].x == xx && gotCoins[i].y == yy)
+                if (this.gotCoins[i].x == xx && this.gotCoins[i].y == yy)
                 {
-                    gotCoins.RemoveAt(i);
+                    this.gotCoins.RemoveAt(i);
                     break;
                 }
             }
         }
         internal void RemoveBlueCoin(int xx, int yy)
         {
-            for (int i = 0; i < gotCoins.Count; i++)
+            for (int i = 0; i < this.gotCoins.Count; i++)
             {
-                if (gotCoins[i].x == xx && gotCoins[i].y == yy)
+                if (this.gotCoins[i].x == xx && this.gotCoins[i].y == yy)
                 {
-                    gotCoins.RemoveAt(i);
+                    this.gotCoins.RemoveAt(i);
                     break;
                 }
             }
@@ -847,8 +840,8 @@ namespace EEPhysics
         public int x, y;
         public Point(int xx, int yy)
         {
-            x = xx;
-            y = yy;
+            this.x = xx;
+            this.y = yy;
         }
     }
 }

@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using CupCake.Physics.EEPhysics;
 using CupCake.Players;
-using EEPhysics;
 
 namespace CupCake.Physics
 {

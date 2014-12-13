@@ -4,8 +4,8 @@ using System.Text;
 using System.Threading;
 using CupCake.Core;
 using CupCake.Messages.Receive;
+using CupCake.Physics.EEPhysics;
 using CupCake.Players;
-using EEPhysics;
 
 namespace CupCake.Physics
 {

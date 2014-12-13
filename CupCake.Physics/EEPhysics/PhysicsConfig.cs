@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace EEPhysics
+namespace CupCake.Physics.EEPhysics
 {
     /// <summary>
     /// Constant physics variables.

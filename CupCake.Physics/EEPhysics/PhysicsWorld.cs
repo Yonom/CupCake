@@ -1,13 +1,11 @@
 ﻿using System;
-using System.Diagnostics;
-using System.Collections.Generic;
 using System.Collections.Concurrent;
-using System.Linq;
-using System.Text;
+using System.Collections.Generic;
+using System.Diagnostics;
 using System.Threading;
 using PlayerIOClient;
 
-namespace EEPhysics
+namespace CupCake.Physics.EEPhysics
 {
     public class PhysicsWorld
     {
@@ -51,9 +49,9 @@ namespace EEPhysics
 
         public PhysicsWorld()
         {
-            AutoStart = true;
-            AddBotPlayer = true;
-            Players = new ConcurrentDictionary<int, PhysicsPlayer>();
+            this.AutoStart = true;
+            this.AddBotPlayer = true;
+            this.Players = new ConcurrentDictionary<int, PhysicsPlayer>();
         }
 
         /// <summary>
@@ -61,25 +59,25 @@ namespace EEPhysics
         /// </summary>
         public void Run()
         {
-            running = true;
-            PhysicsRunning = true;
+            this.running = true;
+            this.PhysicsRunning = true;
 
-            sw.Start();
-            while (running)
+            this.sw.Start();
+            while (this.running)
             {
-                long frameStartTime = sw.ElapsedMilliseconds;
-                foreach (KeyValuePair<int, PhysicsPlayer> pair in Players)
+                long frameStartTime = this.sw.ElapsedMilliseconds;
+                foreach (KeyValuePair<int, PhysicsPlayer> pair in this.Players)
                 {
                     pair.Value.Tick();
                 }
-                OnTick(this, null);
-                long frameEndTime = sw.ElapsedMilliseconds;
+                this.OnTick(this, null);
+                long frameEndTime = this.sw.ElapsedMilliseconds;
                 long waitTime = 10 - (frameEndTime - frameStartTime);
                 if (waitTime > 0)
                     Thread.Sleep((int)waitTime);
             }
 
-            PhysicsRunning = false;
+            this.PhysicsRunning = false;
         }
 
         /// <summary>
@@ -87,29 +85,29 @@ namespace EEPhysics
         /// </summary>
         public void HandleMessage(Message m)
         {
-            if (!inited)
+            if (!this.inited)
             {
                 if (m.Type == "init")
                 {
-                    WorldWidth = m.GetInt(12);
-                    WorldHeight = m.GetInt(13);
+                    this.WorldWidth = m.GetInt(12);
+                    this.WorldHeight = m.GetInt(13);
 
-                    blocks = new int[2][][];
-                    for (int i = 0; i < blocks.Length; i++)
+                    this.blocks = new int[2][][];
+                    for (int i = 0; i < this.blocks.Length; i++)
                     {
-                        blocks[i] = new int[WorldWidth][];
-                        for (int ii = 0; ii < WorldWidth; ii++)
-                            blocks[i][ii] = new int[WorldHeight];
+                        this.blocks[i] = new int[this.WorldWidth][];
+                        for (int ii = 0; ii < this.WorldWidth; ii++)
+                            this.blocks[i][ii] = new int[this.WorldHeight];
                     }
 
-                    blockData = new int[WorldWidth][][];
-                    for (int i = 0; i < WorldWidth; i++)
-                        blockData[i] = new int[WorldHeight][];
+                    this.blockData = new int[this.WorldWidth][][];
+                    for (int i = 0; i < this.WorldWidth; i++)
+                        this.blockData[i] = new int[this.WorldHeight][];
 
-                    WorldKey = Derot(m.GetString(5));
-                    WorldGravity = m.GetDouble(15);
+                    this.WorldKey = Derot(m.GetString(5));
+                    this.WorldGravity = m.GetDouble(15);
 
-                    if (AddBotPlayer)
+                    if (this.AddBotPlayer)
                     {
                         PhysicsPlayer p = new PhysicsPlayer(m.GetInt(6), m.GetString(9))
                         {
@@ -117,27 +115,26 @@ namespace EEPhysics
                             Y = m.GetInt(8),
                             HostWorld = this
                         };
-                        Players.TryAdd(p.ID, p);
+                        this.Players.TryAdd(p.ID, p);
                     }
 
-                    DeserializeBlocks(m, (m[18] is string) ? 19u : 18u);
-                    inited = true;
+                    this.DeserializeBlocks(m, (m[19] is string) ? 20u : 19u);
+                    this.inited = true;
 
-                    foreach (Message m2 in earlyMessages)
+                    foreach (Message m2 in this.earlyMessages)
                     {
-                        HandleMessage(m2);
+                        this.HandleMessage(m2);
                     }
-                    earlyMessages.Clear();
-                    earlyMessages = null;
+                    this.earlyMessages.Clear();
 
-                    if (AutoStart && (physicsThread == null || !physicsThread.IsAlive))
+                    if (this.AutoStart && (this.physicsThread == null || !this.physicsThread.IsAlive))
                     {
-                        StartSimulation();
+                        this.StartSimulation();
                     }
                 }
                 else if (m.Type != "add" && m.Type != "left")
                 {
-                    earlyMessages.Add(m);
+                    this.earlyMessages.Add(m);
                     return;
                 }
             }
@@ -146,7 +143,7 @@ namespace EEPhysics
                 case "m":
                     {
                         PhysicsPlayer p;
-                        if (Players.TryGetValue(m.GetInt(0), out p))
+                        if (this.Players.TryGetValue(m.GetInt(0), out p))
                         {
                             p.X = m.GetDouble(1);
                             p.Y = m.GetDouble(2);
@@ -170,23 +167,23 @@ namespace EEPhysics
                         int blockId = m.GetInt(3);
                         if (zz == 0)
                         {
-                            switch (blocks[zz][xx][yy])
+                            switch (this.blocks[zz][xx][yy])
                             {
                                 case 100:
-                                    foreach (KeyValuePair<int, PhysicsPlayer> pair in Players)
+                                    foreach (KeyValuePair<int, PhysicsPlayer> pair in this.Players)
                                     {
                                         pair.Value.RemoveCoin(xx, yy);
                                     }
                                     break;
                                 case 101:
-                                    foreach (KeyValuePair<int, PhysicsPlayer> pair in Players)
+                                    foreach (KeyValuePair<int, PhysicsPlayer> pair in this.Players)
                                     {
                                         pair.Value.RemoveBlueCoin(xx, yy);
                                     }
                                     break;
                             }
                         }
-                        blocks[zz][xx][yy] = blockId;
+                        this.blocks[zz][xx][yy] = blockId;
                     }
                     break;
                 case "add":
@@ -202,13 +199,13 @@ namespace EEPhysics
                         p.Purple = m.GetBoolean(11);
                         p.IsClubMember = m.GetBoolean(13);
 
-                        Players.TryAdd(p.ID, p);
+                        this.Players.TryAdd(p.ID, p);
                     }
                     break;
                 case "left":
                     {
                         PhysicsPlayer p;
-                        Players.TryRemove(m.GetInt(0), out p);
+                        this.Players.TryRemove(m.GetInt(0), out p);
                     }
                     break;
                 case "show":
@@ -218,16 +215,16 @@ namespace EEPhysics
                         switch (m.GetString(0))
                         {
                             case "timedoor":
-                                hideTimedoor = b;
+                                this.hideTimedoor = b;
                                 break;
                             case "blue":
-                                hideBlue = b;
+                                this.hideBlue = b;
                                 break;
                             case "red":
-                                hideRed = b;
+                                this.hideRed = b;
                                 break;
                             case "green":
-                                hideGreen = b;
+                                this.hideGreen = b;
                                 break;
                         }
                     }
@@ -235,7 +232,7 @@ namespace EEPhysics
                 case "c":
                     {
                         PhysicsPlayer p;
-                        if (Players.TryGetValue(m.GetInt(0), out p))
+                        if (this.Players.TryGetValue(m.GetInt(0), out p))
                         {
                             p.Coins = m.GetInt(1);
                             p.BlueCoins = m.GetInt(2);
@@ -248,11 +245,11 @@ namespace EEPhysics
                     {
                         int xx = m.GetInt(0);
                         int yy = m.GetInt(1);
-                        blocks[0][xx][yy] = m.GetInt(2);
-                        blockData[xx][yy] = new int[m.Count - 4];
+                        this.blocks[0][xx][yy] = m.GetInt(2);
+                        this.blockData[xx][yy] = new int[m.Count - 4];
                         for (uint i = 3; i < 4; i++)
                         {
-                            blockData[xx][yy][i - 3] = m.GetInt(i);
+                            this.blockData[xx][yy][i - 3] = m.GetInt(i);
                         }
                     }
                     break;
@@ -260,11 +257,11 @@ namespace EEPhysics
                     {
                         int xx = m.GetInt(0);
                         int yy = m.GetInt(1);
-                        blocks[0][xx][yy] = m.GetInt(2);
-                        blockData[xx][yy] = new int[m.Count - 3];
+                        this.blocks[0][xx][yy] = m.GetInt(2);
+                        this.blockData[xx][yy] = new int[m.Count - 3];
                         for (uint i = 3; i < 6; i++)
                         {
-                            blockData[xx][yy][i - 3] = m.GetInt(i);
+                            this.blockData[xx][yy][i - 3] = m.GetInt(i);
                         }
                     }
                     break;
@@ -273,13 +270,10 @@ namespace EEPhysics
                 case "mod":
                     {
                         PhysicsPlayer p;
-                        if (Players.TryGetValue(m.GetInt(0), out p))
+                        if (this.Players.TryGetValue(m.GetInt(0), out p))
                         {
                             p.InGodMode = m.GetBoolean(1);
-                            if (p.InGodMode)
-                            {
-                                p.Respawn();
-                            }
+                            p.Respawn();
                         }
                     }
                     break;
@@ -290,7 +284,7 @@ namespace EEPhysics
                         while (i + 2 < m.Count)
                         {
                             PhysicsPlayer p;
-                            if (Players.TryGetValue(m.GetInt(i), out p))
+                            if (this.Players.TryGetValue(m.GetInt(i), out p))
                             {
                                 p.X = m.GetInt(i + 1);
                                 p.Y = m.GetInt(i + 2);
@@ -306,7 +300,7 @@ namespace EEPhysics
                 case "teleport":
                     {
                         PhysicsPlayer p;
-                        if (Players.TryGetValue(m.GetInt(0), out p))
+                        if (this.Players.TryGetValue(m.GetInt(0), out p))
                         {
                             p.X = m.GetInt(1);
                             p.Y = m.GetInt(2);
@@ -315,8 +309,8 @@ namespace EEPhysics
                     break;
                 case "reset":
                     {
-                        DeserializeBlocks(m, 1);
-                        foreach (KeyValuePair<int, PhysicsPlayer> pair in Players)
+                        this.DeserializeBlocks(m, 1);
+                        foreach (KeyValuePair<int, PhysicsPlayer> pair in this.Players)
                         {
                             pair.Value.ResetCoins();
                         }
@@ -330,22 +324,22 @@ namespace EEPhysics
                     {
                         int border = m.GetInt(2);
                         int fill = m.GetInt(3);
-                        for (int i = 0; i < WorldWidth; i++)
+                        for (int i = 0; i < this.WorldWidth; i++)
                         {
-                            for (int ii = 0; ii < WorldHeight; ii++)
+                            for (int ii = 0; ii < this.WorldHeight; ii++)
                             {
-                                if (i == 0 || ii == 0 || i == WorldWidth - 1 || ii == WorldHeight - 1)
+                                if (i == 0 || ii == 0 || i == this.WorldWidth - 1 || ii == this.WorldHeight - 1)
                                 {
-                                    blocks[0][i][ii] = border;
+                                    this.blocks[0][i][ii] = border;
                                 }
                                 else
                                 {
-                                    blocks[0][i][ii] = fill;
+                                    this.blocks[0][i][ii] = fill;
                                 }
-                                blocks[1][i][ii] = 0;
+                                this.blocks[1][i][ii] = 0;
                             }
                         }
-                        foreach (KeyValuePair<int, PhysicsPlayer> pair in Players)
+                        foreach (KeyValuePair<int, PhysicsPlayer> pair in this.Players)
                             pair.Value.ResetCoins();
                     }
                     break;
@@ -353,7 +347,7 @@ namespace EEPhysics
                 case "lb":
                 case "wp":
                     {
-                        blocks[0][m.GetInt(0)][m.GetInt(1)] = m.GetInt(2);
+                        this.blocks[0][m.GetInt(0)][m.GetInt(1)] = m.GetInt(2);
                     }
                     break;
             }
@@ -362,7 +356,7 @@ namespace EEPhysics
         /// <returns>Foreground block ID</returns>
         public int GetBlock(int x, int y)
         {
-            return GetBlock(0, x, y);
+            return this.GetBlock(0, x, y);
         }
         /// <param name="z">Block layer: 0 = foreground, 1 = background</param>
         /// <param name="x">Block X</param>
@@ -374,30 +368,30 @@ namespace EEPhysics
             {
                 throw new ArgumentOutOfRangeException("zz", "Layer must be 0 (foreground) or 1 (background).");
             }
-            if (x < 0 || x >= WorldWidth || y < 0 || y >= WorldHeight)
+            if (x < 0 || x >= this.WorldWidth || y < 0 || y >= this.WorldHeight)
             {
                 return -1;
             }
-            return blocks[z][x][y];
+            return this.blocks[z][x][y];
         }
         /// <returns>Extra block data, eg. rotation, id and target id from portals. Doesn't support signs.</returns>
         public int[] GetBlockData(int x, int y)
         {
-            if (x < 0 || x >= WorldWidth || y < 0 || y >= WorldHeight)
+            if (x < 0 || x >= this.WorldWidth || y < 0 || y >= this.WorldHeight)
             {
                 return null;
             }
-            return blockData[x][y];
+            return this.blockData[x][y];
         }
         internal Point GetPortalById(int id)
         {
-            for (int i = 0; i < WorldWidth; i++)
+            for (int i = 0; i < this.WorldWidth; i++)
             {
-                for (int ii = 0; ii < WorldHeight; ii++)
+                for (int ii = 0; ii < this.WorldHeight; ii++)
                 {
-                    if (blocks[0][i][ii] == 242 || blocks[0][i][ii] == 381)
+                    if (this.blocks[0][i][ii] == 242 || this.blocks[0][i][ii] == 381)
                     {
-                        if (blockData[i][ii][1] == id)
+                        if (this.blockData[i][ii][1] == id)
                         {
                             return new Point(i, ii);
                         }
@@ -412,12 +406,12 @@ namespace EEPhysics
         /// </summary>
         public void StartSimulation()
         {
-            if (!PhysicsRunning)
+            if (!this.PhysicsRunning)
             {
-                if (inited)
+                if (this.inited)
                 {
-                    physicsThread = new Thread(new ThreadStart(Run));
-                    physicsThread.Start();
+                    this.physicsThread = new Thread(new ThreadStart(this.Run));
+                    this.physicsThread.Start();
                 }
                 else
                 {
@@ -435,9 +429,9 @@ namespace EEPhysics
         /// </summary>
         public void StopSimulation()
         {
-            if (PhysicsRunning)
+            if (this.PhysicsRunning)
             {
-                running = false;
+                this.running = false;
             }
             else
             {
@@ -447,7 +441,7 @@ namespace EEPhysics
 
         internal bool Overlaps(PhysicsPlayer p)
         {
-            if ((p.X < 0 || p.Y < 0) || ((p.X > WorldWidth * 16 - 16) || (p.Y > WorldHeight * 16 - 16)))
+            if ((p.X < 0 || p.Y < 0) || ((p.X > this.WorldWidth * 16 - 16) || (p.Y > this.WorldHeight * 16 - 16)))
             {
                 return true;
             }
@@ -469,55 +463,55 @@ namespace EEPhysics
                 x = firstX;
                 for (; x < lastX; x++)
                 {
-                    tileId = blocks[0][x][y];
+                    tileId = this.blocks[0][x][y];
                     if (ItemId.isSolid(tileId))
                     {
                         switch (tileId)
                         {
                             case 23:
-                                if (hideRed)
+                                if (this.hideRed)
                                 {
                                     continue;
                                 }
                                 break;
                             case 24:
-                                if (hideGreen)
+                                if (this.hideGreen)
                                 {
                                     continue;
                                 }
                                 break;
                             case 25:
-                                if (hideBlue)
+                                if (this.hideBlue)
                                 {
                                     continue;
                                 }
                                 break;
                             case 26:
-                                if (!hideRed)
+                                if (!this.hideRed)
                                 {
                                     continue;
                                 }
                                 break;
                             case 27:
-                                if (!hideGreen)
+                                if (!this.hideGreen)
                                 {
                                     continue;
                                 }
                                 break;
                             case 28:
-                                if (!hideBlue)
+                                if (!this.hideBlue)
                                 {
                                     continue;
                                 }
                                 break;
                             case 156:
-                                if (hideTimedoor)
+                                if (this.hideTimedoor)
                                 {
                                     continue;
                                 }
                                 break;
                             case 157:
-                                if (!hideTimedoor)
+                                if (!this.hideTimedoor)
                                 {
                                     continue;
                                 }
@@ -548,14 +542,14 @@ namespace EEPhysics
                                 break;
                             case ItemId.Coindoor:
                             case ItemId.BlueCoindoor:
-                                if (blockData[x][y][0] <= p.Coins)
+                                if (this.blockData[x][y][0] <= p.Coins)
                                 {
                                     continue;
                                 }
                                 break;
                             case ItemId.Coingate:
                             case ItemId.BlueCoingate:
-                                if (blockData[x][y][0] > p.Coins)
+                                if (this.blockData[x][y][0] > p.Coins)
                                 {
                                     continue;
                                 }
@@ -706,10 +700,10 @@ namespace EEPhysics
                         x = (xa[pos] * 256) + xa[pos + 1];
                         y = (ya[pos] * 256) + ya[pos + 1];
 
-                        blocks[z][x][y] = blockId;
+                        this.blocks[z][x][y] = blockId;
                         if (data.Count > 0)
                         {
-                            blockData[x][y] = data.ToArray();
+                            this.blockData[x][y] = data.ToArray();
                         }
                     }
                 }
