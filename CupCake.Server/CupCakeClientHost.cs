@@ -13,6 +13,7 @@ using CupCake.HostAPI.IO;
 using CupCake.HostAPI.Status;
 using CupCake.HostAPI.Title;
 using PlayerIOClient;
+using Rabbit.EE;
 
 namespace CupCake.Server
 {
@@ -147,7 +148,7 @@ namespace CupCake.Server
             // Get room version
             this.LogMessage("Joining room...");
             // Connect to playerIO and join room
-            Connection connection = new CupCakeAuth().Connect(email, password, worldId);
+            Connection connection = new EERabbitAuth().LogOn(email, password, worldId);
 
             // Start
             this.LogMessage("Starting plugins...");
