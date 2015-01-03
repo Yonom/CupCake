@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Reflection;
 using CupCake.Core;
@@ -14,6 +15,8 @@ namespace CupCake.Players
     [DebuggerDisplay("Username = {Username}, Smiley = {Smiley}")]
     public sealed class Player : MetadataServicePart<JoinArgs>
     {
+        private readonly HashSet<Potion> _potions = new HashSet<Potion>();
+
         protected override object MetadataKey
         {
             get { return this.UserId; }
@@ -260,110 +263,6 @@ namespace CupCake.Players
         public bool HasWooted { get; private set; }
 
         /// <summary>
-        ///     Gets a value indicating whether the player is using a red aura potion.
-        /// </summary>
-        /// <value>
-        ///     <c>true</c> if the player is using a red aura potion; otherwise, <c>false</c>.
-        /// </value>
-        public bool RedAuraPotion { get; private set; }
-
-        /// <summary>
-        ///     Gets a value indicating whether the player is using a blue aura potion.
-        /// </summary>
-        /// <value>
-        ///     <c>true</c> if the player is using a blue aura potion; otherwise, <c>false</c>.
-        /// </value>
-        public bool BlueAuraPotion { get; private set; }
-
-        /// <summary>
-        ///     Gets a value indicating whether the player is using a yellow aura potion.
-        /// </summary>
-        /// <value>
-        ///     <c>true</c> if the player is using a yellow aura potion; otherwise, <c>false</c>.
-        /// </value>
-        public bool YellowAuraPotion { get; private set; }
-
-        /// <summary>
-        ///     Gets a value indicating whether the player is using a green aura potion.
-        /// </summary>
-        /// <value>
-        ///     <c>true</c> if the player is using a green aura potion; otherwise, <c>false</c>.
-        /// </value>
-        public bool GreenAuraPotion { get; private set; }
-
-        /// <summary>
-        ///     Gets a value indicating whether the player is using a jump potion.
-        /// </summary>
-        /// <value>
-        ///     <c>true</c> if the player is using a jump potion; otherwise, <c>false</c>.
-        /// </value>
-        public bool JumpPotion { get; private set; }
-
-        /// <summary>
-        ///     Gets a value indicating whether the player is using a fire potion.
-        /// </summary>
-        /// <value>
-        ///     <c>true</c> if the player is using a fire potion; otherwise, <c>false</c>.
-        /// </value>
-        public bool FirePotion { get; private set; }
-
-        /// <summary>
-        ///     Gets a value indicating whether the player is using a curse potion.
-        /// </summary>
-        /// <value>
-        ///     <c>true</c> if the player is using a curse potion; otherwise, <c>false</c>.
-        /// </value>
-        public bool CursePotion { get; private set; }
-
-        /// <summary>
-        ///     Gets a value indicating whether the player is using a protection potion.
-        /// </summary>
-        /// <value>
-        ///     <c>true</c> if the player is using a protection potion; otherwise, <c>false</c>.
-        /// </value>
-        public bool ProtectionPotion { get; private set; }
-
-        /// <summary>
-        ///     Gets a value indicating whether the player is using a zombie potion.
-        /// </summary>
-        /// <value>
-        ///     <c>true</c> if the player is using a zombie potion; otherwise, <c>false</c>.
-        /// </value>
-        public bool ZombiePotion { get; private set; }
-
-        /// <summary>
-        ///     Gets a value indicating whether the player is using a respawn potion.
-        /// </summary>
-        /// <value>
-        ///     <c>true</c> if the player is using a respawn potion; otherwise, <c>false</c>.
-        /// </value>
-        public bool RespawnPotion { get; private set; }
-
-        /// <summary>
-        ///     Gets a value indicating whether the player is using a levitation potion.
-        /// </summary>
-        /// <value>
-        ///     <c>true</c> if the player is using a levitation potion; otherwise, <c>false</c>.
-        /// </value>
-        public bool LevitationPotion { get; private set; }
-
-        /// <summary>
-        ///     Gets a value indicating whether the player is using a flaunt potion.
-        /// </summary>
-        /// <value>
-        ///     <c>true</c> if the player is using a flaunt potion; otherwise, <c>false</c>.
-        /// </value>
-        public bool FlauntPotion { get; private set; }
-
-        /// <summary>
-        ///     Gets a value indicating whether the player is using a solitude potion.
-        /// </summary>
-        /// <value>
-        ///     <c>true</c> if the player is using a solitude potion; otherwise, <c>false</c>.
-        /// </value>
-        public bool SolitudePotion { get; private set; }
-
-        /// <summary>
         ///     Gets the player's last used potion.
         /// </summary>
         /// <value>
@@ -464,6 +363,11 @@ namespace CupCake.Players
             get { return BlockUtils.PosToBlock(this.PosY); }
         }
 
+        public bool HasPotion(Potion potion)
+        {
+            return this._potions.Contains(potion);
+        }
+
         protected override void Enable()
         {
             this.ExtractHostData();
@@ -541,7 +445,8 @@ namespace CupCake.Players
                 this.SpawnY = add.UserPosY;
                 this.IsClubMember = add.IsClubMember;
                 this.MagicClass = add.MagicClass;
-                this.JumpPotion = add.IsPurple;
+                if (add.IsPurple)
+                    this._potions.Add(Potion.Jump);
             }
 
             var initArgs = this.Host as InitJoinArgs;
@@ -621,47 +526,13 @@ namespace CupCake.Players
             this.LastPotionEnabled = e.Enabled;
             this.LastPotionTimeout = e.Timeout;
 
-            switch (e.Potion)
+            if (e.Enabled)
             {
-                case Potion.RedAura:
-                    this.RedAuraPotion = e.Enabled;
-                    break;
-                case Potion.BlueAura:
-                    this.BlueAuraPotion = e.Enabled;
-                    break;
-                case Potion.YellowAura:
-                    this.YellowAuraPotion = e.Enabled;
-                    break;
-                case Potion.GreenAura:
-                    this.GreenAuraPotion = e.Enabled;
-                    break;
-                case Potion.Jump:
-                    this.JumpPotion = e.Enabled;
-                    break;
-                case Potion.Fire:
-                    this.FirePotion = e.Enabled;
-                    break;
-                case Potion.Curse:
-                    this.CursePotion = e.Enabled;
-                    break;
-                case Potion.Protection:
-                    this.ProtectionPotion = e.Enabled;
-                    break;
-                case Potion.Zombie:
-                    this.ZombiePotion = e.Enabled;
-                    break;
-                case Potion.Respawn:
-                    this.RespawnPotion = e.Enabled;
-                    break;
-                case Potion.Levitation:
-                    this.LevitationPotion = e.Enabled;
-                    break;
-                case Potion.Flaunt:
-                    this.FlauntPotion = e.Enabled;
-                    break;
-                case Potion.Solitude:
-                    this.SolitudePotion = e.Enabled;
-                    break;
+                this._potions.Add(e.Potion);
+            }
+            else
+            {
+                this._potions.Remove(e.Potion);
             }
         }
 
