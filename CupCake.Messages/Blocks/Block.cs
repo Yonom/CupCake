@@ -411,6 +411,27 @@ namespace CupCake.Messages.Blocks
         DecorFarmPlants = 387,
         DecorFarmFenceLeftEnded = 388,
         DecorFarmFenceRightEnded = 389,
+        
+        DecorAutumn20141 = 390,
+        DecorAutumn20142 = 391,
+        DecorAutumn2014Grass1 = 392,
+        DecorAutumn2014Grass2 = 393,
+        DecorAutumn2014Grass3 = 394,
+        DecorAutumn2014Acorn = 395,
+        DecorAutumn2014Pumpkin = 396,
+        
+        Christmas2014Ice = 215,
+        Christmas2014OneWay = 216,
+        
+        DecorChristmas2014Snow1 = 398,
+        DecorChristmas2014Snow2 = 399,
+        DecorChristmas2014Snow3 = 400,
+        DecorChristmas2014CandyCane = 401,
+        DecorChristmas2014Wreath = 402,
+        DecorChristmas2014Stocking = 403,
+        DecorChristmas2014Bow = 404,
+        
+        Hologram = 397,
 
         DecorPrizeTrophy = 223,
 
@@ -583,6 +604,10 @@ namespace CupCake.Messages.Blocks
         BgChristmas2012Yellow = 624,
         BgChristmas2012Green = 625,
         BgChristmas2012Blue = 626,
+        
+        BgAutumn2014Yellow = 641,
+        BgAutumn2014Orange = 642,
+        BgAutumn2014Red = 643,
 
         DecorLabel = 1000
     }
