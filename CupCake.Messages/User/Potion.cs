@@ -14,6 +14,7 @@ namespace CupCake.Messages.User
         Respawn = 10,
         Levitation = 11,
         Flaunt = 12,
-        Solitude = 13
+        Solitude = 13,
+        Speed = 14
     }
 }
