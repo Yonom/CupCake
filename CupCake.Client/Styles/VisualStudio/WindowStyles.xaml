@@ -17,6 +17,7 @@
         <Setter Property="NonActiveGlowBrush" Value="#3E3E40" />
         <Setter Property="GlowBrush" Value="{DynamicResource BackgroundSelected}" />
         <Setter Property="Background" Value="{StaticResource LightBackground}" />
+        <Setter Property="TitleForeground" Value="White"></Setter>
         <Setter Property="TitleCaps" Value="False" />
     </Style>
 </ResourceDictionary>
