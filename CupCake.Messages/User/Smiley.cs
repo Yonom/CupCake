@@ -100,6 +100,12 @@ namespace CupCake.Messages.User
         KungFuMaster = 95,
         Fox = 96,
         NightVision = 97,
-        SummerGirl = 98
+        SummerGirl = 98,
+        FanBoy2 = 99,
+        Hologram = 100,
+        Gingerbread = 101,
+        Caroler = 102,
+        Elf = 103,
+        Nutcracker = 104
     }
 }
