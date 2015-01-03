@@ -43,9 +43,9 @@
     <Reference Include="MuffinFramework.NET">
       <HintPath>..\Lib\MuffinFramework.NET.dll</HintPath>
     </Reference>
-    <Reference Include="PlayerIOClient, Version=2.3.6.0, Culture=neutral, PublicKeyToken=8a9a6694496e5223, processorArchitecture=MSIL">
+    <Reference Include="PlayerIOClient, Version=2.3.6.0, Culture=neutral, PublicKeyToken=c7f7b730653f6a44, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\PlayerIOClient-Signed.0.0\lib\PlayerIOClient.dll</HintPath>
+      <HintPath>..\packages\PlayerIOClient-Signed.2.3.6.0\lib\PlayerIOClient.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.Composition" />

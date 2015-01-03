@@ -71,13 +71,13 @@
     <Reference Include="NDesk.Options">
       <HintPath>..\Lib\NDesk.Options.dll</HintPath>
     </Reference>
-    <Reference Include="PlayerIOClient, Version=2.3.6.0, Culture=neutral, PublicKeyToken=8a9a6694496e5223, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\PlayerIOClient-Signed.0.0\lib\PlayerIOClient.dll</HintPath>
+    <Reference Include="PlayerIOClient">
+      <HintPath>..\packages\PlayerIOClient-Signed.2.3.6.0\lib\PlayerIOClient.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="Rabbit, Version=1.0.0.0, Culture=neutral, PublicKeyToken=d1393b3767691f4e, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\RabbitIO.0.9.3.2\lib\net35\Rabbit.dll</HintPath>
+      <HintPath>..\packages\RabbitIO.0.9.4\lib\net35\Rabbit.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.Composition" />
