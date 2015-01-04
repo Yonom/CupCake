@@ -18,7 +18,7 @@
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
     <RestorePackages>true</RestorePackages>
     <NuGetPackageImportStamp>fe0f31b7</NuGetPackageImportStamp>
-    <PublishUrl>ftp://ftp2.yonom.org/subdomains/cupcake/download/</PublishUrl>
+    <PublishUrl>ftp://ftpnub.yonom.org/{71E65F12-E62D-4A4C-A195-432714EC8561}/org/yonom/cupcake/download/</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Web</InstallFrom>
     <UpdateEnabled>true</UpdateEnabled>

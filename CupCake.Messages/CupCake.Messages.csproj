@@ -57,6 +57,7 @@
     <Compile Include="Blocks\PianoId.cs" />
     <Compile Include="Blocks\BlockUtils.cs" />
     <Compile Include="Point3D.cs" />
+    <Compile Include="Receive\BackgroundColorReceiveEvent.cs" />
     <Compile Include="Receive\GuardianModeReceiveEvent.cs" />
     <Compile Include="Receive\IBlockPlaceReceiveEvent.cs" />
     <Compile Include="Receive\IMetadataReceiveMessage.cs" />

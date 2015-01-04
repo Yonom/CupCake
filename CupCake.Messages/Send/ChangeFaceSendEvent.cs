@@ -39,7 +39,7 @@ namespace CupCake.Messages.Send
         /// <returns></returns>
         public override Message GetMessage()
         {
-            return Message.Create(this.Encryption + "f", this.Face);
+            return Message.Create(this.Encryption + "f", (int)this.Face);
         }
     }
 }
