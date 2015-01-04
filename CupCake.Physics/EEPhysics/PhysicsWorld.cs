@@ -410,7 +410,7 @@ namespace CupCake.Physics.EEPhysics
             {
                 if (this.inited)
                 {
-                    this.physicsThread = new Thread(new ThreadStart(this.Run));
+                    this.physicsThread = new Thread(this.Run) {IsBackground = true};
                     this.physicsThread.Start();
                 }
                 else
