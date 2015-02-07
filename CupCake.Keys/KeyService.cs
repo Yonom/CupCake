@@ -1,10 +1,12 @@
 ﻿using System;
+using System.Linq;
 using System.Collections.Generic;
 using CupCake.Core;
 using CupCake.Core.Events;
 using CupCake.Messages.Blocks;
 using CupCake.Messages.Receive;
 using CupCake.Messages.Send;
+using CupCake.Messages;
 
 namespace CupCake.Keys
 {
@@ -26,7 +28,7 @@ namespace CupCake.Keys
 
         private void OnHideKey(object sender, HideKeyReceiveEvent e)
         {
-            this.ChangeKey(e.Keys, false);
+            this.ChangeKey(e.Keys.Select<KeyTrigger, Key>(t => t.Key), false);
         }
 
         private void OnShowKey(object sender, ShowKeyReceiveEvent e)

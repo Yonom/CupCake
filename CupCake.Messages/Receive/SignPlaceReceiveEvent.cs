@@ -7,7 +7,7 @@ namespace CupCake.Messages.Receive
     public class SignPlaceReceiveEvent : ReceiveEvent, IBlockPlaceReceiveEvent
     {
         /// <summary>
-        ///     Initializes a new instance of the <see cref="LabelPlaceReceiveEvent" /> class.
+        ///     Initializes a new instance of the <see cref="SignPlaceReceiveEvent" /> class.
         /// </summary>
         /// <param name="message">The message.</param>
         public SignPlaceReceiveEvent(Message message)

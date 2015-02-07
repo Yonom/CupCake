@@ -8,6 +8,10 @@ namespace CupCake.Messages.Blocks
         DecorSciFi2013YellowSlope = Block.DecorSciFi2013YellowSlope,
         DecorSciFi2013YellowStraight = Block.DecorSciFi2013YellowStraight,
         DecorSciFi2013GreenSlope = Block.DecorSciFi2013GreenSlope,
-        DecorSciFi2013GreenStraight = Block.DecorSciFi2013GreenStraight
+        DecorSciFi2013GreenStraight = Block.DecorSciFi2013GreenStraight,
+        OneWayCyan = Block.OneWayCyan,
+        OneWayPink = Block.OneWayPink,
+        OneWayRed = Block.OneWayRed,
+        OneWayYellow = Block.OneWayYellow
     }
 }

@@ -72,6 +72,27 @@
         }
 
         /// <summary>
+        ///     Checks if the specified block is a key
+        /// </summary>
+        /// <param name="key">The key to check.</param>
+        /// <returns><c>true</c> if the specified block is a key; otherwise, <c>false</c>.</returns>
+        public static bool IsKey(Key key)
+        {
+            switch (key)
+            {
+                case Key.Blue:
+                case Key.Cyan:
+                case Key.Green:
+                case Key.Magenta:
+                case Key.Red:
+                case Key.Yellow:
+                    return true;
+            }
+
+            return false;
+        }
+
+        /// <summary>
         ///     Checks if the specified block is a rotatable block.
         /// </summary>
         /// <param name="id">The block to check.</param>
