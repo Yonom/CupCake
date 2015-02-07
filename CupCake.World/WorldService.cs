@@ -134,7 +134,7 @@ namespace CupCake.World
                     {
                         string text = m.GetString(pointer++);
                         foreach (WorldBlock wblock in wblocks)
-                            wblock.SetSign(block, text);
+                            wblock.SetSign((SignBlock)block, text);
 
                     }
                     else if (BlockUtils.IsLabel(block))
@@ -142,7 +142,7 @@ namespace CupCake.World
                         string text = m.GetString(pointer++);
                         string textColor = m.GetString(pointer++);
                         foreach (WorldBlock wblock in wblocks)
-                            wblock.SetLabel(block, text, textColor);
+                            wblock.SetLabel((LabelBlock)block, text, textColor);
                     }
                     else
                     {

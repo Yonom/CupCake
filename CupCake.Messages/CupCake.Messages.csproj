@@ -53,6 +53,8 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Blocks\SignBlock.cs" />
+    <Compile Include="Blocks\LabelBlock.cs" />
     <Compile Include="Blocks\DeathDoorBlock.cs" />
     <Compile Include="Blocks\PercussionId.cs" />
     <Compile Include="Blocks\PianoId.cs" />

@@ -452,7 +452,7 @@ namespace CupCake.World
             };
         }
 
-        internal void SetSign(Block block, string text)
+        internal void SetSign(SignBlock block, string text)
         {
             this.BlockType = BlockType.Sign;
             this.Block = (Block)block;
@@ -463,7 +463,7 @@ namespace CupCake.World
             };
         }
 
-        internal void SetLabel(Block block, string text, string textColor)
+        internal void SetLabel(LabelBlock block, string text, string textColor)
         {
             this.BlockType = BlockType.Label;
             this.Block = (Block)block;
@@ -574,9 +574,9 @@ namespace CupCake.World
                 case BlockType.Sound:
                     return new SoundPlaceSendEvent(this.Layer, this.X, this.Y, (SoundBlock)this.Block, this.SoundId);
                 case BlockType.Sign:
-                    return new SignPlaceSendEvent(this.Layer, this.X, this.Y, this.Text);
+                    return new SignPlaceSendEvent(this.Layer, this.X, this.Y, (SignBlock)this.Block, this.Text);
                 case BlockType.Label:
-                    return new LabelPlaceSendEvent(this.Layer, this.X, this.Y, this.Text, this.TextColor);
+                    return new LabelPlaceSendEvent(this.Layer, this.X, this.Y, (LabelBlock)this.Block, this.Text, this.TextColor);
                 case BlockType.Rotatable:
                     return new RotatablePlaceSendEvent(this.Layer, this.X, this.Y, (RotatableBlock)this.Block,
                         this.Rotation);

@@ -16,30 +16,12 @@ namespace CupCake.Messages.Send
         /// <param name="y">The y-coordinate.</param>
         /// <param name="block">The block.</param>
         /// <param name="text">The text.</param>
-        public SignPlaceSendEvent(Layer layer, int x, int y, string text)
-        {
-            this.Block = Block.DecorSign;
-            this.X = x;
-            this.Y = y;
-            this.Layer = BlockUtils.CorrectLayer(Block, layer);
-
-            this.Text = text;
-        }
-
-        /// <summary>
-        ///     Initializes a new instance of the <see cref="SignPlaceSendEvent" /> class.
-        /// </summary>
-        /// <param name="layer">The layer.</param>
-        /// <param name="x">The x-coordinate.</param>
-        /// <param name="y">The y-coordinate.</param>
-        /// <param name="block">The block.</param>
-        /// <param name="text">The text.</param>
-        protected SignPlaceSendEvent(Layer layer, int x, int y, Block block, string text)
+        public SignPlaceSendEvent(Layer layer, int x, int y, SignBlock block, string text)
         {
             this.Block = block;
             this.X = x;
             this.Y = y;
-            this.Layer = BlockUtils.CorrectLayer(Block, layer);
+            this.Layer = BlockUtils.CorrectLayer((Block)block, layer);
 
             this.Text = text;
         }
@@ -50,7 +32,7 @@ namespace CupCake.Messages.Send
         /// <value>
         ///     The block.
         /// </value>
-        public Block Block { get; set; }
+        public SignBlock Block { get; set; }
 
         /// <summary>
         ///     Gets or sets the text.
@@ -63,7 +45,7 @@ namespace CupCake.Messages.Send
         Block IBlockPlaceSendEvent.Block
         {
             get { return (Block)this.Block; }
-            set { this.Block = (Block)value; }
+            set { this.Block = (SignBlock)value; }
         }
 
         /// <summary>

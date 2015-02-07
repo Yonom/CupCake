@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Reflection.Emit;
 using System.Threading;
 using CupCake.Core;
 using CupCake.Core.Events;
@@ -329,19 +330,20 @@ namespace CupCake.Upload
             this.Events.Raise(this.GetPurpleDoor(x, y, block, purpleId));
         }
 
-        public void UploadPurpleDoor(int x, int y, PurpleDoorBlock block, uint purpleId, uint purpleOffset)
+        // TODO Check if this is required.
+        //public void UploadPurpleDoor(int x, int y, PurpleDoorBlock block, uint purpleId, uint purpleOffset)
+        //{
+        //    this.Events.Raise(this.GetPurpleDoor(x, y, block, purpleId));
+        //}
+
+        public void UploadSign(int x, int y, SignBlock block, string text)
         {
-            this.Events.Raise(this.GetPurpleDoor(x, y, block, purpleId));
+            this.Events.Raise(this.GetSign(x, y, block, text));
         }
 
-        public void UploadSign(int x, int y, string text)
+        public void UploadLabel(int x, int y, LabelBlock block, string text, string textColor)
         {
-            this.Events.Raise(this.GetSign(x, y, text));
-        }
-
-        public void UploadLabel(int x, int y, string text, string textColor)
-        {
-            this.Events.Raise(this.GetLabel(x, y, text, textColor));
+            this.Events.Raise(this.GetLabel(x, y, block, text, textColor));
         }
 
         public void UploadPortal(int x, int y, PortalBlock block, uint id, uint target, PortalRotation rotation)
@@ -413,15 +415,15 @@ namespace CupCake.Upload
             return new UploadRequestEvent(e);
         }
 
-        public UploadRequestEvent GetSign(int x, int y, string text)
+        public UploadRequestEvent GetSign(int x, int y, SignBlock block, string text)
         {
-            var e = new SignPlaceSendEvent(Layer.Foreground, x, y, text);
+            var e = new SignPlaceSendEvent(Layer.Foreground, x, y, block, text);
             return new UploadRequestEvent(e);
         }
 
-        public UploadRequestEvent GetLabel(int x, int y, string text, string textColor)
+        public UploadRequestEvent GetLabel(int x, int y, LabelBlock block, string text, string textColor)
         {
-            var e = new LabelPlaceSendEvent(Layer.Foreground, x, y, text, textColor);
+            var e = new LabelPlaceSendEvent(Layer.Foreground, x, y, block, text, textColor);
             return new UploadRequestEvent(e);
         }
 

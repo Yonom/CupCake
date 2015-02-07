@@ -15,7 +15,7 @@ namespace CupCake.Messages.Receive
         {
             this.PosX = message.GetInteger(0);
             this.PosY = message.GetInteger(1);
-            this.Block = (Block)message.GetInteger(2);
+            this.Block = (SignBlock)message.GetInteger(2);
             this.Text = message.GetString(3);
         }
 
@@ -32,7 +32,7 @@ namespace CupCake.Messages.Receive
         ///     Gets or sets the block.
         /// </summary>
         /// <value>The block.</value>
-        public Block Block { get; set; }
+        public SignBlock Block { get; set; }
 
         /// <summary>
         ///     Gets or sets the text.
@@ -70,7 +70,7 @@ namespace CupCake.Messages.Receive
         Block IBlockPlaceReceiveEvent.Block
         {
             get { return (Block)this.Block; }
-            set { this.Block = value; }
+            set { this.Block = (SignBlock)value; }
         }
     }
 }
