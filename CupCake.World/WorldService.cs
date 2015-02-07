@@ -142,7 +142,9 @@ namespace CupCake.World
                         string text = m.GetString(pointer++);
                         string textColor = m.GetString(pointer++);
                         foreach (WorldBlock wblock in wblocks)
+                        {
                             wblock.SetLabel(block, text, textColor);
+                        }
                     }
                     else
                     {
