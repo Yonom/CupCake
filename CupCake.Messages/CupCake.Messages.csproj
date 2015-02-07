@@ -53,23 +53,33 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Blocks\DeathDoorBlock.cs" />
     <Compile Include="Blocks\PercussionId.cs" />
     <Compile Include="Blocks\PianoId.cs" />
     <Compile Include="Blocks\BlockUtils.cs" />
+    <Compile Include="Blocks\PurpleDoorBlock.cs" />
     <Compile Include="Point3D.cs" />
     <Compile Include="Receive\BackgroundColorReceiveEvent.cs" />
+    <Compile Include="Receive\DeathDoorPlaceReceiveEvent.cs" />
     <Compile Include="Receive\GuardianModeReceiveEvent.cs" />
     <Compile Include="Receive\IBlockPlaceReceiveEvent.cs" />
     <Compile Include="Receive\IMetadataReceiveMessage.cs" />
     <Compile Include="Receive\PotionCountReceiveEvent.cs" />
+    <Compile Include="Receive\PurpleDoorPlaceReceiveEvent.cs" />
+    <Compile Include="Receive\SignPlaceReceiveEvent.cs" />
+    <Compile Include="Send\DeathDoorPlaceSendEvent.cs" />
     <Compile Include="Send\GuardianModeSendEvent.cs" />
     <Compile Include="Send\IBlockPlaceSendEvent.cs" />
+    <Compile Include="Send\PressCyanKeySendEvent.cs" />
+    <Compile Include="Send\PressMagentaKeySendEvent.cs" />
+    <Compile Include="Send\PressYellowKeySendEvent.cs" />
+    <Compile Include="Send\PurpleDoorPlaceSendEvent.cs" />
     <Compile Include="Send\ShowPurpleSendEvent.cs" />
+    <Compile Include="Send\SignPlaceSendEvent.cs" />
     <Compile Include="User\AccessRight.cs" />
     <Compile Include="Blocks\Block.cs" />
     <Compile Include="Blocks\CoinDoorBlock.cs" />
     <Compile Include="Blocks\Key.cs" />
-    <Compile Include="Blocks\LabelBlock.cs" />
     <Compile Include="Blocks\Layer.cs" />
     <Compile Include="Blocks\PortalBlock.cs" />
     <Compile Include="Blocks\PortalRotation.cs" />

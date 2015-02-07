@@ -47,9 +47,12 @@
     <Compile Include="Commands\BanCommandBase.cs" />
     <Compile Include="Commands\Ban\TempBanCommand.cs" />
     <Compile Include="Commands\EditCommandBase.cs" />
+    <Compile Include="Commands\Utility\CyanCommand.cs" />
     <Compile Include="Commands\Utility\GuardianModeCommand.cs" />
+    <Compile Include="Commands\Utility\MagentaCommand.cs" />
     <Compile Include="Commands\Utility\ShutdownCommand.cs" />
     <Compile Include="Commands\Utility\RestartCommand.cs" />
+    <Compile Include="Commands\Utility\YellowCommand.cs" />
     <Compile Include="EditCommandsMuffin.cs" />
     <Compile Include="Commands\Edit\GodModeCommand.cs" />
     <Compile Include="Commands\OwnerCommandBase.cs" />

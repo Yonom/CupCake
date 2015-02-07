@@ -174,12 +174,35 @@ namespace CupCake.Upload
                 this.Events.Raise(coinEvent);
                 return;
             }
+
+            var deathDoorEvent = e as DeathDoorPlaceSendEvent;
+            if (deathDoorEvent != null)
+            {
+                this.Events.Raise(deathDoorEvent);
+                return;
+            }
+
+            var purpleDoorEvent = e as PurpleDoorPlaceSendEvent;
+            if (purpleDoorEvent != null)
+            {
+                this.Events.Raise(purpleDoorEvent);
+                return;
+            }
+
             var labelEvent = e as LabelPlaceSendEvent;
             if (labelEvent != null)
             {
                 this.Events.Raise(labelEvent);
                 return;
             }
+
+            var signEvent = e as SignPlaceSendEvent;
+            if (signEvent != null)
+            {
+                this.Events.Raise(signEvent);
+                return;
+            }
+
             var worldPortalEvent = e as WorldPortalPlaceSendEvent;
             if (worldPortalEvent != null)
             {
@@ -296,9 +319,29 @@ namespace CupCake.Upload
             this.Events.Raise(this.GetCoinDoor(x, y, block, coinsToCollect));
         }
 
-        public void UploadLabel(int x, int y, LabelBlock block, string text)
+        public void UploadDeathDoor(int x, int y, DeathDoorBlock block, uint deathsRequired)
         {
-            this.Events.Raise(this.GetLabel(x, y, block, text));
+            this.Events.Raise(this.GetDeathDoor(x, y, block, deathsRequired));
+        }
+
+        public void UploadPurpleDoor(int x, int y, PurpleDoorBlock block, uint purpleId)
+        {
+            this.Events.Raise(this.GetPurpleDoor(x, y, block, purpleId));
+        }
+
+        public void UploadPurpleDoor(int x, int y, PurpleDoorBlock block, uint purpleId, uint purpleOffset)
+        {
+            this.Events.Raise(this.GetPurpleDoor(x, y, block, purpleId));
+        }
+
+        public void UploadSign(int x, int y, string text)
+        {
+            this.Events.Raise(this.GetSign(x, y, text));
+        }
+
+        public void UploadLabel(int x, int y, string text, string textColor)
+        {
+            this.Events.Raise(this.GetLabel(x, y, text, textColor));
         }
 
         public void UploadPortal(int x, int y, PortalBlock block, uint id, uint target, PortalRotation rotation)
@@ -358,9 +401,27 @@ namespace CupCake.Upload
             return new UploadRequestEvent(e);
         }
 
-        public UploadRequestEvent GetLabel(int x, int y, LabelBlock block, string text)
+        public UploadRequestEvent GetDeathDoor(int x, int y, DeathDoorBlock block, uint deathsRequired)
         {
-            var e = new LabelPlaceSendEvent(Layer.Foreground, x, y, block, text);
+            var e = new DeathDoorPlaceSendEvent(Layer.Foreground, x, y, block, deathsRequired);
+            return new UploadRequestEvent(e);
+        }
+
+        public UploadRequestEvent GetPurpleDoor(int x, int y, PurpleDoorBlock block, uint purpleId)
+        {
+            var e = new PurpleDoorPlaceSendEvent(Layer.Foreground, x, y, block, purpleId);
+            return new UploadRequestEvent(e);
+        }
+
+        public UploadRequestEvent GetSign(int x, int y, string text)
+        {
+            var e = new SignPlaceSendEvent(Layer.Foreground, x, y, text);
+            return new UploadRequestEvent(e);
+        }
+
+        public UploadRequestEvent GetLabel(int x, int y, string text, string textColor)
+        {
+            var e = new LabelPlaceSendEvent(Layer.Foreground, x, y, text, textColor);
             return new UploadRequestEvent(e);
         }
 

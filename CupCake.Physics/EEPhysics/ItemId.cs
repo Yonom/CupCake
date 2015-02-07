@@ -45,10 +45,29 @@
         public const int GlowyLineGreenStraight = 380;
         public const int PortalInvisible = 381;
         public const int TextSign = 385;
+        public const int CyanKey = 408;
+        public const int MagentaKey = 409;
+        public const int YellowKey = 410;
+        public const int InvisibleLeftArrow = 411;
+        public const int InvisibleUpArrow = 412;
+        public const int InvisibleRightArrow = 413;
+        public const int InvisibleDot = 414;
+        public const int Oneway_Cyan = 1001; 
+        public const int Oneway_Red = 1002; 
+        public const int Oneway_Yellow = 1003; 
+        public const int Oneway_Pink = 1004;
+        public const int CyanDoor = 1005;
+        public const int MagentaDoor = 1006;
+        public const int YellowDoor = 1007;
+        public const int CyanGate = 1008;
+        public const int MagentaGate = 1009;
+        public const int YellowGate = 1010;
+        public const int Death_Door = 1011;
+        public const int Death_Gate = 1012;
 
         public static bool isSolid(int blockId)
         {
-            return (9 <= blockId && blockId <= 97) || (122 <= blockId && blockId <= 217);
+            return (9 <= blockId && blockId <= 97) || (122 <= blockId && blockId <= 217) || (1001 <= blockId && blockId <= 1012);
         }
 
         public static bool isClimbable(int id)
@@ -59,6 +78,41 @@
                 case ItemId.Chain:
                 case ItemId.WineV:
                 case ItemId.WineH:
+                    return true;
+            }
+
+            return false;
+        }
+
+        public static bool canJumpThroughFromBelow(int itemId)
+        {
+            switch (itemId)
+            {
+                case 61:
+                case 62:
+                case 63:
+                case 64:
+                case 89:
+                case 90:
+                case 91:
+                case 96:
+                case 97:
+                case 122:
+                case 123:
+                case 124:
+                case 125:
+                case 126:
+                case 127:
+                case 146:
+                case 154:
+                case 158:
+                case 194:
+                case 211:
+                case 216:
+                case Oneway_Cyan:
+                case Oneway_Red:
+                case Oneway_Yellow:
+                case Oneway_Pink:
                     return true;
             }
 

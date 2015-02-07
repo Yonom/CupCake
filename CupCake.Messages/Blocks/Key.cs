@@ -21,6 +21,21 @@ namespace CupCake.Messages.Blocks
         Blue,
 
         /// <summary>
+        ///     The cyan door/gate
+        /// </summary>
+        Cyan,
+
+        /// <summary>
+        ///     The magenta door/gate
+        /// </summary>
+        Magenta,
+
+        /// <summary>
+        ///     The yellow door/gate
+        /// </summary>
+        Yellow,
+
+        /// <summary>
         ///     The timed door/gate
         /// </summary>
         TimeDoor

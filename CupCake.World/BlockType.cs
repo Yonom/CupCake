@@ -33,9 +33,24 @@ namespace CupCake.World
         Sound,
 
         /// <summary>
+        ///     A sign block
+        /// </summary>
+        Sign,
+
+        /// <summary>
         ///     A label block
         /// </summary>
         Label,
+
+        /// <summary>
+        /// A purple block
+        /// </summary>
+        Purple,
+
+        /// <summary>
+        /// A death block
+        /// </summary>
+        Death,
 
         /// <summary>
         ///     A world portal block

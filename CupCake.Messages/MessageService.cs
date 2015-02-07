@@ -41,6 +41,9 @@ namespace CupCake.Messages
             this.Events.Bind<PressRedKeySendEvent>(this.OnAnySendEvent, EventPriority.Lowest);
             this.Events.Bind<PressBlueKeySendEvent>(this.OnAnySendEvent, EventPriority.Lowest);
             this.Events.Bind<PressGreenKeySendEvent>(this.OnAnySendEvent, EventPriority.Lowest);
+            this.Events.Bind<PressCyanKeySendEvent>(this.OnAnySendEvent, EventPriority.Lowest);
+            this.Events.Bind<PressMagentaKeySendEvent>(this.OnAnySendEvent, EventPriority.Lowest);
+            this.Events.Bind<PressYellowKeySendEvent>(this.OnAnySendEvent, EventPriority.Lowest);
             this.Events.Bind<GetCrownSendEvent>(this.OnAnySendEvent, EventPriority.Lowest);
             this.Events.Bind<TouchDiamondSendEvent>(this.OnAnySendEvent, EventPriority.Lowest);
             this.Events.Bind<TouchCakeSendEvent>(this.OnAnySendEvent, EventPriority.Lowest);

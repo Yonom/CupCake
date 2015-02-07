@@ -25,8 +25,7 @@ namespace CupCake.Messages.Receive
             this.Horizontal = message.GetDouble(7);
             this.Vertical = message.GetDouble(8);
             this.Coins = message.GetInteger(9);
-            this.IsPurple = message.GetBoolean(10);
-            this.SpaceDown = message.GetBoolean(11);
+            this.SpaceDown = message.GetBoolean(10);
         }
 
         /// <summary>
@@ -46,12 +45,6 @@ namespace CupCake.Messages.Receive
         /// </summary>
         /// <value>The horizontal.</value>
         public double Horizontal { get; set; }
-
-        /// <summary>
-        ///     Gets or sets a value indicating whether the player toggled a purple switch.
-        /// </summary>
-        /// <value><c>true</c> if the player toggled the purple switch; otherwise, <c>false</c>.</value>
-        public bool IsPurple { get; set; }
 
         /// <summary>
         ///     Gets or sets the x modifier.

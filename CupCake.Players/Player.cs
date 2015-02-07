@@ -135,14 +135,6 @@ namespace CupCake.Players
         public int BlueCoins { get; private set; }
 
         /// <summary>
-        ///     Gets a value indicating whether the player has opened a switch.
-        /// </summary>
-        /// <value>
-        ///     <c>true</c> if the player has opened a switch; otherwise, <c>false</c>.
-        /// </value>
-        public bool SwitchOpened { get; private set; }
-
-        /// <summary>
         ///     Gets the x-coordinate of the player's spawn.
         /// </summary>
         /// <value>
@@ -491,7 +483,6 @@ namespace CupCake.Players
             this.PosX = e.UserPosX;
             this.PosY = e.UserPosY;
             this.IsDead = false;
-            this.SwitchOpened = e.IsPurple;
             this.SpaceDown = e.SpaceDown;
         }
 

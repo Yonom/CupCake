@@ -13,6 +13,9 @@ namespace CupCake.Keys
         public bool RedKey { get; private set; }
         public bool GreenKey { get; private set; }
         public bool BlueKey { get; private set; }
+        public bool CyanKey { get; private set; }
+        public bool MagentaKey { get; private set; }
+        public bool YellowKey { get; private set; }
         public bool TimeDoor { get; private set; }
 
         protected override void Enable()
@@ -49,6 +52,18 @@ namespace CupCake.Keys
                         this.RedKey = enabled;
                         break;
 
+                    case Key.Cyan:
+                        this.CyanKey = enabled;
+                        break;
+
+                    case Key.Magenta:
+                        this.MagentaKey = enabled;
+                        break;
+
+                    case Key.Yellow:
+                        this.YellowKey = enabled;
+                        break;
+
                     case Key.TimeDoor:
                         this.TimeDoor = enabled;
                         break;
@@ -70,6 +85,18 @@ namespace CupCake.Keys
 
                 case Key.Red:
                     this.Events.Raise(new PressRedKeySendEvent());
+                    break;
+
+                case Key.Cyan:
+                    this.Events.Raise(new PressCyanKeySendEvent());
+                    break;
+
+                case Key.Magenta:
+                    this.Events.Raise(new PressMagentaKeySendEvent());
+                    break;
+                
+                case Key.Yellow:
+                    this.Events.Raise(new PressYellowKeySendEvent());
                     break;
 
                 default:
