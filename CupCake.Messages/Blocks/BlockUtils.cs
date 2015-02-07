@@ -4,14 +4,14 @@
     {
         public static Layer CorrectLayer(Block id, Layer layer)
         {
-            if ((id > 0 && (int)id < 500) || id == Block.DecorLabel)
+            if ((id > 0 && (int)id < 500) || (int)id >= 1000)
             {
                 return Layer.Foreground;
             }
             if ((int)id >= 500 && (int)id < 1000)
             {
                 return Layer.Background;
-            }
+            } 
             return layer;
         }
 
