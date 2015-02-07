@@ -104,7 +104,12 @@ namespace CupCake.Physics.EEPhysics
 
                     blockData = new int[WorldWidth][][];
                     for (int i = 0; i < WorldWidth; i++)
+                    {
                         blockData[i] = new int[WorldHeight][];
+                        for (int j = 0; j < WorldHeight; j++)
+                            blockData[i][j] = new int[2];
+                    }
+                        
 
                     WorldKey = Derot(m.GetString(5));
                     WorldGravity = m.GetDouble(15);
