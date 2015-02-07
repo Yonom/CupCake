@@ -19,5 +19,6 @@ namespace CupCake.Physics.EEPhysics
         public const double WaterBuoyancy = -0.5;
         public const double MudBuoyancy = 0.4;
         public const int QueueLength = 2;
+        public const int MaxSwitchIDCount = 10;
     }
 }

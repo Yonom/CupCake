@@ -609,6 +609,22 @@ namespace CupCake.Messages.Blocks
         BgAutumn2014Orange = 642,
         BgAutumn2014Red = 643,
 
-        DecorLabel = 1000
+        DecorLabel = 1000,
+
+        OneWayCyan = 1001,
+        OneWayRed = 1002,
+        OneWayYellow = 1003,
+        OneWayPink = 1004,
+        
+        CyanDoor = 1005,
+        MagentaDoor = 1006,
+        YellowDoor = 1007,
+
+        CyanGate = 1008,
+        MagentaGate = 1009,
+        YellowGate = 1010,
+
+        DeathDoor = 1011,
+        DeathGate = 1012
     }
 }

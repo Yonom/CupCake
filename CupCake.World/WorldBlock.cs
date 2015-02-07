@@ -88,20 +88,39 @@ namespace CupCake.World
         }
 
         /// <summary>
-        ///     Gets the Text. (Only on label blocks)
+        ///     Gets the Text. (Only on sign or label blocks)
         /// </summary>
         /// <value>
         ///     The text.
         /// </value>
-        /// <exception cref="System.InvalidOperationException">This property can only be accessed on Label blocks.</exception>
+        /// <exception cref="System.InvalidOperationException">This property can only be accessed on Sign or Label blocks.</exception>
         public string Text
+        {
+            get
+            {
+                if (this.BlockType != BlockType.Sign && this.BlockType != BlockType.Label)
+                    throw new InvalidOperationException("This property can only be accessed on Sign or Label blocks.");
+
+                return this._data.Text;
+            }
+        }
+
+
+        /// <summary>
+        ///     Gets the TextColor. (Only on label blocks)
+        /// </summary>
+        /// <value>
+        ///     The text color.
+        /// </value>
+        /// <exception cref="System.InvalidOperationException">This property can only be accessed on Label blocks.</exception>
+        public string TextColor
         {
             get
             {
                 if (this.BlockType != BlockType.Label)
                     throw new InvalidOperationException("This property can only be accessed on Label blocks.");
 
-                return this._data.Text;
+                return this._data.TextColor;
             }
         }
 
@@ -138,6 +157,42 @@ namespace CupCake.World
                     throw new InvalidOperationException("This property can only be accessed on CoinDoor blocks.");
 
                 return this._data.CoinsToCollect;
+            }
+        }
+
+        /// <summary>
+        ///     Gets the purple id.
+        /// </summary>
+        /// <value>
+        ///     The coins to collect.
+        /// </value>
+        /// <exception cref="System.InvalidOperationException">This property can only be accessed on Purple Door or Gate blocks.</exception>
+        public uint PurpleId
+        {
+            get
+            {
+                if (this.BlockType != BlockType.Purple)
+                    throw new InvalidOperationException("This property can only be accessed on CoinDoor blocks.");
+
+                return this._data.PurpleId;
+            }
+        }
+
+        /// <summary>
+        ///     Gets the deaths required.
+        /// </summary>
+        /// <value>
+        ///     The amount of deaths required.
+        /// </value>
+        /// <exception cref="System.InvalidOperationException">This property can only be accessed on Death Door or Gate blocks.</exception>
+        public uint DeathsRequired
+        {
+            get
+            {
+                if (this.BlockType != BlockType.Death)
+                    throw new InvalidOperationException("This property can only be accessed on Death blocks.");
+
+                return this._data.DeathsRequired;
             }
         }
 
@@ -340,6 +395,28 @@ namespace CupCake.World
             };
         }
 
+        internal void SetPurpleDoor(PurpleDoorBlock block, uint purpleId)
+        {
+            this.BlockType = BlockType.Purple;
+            this.Block = (Block)block;
+
+            this._data = new BlockData
+            {
+                PurpleId = purpleId
+            };
+        }
+
+        internal void SetDeathDoor(DeathDoorBlock block, uint deathsRequired)
+        {
+            this.BlockType = BlockType.Purple;
+            this.Block = (Block)block;
+
+            this._data = new BlockData
+            {
+                DeathsRequired = deathsRequired
+            };
+        }
+
         internal void SetPortal(PortalBlock block, uint portalId, uint portalTarget, PortalRotation portalRotation)
         {
             this.BlockType = BlockType.Portal;
@@ -375,14 +452,26 @@ namespace CupCake.World
             };
         }
 
-        internal void SetLabel(LabelBlock block, string text)
+        internal void SetSign(Block block, string text)
+        {
+            this.BlockType = BlockType.Sign;
+            this.Block = (Block)block;
+
+            this._data = new BlockData
+            {
+                Text = text
+            };
+        }
+
+        internal void SetLabel(Block block, string text, string textColor)
         {
             this.BlockType = BlockType.Label;
             this.Block = (Block)block;
 
             this._data = new BlockData
             {
-                Text = text
+                Text = text,
+                TextColor = textColor
             };
         }
 
@@ -484,8 +573,10 @@ namespace CupCake.World
                         this.PortalTarget, this.PortalRotation);
                 case BlockType.Sound:
                     return new SoundPlaceSendEvent(this.Layer, this.X, this.Y, (SoundBlock)this.Block, this.SoundId);
+                case BlockType.Sign:
+                    return new SignPlaceSendEvent(this.Layer, this.X, this.Y, this.Text);
                 case BlockType.Label:
-                    return new LabelPlaceSendEvent(this.Layer, this.X, this.Y, (LabelBlock)this.Block, this.Text);
+                    return new LabelPlaceSendEvent(this.Layer, this.X, this.Y, this.Text, this.TextColor);
                 case BlockType.Rotatable:
                     return new RotatablePlaceSendEvent(this.Layer, this.X, this.Y, (RotatableBlock)this.Block,
                         this.Rotation);
@@ -506,12 +597,18 @@ namespace CupCake.World
                     return String.Format("Layer = {0}", this.Layer);
                 case BlockType.CoinDoor:
                     return String.Format("CoinsToCollect = {0}", this.CoinsToCollect);
+                case BlockType.Purple:
+                    return String.Format("Purple ID = {0}", this.PurpleId);
+                case BlockType.Death:
+                    return String.Format("Deaths Required = {0}", this.DeathsRequired);
                 case BlockType.Rotatable:
                     return String.Format("Rotation = {0}", this.Rotation);
                 case BlockType.Sound:
                     return String.Format("SoundId = {0}", this.SoundId);
-                case BlockType.Label:
+                case BlockType.Sign:
                     return String.Format("Text = {0}", this.Text);
+                case BlockType.Label:
+                    return String.Format("Text = {0}, TextColor = {1}", this.Text, this.TextColor);
                 case BlockType.Portal:
                     return String.Format("Id = {0}, Target = {1}, Rotation = {2}", this.PortalId, this.PortalTarget,
                         this.PortalRotation);
@@ -538,8 +635,11 @@ namespace CupCake.World
         private struct BlockData
         {
             internal string Text { get; set; }
+            internal string TextColor { get; set; }
             internal string WorldPortalTarget { get; set; }
             internal uint CoinsToCollect { get; set; }
+            internal uint PurpleId { get; set; }
+            internal uint DeathsRequired { get; set; }
             internal uint PortalId { get; set; }
             internal uint PortalTarget { get; set; }
             internal PortalRotation PortalRotation { get; set; }
@@ -551,8 +651,11 @@ namespace CupCake.World
                 return new BlockData
                 {
                     Text = this.Text,
+                    TextColor = this.TextColor,
                     WorldPortalTarget = this.WorldPortalTarget,
                     CoinsToCollect = this.CoinsToCollect,
+                    PurpleId = this.PurpleId,
+                    DeathsRequired = this.DeathsRequired,
                     PortalId = this.PortalId,
                     PortalTarget = this.PortalTarget,
                     PortalRotation = this.PortalRotation,

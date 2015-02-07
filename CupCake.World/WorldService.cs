@@ -85,11 +85,24 @@ namespace CupCake.World
                     byte[] byteArrayY = m.GetByteArray(pointer++);
                     IEnumerable<WorldBlock> wblocks = this.GetBlocks(l, byteArrayX, byteArrayY, worldArray);
 
-                    if (BlockUtils.IsCoinDoor(block))
+                    if (BlockUtils.IsCoinDoorOrGate(block))
                     {
                         uint coinsToCollect = m.GetUInt(pointer++);
                         foreach (WorldBlock wblock in wblocks)
                             wblock.SetCoinDoor((CoinDoorBlock)block, coinsToCollect);
+                    }
+                    else if (BlockUtils.IsPurpleDoorOrGateOrSwitch(block))
+                    {
+                        uint purpleId = m.GetUInt(pointer++);
+
+                        foreach (WorldBlock wblock in wblocks)
+                            wblock.SetPurpleDoor((PurpleDoorBlock)block, purpleId);
+                    }
+                    else if (BlockUtils.IsDeathDoorOrGate(block))
+                    {
+                        uint deathsRequired = m.GetUInt(pointer++);
+                        foreach (WorldBlock wblock in wblocks)
+                            wblock.SetDeathDoor((DeathDoorBlock)block, deathsRequired);
                     }
                     else if (BlockUtils.IsSound(block))
                     {
@@ -117,11 +130,19 @@ namespace CupCake.World
                         foreach (WorldBlock wblock in wblocks)
                             wblock.SetWorldPortal((WorldPortalBlock)block, worldPortalTarget);
                     }
-                    else if (BlockUtils.IsLabel(block))
+                    else if (BlockUtils.IsSign(block))
                     {
                         string text = m.GetString(pointer++);
                         foreach (WorldBlock wblock in wblocks)
-                            wblock.SetLabel((LabelBlock)block, text);
+                            wblock.SetSign(block, text);
+
+                    }
+                    else if (BlockUtils.IsLabel(block))
+                    {
+                        string text = m.GetString(pointer++);
+                        string textColor = m.GetString(pointer++);
+                        foreach (WorldBlock wblock in wblocks)
+                            wblock.SetLabel(block, text, textColor);
                     }
                     else
                     {
@@ -193,6 +214,9 @@ namespace CupCake.World
             this.Events.Bind<InitReceiveEvent>(this.OnInit, EventPriority.High);
             this.Events.Bind<BlockPlaceReceiveEvent>(this.OnBlockPlace, EventPriority.High);
             this.Events.Bind<CoinDoorPlaceReceiveEvent>(this.OnCoinDoorPlace, EventPriority.High);
+            this.Events.Bind<DeathDoorPlaceReceiveEvent>(this.OnDeathDoorPlace, EventPriority.High);
+            this.Events.Bind<PurpleDoorPlaceReceiveEvent>(this.OnPurpleDoorPlace, EventPriority.High);
+            this.Events.Bind<SignPlaceReceiveEvent>(this.OnSignPlace, EventPriority.High);
             this.Events.Bind<LabelPlaceReceiveEvent>(this.OnLabelPlace, EventPriority.High);
             this.Events.Bind<PortalPlaceReceiveEvent>(this.OnPortalPlace, EventPriority.High);
             this.Events.Bind<WorldPortalPlaceReceiveEvent>(this.OnWorldPortalPlace, EventPriority.High);
@@ -257,11 +281,38 @@ namespace CupCake.World
             this.RaisePlaceWorld(b, oldBlock);
         }
 
+        private void OnDeathDoorPlace(object sender, DeathDoorPlaceReceiveEvent e)
+        {
+            WorldBlock b = this._blocks[(int)e.Layer, e.PosX, e.PosY];
+            WorldBlock oldBlock = b.Clone();
+            b.SetDeathDoor(e.Block, e.DeathsRequired);
+
+            this.RaisePlaceWorld(b, oldBlock);
+        }
+
+        private void OnPurpleDoorPlace(object sender, PurpleDoorPlaceReceiveEvent e)
+        {
+            WorldBlock b = this._blocks[(int)e.Layer, e.PosX, e.PosY];
+            WorldBlock oldBlock = b.Clone();
+            b.SetPurpleDoor(e.Block, e.PurpleId);
+
+            this.RaisePlaceWorld(b, oldBlock);
+        }
+
+        private void OnSignPlace(object sender, SignPlaceReceiveEvent e)
+        {
+            WorldBlock b = this._blocks[(int)e.Layer, e.PosX, e.PosY];
+            WorldBlock oldBlock = b.Clone();
+            b.SetSign(e.Block, e.Text);
+
+            this.RaisePlaceWorld(b, oldBlock);
+        }
+
         private void OnLabelPlace(object sender, LabelPlaceReceiveEvent e)
         {
             WorldBlock b = this._blocks[(int)e.Layer, e.PosX, e.PosY];
             WorldBlock oldBlock = b.Clone();
-            b.SetLabel(e.Block, e.Text);
+            b.SetLabel(e.Block, e.Text, e.TextColor);
 
             this.RaisePlaceWorld(b, oldBlock);
         }

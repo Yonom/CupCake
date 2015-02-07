@@ -4,6 +4,9 @@ namespace CupCake.DefaultCommands
 {
     public sealed class UtilityCommandsMuffin : CupCakeMuffin<UtilityCommandsMuffin>
     {
+        public CyanCommand CyanCommand { get; private set; }
+        public MagentaCommand MagentaCommand { get; private set; }
+        public YellowCommand YellowCommand { get; private set; }
         public PingCommand PingCommand { get; private set; }
         public HiCommand HiCommand { get; private set; }
         public HelpCommand HelpCommand { get; private set; }
@@ -26,7 +29,10 @@ namespace CupCake.DefaultCommands
         public RestartCommand RestartCommand { get; private set; }
 
         protected override void Enable()
-        {
+        {     
+            this.CyanCommand = this.EnablePart<CyanCommand>();
+            this.MagentaCommand = this.EnablePart<MagentaCommand>();
+            this.YellowCommand = this.EnablePart<YellowCommand>();
             this.PingCommand = this.EnablePart<PingCommand>();
             this.HiCommand = this.EnablePart<HiCommand>();
             this.HelpCommand = this.EnablePart<HelpCommand>();
