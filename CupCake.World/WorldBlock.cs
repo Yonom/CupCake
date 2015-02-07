@@ -3,6 +3,7 @@ using System.Diagnostics;
 using CupCake.Core.Metadata;
 using CupCake.Messages;
 using CupCake.Messages.Blocks;
+using CupCake.Messages.Receive;
 using CupCake.Messages.Send;
 
 namespace CupCake.World
@@ -512,10 +513,33 @@ namespace CupCake.World
                     result = false;
                 return result;
             }
+            var signEvent = other as SignPlaceSendEvent;
+            if (signEvent != null)
+            {
+                if (this._data.Text != signEvent.Text)
+                    result = false;
+                return result;
+            }
             var labelEvent = other as LabelPlaceSendEvent;
             if (labelEvent != null)
             {
                 if (this._data.Text != labelEvent.Text)
+                    result = false;
+                if (this._data.TextColor != labelEvent.TextColor)
+                    result = false;
+                return result;
+            }
+            var deathDoor = other as DeathDoorPlaceSendEvent;
+            if (deathDoor != null)
+            {
+                if (this._data.DeathsRequired != deathDoor.DeathsRequired)
+                    result = false;
+                return result;
+            }
+            var purpleDoor = other as PurpleDoorPlaceSendEvent;
+            if (purpleDoor != null)
+            {
+                if (this._data.PurpleId != purpleDoor.PurpleId)
                     result = false;
                 return result;
             }
@@ -583,6 +607,10 @@ namespace CupCake.World
                 case BlockType.WorldPortal:
                     return new WorldPortalPlaceSendEvent(this.Layer, this.X, this.Y, (WorldPortalBlock)this.Block,
                         this.WorldPortalTarget);
+                case BlockType.Death:
+                    return new DeathDoorPlaceSendEvent(this.Layer, this.X, this.Y, (DeathDoorBlock)this.Block, this.DeathsRequired);
+                case BlockType.Purple:
+                    return new PurpleDoorPlaceSendEvent(this.Layer, this.X, this.Y, (PurpleDoorBlock)this.Block, this.PurpleId);
                 default:
                     throw new NotSupportedException("The given send message is not supported.");
             }
