@@ -19,7 +19,7 @@ namespace CupCake.Messages.Receive
             this.Keys = new Key[message.Count];
             for (uint i = 0; i <= message.Count - 1u; i++)
             {
-                this.Keys[(int)i] = (Key)Enum.Parse(typeof(Key), message.GetString(i), true);
+                this.Keys[(int)i] = (Key)message.GetInt(i);
             }
         }
 
