@@ -28,5 +28,12 @@ namespace CupCake.Physics
         {
             this._physicsWorld.HandleMessage(e.PlayerIOMessage);
         }
+
+        protected override void Dispose(bool disposing)
+        {
+            this._physicsWorld.StopSimulation();
+
+            base.Dispose(disposing);
+        }
     }
 }
