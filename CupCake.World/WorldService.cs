@@ -214,8 +214,6 @@ namespace CupCake.World
             this.Events.Bind<InitReceiveEvent>(this.OnInit, EventPriority.High);
             this.Events.Bind<BlockPlaceReceiveEvent>(this.OnBlockPlace, EventPriority.High);
             this.Events.Bind<CoinDoorPlaceReceiveEvent>(this.OnCoinDoorPlace, EventPriority.High);
-            this.Events.Bind<DeathDoorPlaceReceiveEvent>(this.OnDeathDoorPlace, EventPriority.High);
-            this.Events.Bind<PurpleDoorPlaceReceiveEvent>(this.OnPurpleDoorPlace, EventPriority.High);
             this.Events.Bind<SignPlaceReceiveEvent>(this.OnSignPlace, EventPriority.High);
             this.Events.Bind<LabelPlaceReceiveEvent>(this.OnLabelPlace, EventPriority.High);
             this.Events.Bind<PortalPlaceReceiveEvent>(this.OnPortalPlace, EventPriority.High);
@@ -277,24 +275,6 @@ namespace CupCake.World
             WorldBlock b = this._blocks[(int)e.Layer, e.PosX, e.PosY];
             WorldBlock oldBlock = b.Clone();
             b.SetCoinDoor(e.Block, e.CoinsToOpen);
-
-            this.RaisePlaceWorld(b, oldBlock);
-        }
-
-        private void OnDeathDoorPlace(object sender, DeathDoorPlaceReceiveEvent e)
-        {
-            WorldBlock b = this._blocks[(int)e.Layer, e.PosX, e.PosY];
-            WorldBlock oldBlock = b.Clone();
-            b.SetDeathDoor(e.Block, e.DeathsRequired);
-
-            this.RaisePlaceWorld(b, oldBlock);
-        }
-
-        private void OnPurpleDoorPlace(object sender, PurpleDoorPlaceReceiveEvent e)
-        {
-            WorldBlock b = this._blocks[(int)e.Layer, e.PosX, e.PosY];
-            WorldBlock oldBlock = b.Clone();
-            b.SetPurpleDoor(e.Block, e.PurpleId);
 
             this.RaisePlaceWorld(b, oldBlock);
         }

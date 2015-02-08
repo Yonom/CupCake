@@ -123,7 +123,7 @@ namespace CupCake.Messages
             this.MessageManager.RegisterMessage<PortalPlaceReceiveEvent>("pt");
             this.MessageManager.RegisterMessage<WorldPortalPlaceReceiveEvent>("wp");
             this.MessageManager.RegisterMessage<LabelPlaceReceiveEvent>("lb");
-            this.MessageManager.RegisterMessage<LabelPlaceReceiveEvent>("ts");
+            this.MessageManager.RegisterMessage<SignPlaceReceiveEvent>("ts");
             this.MessageManager.RegisterMessage<GiveWizardReceiveEvent>("givewizard");
             this.MessageManager.RegisterMessage<GiveFireWizardReceiveEvent>("givewizard2");
             this.MessageManager.RegisterMessage<GiveDarkWizardReceiveEvent>("givedarkwizard");
