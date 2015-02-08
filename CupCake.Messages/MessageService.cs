@@ -36,7 +36,10 @@ namespace CupCake.Messages
             this.Events.Bind<SoundPlaceSendEvent>(this.OnAnySendEvent, EventPriority.Lowest);
             this.Events.Bind<PortalPlaceSendEvent>(this.OnAnySendEvent, EventPriority.Lowest);
             this.Events.Bind<WorldPortalPlaceSendEvent>(this.OnAnySendEvent, EventPriority.Lowest);
+            this.Events.Bind<SignPlaceSendEvent>(this.OnAnySendEvent, EventPriority.Lowest);
             this.Events.Bind<LabelPlaceSendEvent>(this.OnAnySendEvent, EventPriority.Lowest);
+            this.Events.Bind<PurpleDoorPlaceSendEvent>(this.OnAnySendEvent, EventPriority.Lowest);
+            this.Events.Bind<DeathDoorPlaceSendEvent>(this.OnAnySendEvent, EventPriority.Lowest);
             this.Events.Bind<CoinSendEvent>(this.OnAnySendEvent, EventPriority.Lowest);
             this.Events.Bind<PressRedKeySendEvent>(this.OnAnySendEvent, EventPriority.Lowest);
             this.Events.Bind<PressBlueKeySendEvent>(this.OnAnySendEvent, EventPriority.Lowest);
