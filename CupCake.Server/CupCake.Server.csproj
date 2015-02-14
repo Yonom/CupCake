@@ -104,41 +104,13 @@
     <Compile Include="XmlSerialize.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\CupCake.Chat\CupCake.Chat.csproj">
-      <Project>{7f69972f-c813-4850-887e-bc5029baf542}</Project>
-      <Name>CupCake.Chat</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\CupCake.Command\CupCake.Command.csproj">
-      <Project>{3f7afe9c-d511-43b2-b3ca-4b60a5d6b79d}</Project>
-      <Name>CupCake.Command</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\CupCake.Core\CupCake.Core.csproj">
-      <Project>{598d616c-4886-482b-af57-7bc7daa56cce}</Project>
-      <Name>CupCake.Core</Name>
-    </ProjectReference>
     <ProjectReference Include="..\CupCake.DefaultCommands\CupCake.DefaultCommands.csproj">
       <Project>{e5fc97af-27cb-44b8-a16a-8a691dd78ccd}</Project>
       <Name>CupCake.DefaultCommands</Name>
     </ProjectReference>
-    <ProjectReference Include="..\CupCake.HostAPI\CupCake.HostAPI.csproj">
-      <Project>{cb00b556-e597-4c9b-af9b-d9c98a378a48}</Project>
-      <Name>CupCake.HostAPI</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\CupCake.Messages\CupCake.Messages.csproj">
-      <Project>{4746f723-ee77-4434-983c-02d1dd1bd982}</Project>
-      <Name>CupCake.Messages</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\CupCake.Players\CupCake.Players.csproj">
-      <Project>{d9df7c76-4de4-4270-bca6-cba724e639ae}</Project>
-      <Name>CupCake.Players</Name>
-    </ProjectReference>
     <ProjectReference Include="..\CupCake.Protocol\CupCake.Protocol.csproj">
       <Project>{e68a7dbd-97db-43ee-9392-52d86822e8e3}</Project>
       <Name>CupCake.Protocol</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\CupCake\CupCake.csproj">
-      <Project>{7c7bf5b3-db13-4672-ae6f-2ead4c2270b6}</Project>
-      <Name>CupCake</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

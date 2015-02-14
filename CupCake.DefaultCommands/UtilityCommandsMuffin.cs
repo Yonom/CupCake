@@ -2,7 +2,7 @@
 
 namespace CupCake.DefaultCommands
 {
-    public sealed class UtilityCommandsMuffin : CupCakeMuffin<UtilityCommandsMuffin>
+    public sealed class UtilityCommandsMuffin : Plugin<UtilityCommandsMuffin>
     {
         public CyanCommand CyanCommand { get; private set; }
         public MagentaCommand MagentaCommand { get; private set; }
@@ -28,7 +28,7 @@ namespace CupCake.DefaultCommands
         public ShutdownCommand ShutdownCommand { get; private set; }
         public RestartCommand RestartCommand { get; private set; }
 
-        protected override void Enable()
+        public UtilityCommandsMuffin()
         {     
             this.CyanCommand = this.EnablePart<CyanCommand>();
             this.MagentaCommand = this.EnablePart<MagentaCommand>();

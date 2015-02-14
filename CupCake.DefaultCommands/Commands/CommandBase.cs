@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using BotBits;
 using CupCake.Command;
 using CupCake.Command.Source;
 using CupCake.Messages.User;
@@ -8,7 +9,7 @@ using CupCake.Players;
 
 namespace CupCake.DefaultCommands.Commands
 {
-    public abstract class CommandBase<T> : CupCakeMuffinPart<T>
+    public abstract class CommandBase<T> : PluginPart<T>
     {
         internal virtual string CommandName
         {
@@ -21,13 +22,13 @@ namespace CupCake.DefaultCommands.Commands
 
         internal virtual void RequireOwner()
         {
-            if (this.RoomService.AccessRight < AccessRight.Owner)
+            if (this.Room.AccessRight < AccessRight.Owner)
                 throw new CommandException(String.Format("Bot must be world owner to be able to {0}.", this.CommandName));
         }
 
         internal virtual void RequireEdit()
         {
-            if (this.RoomService.AccessRight < AccessRight.Edit)
+            if (this.Room.AccessRight < AccessRight.Edit)
                 throw new CommandException(String.Format("Bot must have edit rights to be able to {0}.",
                     this.CommandName));
         }

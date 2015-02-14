@@ -4,13 +4,14 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{7C7BF5B3-DB13-4672-AE6F-2EAD4C2270B6}</ProjectGuid>
+    <ProjectGuid>{898D38C4-006F-4AF0-A546-5CB7DC3C1618}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>CupCake</RootNamespace>
     <AssemblyName>CupCake</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
     <RestorePackages>true</RestorePackages>
   </PropertyGroup>
@@ -22,7 +23,6 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <DocumentationFile>bin\Debug\CupCake.XML</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -31,100 +31,86 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <DocumentationFile>bin\Release\CupCake.XML</DocumentationFile>
-  </PropertyGroup>
-  <PropertyGroup>
-    <SignAssembly>true</SignAssembly>
-  </PropertyGroup>
-  <PropertyGroup>
-    <AssemblyOriginatorKeyFile>Key.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="MuffinFramework.NET">
-      <HintPath>..\Lib\MuffinFramework.NET.dll</HintPath>
+    <Reference Include="BotBits">
+      <HintPath>..\Lib\BotBits.dll</HintPath>
     </Reference>
-    <Reference Include="PlayerIOClient, Version=2.3.6.0, Culture=neutral, PublicKeyToken=c7f7b730653f6a44, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
+    <Reference Include="PlayerIOClient">
       <HintPath>..\packages\PlayerIOClient-Signed.2.3.6.0\lib\PlayerIOClient.dll</HintPath>
     </Reference>
+    <Reference Include="PluginFramework">
+      <HintPath>..\packages\PluginFramework.1.0.2\lib\net40\PluginFramework.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
-    <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Chatter.cs" />
-    <Compile Include="CommandManager.cs" />
-    <Compile Include="CupCakeMuffin.cs" />
-    <Compile Include="Host\CupCakeComponents.cs" />
-    <Compile Include="Host\CupCakeClient.cs" />
-    <Compile Include="CupCakeManualMuffin.cs" />
-    <Compile Include="CupCakeMuffinPart.cs" />
-    <Compile Include="Host\CupCakeClientArgs.cs" />
-    <Compile Include="Host\EnumHelper.cs" />
-    <Compile Include="ICommand.cs" />
+    <Compile Include="Chat\BasicChatSyntaxProvider.cs" />
+    <Compile Include="Chat\ChatService.cs" />
+    <Compile Include="Chat\Chatter.cs" />
+    <Compile Include="Chat\ChatUtils.cs" />
+    <Compile Include="Chat\CupCakeChatSyntaxProvider.cs" />
+    <Compile Include="Chat\IChatSyntaxProvider.cs" />
+    <Compile Include="Command\AccessDeniedException.cs" />
+    <Compile Include="Command\CommandAttribute.cs" />
+    <Compile Include="Command\CommandException.cs" />
+    <Compile Include="Command\CommandHandle.cs" />
+    <Compile Include="Command\CommandManager.cs" />
+    <Compile Include="Command\CommandService.cs" />
+    <Compile Include="Command\CommandUtils.cs" />
+    <Compile Include="Command\CorrectUsageAttribute.cs" />
+    <Compile Include="Command\HelpRequest.cs" />
+    <Compile Include="Command\HighPriorityAttribute.cs" />
+    <Compile Include="Command\ICommand.cs" />
+    <Compile Include="Command\InvokeEvent.cs" />
+    <Compile Include="Command\LabelAttribute.cs" />
+    <Compile Include="Command\MinArgsAttribute.cs" />
+    <Compile Include="Command\MinGroupAttribute.cs" />
+    <Compile Include="Command\ParsedCommand.cs" />
+    <Compile Include="Command\PlayerExtensions.cs" />
+    <Compile Include="Command\PlayerServiceExtensions.cs" />
+    <Compile Include="Command\Source\ConsoleInvokeSource.cs" />
+    <Compile Include="Command\Source\ExternalInvokeSource.cs" />
+    <Compile Include="Command\Source\IInvokeSource.cs" />
+    <Compile Include="Command\Source\InvalidInvokeSourceCommandException.cs" />
+    <Compile Include="Command\Source\InvokeSourceBase.cs" />
+    <Compile Include="Command\Source\InvokeSourceExtensions.cs" />
+    <Compile Include="Command\Source\PlayerInvokeSource.cs" />
+    <Compile Include="Command\Source\ReplyCallback.cs" />
+    <Compile Include="Command\SyntaxException.cs" />
+    <Compile Include="Command\UnknownPlayerCommandException.cs" />
+    <Compile Include="Event\EventManager.cs" />
+    <Compile Include="Permissions\ChangedPermissionEvent.cs" />
+    <Compile Include="Permissions\Group.cs" />
+    <Compile Include="Permissions\PermissionService.cs" />
+    <Compile Include="Permissions\PlayerExtensions.cs" />
+    <Compile Include="CupCakeArgs.cs" />
+    <Compile Include="CupCakeClient.cs" />
+    <Compile Include="CupCakeExtension.cs" />
+    <Compile Include="Log\LogEventArgs.cs" />
+    <Compile Include="Log\Logger.cs" />
+    <Compile Include="Log\LogService.cs" />
+    <Compile Include="Log\LogPriority.cs" />
+    <Compile Include="PluginFramework\Container.cs" />
+    <Compile Include="PluginFramework\ContainerPlugin.cs" />
+    <Compile Include="PluginFramework\ContainerBase.cs" />
+    <Compile Include="PluginFramework\Plugin\Plugin.cs" />
+    <Compile Include="PluginFramework\Plugin\PluginPart.cs" />
+    <Compile Include="Properties\Annotations.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="CommandHandle.cs" />
+    <Compile Include="PluginFramework\Service\Service.cs" />
+    <Compile Include="Storage\BasicStorageProvider.cs" />
+    <Compile Include="Storage\IStorageProvider.cs" />
+    <Compile Include="Storage\StorageException.cs" />
+    <Compile Include="Storage\StorageService.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\CupCake.Actions\CupCake.Actions.csproj">
-      <Project>{5b264955-5d1c-4b16-9950-8f1667f8fef6}</Project>
-      <Name>CupCake.Actions</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\CupCake.Chat\CupCake.Chat.csproj">
-      <Project>{7f69972f-c813-4850-887e-bc5029baf542}</Project>
-      <Name>CupCake.Chat</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\CupCake.Command\CupCake.Command.csproj">
-      <Project>{3f7afe9c-d511-43b2-b3ca-4b60a5d6b79d}</Project>
-      <Name>CupCake.Command</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\CupCake.Core\CupCake.Core.csproj">
-      <Project>{598d616c-4886-482b-af57-7bc7daa56cce}</Project>
-      <Name>CupCake.Core</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\CupCake.HostAPI\CupCake.HostAPI.csproj">
-      <Project>{cb00b556-e597-4c9b-af9b-d9c98a378a48}</Project>
-      <Name>CupCake.HostAPI</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\CupCake.Keys\CupCake.Keys.csproj">
-      <Project>{445870a4-3eca-4411-9a28-85bee51f27c6}</Project>
-      <Name>CupCake.Keys</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\CupCake.Messages\CupCake.Messages.csproj">
-      <Project>{4746f723-ee77-4434-983c-02d1dd1bd982}</Project>
-      <Name>CupCake.Messages</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\CupCake.Permissions\CupCake.Permissions.csproj">
-      <Project>{dd7dc89b-6824-4990-8955-d1ade39eb77c}</Project>
-      <Name>CupCake.Permissions</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\CupCake.Physics\CupCake.Physics.csproj">
-      <Project>{b7365994-631f-46d5-9793-360433b7c1eb}</Project>
-      <Name>CupCake.Physics</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\CupCake.Players\CupCake.Players.csproj">
-      <Project>{d9df7c76-4de4-4270-bca6-cba724e639ae}</Project>
-      <Name>CupCake.Players</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\CupCake.Potions\CupCake.Potions.csproj">
-      <Project>{868d260e-476e-45f3-b439-4c0186cf542a}</Project>
-      <Name>CupCake.Potions</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\CupCake.Room\CupCake.Room.csproj">
-      <Project>{f040f4fa-1a86-4417-b7a2-0ec04095f886}</Project>
-      <Name>CupCake.Room</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\CupCake.Upload\CupCake.Upload.csproj">
-      <Project>{0d920dd1-8605-4679-9d43-74a15314811b}</Project>
-      <Name>CupCake.Upload</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\CupCake.World\CupCake.World.csproj">
-      <Project>{a5791bdd-9b10-4597-8605-083ed4365d31}</Project>
-      <Name>CupCake.World</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Key.snk" />
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

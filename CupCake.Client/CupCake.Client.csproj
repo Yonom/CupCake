@@ -327,10 +327,6 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\CupCake.Core\CupCake.Core.csproj">
-      <Project>{598d616c-4886-482b-af57-7bc7daa56cce}</Project>
-      <Name>CupCake.Core</Name>
-    </ProjectReference>
     <ProjectReference Include="..\CupCake.Protocol\CupCake.Protocol.csproj">
       <Project>{e68a7dbd-97db-43ee-9392-52d86822e8e3}</Project>
       <Name>CupCake.Protocol</Name>

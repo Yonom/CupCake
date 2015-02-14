@@ -36,8 +36,14 @@
     <AssemblyOriginatorKeyFile>Key.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="BotBits">
+      <HintPath>..\Lib\BotBits.dll</HintPath>
+    </Reference>
     <Reference Include="MuffinFramework.NET">
       <HintPath>..\Lib\MuffinFramework.NET.dll</HintPath>
+    </Reference>
+    <Reference Include="PluginFramework">
+      <HintPath>..\packages\PluginFramework.1.0.2\lib\net40\PluginFramework.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -114,56 +120,11 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\CupCake.Actions\CupCake.Actions.csproj">
-      <Project>{5B264955-5D1C-4B16-9950-8F1667F8FEF6}</Project>
-      <Name>CupCake.Actions</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\CupCake.Chat\CupCake.Chat.csproj">
-      <Project>{7F69972F-C813-4850-887E-BC5029BAF542}</Project>
-      <Name>CupCake.Chat</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\CupCake.Command\CupCake.Command.csproj">
-      <Project>{3f7afe9c-d511-43b2-b3ca-4b60a5d6b79d}</Project>
-      <Name>CupCake.Command</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\CupCake.Core\CupCake.Core.csproj">
-      <Project>{598d616c-4886-482b-af57-7bc7daa56cce}</Project>
-      <Name>CupCake.Core</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\CupCake.HostAPI\CupCake.HostAPI.csproj">
-      <Project>{CB00B556-E597-4C9B-AF9B-D9C98A378A48}</Project>
-      <Name>CupCake.HostAPI</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\CupCake.Keys\CupCake.Keys.csproj">
-      <Project>{445870A4-3ECA-4411-9A28-85BEE51F27C6}</Project>
-      <Name>CupCake.Keys</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\CupCake.Messages\CupCake.Messages.csproj">
-      <Project>{4746f723-ee77-4434-983c-02d1dd1bd982}</Project>
-      <Name>CupCake.Messages</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\CupCake.Permissions\CupCake.Permissions.csproj">
-      <Project>{dd7dc89b-6824-4990-8955-d1ade39eb77c}</Project>
-      <Name>CupCake.Permissions</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\CupCake.Players\CupCake.Players.csproj">
-      <Project>{d9df7c76-4de4-4270-bca6-cba724e639ae}</Project>
-      <Name>CupCake.Players</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\CupCake.Potions\CupCake.Potions.csproj">
-      <Project>{868D260E-476E-45F3-B439-4C0186CF542A}</Project>
-      <Name>CupCake.Potions</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\CupCake.Room\CupCake.Room.csproj">
-      <Project>{f040f4fa-1a86-4417-b7a2-0ec04095f886}</Project>
-      <Name>CupCake.Room</Name>
-    </ProjectReference>
     <ProjectReference Include="..\CupCake\CupCake.csproj">
-      <Project>{7c7bf5b3-db13-4672-ae6f-2ead4c2270b6}</Project>
+      <Project>{898d38c4-006f-4af0-a546-5cb7dc3c1618}</Project>
       <Name>CupCake</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
     <None Include="Key.snk" />
   </ItemGroup>

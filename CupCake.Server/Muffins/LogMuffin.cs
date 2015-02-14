@@ -1,11 +1,9 @@
 ﻿using CupCake.Core;
 using CupCake.Core.Log;
-using CupCake.Messages.Receive;
-using CupCake.Players;
 
 namespace CupCake.Server.Muffins
 {
-    public class LogMuffin : CupCakeMuffin
+    public class LogMuffin : Plugin
     {
         protected override void Enable()
         {
@@ -25,13 +23,13 @@ namespace CupCake.Server.Muffins
         }
 
         [EventListener]
-        private void OnWrite(WriteReceiveEvent e)
+        private void OnWrite(WriteEvent e)
         {
             this.Logger.LogPlatform.Log(e.Title, LogPriority.Message, e.Text);
         }
 
         [EventListener]
-        private void OnSay(SayPlayerEvent e)
+        private void OnSay(SayEvent e)
         {
             this.Logger.LogPlatform.Log(e.Player.Username, LogPriority.Message, e.Player.Say);
         }
