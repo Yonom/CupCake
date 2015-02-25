@@ -1,4 +1,9 @@
-﻿namespace CupCake.Physics.EEPhysics
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+namespace CupCake.Physics.EEPhysics
 {
     internal static class ItemId
     {
@@ -52,22 +57,27 @@
         public const int InvisibleUpArrow = 412;
         public const int InvisibleRightArrow = 413;
         public const int InvisibleDot = 414;
-        public const int Oneway_Cyan = 1001; 
-        public const int Oneway_Red = 1002; 
-        public const int Oneway_Yellow = 1003; 
-        public const int Oneway_Pink = 1004;
+        public const int OnewayCyan = 1001; 
+        public const int OnewayRed = 1002; 
+        public const int OnewayYellow = 1003; 
+        public const int OnewayPink = 1004;
         public const int CyanDoor = 1005;
         public const int MagentaDoor = 1006;
         public const int YellowDoor = 1007;
         public const int CyanGate = 1008;
         public const int MagentaGate = 1009;
         public const int YellowGate = 1010;
-        public const int Death_Door = 1011;
-        public const int Death_Gate = 1012;
+        public const int DeathDoor = 1011;
+        public const int DeathGate = 1012;
 
         public static bool isSolid(int blockId)
         {
             return (9 <= blockId && blockId <= 97) || (122 <= blockId && blockId <= 217) || (1001 <= blockId && blockId <= 1012);
+        }
+
+        public static bool IsBackground(int blockId)
+        {
+            return blockId >= 500 && blockId <= 999;
         }
 
         public static bool isClimbable(int id)
@@ -84,7 +94,7 @@
             return false;
         }
 
-        public static bool canJumpThroughFromBelow(int itemId)
+        public static bool CanJumpThroughFromBelow(int itemId)
         {
             switch (itemId)
             {
@@ -109,10 +119,10 @@
                 case 194:
                 case 211:
                 case 216:
-                case Oneway_Cyan:
-                case Oneway_Red:
-                case Oneway_Yellow:
-                case Oneway_Pink:
+                case OnewayCyan:
+                case OnewayRed:
+                case OnewayYellow:
+                case OnewayPink:
                     return true;
             }
 

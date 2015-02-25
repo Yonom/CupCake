@@ -19,6 +19,7 @@ namespace CupCake.Physics.EEPhysics
         public int Horizontal { get; internal set; }
         public int Vertical { get; internal set; }
         private int current;
+        private double oldX, oldY;
         private double speedX = 0;
         private double speedY = 0;
         private double modifierX = 0;
@@ -29,12 +30,14 @@ namespace CupCake.Physics.EEPhysics
         private int pastx, pasty;
         internal int overlapy;
         private double mx, my;
+        private bool isInvulnerable;
         private bool donex, doney;
         internal bool[] switches = new bool[PhysicsConfig.MaxSwitchIDCount];
         internal int deaths = 0;
         private int[] queue = new int[PhysicsConfig.QueueLength];
         private int delayed;
         private const double portalMultiplier = 1.42;
+        private bool hasLastPortal = false;
         private Point lastPortal;
         private List<Point> gotCoins = new List<Point>();
         private List<Point> gotBlueCoins = new List<Point>();
@@ -83,6 +86,8 @@ namespace CupCake.Physics.EEPhysics
 
         private Dictionary<int, PlayerEvent> blockIdEvents = new Dictionary<int, PlayerEvent>();
         private Dictionary<int, PlayerEvent> bgblockIdEvents = new Dictionary<int, PlayerEvent>();
+        private Dictionary<int, PlayerEvent> touchBlockEvents = new Dictionary<int, PlayerEvent>();
+        private List<Point> touchedPoints = new List<Point>();
 
         public event PlayerEvent OnHitCrown = delegate { };
 
@@ -144,7 +149,6 @@ namespace CupCake.Physics.EEPhysics
             double osx;
             double ox;
             double tx;
-
             double reminderY;
             double currentSY;
             double osy;
@@ -209,7 +213,7 @@ namespace CupCake.Physics.EEPhysics
                     case ItemId.WineH:
                     case ItemId.WineV:
                     case ItemId.InvisibleDot:
-                    case 4:                 
+                    case 4:
                         morx = 0;
                         mory = 0;
                         break;
@@ -223,7 +227,7 @@ namespace CupCake.Physics.EEPhysics
                         break;
                     case ItemId.Fire:
                     case ItemId.Spike:
-                        if (!IsDead)
+                        if (!IsDead && !isInvulnerable)
                         {
                             KillPlayer();
                             OnDie(new PlayerEventArgs() { Player = this, BlockX = cx, BlockY = cy });
@@ -428,15 +432,16 @@ namespace CupCake.Physics.EEPhysics
                 current = HostWorld.GetBlock(cx, cy);
                 if (!isGodMode && (current == ItemId.Portal || current == ItemId.PortalInvisible))
                 {
-                    if (lastPortal == null)
+                    if (!hasLastPortal)
                     {
                         OnHitPortal(new PlayerEventArgs() { Player = this, BlockX = cx, BlockY = cy });
                         lastPortal = new Point(cx, cy);
+                        hasLastPortal = true;
                         int[] data = HostWorld.GetBlockData(cx, cy);
                         if (data != null && data.Length == 3)
                         {
-                            Point portalPoint = HostWorld.GetPortalById(data[2]);
-                            if (portalPoint != null)
+                            Point portalPoint;
+                            if (HostWorld.TryGetPortalById(data[2], out portalPoint))
                             {
                                 int rot1 = HostWorld.GetBlockData(lastPortal.x, lastPortal.y)[0];
                                 int rot2 = HostWorld.GetBlockData(portalPoint.x, portalPoint.y)[0];
@@ -482,7 +487,7 @@ namespace CupCake.Physics.EEPhysics
                 }
                 else
                 {
-                    lastPortal = null;
+                    hasLastPortal = false;
                 }
                 #endregion
 
@@ -587,7 +592,8 @@ namespace CupCake.Physics.EEPhysics
                     {
                         e(new PlayerEventArgs() { Player = this, BlockX = cx, BlockY = cy });
                     }
-                    if (bgblockIdEvents.Count != 0 && bgblockIdEvents.TryGetValue(HostWorld.GetBlock(1, cx, cy), out e)) {
+                    if (bgblockIdEvents.Count != 0 && bgblockIdEvents.TryGetValue(HostWorld.GetBlock(1, cx, cy), out e))
+                    {
                         e(new PlayerEventArgs() { Player = this, BlockX = cx, BlockY = cy });
                     }
 
@@ -677,6 +683,85 @@ namespace CupCake.Physics.EEPhysics
                     pastx = cx;
                     pasty = cy;
                 }
+                if (touchBlockEvents.Count > 0)
+                {
+                    PlayerEvent e;
+                    Point p;
+                    if (oldX != X || oldY != Y)
+                    {
+                        for (int i = 0; i < touchedPoints.Count; i++)
+                        {
+                            if (touchedPoints[i].y == cy)
+                            {
+                                if (X % 16 == 0 && (touchedPoints[i].x == cx - 1 || touchedPoints[i].x == cx + 1) && touchedPoints[i].y == cy)
+                                {
+
+                                }
+                                else
+                                {
+                                    touchedPoints.RemoveAt(i--);
+                                }
+                            }
+                            else if (touchedPoints[i].x == cx)
+                            {
+                                if (Y % 16 == 0 && (touchedPoints[i].y == cy - 1 || touchedPoints[i].y == cy + 1) && touchedPoints[i].x == cx)
+                                {
+
+                                }
+                                else
+                                {
+                                    touchedPoints.RemoveAt(i--);
+                                }
+                            }
+                            else
+                            {
+                                touchedPoints.RemoveAt(i--);
+                            }
+                        }
+                        if (X % 16 == 0)
+                        {
+                            p = new Point(cx - 1, cy);
+                            if (ItemId.isSolid(HostWorld.GetBlock(0, p.x, p.y)) && touchBlockEvents.TryGetValue(HostWorld.GetBlock(0, p.x, p.y), out e))
+                            {
+                                if (!touchedPoints.Contains(p))
+                                {
+                                    touchedPoints.Add(p);
+                                    e(new PlayerEventArgs() { Player = this, BlockX = p.x, BlockY = p.y });
+                                }
+                            }
+                            p = new Point(cx + 1, cy);
+                            if (ItemId.isSolid(HostWorld.GetBlock(0, p.x, p.y)) && touchBlockEvents.TryGetValue(HostWorld.GetBlock(0, p.x, p.y), out e))
+                            {
+                                if (!touchedPoints.Contains(p))
+                                {
+                                    touchedPoints.Add(p);
+                                    e(new PlayerEventArgs() { Player = this, BlockX = p.x, BlockY = p.y });
+                                }
+                            }
+                        }
+                        if (Y % 16 == 0)
+                        {
+                            p = new Point(cx, cy - 1);
+                            if (ItemId.isSolid(HostWorld.GetBlock(0, p.x, p.y)) && touchBlockEvents.TryGetValue(HostWorld.GetBlock(0, p.x, p.y), out e))
+                            {
+                                if (!touchedPoints.Contains(p))
+                                {
+                                    touchedPoints.Add(p);
+                                    e(new PlayerEventArgs() { Player = this, BlockX = p.x, BlockY = p.y });
+                                }
+                            }
+                            p = new Point(cx, cy + 1);
+                            if (ItemId.isSolid(HostWorld.GetBlock(0, p.x, p.y)) && touchBlockEvents.TryGetValue(HostWorld.GetBlock(0, p.x, p.y), out e))
+                            {
+                                if (!touchedPoints.Contains(p))
+                                {
+                                    touchedPoints.Add(p);
+                                    e(new PlayerEventArgs() { Player = this, BlockX = p.x, BlockY = p.y });
+                                }
+                            }
+                        }
+                    }
+                }
             }
 
             var imx = ((int)speedX << 8);
@@ -750,17 +835,19 @@ namespace CupCake.Physics.EEPhysics
                     }
                 }
             }
+            oldX = X;
+            oldY = Y;
         }
 
         /// <summary>
-        /// Makes PhysicsPlayer raise event when player overlaps blockId block. Event is not raised every tick, but only at when player first touches a block.
-        /// (Event isn't raised if player only touches the block, the player needs to be inside it)
+        /// Makes PhysicsPlayer raise event when player moves inside blockId block. Event is not raised every tick, but only at when player first touches the block.
+        /// (Touching doesn't count! Only the block that is at center of player is checked, no multiple blocks at same time.)
         /// </summary>
-        /// <param name="blockId">Block ID to upon overlaps raise the event.</param>
+        /// <param name="blockId">Block ID to check for.</param>
         /// <param name="e">Method which is run when event occurs.</param>
         public void AddBlockEvent(int blockId, PlayerEvent e)
         {
-            if (blockId < 500)
+            if (!ItemId.IsBackground(blockId))
                 blockIdEvents[blockId] = e;
             else
                 bgblockIdEvents[blockId] = e;
@@ -768,7 +855,7 @@ namespace CupCake.Physics.EEPhysics
         /// <returns>Whether there's block event with specified blockId.</returns>
         public bool HasBlockEvent(int blockId)
         {
-            if (blockId < 500)
+            if (!ItemId.IsBackground(blockId))
                 return blockIdEvents.ContainsKey(blockId);
             else
                 return bgblockIdEvents.ContainsKey(blockId);
@@ -778,10 +865,32 @@ namespace CupCake.Physics.EEPhysics
         /// </summary>
         public void RemoveBlockEvent(int blockId)
         {
-            if (blockId < 500)
+            if (!ItemId.IsBackground(blockId))
                 blockIdEvents.Remove(blockId);
             else
                 bgblockIdEvents.Remove(blockId);
+        }
+
+        /// <summary>
+        /// Makes PhysicsPlayer raise event when player touches blockId block (doesn't need to overlap). Event is not raised every tick, but at least when player first touches the block. It is possible that it's raised multiple times for same block in some cases.
+        /// </summary>
+        /// <param name="blockId">Block ID to check for.</param>
+        /// <param name="e">Method which is run when event occurs.</param>
+        public void AddBlockTouchEvent(int blockId, PlayerEvent e)
+        {
+            touchBlockEvents[blockId] = e;
+        }
+        /// <returns>Whether there's block event with specified blockId.</returns>
+        public bool HasBlockTouchEvent(int blockId)
+        {
+            return touchBlockEvents.ContainsKey(blockId);
+        }
+        /// <summary>
+        /// Removes block event added with AddBlockTouchEvent with specified blockId.
+        /// </summary>
+        public void RemoveBlockTouchEvent(int blockId)
+        {
+            touchBlockEvents.Remove(blockId);
         }
 
         /// <returns>True if player overlaps block at x,y.</returns>
@@ -857,13 +966,27 @@ namespace CupCake.Physics.EEPhysics
         public int BlockY { get; set; }
     }
 
-    internal class Point
+    internal struct Point
     {
         public int x, y;
         public Point(int xx, int yy)
         {
             x = xx;
             y = yy;
+        }
+
+        public bool Equals(Point p)
+        {
+            return (x == p.x && y == p.y);
+        }
+
+        public static bool operator ==(Point p, Point p2)
+        {
+            return p.Equals(p2);
+        }
+        public static bool operator !=(Point p, Point p2)
+        {
+            return !p.Equals(p2);
         }
     }
 }
