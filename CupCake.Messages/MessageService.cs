@@ -99,7 +99,6 @@ namespace CupCake.Messages
             this.MessageManager.RegisterMessage<CrownReceiveEvent>("k");
             this.MessageManager.RegisterMessage<SilverCrownReceiveEvent>("ks");
             this.MessageManager.RegisterMessage<MagicReceiveEvent>("w");
-            this.MessageManager.RegisterMessage<LevelUpReceiveEvent>("levelup");
             this.MessageManager.RegisterMessage<GodModeReceiveEvent>("god");
             this.MessageManager.RegisterMessage<GuardianModeReceiveEvent>("guardian");
             this.MessageManager.RegisterMessage<ModModeReceiveEvent>("mod");

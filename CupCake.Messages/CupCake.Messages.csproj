@@ -116,7 +116,6 @@
     <Compile Include="Receive\KillReceiveEvent.cs" />
     <Compile Include="Receive\LabelPlaceReceiveEvent.cs" />
     <Compile Include="Receive\LeftReceiveEvent.cs" />
-    <Compile Include="Receive\LevelUpReceiveEvent.cs" />
     <Compile Include="Receive\LostAccessReceiveEvent.cs" />
     <Compile Include="Receive\MagicReceiveEvent.cs" />
     <Compile Include="Receive\ModModeReceiveEvent.cs" />
@@ -183,7 +182,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="MessageService.cs" />
     <Compile Include="User\AutoText.cs" />
-    <Compile Include="User\MagicClass.cs" />
     <Compile Include="User\Smiley.cs" />
   </ItemGroup>
   <ItemGroup>

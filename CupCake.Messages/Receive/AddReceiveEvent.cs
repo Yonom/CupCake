@@ -25,11 +25,9 @@ namespace CupCake.Messages.Receive
             this.HasChat = message.GetBoolean(7);
             this.Coins = message.GetInteger(8);
             this.BlueCoins = message.GetInteger(9);
-            this.IsPurple = message.GetBoolean(10);
-            this.IsMyFriend = message.GetBoolean(11);
-            this.MagicClass = (MagicClass)message.GetInteger(12);
-            this.IsClubMember = message.GetBoolean(13);
-            this.IsGuardian = message.GetBoolean(14);
+            this.IsMyFriend = message.GetBoolean(10);
+            this.IsClubMember = message.GetBoolean(11);
+            this.IsGuardian = message.GetBoolean(12);
         }
 
         /// <summary>
@@ -85,18 +83,6 @@ namespace CupCake.Messages.Receive
         /// </summary>
         /// <value><c>true</c> if this player is my friend; otherwise, <c>false</c>.</value>
         public bool IsMyFriend { get; set; }
-
-        /// <summary>
-        ///     Gets or sets whether the player has toggled a purple switch.
-        /// </summary>
-        /// <value><c>true</c> if this instance is purple; otherwise, <c>false</c>.</value>
-        public bool IsPurple { get; set; }
-
-        /// <summary>
-        ///     Gets or sets the magic class of this player.
-        /// </summary>
-        /// <value>The magic class.</value>
-        public MagicClass MagicClass { get; set; }
 
         /// <summary>
         ///     Gets or sets the username of the player.

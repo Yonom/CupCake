@@ -103,14 +103,6 @@ namespace CupCake.Players
         public bool HasChat { get; private set; }
 
         /// <summary>
-        ///     Gets the player's magic class.
-        /// </summary>
-        /// <value>
-        ///     The player's magic class.
-        /// </value>
-        public MagicClass MagicClass { get; private set; }
-
-        /// <summary>
         ///     Gets the player's smiley.
         /// </summary>
         /// <value>
@@ -375,7 +367,6 @@ namespace CupCake.Players
             this.BindPlayerEvent<LeftReceiveEvent, LeftPlayerEvent>(this.OnLeft);
             this.BindPlayerEvent<PotionReceiveEvent, PotionPlayerEvent>(this.OnPotion);
             this.BindPlayerEvent<SayReceiveEvent, SayPlayerEvent>(this.OnSay);
-            this.BindPlayerEvent<LevelUpReceiveEvent, LevelUpPlayerEvent>(this.OnLevelUp);
             this.BindPlayerEvent<WootUpReceiveEvent, WootUpPlayerEvent>(this.OnWootUp);
             this.BindPlayerEvent<KillReceiveEvent, KillPlayerEvent>(this.OnKill);
             this.BindPlayerEvent<MagicReceiveEvent, MagicPlayerEvent>(this.OnMagic);
@@ -436,9 +427,6 @@ namespace CupCake.Players
                 this.SpawnX = add.UserPosX;
                 this.SpawnY = add.UserPosY;
                 this.IsClubMember = add.IsClubMember;
-                this.MagicClass = add.MagicClass;
-                if (add.IsPurple)
-                    this._potions.Add(Potion.Jump);
             }
 
             var initArgs = this.Host as InitJoinArgs;
@@ -530,11 +518,6 @@ namespace CupCake.Players
         private void OnSay(object sender, SayReceiveEvent e)
         {
             this.Say = e.Text;
-        }
-
-        private void OnLevelUp(object sender, LevelUpReceiveEvent e)
-        {
-            this.MagicClass = e.NewClass;
         }
 
         private void OnWootUp(object sender, WootUpReceiveEvent e)

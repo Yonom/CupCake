@@ -56,7 +56,6 @@
     <Compile Include="JoinPlayerEvent.cs" />
     <Compile Include="KillPlayerEvent.cs" />
     <Compile Include="LeftPlayerEvent.cs" />
-    <Compile Include="LevelUpPlayerEvent.cs" />
     <Compile Include="MagicPlayerEvent.cs" />
     <Compile Include="ModModePlayerEvent.cs" />
     <Compile Include="MovePlayerEvent.cs" />
