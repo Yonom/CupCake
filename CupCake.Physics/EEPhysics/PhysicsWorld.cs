@@ -104,12 +104,7 @@ namespace CupCake.Physics.EEPhysics
 
                     blockData = new int[WorldWidth][][];
                     for (int i = 0; i < WorldWidth; i++)
-                    {
                         blockData[i] = new int[WorldHeight][];
-                        for (int j = 0; j < WorldHeight; j++)
-                            blockData[i][j] = new int[2];
-                    }
-                        
 
                     WorldKey = Derot(m.GetString(5));
                     WorldGravity = m.GetDouble(15);
@@ -202,7 +197,7 @@ namespace CupCake.Physics.EEPhysics
                         p.HasChat = m.GetBoolean(7);
                         p.Coins = m.GetInt(8);
                         p.BlueCoins = m.GetInt(9);
-                        p.IsClubMember = m.GetBoolean(13);
+                        p.IsClubMember = m.GetBoolean(11);
 
                         Players.TryAdd(p.ID, p);
                     }
@@ -408,7 +403,7 @@ namespace CupCake.Physics.EEPhysics
             }
             return blockData[x][y];
         }
-        internal Point GetPortalById(int id)
+        internal bool TryGetPortalById(int id, out Point p)
         {
             for (int i = 0; i < WorldWidth; i++)
             {
@@ -418,12 +413,14 @@ namespace CupCake.Physics.EEPhysics
                     {
                         if (blockData[i][ii][1] == id)
                         {
-                            return new Point(i, ii);
+                            p = new Point(i, ii);
+                            return true;
                         }
                     }
                 }
             }
-            return null;
+            p = default(Point);
+            return false;
         }
 
         /// <summary>
@@ -496,10 +493,10 @@ namespace CupCake.Physics.EEPhysics
 
                     if (ItemId.isSolid(tileId))
                     {
-                        if (ItemId.canJumpThroughFromBelow(tileId))
+                        if (ItemId.CanJumpThroughFromBelow(tileId))
                         {
                             int rot = blockData[x][y][0];
-                            if (tileId == ItemId.Oneway_Cyan || tileId == ItemId.Oneway_Pink || tileId == ItemId.Oneway_Red || tileId == ItemId.Oneway_Yellow)
+                            if (tileId == ItemId.OnewayCyan || tileId == ItemId.OnewayPink || tileId == ItemId.OnewayRed || tileId == ItemId.OnewayYellow)
                             {
                                 if ((p.SpeedY < 0 || a <= p.overlapy) && rot == 1)
                                 {
@@ -663,13 +660,13 @@ namespace CupCake.Physics.EEPhysics
                                     }
                                 }
                                 break;
-                            case ItemId.Death_Door:
+                            case ItemId.DeathDoor:
                                 if (p.deaths < blockData[x][y][0])
                                 {
                                     continue;
                                 }
                                 break;
-                            case ItemId.Death_Gate:
+                            case ItemId.DeathGate:
                                 if (p.deaths >= blockData[x][y][0])
                                 {
                                     continue;
@@ -815,8 +812,8 @@ namespace CupCake.Physics.EEPhysics
                             break;
                         case ItemId.Coindoor:
                         case ItemId.Coingate:
-                        case ItemId.Death_Door:
-                        case ItemId.Death_Gate:
+                        case ItemId.DeathDoor:
+                        case ItemId.DeathGate:
                         case ItemId.BlueCoindoor:
                         case ItemId.BlueCoingate:
                         case ItemId.DoorPurple:
@@ -825,10 +822,10 @@ namespace CupCake.Physics.EEPhysics
                         case ItemId.Spike:
                         case ItemId.Piano:
                         case ItemId.Drum:
-                        case ItemId.Oneway_Cyan:
-                        case ItemId.Oneway_Pink:
-                        case ItemId.Oneway_Red:
-                        case ItemId.Oneway_Yellow:
+                        case ItemId.OnewayCyan:
+                        case ItemId.OnewayPink:
+                        case ItemId.OnewayRed:
+                        case ItemId.OnewayYellow:
                         case ItemId.GlowylineBlueSlope:
                         case ItemId.GlowyLineBlueStraight:
                         case ItemId.GlowyLineYellowSlope:
