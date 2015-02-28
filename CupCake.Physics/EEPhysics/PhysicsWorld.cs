@@ -455,10 +455,6 @@ namespace CupCake.Physics.EEPhysics
             {
                 running = false;
             }
-            else
-            {
-                throw new Exception("Simulation thread is not running.");
-            }
         }
 
         internal bool Overlaps(PhysicsPlayer p)
@@ -869,7 +865,8 @@ namespace CupCake.Physics.EEPhysics
 
         void IDisposable.Dispose()
         {
-            StopSimulation();
+            if (PhysicsRunning)
+                StopSimulation();
         }
     }
 }
