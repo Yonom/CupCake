@@ -91,8 +91,8 @@ namespace CupCake.Physics.EEPhysics
             {
                 if (m.Type == "init")
                 {
-                    WorldWidth = m.GetInt(12);
-                    WorldHeight = m.GetInt(13);
+                    WorldWidth = m.GetInt(15);
+                    WorldHeight = m.GetInt(16);
 
                     blocks = new int[2][][];
                     for (int i = 0; i < blocks.Length; i++)
