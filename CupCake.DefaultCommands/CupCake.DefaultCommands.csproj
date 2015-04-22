@@ -61,8 +61,6 @@
     <Compile Include="Commands\Owner\KillAllCommand.cs" />
     <Compile Include="Commands\Owner\LoadlevelCommand.cs" />
     <Compile Include="Commands\Owner\NameCommand.cs" />
-    <Compile Include="Commands\Owner\PotionsOffCommand.cs" />
-    <Compile Include="Commands\Owner\PotionsOnCommand.cs" />
     <Compile Include="Commands\Owner\ResetCommand.cs" />
     <Compile Include="Commands\Owner\RespawnAllCommand.cs" />
     <Compile Include="Commands\Owner\SaveCommand.cs" />
@@ -100,7 +98,6 @@
     <Compile Include="Commands\Utility\SayCommand.cs" />
     <Compile Include="Commands\Utility\PingCommand.cs" />
     <Compile Include="Commands\Utility\SetSmileyCommand.cs" />
-    <Compile Include="Commands\Utility\UsePotionCommand.cs" />
     <Compile Include="PlayerExtensions.cs" />
     <Compile Include="UtilityCommandsMuffin.cs" />
     <Compile Include="Commands\Utility\HelpCommand.cs" />
@@ -149,10 +146,6 @@
     <ProjectReference Include="..\CupCake.Players\CupCake.Players.csproj">
       <Project>{d9df7c76-4de4-4270-bca6-cba724e639ae}</Project>
       <Name>CupCake.Players</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\CupCake.Potions\CupCake.Potions.csproj">
-      <Project>{868D260E-476E-45F3-B439-4C0186CF542A}</Project>
-      <Name>CupCake.Potions</Name>
     </ProjectReference>
     <ProjectReference Include="..\CupCake.Room\CupCake.Room.csproj">
       <Project>{f040f4fa-1a86-4417-b7a2-0ec04095f886}</Project>

@@ -1,3 +1,4 @@
+using CupCake.Messages.User;
 using PlayerIOClient;
 
 namespace CupCake.Messages.Receive
@@ -21,23 +22,23 @@ namespace CupCake.Messages.Receive
             this.TotalWoots = message.GetInteger(4);
             this.Encryption = message.GetString(5);
             this.UserId = message.GetInteger(6);
-            this.SpawnX = message.GetInteger(7);
-            this.SpawnY = message.GetInteger(8);
-            this.Username = message.GetString(9);
-            this.CanEdit = message.GetBoolean(10);
-            this.IsOwner = message.GetBoolean(11);
-            this.RoomWidth = message.GetInteger(12);
-            this.RoomHeight = message.GetInteger(13);
-            this.IsTutorialRoom = message.GetBoolean(14);
-            this.Gravity = message.GetDouble(15);
-            this.AllowPotions = message.GetBoolean(16);
+            this.Face = (Smiley)message.GetInteger(7);
+            // Aura
+            this.SpawnX = message.GetInteger(9);
+            this.SpawnY = message.GetInteger(10);
+            this.ChatColor = message.GetUInt(11);
+            this.Username = message.GetString(12);
+            this.CanEdit = message.GetBoolean(13);
+            this.IsOwner = message.GetBoolean(14);
+            this.RoomWidth = message.GetInteger(15);
+            this.RoomHeight = message.GetInteger(16);
+            this.IsTutorialRoom = message.GetBoolean(17);
+            this.Gravity = message.GetDouble(18);
         }
 
-        /// <summary>
-        ///     Gets or sets a value indicating whether the world has potions allowed.
-        /// </summary>
-        /// <value><c>true</c> if [allow potions]; otherwise, <c>false</c>.</value>
-        public bool AllowPotions { get; set; }
+        public uint ChatColor { get; set; }
+
+        public Smiley Face { get; set; }
 
         /// <summary>
         ///     Gets or sets a value indicating whether this player is allowed to edit.

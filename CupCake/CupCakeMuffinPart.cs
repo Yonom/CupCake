@@ -19,7 +19,6 @@ using CupCake.Messages;
 using CupCake.Permissions;
 using CupCake.Physics;
 using CupCake.Players;
-using CupCake.Potions;
 using CupCake.Room;
 using CupCake.Upload;
 using CupCake.World;
@@ -48,7 +47,6 @@ namespace CupCake
         private readonly Lazy<string> _name;
         private readonly Lazy<PermissionService> _permissionService;
         private readonly Lazy<PlayerService> _playerService;
-        private readonly Lazy<PotionService> _potionService;
         private readonly Lazy<RoomService> _roomService;
         private readonly Lazy<StatusService> _statusService;
         private readonly Lazy<StoragePlatform> _storagePlatform;
@@ -99,7 +97,6 @@ namespace CupCake
             this._playerService = new Lazy<PlayerService>(() => this.ServiceLoader.Get<PlayerService>());
             this._keyService = new Lazy<KeyService>(() => this.ServiceLoader.Get<KeyService>());
             this._uploadService = new Lazy<UploadService>(() => this.ServiceLoader.Get<UploadService>());
-            this._potionService = new Lazy<PotionService>(() => this.ServiceLoader.Get<PotionService>());
             this._actionService = new Lazy<ActionService>(() => this.ServiceLoader.Get<ActionService>());
             this._messageService = new Lazy<MessageService>(() => this.ServiceLoader.Get<MessageService>());
             this._commandService = new Lazy<CommandService>(() => this.ServiceLoader.Get<CommandService>());
@@ -198,15 +195,6 @@ namespace CupCake
         protected UploadService UploadService
         {
             get { return this._uploadService.Value; }
-        }
-
-        /// <summary>
-        ///     Gets the potion service.
-        /// </summary>
-        /// <value>The potion service.</value>
-        protected PotionService PotionService
-        {
-            get { return this._potionService.Value; }
         }
 
         /// <summary>

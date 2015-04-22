@@ -24,7 +24,6 @@ namespace CupCake.DefaultCommands
         public ModModeCommand ModModeCommand { get; private set; }
         public RedCommand RedCommand { get; private set; }
         public SetSmileyCommand SetSmileyCommand { get; private set; }
-        public UsePotionCommand UsePotionCommand { get; private set; }
         public ShutdownCommand ShutdownCommand { get; private set; }
         public RestartCommand RestartCommand { get; private set; }
 
@@ -50,7 +49,6 @@ namespace CupCake.DefaultCommands
             this.ModModeCommand = this.EnablePart<ModModeCommand>();
             this.RedCommand = this.EnablePart<RedCommand>();
             this.SetSmileyCommand = this.EnablePart<SetSmileyCommand>();
-            this.UsePotionCommand = this.EnablePart<UsePotionCommand>();
             this.ShutdownCommand = this.EnablePart<ShutdownCommand>();
             this.RestartCommand = this.EnablePart<RestartCommand>();
         }

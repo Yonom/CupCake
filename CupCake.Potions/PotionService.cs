@@ -58,12 +58,6 @@ namespace CupCake.Potions
             this.Events.Bind<AllowPotionsReceiveEvent>(this.OnAllowPotions, EventPriority.High);
         }
 
-        private void OnInit(object sender, InitReceiveEvent e)
-        {
-            this.AllowPotions = e.AllowPotions;
-            this.OnPotionCount(sender, e);
-        }
-
         private void OnPotionCount(object sender, ReceiveEvent e)
         {
             uint startNum = 0;

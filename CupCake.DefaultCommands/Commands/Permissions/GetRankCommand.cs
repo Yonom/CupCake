@@ -21,6 +21,7 @@ namespace CupCake.DefaultCommands.Commands.Permissions
                     username =>
                         source.Reply("{0} is now {1}.", PlayerUtils.GetChatName(username),
                             this.Host.GetPermission(PlayerUtils.GetStorageName(username))));
+                return;
             }
             var playerSource = source as PlayerInvokeSource;
             if (playerSource != null)

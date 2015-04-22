@@ -42,8 +42,8 @@ namespace CupCake.DefaultCommands.Commands.User
                 var playerSource = source as PlayerInvokeSource;
                 if (playerSource != null)
                 {
-                    int x = playerSource.Player.BlockX;
-                    int y = playerSource.Player.BlockX;
+                    int x = playerSource.Player.BlockX + 1;
+                    int y = playerSource.Player.BlockX + 1;
 
                     this.Chatter.Teleport(player.Username, x, y);
                 }
