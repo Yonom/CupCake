@@ -107,20 +107,20 @@ namespace CupCake.Physics.EEPhysics
                         blockData[i] = new int[WorldHeight][];
 
                     WorldKey = Derot(m.GetString(5));
-                    WorldGravity = m.GetDouble(15);
+                    WorldGravity = m.GetDouble(18);
 
                     if (AddBotPlayer)
                     {
-                        PhysicsPlayer p = new PhysicsPlayer(m.GetInt(6), m.GetString(9))
+                        PhysicsPlayer p = new PhysicsPlayer(m.GetInt(6), m.GetString(12))
                         {
-                            X = m.GetInt(7),
-                            Y = m.GetInt(8),
+                            X = m.GetInt(9),
+                            Y = m.GetInt(10),
                             HostWorld = this
                         };
                         Players.TryAdd(p.ID, p);
                     }
 
-                    DeserializeBlocks(m, (m[19] is string) ? 20u : 19u);
+                    DeserializeBlocks(m, 24);
                     inited = true;
 
                     foreach (Message m2 in earlyMessages)
