@@ -17,17 +17,18 @@ namespace CupCake.Messages.Receive
         {
             this.UserId = message.GetInteger(0);
             this.Username = message.GetString(1);
-            this.Face = (Smiley)message.GetInteger(2);
-            this.UserPosX = message.GetInteger(3);
-            this.UserPosY = message.GetInteger(4);
-            this.IsGod = message.GetBoolean(5);
-            this.IsMod = message.GetBoolean(6);
-            this.HasChat = message.GetBoolean(7);
-            this.Coins = message.GetInteger(8);
-            this.BlueCoins = message.GetInteger(9);
-            this.IsMyFriend = message.GetBoolean(10);
-            this.IsClubMember = message.GetBoolean(11);
-            this.IsGuardian = message.GetBoolean(12);
+            // Connect userid
+            this.Face = (Smiley)message.GetInteger(3);
+            this.UserPosX = message.GetInteger(4);
+            this.UserPosY = message.GetInteger(5);
+            this.IsGod = message.GetBoolean(6);
+            this.IsMod = message.GetBoolean(7);
+            this.HasChat = message.GetBoolean(8);
+            this.Coins = message.GetInteger(9);
+            this.BlueCoins = message.GetInteger(10);
+            this.IsMyFriend = message.GetBoolean(11);
+            this.IsClubMember = message.GetBoolean(12);
+            this.IsGuardian = message.GetBoolean(13);
         }
 
         /// <summary>

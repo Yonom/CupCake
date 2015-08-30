@@ -30,10 +30,12 @@ namespace CupCake.Messages.Receive
             this.Username = message.GetString(12);
             this.CanEdit = message.GetBoolean(13);
             this.IsOwner = message.GetBoolean(14);
-            this.RoomWidth = message.GetInteger(15);
-            this.RoomHeight = message.GetInteger(16);
-            this.IsTutorialRoom = message.GetBoolean(17);
-            this.Gravity = message.GetDouble(18);
+            // Has favorited
+            // Has liked
+            this.RoomWidth = message.GetInteger(17);
+            this.RoomHeight = message.GetInteger(18);
+            //this.IsTutorialRoom = message.GetBoolean(17);
+            this.Gravity = message.GetDouble(19);
         }
 
         public uint ChatColor { get; set; }

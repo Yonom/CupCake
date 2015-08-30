@@ -31,7 +31,6 @@ namespace CupCake.Messages.Send
             this.ModifierY = modifierY;
             this.Horizontal = horizontal;
             this.Vertical = vertical;
-            this.GravityMultiplier = gravityMultiplier;
             this.SpaceDown = spaceDown;
         }
 
@@ -122,7 +121,7 @@ namespace CupCake.Messages.Send
         public override Message GetMessage()
         {
             return Message.Create("m", this.PosX, this.PosY, this.SpeedX, this.SpeedY, this.ModifierX, this.ModifierY,
-                this.Horizontal, this.Vertical, this.GravityMultiplier, this.SpaceDown);
+                this.Horizontal, this.Vertical, this.SpaceDown, this.SpaceDown, 0);
         }
     }
 }
