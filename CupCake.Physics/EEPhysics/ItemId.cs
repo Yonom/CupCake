@@ -32,6 +32,7 @@
         public const int Spike = 361;
         public const int Fire = 368;
         public const int Mud = 369;
+        public const int Lava = 416;
         public const int MudBubble = 370;
         public const int Portal = 242;
         public const int WorldPortal = 374;
@@ -43,6 +44,8 @@
         public const int GlowyLineYellowStraight = 378;
         public const int GlowyLineGreenSlope = 379;
         public const int GlowyLineGreenStraight = 380;
+        public const int GlowyLineRedSlope = 438;
+        public const int GlowyLineRedStraight = 439;
         public const int PortalInvisible = 381;
         public const int TextSign = 385;
         public const int CyanKey = 408;
@@ -52,9 +55,9 @@
         public const int InvisibleUpArrow = 412;
         public const int InvisibleRightArrow = 413;
         public const int InvisibleDot = 414;
-        public const int OnewayCyan = 1001; 
-        public const int OnewayRed = 1002; 
-        public const int OnewayYellow = 1003; 
+        public const int OnewayCyan = 1001;
+        public const int OnewayRed = 1002;
+        public const int OnewayYellow = 1003;
         public const int OnewayPink = 1004;
         public const int CyanDoor = 1005;
         public const int MagentaDoor = 1006;
@@ -64,10 +67,36 @@
         public const int YellowGate = 1010;
         public const int DeathDoor = 1011;
         public const int DeathGate = 1012;
+        public const int EffectJump = 417;
+        public const int EffectFly = 418;
+        public const int EffectRun = 419;
+        public const int EffectProtection = 420;
+        public const int EffectCurse = 421;
+        public const int EffectZombie = 422;
+        public const int EffectTeam = 423;
+        public const int TeamDoor = 1027;
+        public const int TeamGate = 1028;
+        public const int Rope = 424;
+        public const int MedievalShield = 273;
+        public const int MedievalAxe = 275;
+        public const int MedievalBbanner = 327;
+        public const int MedievalCcoatfarms = 328;
+        public const int MedievalSword = 329;
+        public const int MedievalTimber = 440;
+        public const int ToothBig = 338;
+        public const int ToothSmall = 339;
+        public const int ToothTriple = 340;
+        public const int DojoLightLeft = 276;
+        public const int DojoLightRight = 277;
+        public const int DojoDarkLeft = 279;
+        public const int DojoDarkRight = 280;
+        public const int MedievalBanner = 327;
+        public const int MedievalCoatofarms = 328;
+        public const int Hologram = 397;
 
         public static bool isSolid(int blockId)
         {
-            return (9 <= blockId && blockId <= 97) || (122 <= blockId && blockId <= 217) || (1001 <= blockId && blockId <= 1012);
+            return (9 <= blockId && blockId <= 97) || (122 <= blockId && blockId <= 217) || (1001 <= blockId && blockId <= 2000);
         }
 
         public static bool IsBackground(int blockId)
@@ -83,6 +112,7 @@
                 case ItemId.Chain:
                 case ItemId.WineV:
                 case ItemId.WineH:
+                case ItemId.Rope:
                     return true;
             }
 
@@ -93,34 +123,57 @@
         {
             switch (itemId)
             {
-                case 61:
-                case 62:
-                case 63:
-                case 64:
-                case 89:
-                case 90:
-                case 91:
-                case 96:
-                case 97:
-                case 122:
-                case 123:
-                case 124:
-                case 125:
-                case 126:
-                case 127:
-                case 146:
-                case 154:
-                case 158:
-                case 194:
-                case 211:
-                case 216:
+                case GlowyLineBlueStraight:
+
+                case GlowylineBlueSlope:
+
+                case GlowyLineGreenSlope:
+
+                case GlowyLineGreenStraight:
+
+                case GlowyLineYellowSlope:
+
+                case GlowyLineYellowStraight:
+
+                case GlowyLineRedSlope:
+
+                case GlowyLineRedStraight:
+
                 case OnewayCyan:
+
                 case OnewayRed:
+
                 case OnewayYellow:
+
                 case OnewayPink:
+
+                case MedievalAxe:
+
+                case MedievalBanner:
+
+                case MedievalCoatofarms:
+
+                case MedievalShield:
+
+                case MedievalSword:
+
+                case MedievalTimber:
+
+                case ToothBig:
+
+                case ToothSmall:
+
+                case ToothTriple:
+
+                case DojoLightLeft:
+
+                case DojoLightRight:
+
+                case DojoDarkLeft:
+
+                case DojoDarkRight:
                     return true;
             }
-
             return false;
         }
     }
