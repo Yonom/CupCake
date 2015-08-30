@@ -1,4 +1,6 @@
-﻿namespace CupCake.Messages.Blocks
+﻿using CupCake.Messages.Send;
+
+namespace CupCake.Messages.Blocks
 {
     public class BlockUtils
     {
@@ -28,7 +30,18 @@
                 case Block.CoinGate:
                 case Block.BlueCoinDoor:
                 case Block.BlueCoinGate:
-
+                case (Block)417:
+                case (Block)418:
+                case (Block)419:
+                case (Block)420:
+                case (Block)421:
+                case (Block)422:
+                case (Block)423:
+                case (Block)1027:
+                case (Block)1028:
+                case (Block)113:
+                case (Block)184:
+                case (Block)185:
                     return true;
             }
 
@@ -112,6 +125,19 @@
                 case Block.OneWayPink:
                 case Block.OneWayRed:
                 case Block.OneWayYellow:
+                case (Block)276:
+                case (Block)277:
+                case (Block)279:
+                case (Block)280:
+                case (Block)440:
+                case (Block)275:
+                case (Block)329:
+                case (Block)273:
+                case (Block)328:
+                case (Block)327:
+                case (Block)338:
+                case (Block)339:
+                case (Block)340:
                     return true;
             }
 

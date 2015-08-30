@@ -18,7 +18,7 @@ namespace CupCake.World
     [DebuggerDisplay("RoomWidth = {RoomWidth}, RoomHeight = {RoomHeight}")]
     public sealed class WorldService : CupCakeService
     {
-        private const uint InitOffset = 17;
+        private const uint InitOffset = 34;
 
         private WorldBlock[,,] _blocks;
         private PlayerService _playerService;
