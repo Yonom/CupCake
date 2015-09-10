@@ -20,5 +20,13 @@ namespace CupCake.Core.Storage
         {
             this.StorageProvider = new BasicStorageProvider();
         }
+
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                this.StorageProvider.Dispose();
+            }
+        }
     }
 }

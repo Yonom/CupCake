@@ -4,5 +4,6 @@
     {
         void Set(string id, string key, string value);
         string Get(string id, string key);
+        void Dispose();
     }
 }

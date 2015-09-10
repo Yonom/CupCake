@@ -82,5 +82,10 @@ namespace CupCake.Server.StorageProviders
                 throw new StorageException(ex.Message, ex);
             }
         }
+
+        public void Dispose()
+        {
+            MySql.Data.MySqlClient.MySqlConnection.ClearAllPools();
+        }
     }
 }
