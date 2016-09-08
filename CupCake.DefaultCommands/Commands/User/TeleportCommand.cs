@@ -43,7 +43,7 @@ namespace CupCake.DefaultCommands.Commands.User
                 if (playerSource != null)
                 {
                     int x = playerSource.Player.BlockX + 1;
-                    int y = playerSource.Player.BlockX + 1;
+                    int y = playerSource.Player.BlockY + 1;
 
                     this.Chatter.Teleport(player.Username, x, y);
                 }
