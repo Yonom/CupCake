@@ -69,7 +69,7 @@ namespace CupCake.Messages.Send
         /// <returns></returns>
         public override Message GetMessage()
         {
-            return Message.Create(this.Encryption, (int)this.Layer, this.X, this.Y, (int)this.Block);
+            return Message.Create("b", (int)this.Layer, this.X, this.Y, (int)this.Block);
         }
     }
 }
