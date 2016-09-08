@@ -20,22 +20,21 @@ namespace CupCake.Messages.Receive
             this.Plays = message.GetInteger(2);
             this.CurrentWoots = message.GetInteger(3);
             this.TotalWoots = message.GetInteger(4);
-            this.Encryption = message.GetString(5);
-            this.UserId = message.GetInteger(6);
-            this.Face = (Smiley)message.GetInteger(7);
+            this.UserId = message.GetInteger(5);
+            this.Face = (Smiley)message.GetInteger(6);
             // Aura
-            this.SpawnX = message.GetInteger(9);
-            this.SpawnY = message.GetInteger(10);
-            this.ChatColor = message.GetUInt(11);
-            this.Username = message.GetString(12);
-            this.CanEdit = message.GetBoolean(13);
-            this.IsOwner = message.GetBoolean(14);
+            this.SpawnX = Convert.ToInt32(message.GetDouble(10)/16);
+            this.SpawnY = Convert.ToInt32(message.GetDouble(11)/16);
+            this.ChatColor = message.GetUInt(12);
+            this.Username = message.GetString(13);
+            this.CanEdit = message.GetBoolean(14);
+            this.IsOwner = message.GetBoolean(15);
             // Has favorited
             // Has liked
-            this.RoomWidth = message.GetInteger(17);
-            this.RoomHeight = message.GetInteger(18);
+            this.RoomWidth = message.GetInteger(18);
+            this.RoomHeight = message.GetInteger(19);
             //this.IsTutorialRoom = message.GetBoolean(17);
-            this.Gravity = message.GetDouble(19);
+            this.Gravity = message.GetDouble(20);
         }
 
         public uint ChatColor { get; set; }
